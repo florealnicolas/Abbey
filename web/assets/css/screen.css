@@ -1,0 +1,363 @@
+/*---------------------*/
+/*    HTML ELEMENTS    */
+/*---------------------*/
+
+body {
+    background-image: url("../images/monastery.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+p {
+    margin: 2% 0 2% 0;
+}
+
+p:first-child {
+    margin-top: 0;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+i {
+    margin-right: 5%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#abbey label {
+    margin-right: 1%;
+    font-weight: bold;
+}
+
+#work label {
+    font-weight: normal;
+}
+
+.button {
+    margin: 0 2% 2% 0;
+    color: rgb(250, 235, 215);
+    background-color: #b09348;
+}
+
+a:hover, a:focus {
+    text-decoration: none;
+    color: rgb(250, 235, 215);
+}
+
+input[type='text'] {
+    color: black;
+    margin-bottom: 2%;
+    border: none;
+    border-bottom: dotted thin black;
+    overflow: hidden;
+    box-shadow: none;
+}
+
+input[type='text'] {
+    width: 50%;
+}
+
+input[type='text']:focus, input[type='text']:hover {
+    color: black;
+    margin-bottom: 2%;
+    border: none;
+    border-bottom: dotted thin black;
+    overflow: hidden;
+    box-shadow: none;
+}
+
+input[type='text']::-webkit-input-placeholder {
+    color: #666666;
+}
+
+select {
+    width: 50%;
+    margin-right: 5%;
+}
+
+input[type='number'] {
+    width: 50%;
+}
+
+/*---------------------*/
+/*  REUSABLE CLASSES   */
+/*---------------------*/
+
+.theEnd {
+    font-weight: bold;
+    font-size: large;
+}
+
+.opbrengst {
+    margin: 2% 0 2% 0;
+    background-color: rgb(250, 235, 215);
+    padding: 1% 2% 1% 2%;
+}
+
+a.active, a:hover, a:focus {
+    color: #b06c3d;
+    background-color: rgb(250, 235, 215);
+}
+
+.button.disabled, .button[disabled] {
+    opacity: 1;
+}
+
+.button.disabled:hover, .button[disabled]:hover {
+    background-color: rgb(250, 235, 215);
+    color: #b06c3d;
+    opacity: 1;
+}
+
+.button.chosen {
+    background-color: rgb(250, 235, 215);
+    color: #b06c3d;
+}
+
+.menu a {
+    color: rgb(250, 235, 215);
+    display: inline-block;
+    padding: 2%;
+    background-color: #b09348;
+    text-align: center;
+}
+
+.menu a.active, .menu a:hover, .menu a:focus {
+    background-color: rgb(250, 235, 215);
+    color: #b09348;
+}
+
+#secondary {
+    border-bottom: solid rgb(250, 235, 215) 2pt;
+    padding-bottom: 2%;
+    margin-bottom: 2%;
+}
+
+#secondary a {
+    padding: 1%;
+    margin-right: 2%;
+}
+
+#secondary a:last-child {
+    float: none;
+    margin-right: 0;
+}
+
+#main a {
+    width: 100%;
+    margin: 0 auto 10% auto;
+}
+
+#main a:last-child {
+    margin-bottom: 0;
+}
+
+.button {
+    color: rgb(250, 235, 215);
+    display: inline-block;
+    margin: 2% 2% 1% 0;
+    padding: 1%;
+    background-color: #b09348;
+    width: 20%;
+    text-align: center;
+}
+
+.opdrachtKnop, .procesKnop {
+    color: rgb(250, 235, 215);
+    display: inline-block;
+    margin: 2% 2% 1% 0;
+    padding: 1%;
+    background-color: #b09348;
+    width: 20%;
+    text-align: center;
+}
+
+.button:last-child {
+    margin-right: 0;
+}
+
+/*---------------------*/
+/* CONTAINING ELEMENTS */
+/*---------------------*/
+
+fieldset {
+    margin: 5% 0 5% 0;
+}
+
+fieldset:last-child {
+    margin-bottom: 0;
+}
+
+.container {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.progressbar.completed {
+    background-color: #ae632f;
+    border: solid 1px white;
+}
+
+.inputNumber {
+    margin: 0 2% 0 1%;
+}
+
+#abbey {
+    overflow: auto;
+    max-height: 430px;
+}
+
+.veldWijzigen {
+    display: none;
+    margin-top: 5%;
+}
+
+.wellContainer {
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 5%;
+    margin: 5% auto 5% auto;
+    background-color: rgba(0, 0, 0, 0.60);
+    border: none;
+}
+
+.header {
+    background-color: rgb(0, 0, 0);
+    color: rgb(250, 235, 215);
+}
+
+.content {
+    padding: 2% 0 2% 0;
+    background-color: rgba(232, 232, 232, 0.6);
+}
+
+.workspace {
+    /*background-color: rgb(250, 235, 215);*/
+    padding: 2%;
+}
+
+.workspace > div {
+    display: none;
+}
+
+/*------------------------*/
+/* PAGE SPECIFIC ELEMENTS */
+/*------------------------*/
+
+#naam, #reputatie, #valuta {
+    margin-top: 5%;
+    display: inline-block;
+}
+
+#valuta {
+    margin: 0 5% 0 5%;
+}
+
+.progressbar {
+    position: relative;
+    width: 75%;
+    height: 25px;
+    margin: 0 auto 2% auto;
+    display: block;
+    border: none;
+    background-color: whitesmoke;
+    color: black;
+}
+
+.ui-progressbar {
+    border-radius: 0;
+    border: none;
+    background-color: whitesmoke;
+    position: relative;
+    width: 75%;
+    height: 25px;
+    margin: 0 auto 2% auto;
+    display: block;
+}
+
+.ui-widget {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.ui-widget.ui-widget-content {
+    border: none;
+}
+
+.ui-progressbar .ui-progressbar-value {
+    margin: 0;
+    border-radius: 0;
+}
+
+.ui-progressbar-value {
+    background-color: #ae632f;
+}
+
+.progress-label {
+    margin: auto;
+    position: absolute;
+    width: 100%;
+    height: inherit;
+    text-align: center;
+}
+
+#work > div {
+    display: none;
+}
+
+.storyNavigation {
+    display: block;
+}
+
+.storyNavigationNext > img {
+    width: 5%;
+    margin-left: 90%;
+}
+
+.storyNavigationBack > img {
+    width: 5%;
+    margin-left: 10%;
+}
+
+.processable {
+    color: limegreen;
+}
+
+.notProcessable {
+    color: red;
+}
+
+.fa-5x:before {
+    font-size: 1em;
+}
+
+.scheme .row {
+    margin-bottom: 5%;
+    height: 25%;
+}
+
+.scheme .row:last-child {
+    margin-bottom: 0;
+}
+
+.row > i {
+    padding: 0;
+    margin: 0;
+}
+
+#arrow {
+    text-align: center;
+    padding-top: 12%;
+}
+
+
+
+
+/* --- Home --- */

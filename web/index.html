@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Author" content="Nicolas Floréal">
+    <title>Abbey | Let's brew some history</title>
+    <link href="assets/images/a.ico" rel="icon" type="image/ico"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="assets/css/foundation.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/css/screen.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/css/tank.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="container medium-offset-1 medium-10 columns">
+
+    <header class="header medium-12 row">
+
+        <h1 class="title medium-1 column">Abbey</h1>
+
+        <ul class="medium-offset-6 medium-5 columns">
+            <li id="naam">Hello <span></span></li>
+            <li id="valuta"><span></span> golden coins</li>
+            <li id="reputatie"><span></span> reputation points</li>
+        </ul>
+
+    </header>
+
+    <div class="content medium-12 row">
+
+        <nav id='main' class="menu vertical medium-2 column">
+
+            <a href="#"><i class="fa fa-book" aria-hidden="true"></i>Abbey</a>
+            <a href="#"><i class="fa fa-beer" aria-hidden="true"></i>Brew</a>
+            <a href="#"><i class="fa fa-cogs" aria-hidden="true"></i>Work</a>
+            <a href="#"><i class="fa fa-balance-scale" aria-hidden="true"></i>Vendor</a>
+            <a href="#"><i class="fa fa-users" aria-hidden="true"></i>People</a>
+            <a href="#"><i class="fa fa-archive" aria-hidden="true"></i>Stock</a>
+            <a href="#"><i class="fa fa-plus" aria-hidden="true"></i>Improve</a>
+            <a href="#"><i class="fa fa-search" aria-hidden="true"></i>Research</a>
+
+        </nav>
+
+        <div class="workspace medium-offset-1 medium-9 column">
+
+            <div id="abbey">
+            </div>
+
+            <div id="brew">
+                <label for="recipes">Select a recipe:</label>
+                <select id='recipes'></select>
+                <button class='button' id="selectedRecipe">Choose recipe</button>
+                <div id="recipeDescription"></div>
+            </div>
+
+            <div id="work">
+                <h3>Work</h3>
+
+                <nav id='secondary' class="menu medium-12 row">
+                    <a class="column medium-2" href="#">Fields</a>
+                    <a class="column medium-2" href="#">Inside</a>
+                    <a class="column medium-2" href="#">Outside</a>
+                </nav>
+
+                <div class="fields"><h4>Fields</h4></div>
+                <div class="inside"><h4>Inside the abbey</h4></div>
+                <div class="outside"><h4>Outside the abbey</h4></div>
+            </div>
+
+            <div id="vendor">
+            </div>
+
+            <div id="people">
+            </div>
+
+            <div id="improve">
+            </div>
+
+            <div id="stock">
+            </div>
+
+            <div id="research">
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Mother of scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://use.fontawesome.com/45f37f2b75.js"></script>
+
+<!-- Just some tools -->
+<script type="text/javascript" src="assets/js/etc/list.js"></script>
+
+<!-- The gamecontent itself -->
+<script type="text/javascript" src="assets/js/content/player.js"></script>
+<script type="text/javascript" src="assets/js/content/story.js"></script>
+<script type="text/javascript" src="assets/js/content/recipe.js"></script>
+<script type="text/javascript" src="assets/js/content/resource.js"></script>
+<script type="text/javascript" src="assets/js/content/tank.js"></script>
+<script type="text/javascript" src="assets/js/etc/grammar.js"></script>
+<script type="text/javascript" src="assets/js/methodes/process.js"></script>
+<script type="text/javascript" src="assets/js/instances/source.js"></script>
+<script type="text/javascript" src="assets/js/instances/field.js"></script>
+<script type="text/javascript" src="assets/js/instances/processor.js"></script>
+<script type="text/javascript" src="assets/js/content/game.js"></script>
+<script type="text/javascript" src="assets/js/show/layout.js"></script>
+<script type="text/javascript" src="assets/js/show/behaviour.js"></script>
+<script type="text/javascript" src="assets/js/etc/scheme.js"></script>
+
+<!-- Meet the executables -->
+<script type="text/javascript" src="assets/js/controller/mainController.js"></script>
+<script type="text/javascript" src="assets/js/controller/storyController.js"></script>
+
+<!-- Testing -->
+<script type="text/javascript" src="assets/js/tests/test1.js"></script>
+<script type="text/javascript" src="assets/js/tests/test2.js"></script>
+<script type="text/javascript" src="assets/js/tests/test3.js"></script>
+<script type="text/javascript" src="assets/js/tests/test4.js"></script>
+<script type="text/javascript" src="assets/js/tests/test5.js"></script>
+<script type="text/javascript" src="assets/js/tests/test6.js"></script>
+
+</body>
+</html>
