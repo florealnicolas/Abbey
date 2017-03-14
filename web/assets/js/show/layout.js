@@ -23,8 +23,8 @@ function showInstances(game, instanceType, plaats) {
             var address = "#" + instance.getName() + '.' + instanceType;
 
             instanceForm += "<fieldset>";
-            instanceForm += "<p>The ";
-            instanceForm += instance.getName().toLowerCase() + "</p>";
+            instanceForm += "<h5>The ";
+            instanceForm += instance.getName().toLowerCase() + "</h5>";
             instanceForm += "<div class='progressbar' id='" + instance.getName() + "'><div class='progress-label'>0%</div></div>";
             instanceForm += "<div class='opbrengst' id='" + instance.getName() + "'></div>";
 
@@ -104,9 +104,9 @@ function showSubpage(e, game) {
 }
 
 function showStock(stock) {
-    $("#stock").text("");
-    var content = "<h3>Stock</h3> <p>" + stock + "</p>";
-    $("#stock").append(content);
+    $("#stock").html("");
+    var content = "<h3>Stock</h3>" + stock;
+    $("#stock").html(content);
 }
 
 function updateFields(game) {

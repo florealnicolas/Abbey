@@ -47,13 +47,13 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
             processBtn.addClass("disabled");
             $("#" + processorName + '.progressbar.completed').removeClass("completed");
 
-            $(this.progressing(processBtn,game));
+            $(this.progressing(processBtn, game));
         }
 
         else {
             var resourceName = process.getInput().getName();
             //if (numberOfInput != 0) {
-                alert("You have not enough " + resourceName + " in stock.\nTry again when you fetched more " + resourceName + ".");
+            alert("You have not enough " + resourceName + " in stock.\nTry again when you fetched more " + resourceName + ".");
             //}
         }
     };
@@ -111,7 +111,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
         harvestMessage.show();
 
         game.getStock().addAResource(gain);
-        $(game.getStock()).on("change", showStock(game.getStockInString("Stock")));
+        $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay()));
     };
 
     this.fromInputToOutput = function (input, numberOfInput, game) {
@@ -121,7 +121,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         var numberOfOutput = numberOfInput + (numberOfInput * this.efficiency);
 
-        return new Resource(this.output.getName(), numberOfOutput);
+        return new Resource(this.output.getName(), numberOfOutput, this.output.getUnitValue(), this.output.getCategory());
     };
 
     this.enoughInputResources = function (process, game) {

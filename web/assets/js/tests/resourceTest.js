@@ -32,7 +32,7 @@ var mouth = new Processor("Mouth", strawberry, energy, 1, "inside");
 var eat = new Process("eat", 1, strawberry, mouth, energy);
 
 //Let's eat our last 2 strawberries!
-var gain = eat.getProcessor().testFromInputToOutput(strawberry,2,dummyGame2);
+var gain = eat.getProcessor().testFromInputToOutput(strawberry, 2, dummyGame2);
 
 //We receive 4 energy units of eating 2 strawberries
 assertEquals("4 units of Energy", gain.toString());
@@ -50,7 +50,7 @@ assertEquals(2, dummyGame2.getStock().getSize());
 //Let's say we bought a couple of tomatoes...
 //Let's say we don't know a tomato is a fruit.
 
-var tomatoes = new Resource("Tomato",2, 1, "fruit");
+var tomatoes = new Resource("Tomato", 2, 1, "fruit");
 
 //assertEquals("vegetable", tomatoes.getCategory());
 
@@ -61,7 +61,7 @@ assertEquals("fruit", tomatoes.getCategory());
 //But how much are these tomatoes worth all together? We know 1 tomato is worth 1 coin
 //2 * 1 = 2
 
-assertEquals(2, tomatoes.getQuantity()*tomatoes.getUnitValue());
+assertEquals(2, tomatoes.getQuantity() * tomatoes.getUnitValue());
 
 //Great, we will be rich if we have 1 million of them!
 

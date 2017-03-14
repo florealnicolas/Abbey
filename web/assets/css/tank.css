@@ -1,14 +1,16 @@
 .tankField {
     background-color: rgb(240, 240, 240);
-    border: solid 5px rgb(194,194,194);
+    border: solid 5px rgb(194, 194, 194);
     width: 100%;
     padding: 2%;
     display: inline-block;
 }
+
 .schemeStep h4, .schemeStep p {
     text-align: center;
 }
-.tankShell, .tankField button.phaseAction  {
+
+.tankShell, .tankField button.phaseAction {
     display: block;
     margin: 0 auto;
 }
@@ -28,7 +30,7 @@
 .contentContainer {
     background-color: white;
     border: solid #a3a6a8 1px;
-    height:100%;
+    height: 100%;
     width: 100%;
     position: relative;
 }
@@ -47,15 +49,15 @@
 }
 
 .bronzeTank {
-    background-color:#CD7F32;
+    background-color: #CD7F32;
 }
 
 .steelTank {
-    background-color:#564657;
+    background-color: #564657;
 }
 
 .copperTank {
-    background-color:#B87333;
+    background-color: #B87333;
 }
 
 .goldTank {

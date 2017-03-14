@@ -69,6 +69,79 @@ function List() {
         this.list.splice(itemNrToRemove, 1);
     };
 
+    this.getAllResourceCategories = function () {
+
+        var categories = [];
+
+        this.list.forEach(function (resource) {
+
+            if (resource.constructor == Resource && categories.indexOf(resource.getCategory()) == -1) {
+                categories.push(resource.getCategory());
+            }
+        });
+
+        if (categories.length == 0) {
+            categories = null;
+        }
+
+        else {
+            categories.sort();
+        }
+
+        return categories
+    };
+
+    this.getResourcesByCategory = function (someCategoryName) {
+
+        var someCategory = [];
+
+        for (var itemNr = 0; itemNr < this.getSize(); itemNr++) {
+            var selectedItem = this.getItemByNumber(itemNr);
+
+            if (selectedItem.getCategory() == someCategoryName) {
+                someCategory.push(selectedItem);
+            }
+        }
+
+        return someCategory;
+    };
+
+    this.allItemsIntoAStockWay = function () {
+
+        var list = this;
+
+        var categories = this.getAllResourceCategories();
+        var itemMessage = "";
+
+        if (categories != null) {
+
+            categories.forEach(function (category) {
+
+                var resources = list.getResourcesByCategory(category);
+
+                if (category != "fungus") {
+                    category = category.substr(0, 1).toUpperCase() + category.substr(1) + "s";
+                }
+
+                itemMessage += "<h4>" + category + "</h4>";
+                itemMessage += "<ul>";
+
+                resources.forEach(function (resource) {
+                    itemMessage += "<li>" + resource.getQuantity() + " units of ";
+                    itemMessage += resource.getName().toLowerCase() + "</li>";
+                });
+
+                itemMessage += "</ul>";
+            });
+        }
+
+        else {
+            itemMessage = "<p>Nothing here.</p>";
+        }
+
+        return itemMessage;
+    };
+
     this.allItemsToStringWithName = function (listName) {
 
         var amtOfItems = this.list.length;
@@ -87,7 +160,7 @@ function List() {
                     itemMessage += " ";
 
                     if (listName == "Stock") {
-                        itemMessage += item.getQuantity() + " ";
+                        itemMessage += item.getQuantity() + " units of ";
                     }
                     itemMessage += item.getName().toLowerCase() + ",";
                 }
@@ -98,7 +171,7 @@ function List() {
                 itemMessage += " ";
 
                 if (listName == "Stock") {
-                    itemMessage += item.getQuantity() + " ";
+                    itemMessage += item.getQuantity() + " units of ";
                 }
                 itemMessage += item.getName().toLowerCase() + " and";
             }
@@ -107,7 +180,7 @@ function List() {
             itemMessage += " ";
 
             if (listName == "Stock") {
-                itemMessage += item.getQuantity() + " ";
+                itemMessage += item.getQuantity() + " units of ";
             }
 
             itemMessage += item.getName().toLowerCase();

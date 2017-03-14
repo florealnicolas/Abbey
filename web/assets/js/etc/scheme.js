@@ -26,15 +26,15 @@ function Scheme() {
 
     this.visualizeScheme = function (recipeName) {
 
-        var stepString = "<h3>"+recipeName+" scheme</h3>";
+        var stepString = "<h3>" + recipeName + " scheme</h3>";
 
-        stepString += "<div id='"+recipeName+"' class='scheme'>";
+        stepString += "<div id='" + recipeName + "' class='scheme'>";
         stepString += "<div class='row medium-12'>";
 
-        for (var stepNr = 1; stepNr < this.getAmtOfSteps()+1; stepNr++) {
+        for (var stepNr = 1; stepNr < this.getAmtOfSteps() + 1; stepNr++) {
 
-            var selectedStep = this.steps.getItemByNumber(stepNr-1);
-            stepString += "<div class='schemeStep medium-4 columns' id='"+selectedStep.getName()+(stepNr-1)+"'>";
+            var selectedStep = this.steps.getItemByNumber(stepNr - 1);
+            stepString += "<div class='schemeStep medium-4 columns' id='" + selectedStep.getName() + (stepNr - 1) + "'>";
             stepString += "<h4>" + selectedStep.getName() + "</h4>";
 
             if (selectedStep.getStorage() != null) {
@@ -59,7 +59,7 @@ function Scheme() {
 
         stepString += "</div>";
         stepString += "</div>";
-        
+
         return stepString;
     };
 

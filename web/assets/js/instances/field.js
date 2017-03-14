@@ -53,7 +53,7 @@ function Field(fieldNumber, priceOfField, resource, categories) {
             fieldBtn.attr("value", "busy");
             $("#" + this.fieldName + '.progressbar.completed').removeClass("completed");
 
-            $(this.progressing(fieldBtn,game));
+            $(this.progressing(fieldBtn, game));
         }
 
         if (this.fieldResource == null) {
@@ -78,8 +78,8 @@ function Field(fieldNumber, priceOfField, resource, categories) {
         harvestMessage.text(boodschap);
         harvestMessage.show();
 
-        $(game.getStock()).on("change", showStock(game.getStockInString("stock")));
-
+        //$(game.getStock()).on("change", showStock(game.getStockInString("stock")));
+        $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay()));
     };
 
     this.progressing = function (fieldBtn, game) {
@@ -124,13 +124,15 @@ function Field(fieldNumber, priceOfField, resource, categories) {
     this.gainResource = function () {
         var quantity = this.maxOutput;
         var resourceName = this.fieldResource.getName();
+        var unitValue = this.fieldResource.getUnitValue();
+        var category = this.fieldResource.getCategory();
 
-        return new Resource(resourceName, quantity);
+        return new Resource(resourceName, quantity, unitValue, category);
     };
 
     this.changeFieldType = function (newFieldResource) {
         if (this.fieldResource == null || newFieldResource != this.fieldResource.getName()) {
-            this.fieldResource = new Resource(newFieldResource);
+            this.fieldResource = new Resource(newFieldResource, 0, 1, "crop");
         }
     };
 

@@ -9,6 +9,10 @@ body {
     background-repeat: no-repeat;
 }
 
+#stock h4 {
+    border-bottom: 2px rgb(250, 235, 215) solid;
+}
+
 p {
     margin: 2% 0 2% 0;
 }
@@ -356,8 +360,5 @@ fieldset:last-child {
     text-align: center;
     padding-top: 12%;
 }
-
-
-
 
 /* --- Home --- */

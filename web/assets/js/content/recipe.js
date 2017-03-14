@@ -25,29 +25,29 @@ function Recipe(outputItem, ingredientsList, newScheme, authorName) {
     };
 
     this.getScheme = function () {
-      return this.scheme;
+        return this.scheme;
     };
 
 // Functions of Recipe
 
     this.writeDescription = function () {
 
-        var descriptionString = "<h3>"+ this.getName().toUpperCase() + "</h3>";
+        var descriptionString = "<h3>" + this.getName().toUpperCase() + "</h3>";
         descriptionString += "<h4>Story</h4>";
         descriptionString += "<p>Discovered by " + this.author + ".</p>";
         descriptionString += "<h4>Ingredients</h4>";
 
         descriptionString += "<ul>";
         for (var ingredientNr = 0; ingredientNr < this.ingredients.getSize(); ingredientNr++) {
-            descriptionString += "<li>"+this.ingredients.getItemByNumber(ingredientNr).toString().toLowerCase()+"</li>";
+            descriptionString += "<li>" + this.ingredients.getItemByNumber(ingredientNr).toString().toLowerCase() + "</li>";
         }
         descriptionString += "</ul>";
-        
+
         descriptionString += "<h4>Production scheme</h4>";
 
         descriptionString += "<ol>";
         for (var stepNr = 0; stepNr < this.scheme.getAmtOfSteps(); stepNr++) {
-            descriptionString += "<li>"+this.scheme.getStepByNumber(stepNr)+"</li>";
+            descriptionString += "<li>" + this.scheme.getStepByNumber(stepNr) + "</li>";
         }
         descriptionString += "</ol>";
 

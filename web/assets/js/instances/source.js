@@ -69,16 +69,16 @@ function Source(sourceName, sourceMaxOutput, placeName) {
         harvestMessage.text(message);
         harvestMessage.show();
 
-        $(game.getStock()).on("change", showStock(game.getStockInString("Stock")));
+        $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay()));
 
     };
 
     this.gainResource = function () {
         var quantity = Math.floor(Math.random() * (this.maxOutput - this.minOuput + 1)) + this.minOuput;
         var resourceNr = Math.floor(Math.random() * ((this.output.getSize() - 1) + 1));
-        var resourceName = this.output.getItemByNumber(resourceNr).getName();
+        var resource = this.output.getItemByNumber(resourceNr);
 
-        return new Resource(resourceName, quantity);
+        return new Resource(resource.getName(), quantity, resource.getUnitValue(), resource.getCategory());
     };
 
     this.setOutputList = function (outputs) {

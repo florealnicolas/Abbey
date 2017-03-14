@@ -6,8 +6,8 @@
 
     //APAIRY
     var apairyOutputs = {
-        honey: new Resource("honey", 0, "natural product"),
-        bee: new Resource("bee", 0, "critter")
+        honey: new Resource("honey", 0, 1, "natural product"),
+        bee: new Resource("bee", 0, 1, "critter")
     };
 
     //FOREST
@@ -23,40 +23,40 @@
     //Stop
 
     var forestOutputs = {
-        raspberry: new Resource("raspberry", 0, "fruit"),
-        cranberry: new Resource("cranberry", 0, "fruit"),
-        strawberry: new Resource("strawberry", 0, "fruit"),
-        wood: new Resource("wood", 0, "material"),
-        woodSorrel: new Resource("wood sorrel", 0, "flower"),
-        mushroom: new Resource("mushroom", 0, "fungus"),
-        chicory: new Resource("chicory", 0, "flower"),
-        chestnut: new Resource("chestnut", 0, "nut"),
-        rose: new Resource("rose", 0, "flower"),
-        daisy: new Resource("daisy", 0, "flower"),
-        banana: new Resource("banana", 0, "fruit")
+        raspberry: new Resource("raspberry", 0, 1, "fruit"),
+        cranberry: new Resource("cranberry", 0, 1, "fruit"),
+        strawberry: new Resource("strawberry", 0, 1, "fruit"),
+        wood: new Resource("wood", 0, 1, "material"),
+        woodSorrel: new Resource("wood sorrel", 0, 1, "flower"),
+        mushroom: new Resource("mushroom", 0, 1, "fungus"),
+        chicory: new Resource("chicory", 0, 1, "flower"),
+        chestnut: new Resource("chestnut", 0, 1, "nut"),
+        rose: new Resource("rose", 0, 1, "flower"),
+        daisy: new Resource("daisy", 0, 1, "flower"),
+        banana: new Resource("banana", 0, 1, "fruit")
     };
 
     //WELL
     var wellOutputs = {
-        water: new Resource("water", 0, "liquid"),
-        frog: new Resource("frog", 0, "critter")
+        water: new Resource("water", 0, 1, "liquid"),
+        frog: new Resource("frog", 0, 1, "critter")
     };
 
     //SEA
     var seaOutputs = {
-        seawater: new Resource("seawater", 0, "liquid"),
-        seasnail: new Resource("sea snail", 0, "critter"),
-        shell: new Resource("shell", 0, "other"),
-        duneGrass: new Resource("dune grass", 0, "plant")
+        seawater: new Resource("seawater", 0, 1, "liquid"),
+        seasnail: new Resource("sea snail", 0, 1, "critter"),
+        shell: new Resource("shell", 0, 1, "other"),
+        duneGrass: new Resource("dune grass", 0, 1, "plant")
     };
 
     //FIELDS
-    var rice = new Resource("rice");
+    var rice = new Resource("rice", 0, 1, "crop");
     var fieldTypes = ["barley", "corn", "hop", "potato", "rice", "wheat"];
 
     //PROCESSED
-    var wheat = new Resource("wheat", 0, "crop");
-    var flour = new Resource("flour", 0, "product");
+    var wheat = new Resource("wheat", 0, 1, "crop");
+    var flour = new Resource("flour", 0, 1, "product");
 
     //PROCESSORS NEEDED IN THE GAME
     var mill = new Processor("windmill", wheat, flour, 0.25, "outside");
@@ -100,10 +100,10 @@
         //EXPERIMENTAL
         var aleIngredients = new List();
 
-        var angelTears = new Resource("Angel tears", 10, "liquid");
-        var daisy = new Resource("Daisy", 20, "flower");
-        var water = new Resource("Water", 50, "liquid");
-        var yeast = new Resource("Yeast", 30, "product");
+        var angelTears = new Resource("Angel tears", 10, 1, "liquid");
+        var daisy = new Resource("Daisy", 20, 1, "flower");
+        var water = new Resource("Water", 50, 1, "liquid");
+        var yeast = new Resource("Yeast", 30, 1, "product");
 
         aleIngredients.addAnItem(angelTears);
         aleIngredients.addAnItem(daisy);
@@ -111,18 +111,18 @@
         aleIngredients.addAnItem(yeast);
 
         //These are the ingredients that we need to have to get beer
-        var wheat = new Resource("wheat", 1, "crop");
-        var malt = new Resource("malt", 1, "product");
-        var starch = new Resource("starch", 1, "product");
-        var sugarWater = new Resource("Sugar water", 1, "liquid");
-        var hop = new Resource("Hop", 1, "plant");
-        var pulp = new Resource("Pulp", 1, "product");
-        var wort = new Resource("Wort", 1, "liquid");
-        var beerToFerment = new Resource("Beer to ferment", 1, "liquid");
-        var fermentedBeer = new Resource("Fermented beer", 1, "liquid");
-        var beerToRipe = new Resource("Beer to ripe", 1, "liquid");
-        var ripeBeer = new Resource("Ripe beer", 1, "liquid");
-        var beer = new Resource("Beer", 1, "product");
+        var wheat = new Resource("wheat", 1, 1, "crop");
+        var malt = new Resource("malt", 1, 1, "product");
+        var starch = new Resource("starch", 1, 1, "product");
+        var sugarWater = new Resource("Sugar water", 1, 1, "liquid");
+        var hop = new Resource("Hop", 1, 1, "plant");
+        var pulp = new Resource("Pulp", 1, 1, "product");
+        var wort = new Resource("Wort", 1, 1, "liquid");
+        var beerToFerment = new Resource("Beer to ferment", 1, 1, "liquid");
+        var fermentedBeer = new Resource("Fermented beer", 1, 1, "liquid");
+        var beerToRipe = new Resource("Beer to ripe", 1, 1, "liquid");
+        var ripeBeer = new Resource("Ripe beer", 1, 1, "liquid");
+        var beer = new Resource("Beer", 1, 1, "product");
 
         var mashingInput = new List();
         mashingInput.addListOfItems([starch, water]);
@@ -174,7 +174,7 @@
         game1.setAPlayer(Laerolf);
 
         showNCRCounter(game1);
-        showStock(game1.getStockInString());
+        showStock(game1.getStock().allItemsIntoAStockWay());
         showPeople(game1);
 
         buildFields(game1);
@@ -198,7 +198,7 @@
 
         $("#main a").on("click", showPage);
         $("#secondary a").on("click", showSubpage);
-        $(game1.getStock()).on("change", showStock(game1.getStockInString()));
+        $(game1.getStock()).on("change", showStock(game1.getStock().allItemsIntoAStockWay()));
         $(game1.getPlayer()).on("change", showNCRCounter(game1));
         $("#people").on("click", game1.manageMonks);
 

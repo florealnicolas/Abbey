@@ -32,7 +32,7 @@ function addBehaviour(game, address) {
                 var selectedField = game.getFields().getItemByName(instanceName);
                 selectedField.changeFieldType(newType);
                 var resourceName = selectedField.getResourceName();
-                $("#" + instanceName +".type").text(resourceName);
+                $("#" + instanceName + ".type").text(resourceName);
 
                 updateFieldTypes(game, instanceName);
                 $(".veldWijzigen").hide();
@@ -43,7 +43,7 @@ function addBehaviour(game, address) {
                 $('#' + instanceName + ".veldWijzigen").toggle();
             });
 
-            $("#"+instanceName+".sellField").on("click", function(e) {
+            $("#" + instanceName + ".sellField").on("click", function (e) {
                 e.preventDefault();
                 game.sellField(instanceName);
                 updateFields(game);

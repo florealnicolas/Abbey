@@ -96,7 +96,7 @@ function Game() {
     };
 
     this.getAmtOfFieldsMade = function () {
-      return this.fieldsMade;
+        return this.fieldsMade;
     };
 
     this.getRecipesAsOptions = function () {
@@ -144,18 +144,18 @@ function Game() {
     };
 
     this.buyAField = function () {
-        
+
         if (this.player.getCoins() >= this.priceForAField) {
             this.player.reduceCoins(this.priceForAField);
-            this.fields.addAnItem(new Field(this.fieldsMade,this.priceForAField,null,this.fieldCategories));
+            this.fields.addAnItem(new Field(this.fieldsMade, this.priceForAField, null, this.fieldCategories));
             this.raiseFieldsMadeByOne();
             this.raiseFieldPrice();
         }
-        
+
         else {
             alert("Sorry, you don't have enough coins to buy a field.");
         }
-        
+
     };
 
     this.raiseFieldPrice = function () {
@@ -170,7 +170,7 @@ function Game() {
     };
 
     this.raiseFieldsMadeByOne = function () {
-        this.fieldsMade ++;
+        this.fieldsMade++;
     };
 
     this.sellField = function (fieldName) {

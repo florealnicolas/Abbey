@@ -19,6 +19,6 @@ var aleScheme = new Scheme();
 
 var ale = new Resource("Ale");
 
-var aleRecipe = new Recipe(ale, aleIngredients, aleScheme ,"Liya");
+var aleRecipe = new Recipe(ale, aleIngredients, aleScheme, "Liya");
 
 //End of test 5
