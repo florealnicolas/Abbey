@@ -44,9 +44,6 @@ function showStory(game) {
 
             window.location.hash = "name";
 
-            //console.log($("#abbey").height());
-            //Hier moet het stoppen! (435 height)
-
             $("#name").keyup(function (e) {
 
                 var playerName = $(this).val();

@@ -212,11 +212,6 @@ fieldset:last-child {
     margin: 0 2% 0 1%;
 }
 
-#abbey {
-    overflow: auto;
-    max-height: 430px;
-}
-
 .veldWijzigen {
     display: none;
     margin-top: 5%;
@@ -243,7 +238,8 @@ fieldset:last-child {
 }
 
 .workspace {
-    /*background-color: rgb(250, 235, 215);*/
+    overflow: auto;
+    max-height: 60vh;
     padding: 2%;
 }
 

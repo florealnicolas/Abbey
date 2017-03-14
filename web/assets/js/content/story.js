@@ -194,7 +194,7 @@ function Story() {
 
     this.part10 = function () {
 
-        var part10 = "<p><b>" + this.abbotName + "</b> and <b>" + this.fatherName + "</b> had some common interests.<br/><b>" + this.abbotName + "</b> was a well-known botanist" + " in his time of glory and had installed a little stall on the market of <b>" + this.placeName + "</b>, selling potions and other trinkets. <br/><b>" + this.fatherName + "</b> sought him out and talked about some way of brewing beer.<br/>He wanted to make another type of brew. Not the cheap ale anyone knew.<br/>A beer worth fighting for, a beer that wields power to make a difference in the world.</p><p><b>" + abbotName + "</b>, who was then just a broad-minded, young monk in the abbey, and <b>" + fatherName + "</b> had put their heads together to find this recipe." + " They had built a nice garden in the abbey and acquired some brewery equipment. Every day they met to study together and to try" + " things out. It took months of time and hundreds of failed batches to get something.</p>";
+        var part10 = "<p><b>" + this.abbotName + "</b> and <b>" + this.fatherName + "</b> had some common interests.<br/><b>" + this.abbotName + "</b> was a well-known botanist" + " in his time of glory and had installed a little stall on the market of <b>" + this.placeName + "</b>, selling potions and other trinkets. <br/><b>" + this.fatherName + "</b> sought him out and talked about some way of brewing beer.<br/>He wanted to make another type of brew. Not the cheap ale anyone knew.<br/>A beer worth fighting for, a beer that wields power to make a difference in the world.</p><p><b>" + this.abbotName + "</b>, who was then just a broad-minded, young monk in the abbey, and <b>" + this.fatherName + "</b> had put their heads together to find this recipe." + " They had built a nice garden in the abbey and acquired some brewery equipment. Every day they met to study together and to try" + " things out. It took months of time and hundreds of failed batches to get something.</p>";
         part10 += "<p>Until one day, the smell of their brewing opened up the cloudy sky. The sun shined upon the claystone of the courtyard." + " It was so magically that the people of <b>" + this.placeName + "</b> came to visit the abbey to know what smelled so good.</p>";
 
         $("#article3").append(part10);
@@ -204,7 +204,7 @@ function Story() {
 
         var part11 = "<p><b>" + this.fatherName + "</b> and <b>" + this.abbotName + "</b> saw both what happened, they found the one true way of brewing. They were euphoric and terrified of their discovery.</p><p>One day, a man approached them. It was a man who sold himself " +
             "as a servant of the king. His ears had heard of this beer and he demanded that the young monk and <b>" + this.fatherName +
-            "</b> only brew it for him, so he could overrule his opponents in his own way.</p><p> They both refused any cooperation because they knew the possible outcome. It was the idea of <b>" + this.fatherName + "</b> to hide the recipe in the mountains surrounding the abbey. " + "No one could ever get to know this brew. In any century, in any world, this could be dangerous. It would forever be the secret of the mountains.</p><p><b>" + abbotName + "</b> ended his story to <b>" + playerName + "</b> that he never saw " + grammar.hisOrHer() +
+            "</b> only brew it for him, so he could overrule his opponents in his own way.</p><p> They both refused any cooperation because they knew the possible outcome. It was the idea of <b>" + this.fatherName + "</b> to hide the recipe in the mountains surrounding the abbey. " + "No one could ever get to know this brew. In any century, in any world, this could be dangerous. It would forever be the secret of the mountains.</p><p><b>" + this.abbotName + "</b> ended his story to <b>" + this.playerName + "</b> that he never saw " + this.grammar.hisOrHer() +
             " father again after they got rid of the recipe. <b>" + this.playerName + "</b> asked if the old brewery in the abbey was still there. The abbot was delighted by this question and showed his precious place.</p>";
 
         $("#article4").append(part11);
@@ -234,13 +234,13 @@ function Story() {
 
     this.chooseFact = function (playerName) {
 
-        var fact = arrayOfFacts[5];
+        var fact = this.arrayOfFacts[5];
 
         if (playerName != "Laerolf" && playerName != "Nicolas") {
-            fact = this.randomizer(arrayOfFacts);
+            fact = this.randomizer(this.arrayOfFacts);
 
-            while (fact == arrayOfFacts[5]) {
-                fact = this.randomizer(arrayOfFacts)
+            while (fact == this.arrayOfFacts[5]) {
+                fact = this.randomizer(this.arrayOfFacts)
             }
         }
 

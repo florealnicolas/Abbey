@@ -18,7 +18,7 @@ assertEquals(3, dummyGame2.getStock().getSize());
 dummyGame2.getStock().removeAnItem(wood);
 
 //Is our wood removed from stock? + Give me your number, please!
-assertEquals("Stock: 2 strawberry and 100 fun.", dummyGame2.getStock().allItemsToStringWithName("Stock"));
+assertEquals("Stock: 2 units of strawberry and 100 units of fun.", dummyGame2.getStock().allItemsToStringWithName("Stock"));
 
 //I'll use some fun to build this, do we have some in stock?
 assertEquals(true, dummyGame2.getStock().contains(fun));
