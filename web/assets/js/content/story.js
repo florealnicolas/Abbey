@@ -1,63 +1,63 @@
 function Story() {
 
-    var grammar = new Grammar();
+    this.grammar = new Grammar();
 
-    var playerName = "";
-    var placeName = "";
-    var fatherName = "";
+    this.playerName = "";
+    this.placeName = "";
+    this.fatherName = "";
 
-    var abbotName = "";
-    var randomFact = "";
+    this.abbotName = "";
+    this.randomFact = "";
 
-    var arrayOfAbbotNames = ["Abel", "Berencardus", "Caillin", "Dominic", "Eoban", "Florus", "Grimbald", "Humbald", "Inigo", "John", "Konstanty", "Livinus", "Maurice", "Nicolas", "Omer", "Pelagius", "Quintius", "Robert", "Servan", "Teodor", "Ulfrid", "Vigor", "Walstan", "Xystus", "Yared", "Zeno"];
+    this.arrayOfAbbotNames = ["Abel", "Berencardus", "Caillin", "Dominic", "Eoban", "Florus", "Grimbald", "Humbald", "Inigo", "John", "Konstanty", "Livinus", "Maurice", "Nicolas", "Omer", "Pelagius", "Quintius", "Robert", "Servan", "Teodor", "Ulfrid", "Vigor", "Walstan", "Xystus", "Yared", "Zeno"];
 
-    var arrayOfFacts = ["of a song", "of a movie", "of someone I used to know", "of soup,of noodles", "that I need to feed my cats after this story", "that it’s the same name as the creator of this all", "of someone I have seen on TV"];
+    this.arrayOfFacts = ["of a song", "of a movie", "of someone I used to know", "of soup,of noodles", "that I need to feed my cats after this story", "that it’s the same name as the creator of this all", "of someone I have seen on TV"];
 
-    var amtOfArticles = 0;
-    var activeArticle = 0;
+    this.amtOfArticles = 0;
+    this.activeArticle = 0;
 
     //Setters of Story
 
     this.setPlayerName = function (newPlayerName) {
-        playerName = newPlayerName;
+        this.playerName = newPlayerName;
     };
 
     this.setPlaceName = function (newPlaceName) {
-        placeName = newPlaceName;
+        this.placeName = newPlaceName;
     };
 
     this.setFatherName = function (newFatherName) {
-        fatherName = newFatherName;
+        this.fatherName = newFatherName;
     };
 
     this.setAbbotName = function (newAbbotName) {
-        abbotName = newAbbotName;
+        this.abbotName = newAbbotName;
     };
 
     this.setRandomFact = function (newRandomFact) {
-        randomFact = newRandomFact;
+        this.randomFact = newRandomFact;
     };
 
     this.setActiveArticle = function (newActiveArticle) {
-        activeArticle = newActiveArticle;
+        this.activeArticle = newActiveArticle;
     };
 
 //Getters of Story
 
     this.getActiveArticle = function () {
-        return activeArticle;
+        return this.activeArticle;
     };
 
     this.getAbbotsNames = function () {
-        return arrayOfAbbotNames;
+        return this.arrayOfAbbotNames;
     };
 
     this.getActiveArticle = function () {
-        return activeArticle;
+        return this.activeArticle;
     };
 
     this.getGrammar = function () {
-        return grammar;
+        return this.grammar;
     };
 
 //Functions of Story
@@ -121,8 +121,8 @@ function Story() {
     };
 
     this.part4 = function () {
-        var part4 = "<p><b>" + playerName + "</b>, ehj? That’s a fine name.<br/>" +
-            "I wish I was called like that. It reminds me " + randomFact + ". Gips…</p>";
+        var part4 = "<p><b>" + this.playerName + "</b>, ehj? That’s a fine name.<br/>" +
+            "I wish I was called like that. It reminds me " + this.randomFact + ". Gips…</p>";
         part4 += "<p>Is that a name for a boy or a girl? Sorry but my manners getting rustier every day.</p>";
         part4 += "<button class='button gender' value='girl'>Girl</button><button class='button gender' value='boy'>Boy</button>";
 
@@ -145,7 +145,7 @@ function Story() {
 
     this.part6 = function () {
         var part6 = "<p>Well, 500 years ago, there once was an abbey on the foot of the hill in a forgotten place called <b>";
-        part6 += placeName + "</b>.<br/> It was forgotten because it wasn’t important or beautiful, ";
+        part6 += this.placeName + "</b>.<br/> It was forgotten because it wasn’t important or beautiful, ";
         part6 += "the people living there didn’t care about what happened around them.</p>";
 
         $("#article2").append(part6);
@@ -156,20 +156,20 @@ function Story() {
         part7 += "Who their king was, didn’t matter, they followed their instincts.<br/>";
         part7 += "What language they had to speak, didn’t matter, they understood each other.<p/>";
 
-        part7 += "<p><b>" + fatherName + "</b> was a brewer town and was famous for his beer.<br/>";
-        part7 += "Sadly, his beer didn’t make him immortal and he died just when <b>" + playerName;
+        part7 += "<p><b>" + this.fatherName + "</b> was a brewer town and was famous for his beer.<br/>";
+        part7 += "Sadly, his beer didn’t make him immortal and he died just when <b>" + this.playerName;
         part7 += "</b>, his latest ancestor, was born.<br/> People forgot the once so dearly known brewer and forgot the taste of his legacy.</p>";
 
         $("#article2").append(part7);
     };
 
     this.part8 = function () {
-        var part8 = "<p>Years go by and little <b>" + playerName + "</b> grows older, finding one day the journals of ";
-        part8 += grammar.hisOrHer() + " father.<br/>";
-        part8 += "It told " + grammar.himOrHer() + " about the fame and glory of his brewing and even gave a little hint<br/>";
+        var part8 = "<p>Years go by and little <b>" + this.playerName + "</b> grows older, finding one day the journals of ";
+        part8 += this.grammar.hisOrHer() + " father.<br/>";
+        part8 += "It told " + this.grammar.himOrHer() + " about the fame and glory of his brewing and even gave a little hint<br/>";
         part8 += "that he hid his recipe from the world when he knew his day came.</p>";
 
-        part8 += "<p>After <b>" + playerName + "</b> discovered this, " + grammar.heOrShe() +
+        part8 += "<p>After <b>" + this.playerName + "</b> discovered this, " + this.grammar.heOrShe() +
             " was intrigued by this and asked Mother about it.<br/>";
         part8 += "She confirmed everything like a murderer confesses his crimes <br/>";
         part8 += "but she didn’t had a clue about were the secret recipe could be.<br/>";
@@ -181,12 +181,12 @@ function Story() {
 
     this.part9 = function () {
 
-        var part9 = '<p>“Maybe his recipe is not far from this abbey?”, <b>' + playerName + '</b> questioned ' + grammar.himOrHer() + 'self.<br/>' + 'The next morning ' + grammar.heOrShe() + ' packed ' + grammar.hisOrHer() + ' bags and left home determined to find the abbey.';
-        part9 += "<br/>Days were like minutes. The further <b>" + playerName + "</b> came in the mountains, the faster " + grammar.hisOrHer() + " heart beated. <br/>" + "Until one day " + grammar.heOrShe() + " found the old abbey.<br/>The first looks were covered with moss, cracks and holes<br/>but " + playerName;
-        part9 += " knocked on the big entrance gate.</p><p> The wooden gate creaked open and an old, timid man showed himself behind the wood.<br/>" + playerName + " tells the reason of " + grammar.hisOrHer() + " visit and asks if they still know " + grammar.hisOrHer() + " dad. ";
-        part9 += "<br/>The man immediately invited <b>" + playerName + "</b> for a cup of tea and <b>" + playerName + "</b> enters.<br/><b>" +
-            abbotName + "</b>, the man who opened the gate,<br/>seemed to be the abbot of the abbey." +
-            " He told he was glad that someone still knew about the abbey.<br/>After some time, <b>" + playerName + "</b> heard what " + grammar.heOrShe() + " wanted to hear, the story of " + grammar.hisOrHer() + " father.</p>";
+        var part9 = '<p>“Maybe his recipe is not far from this abbey?”, <b>' + this.playerName + '</b> questioned ' + this.grammar.himOrHer() + 'self.<br/>' + 'The next morning ' + this.grammar.heOrShe() + ' packed ' + this.grammar.hisOrHer() + ' bags and left home determined to find the abbey.';
+        part9 += "<br/>Days were like minutes. The further <b>" + this.playerName + "</b> came in the mountains, the faster " + this.grammar.hisOrHer() + " heart beated. <br/>" + "Until one day " + this.grammar.heOrShe() + " found the old abbey.<br/>The first looks were covered with moss, cracks and holes<br/>but " + this.playerName;
+        part9 += " knocked on the big entrance gate.</p><p> The wooden gate creaked open and an old, timid man showed himself behind the wood.<br/>" + this.playerName + " tells the reason of " + this.grammar.hisOrHer() + " visit and asks if they still know " + this.grammar.hisOrHer() + " dad. ";
+        part9 += "<br/>The man immediately invited <b>" + this.playerName + "</b> for a cup of tea and <b>" + this.playerName + "</b> enters.<br/><b>" +
+            this.abbotName + "</b>, the man who opened the gate,<br/>seemed to be the abbot of the abbey." +
+            " He told he was glad that someone still knew about the abbey.<br/>After some time, <b>" + this.playerName + "</b> heard what " + this.grammar.heOrShe() + " wanted to hear, the story of " + this.grammar.hisOrHer() + " father.</p>";
 
         $("#article3").append(part9);
 
@@ -194,18 +194,18 @@ function Story() {
 
     this.part10 = function () {
 
-        var part10 = "<p><b>" + abbotName + "</b> and <b>" + fatherName + "</b> had some common interests.<br/><b>" + abbotName + "</b> was a well-known botanist" + " in his time of glory and had installed a little stall on the market of <b>" + placeName + "</b>, selling potions and other trinkets. <br/><b>" + fatherName + "</b> sought him out and talked about some way of brewing beer.<br/>He wanted to make another type of brew. Not the cheap ale anyone knew.<br/>A beer worth fighting for, a beer that wields power to make a difference in the world.</p><p><b>" + abbotName + "</b>, who was then just a broad-minded, young monk in the abbey, and <b>" + fatherName + "</b> had put their heads together to find this recipe." + " They had built a nice garden in the abbey and acquired some brewery equipment. Every day they met to study together and to try" + " things out. It took months of time and hundreds of failed batches to get something.</p>";
-        part10 += "<p>Until one day, the smell of their brewing opened up the cloudy sky. The sun shined upon the claystone of the courtyard." + " It was so magically that the people of <b>" + placeName + "</b> came to visit the abbey to know what smelled so good.</p>";
+        var part10 = "<p><b>" + this.abbotName + "</b> and <b>" + this.fatherName + "</b> had some common interests.<br/><b>" + this.abbotName + "</b> was a well-known botanist" + " in his time of glory and had installed a little stall on the market of <b>" + this.placeName + "</b>, selling potions and other trinkets. <br/><b>" + this.fatherName + "</b> sought him out and talked about some way of brewing beer.<br/>He wanted to make another type of brew. Not the cheap ale anyone knew.<br/>A beer worth fighting for, a beer that wields power to make a difference in the world.</p><p><b>" + abbotName + "</b>, who was then just a broad-minded, young monk in the abbey, and <b>" + fatherName + "</b> had put their heads together to find this recipe." + " They had built a nice garden in the abbey and acquired some brewery equipment. Every day they met to study together and to try" + " things out. It took months of time and hundreds of failed batches to get something.</p>";
+        part10 += "<p>Until one day, the smell of their brewing opened up the cloudy sky. The sun shined upon the claystone of the courtyard." + " It was so magically that the people of <b>" + this.placeName + "</b> came to visit the abbey to know what smelled so good.</p>";
 
         $("#article3").append(part10);
     };
 
     this.part11 = function () {
 
-        var part11 = "<p><b>" + fatherName + "</b> and <b>" + abbotName + "</b> saw both what happened, they found the one true way of brewing. They were euphoric and terrified of their discovery.</p><p>One day, a man approached them. It was a man who sold himself " +
-            "as a servant of the king. His ears had heard of this beer and he demanded that the young monk and <b>" + fatherName +
-            "</b> only brew it for him, so he could overrule his opponents in his own way.</p><p> They both refused any cooperation because they knew the possible outcome. It was the idea of <b>" + fatherName + "</b> to hide the recipe in the mountains surrounding the abbey. " + "No one could ever get to know this brew. In any century, in any world, this could be dangerous. It would forever be the secret of the mountains.</p><p><b>" + abbotName + "</b> ended his story to <b>" + playerName + "</b> that he never saw " + grammar.hisOrHer() +
-            " father again after they got rid of the recipe. <b>" + playerName + "</b> asked if the old brewery in the abbey was still there. The abbot was delighted by this question and showed his precious place.</p>";
+        var part11 = "<p><b>" + this.fatherName + "</b> and <b>" + this.abbotName + "</b> saw both what happened, they found the one true way of brewing. They were euphoric and terrified of their discovery.</p><p>One day, a man approached them. It was a man who sold himself " +
+            "as a servant of the king. His ears had heard of this beer and he demanded that the young monk and <b>" + this.fatherName +
+            "</b> only brew it for him, so he could overrule his opponents in his own way.</p><p> They both refused any cooperation because they knew the possible outcome. It was the idea of <b>" + this.fatherName + "</b> to hide the recipe in the mountains surrounding the abbey. " + "No one could ever get to know this brew. In any century, in any world, this could be dangerous. It would forever be the secret of the mountains.</p><p><b>" + abbotName + "</b> ended his story to <b>" + playerName + "</b> that he never saw " + grammar.hisOrHer() +
+            " father again after they got rid of the recipe. <b>" + this.playerName + "</b> asked if the old brewery in the abbey was still there. The abbot was delighted by this question and showed his precious place.</p>";
 
         $("#article4").append(part11);
     };
@@ -249,13 +249,13 @@ function Story() {
 
     this.showActiveArticle = function () {
         $(".storyArticle").hide();
-        $("#article" + activeArticle).show();
+        $("#article" + this.activeArticle).show();
     };
 
     this.addArticleToStory = function () {
-        var article = "<article class='storyArticle' id='article" + amtOfArticles + "'></article>";
+        var article = "<article class='storyArticle' id='article" + this.amtOfArticles + "'></article>";
 
-        amtOfArticles++;
+        this.amtOfArticles++;
 
         $('#abbey').append(article);
     };

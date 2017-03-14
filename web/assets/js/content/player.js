@@ -1,41 +1,41 @@
 function Player(aPlayerName, initialAmtOfCoins, initialAmtOfReputation) {
 
-    var playerName = aPlayerName;
-    var playerGender = "";
-    var coins = initialAmtOfCoins;
-    var reputation = initialAmtOfReputation;
+    this.playerName = aPlayerName;
+    this.playerGender = "";
+    this.coins = initialAmtOfCoins;
+    this.reputation = initialAmtOfReputation;
 
 //Getters of Player
 
     this.getCoins = function () {
-        return coins;
+        return this.coins;
     };
 
     this.getPlayerName = function () {
-        return playerName;
+        return this.playerName;
     };
 
     this.getReputation = function () {
-        return reputation;
+        return this.reputation;
     };
 
 //Setters of Player
 
     this.setPlayerGender = function (gender) {
-        playerGender = gender;
+        this.playerGender = gender;
     };
 
 //Functions of Player
 
     this.addCoins = function (coinsToAdd) {
-        coins += coinsToAdd;
+        this.coins += coinsToAdd;
     };
 
     this.reduceCoins = function (coinsToReduce) {
-        coins -= coinsToReduce;
+        this.coins -= coinsToReduce;
     };
 
     this.addReputation = function (reputationToAdd) {
-        reputation += reputationToAdd;
+        this.reputation += reputationToAdd;
     };
 }

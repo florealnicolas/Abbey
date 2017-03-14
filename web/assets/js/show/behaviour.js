@@ -15,7 +15,7 @@ function addBehaviour(game, address) {
         case "processor":
             $(address).click(function (e) {
                 e.preventDefault();
-                game.getProcessors().getItemByName(instanceName).processorProcess(game);
+                game.getProcessors().getItemByName(instanceName).process(game);
             });
             break;
 

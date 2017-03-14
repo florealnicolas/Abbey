@@ -1,26 +1,26 @@
 function List() {
-    var list = [];
+    this.list = [];
 
 //Getters of List
 
     this.getItemByNumber = function (itemNumber) {
-        return list[itemNumber];
+        return this.list[itemNumber];
     };
 
     this.getItemByName = function (itemName) {
         var foundItem = null;
 
-        for (var itemNr = 0, amtOfItems = list.length; itemNr < amtOfItems; itemNr++) {
+        for (var itemNr = 0, amtOfItems = this.list.length; itemNr < amtOfItems; itemNr++) {
 
-            if (list[itemNr].getName() == itemName) {
-                foundItem = list[itemNr];
+            if (this.list[itemNr].getName() == itemName) {
+                foundItem = this.list[itemNr];
             }
         }
         return foundItem;
     };
 
     this.getSize = function () {
-        return list.length;
+        return this.list.length;
     };
 
 //Functions of List
@@ -30,11 +30,11 @@ function List() {
         var index = this.getIndex(itemToAdd);
 
         if (index != -1) {
-            list[index].addQuantityOfAResource(itemToAdd.getQuantity());
+            this.list[index].addQuantityOfAResource(itemToAdd.getQuantity());
         }
 
         else {
-            list.push(itemToAdd);
+            this.list.push(itemToAdd);
         }
     };
 
@@ -45,7 +45,7 @@ function List() {
         }
 
         else {
-            list.push(itemToAdd);
+            this.list.push(itemToAdd);
         }
     };
 
@@ -65,13 +65,13 @@ function List() {
     };
 
     this.removeAnItem = function (itemToRemove) {
-        var itemNrToRemove = list.indexOf(itemToRemove);
-        list.splice(itemNrToRemove, 1);
+        var itemNrToRemove = this.list.indexOf(itemToRemove);
+        this.list.splice(itemNrToRemove, 1);
     };
 
     this.allItemsToStringWithName = function (listName) {
 
-        var amtOfItems = list.length;
+        var amtOfItems = this.list.length;
         var itemMessage = listName + ":";
 
         //this.stock = this.stock.sort(); --> something for sorted people???
@@ -83,7 +83,7 @@ function List() {
         else {
             if (amtOfItems > 2) {
                 for (var itemnr = 0; itemnr < amtOfItems - 2; itemnr++) {
-                    item = list[itemnr];
+                    item = this.list[itemnr];
                     itemMessage += " ";
 
                     if (listName == "Stock") {
@@ -94,7 +94,7 @@ function List() {
             }
 
             if (amtOfItems > 1) {
-                var item = list[amtOfItems - 2];
+                var item = this.list[amtOfItems - 2];
                 itemMessage += " ";
 
                 if (listName == "Stock") {
@@ -103,7 +103,7 @@ function List() {
                 itemMessage += item.getName().toLowerCase() + " and";
             }
 
-            item = list[amtOfItems - 1];
+            item = this.list[amtOfItems - 1];
             itemMessage += " ";
 
             if (listName == "Stock") {
@@ -118,7 +118,7 @@ function List() {
 
     this.allItemsToString = function () {
 
-        var amtOfItems = list.length;
+        var amtOfItems = this.list.length;
         var itemMessage = "";
 
         if (amtOfItems == 0) {
@@ -127,24 +127,24 @@ function List() {
 
         else {
 
-            var item = list[0];
+            var item = this.list[0];
             itemMessage += item.toString() + ",";
 
             if (amtOfItems > 2) {
                 for (var itemNr = 1; itemNr < amtOfItems - 2; itemNr++) {
-                    item = list[itemNr];
+                    item = this.list[itemNr];
                     itemMessage += " ";
                     itemMessage += item.toString() + ",";
                 }
             }
 
             if (amtOfItems > 1) {
-                item = list[amtOfItems - 2];
+                item = this.list[amtOfItems - 2];
                 itemMessage += " ";
                 itemMessage += item.toString() + " and";
             }
 
-            item = list[amtOfItems - 1];
+            item = this.list[amtOfItems - 1];
             itemMessage += " ";
             itemMessage += item.toString();
         }
@@ -160,8 +160,8 @@ function List() {
     this.contains = function (something) {
         var contains = false;
 
-        for (var item in list) {
-            if (something == list[item]) {
+        for (var item in this.list) {
+            if (something == this.list[item]) {
                 contains = true;
             }
         }
@@ -172,8 +172,8 @@ function List() {
     this.getIndex = function (something) {
         var index = -1;
 
-        for (var itemNr in list) {
-            if (something.getName() == list[itemNr].getName()) {
+        for (var itemNr in this.list) {
+            if (something.getName() == this.list[itemNr].getName()) {
                 index = itemNr;
             }
         }

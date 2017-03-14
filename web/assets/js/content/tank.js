@@ -1,32 +1,32 @@
 function Tank(contentResource, capacity) {
 
-    var content = contentResource;
-    var tankName = content.getName() + "-tank";
-    var tankMaterial = "iron";
-    var totalCapacity = capacity;
+    this.content = contentResource;
+    this.tankName = this.content.getName() + "-tank";
+    this.tankMaterial = "iron";
+    this.totalCapacity = capacity;
 
-    var tankMaterials = ["iron","steel","bronze","copper","gold"];
+    this.tankMaterials = ["iron","steel","bronze","copper","gold"];
 
-    var level = 0;
+    this.level = 0;
 
 // Getters of Tank
 
     this.getName = function () {
-        return tankName;
+        return this.tankName;
     };
 
     this.getContent = function () {
-        return content;
+        return this.content;
     };
 
     this.getTankMaterial = function () {
-        return tankMaterial;
+        return this.tankMaterial;
     };
 
 // Functions of Tank    
 
     this.visualizeTank = function () {
-        var tankShell = "<div id='" + tankName.replace(" ","-") + "' class='"+tankMaterial+"Tank tankShell'>";
+        var tankShell = "<div id='" + this.tankName.replace(" ","-") + "' class='"+this.tankMaterial+"Tank tankShell'>";
         var contentContainer = "<div class='contentContainer'>";
         var fluid = "<div class='fluid'>";
  
@@ -34,25 +34,25 @@ function Tank(contentResource, capacity) {
     };
 
     this.updateFluidLevel = function () {
-        $("#"+tankName.replace(" ","-") + " .fluid").css("height",((level/totalCapacity)*100) + "%");
+        $("#"+this.tankName.replace(" ","-") + " .fluid").css("height",((this.level/this.totalCapacity)*100) + "%");
     };
     
     this.raiseFluidLevel = function (levelAddition) {
-        if ((level+levelAddition) <= totalCapacity) {
-            level += levelAddition;
+        if ((this.level+levelAddition) <= this.totalCapacity) {
+            this.level += levelAddition;
         }
     };
 
     this.changeTankMaterial = function (newTankMaterial) {
-        tankMaterial = newTankMaterial;
+        this.tankMaterial = newTankMaterial;
     };
 
     this.updateTankMaterial = function () {
 
-        for (var materialNr in tankMaterials) {
-            $("#" + tankName).removeClass(tankMaterials[materialNr] + "Tank");
+        for (var materialNr in this.tankMaterials) {
+            $("#" + this.tankName).removeClass(this.tankMaterials[materialNr] + "Tank");
         }
 
-        $("#" + tankName).addClass(tankMaterial + "Tank");
+        $("#" + this.tankName).addClass(this.tankMaterial + "Tank");
     };
 }

@@ -1,40 +1,45 @@
-function Resource(resourceName, amt, type) {
-    var name = resourceName;
-    var quantity = amt;
-    var resourceType = type;
+function Resource(resourceName, resourceAmt, unitValue, resourceCategory) {
+    this.name = resourceName;
+    this.quantity = resourceAmt;
+    this.value = unitValue;
+    this.category = resourceCategory;
 
 //Getters of Resource
 
     this.getQuantity = function () {
-        return quantity;
+        return this.quantity;
+    };
+
+    this.getCategory = function () {
+        return this.category;
+    };
+
+    this.getUnitValue = function () {
+        return this.value;
     };
 
     this.getName = function () {
-        return name;
-    };
-
-    this.getResourceType = function () {
-      return resourceType;
+        return this.name;
     };
 
 //Functions of Resource
 
     this.addQuantityOfAResource = function (amtToAdd) {
-        quantity += amtToAdd;
+        this.quantity += amtToAdd;
     };
 
     this.removeQuantityOfAResource = function (amtToRemove) {
-        quantity -= eval(amtToRemove);
+        this.quantity -= eval(amtToRemove);
     };
 
     this.toString = function () {
 
         var word = "units";
 
-        if (quantity == 1) {
+        if (this.quantity == 1) {
             word = "unit";
         }
 
-        return quantity + " " + word + " of " + name;
+        return this.quantity + " " + word + " of " + this.name;
     }
 }

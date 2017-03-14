@@ -1,63 +1,68 @@
 function Source(sourceName, sourceMaxOutput, placeName) {
-    var name = sourceName;
-    var output = new List();
-    var minOuput = 1;
-    var maxOutput = sourceMaxOutput;
-    var place = placeName;
+    this.name = sourceName;
+    this.output = new List();
+    this.minOuput = 1;
+    this.maxOutput = sourceMaxOutput;
+    this.place = placeName;
 
     this.sourceProcess = function (game) {
 
-        var sourceBtn = $("#" + sourceName + ".source.button");
+        var sourceBtn = $("#" + this.name + ".source.button");
 
         if (sourceBtn.attr('value') != "busy") {
 
             sourceBtn.attr("value", "busy");
             sourceBtn.addClass("disabled");
-            $("#" + sourceName + '.progressbar.completed').removeClass("completed");
+            $("#" + this.name + '.progressbar.completed').removeClass("completed");
 
-            $(function () {
-                var progressbar = $('#' + name + '[class="progressbar"]'),
-                    progressLabel = $('#' + name + '[class="progressbar"] > .progress-label');
-
-                progressbar.progressbar({
-                    value: 0,
-                    change: function () {
-                        progressLabel.text(progressbar.progressbar("value") + "%");
-                    },
-                    complete: function () {
-                        progressLabel.text("Complete!");
-                        work(sourceBtn, game);
-                        progressbar.progressbar("destroy");
-                        $("#" + sourceName + '.progressbar').addClass("completed");
-                        sourceBtn.removeClass("disabled");
-                    },
-                    create: function () {
-                        $('div[class="opbrengst"][id="' + name + '"]').hide();
-                    }
-                });
-
-                function progress() {
-                    var val = progressbar.progressbar("value") || 0;
-
-                    progressbar.progressbar("value", val + 1);
-
-                    if (val < 99) {
-                        setTimeout(progress, 80);
-                    }
-                }
-
-                setTimeout(progress, 100);
-            });
+            $(this.progressing(sourceBtn, game));
         }
     };
 
-    var work = function (processBtn, game) {
+    this.progressing = function (sourceBtn, game) {
 
-        var harvestMessage = $('div[class="opbrengst"][id="' + name + '"]');
+        var source = this;
+
+        var progressbar = $('#' + source.name + '[class="progressbar"]'),
+            progressLabel = $('#' + source.name + '[class="progressbar"] > .progress-label');
+
+        progressbar.progressbar({
+            value: 0,
+            change: function () {
+                progressLabel.text(progressbar.progressbar("value") + "%");
+            },
+            complete: function () {
+                progressLabel.text("Complete!");
+                source.work(sourceBtn, game);
+                progressbar.progressbar("destroy");
+                $("#" + sourceName + '.progressbar').addClass("completed");
+                sourceBtn.removeClass("disabled");
+            },
+            create: function () {
+                $('div[class="opbrengst"][id="' + source.name + '"]').hide();
+            }
+        });
+
+        function progress() {
+            var val = progressbar.progressbar("value") || 0;
+
+            progressbar.progressbar("value", val + 1);
+
+            if (val < 99) {
+                setTimeout(progress, 80);
+            }
+        }
+
+        setTimeout(progress, 100);
+    };
+
+    this.work = function (processBtn, game) {
+
+        var harvestMessage = $('div[class="opbrengst"][id="' + this.name + '"]');
 
         processBtn.attr("value", "free");
 
-        var resource = gainResource();
+        var resource = this.gainResource();
         game.getStock().addAResource(resource);
         var message = "You got " + resource.toString() + ".";
 
@@ -68,10 +73,10 @@ function Source(sourceName, sourceMaxOutput, placeName) {
 
     };
 
-    var gainResource = function () {
-        var quantity = Math.floor(Math.random() * (maxOutput - minOuput + 1)) + minOuput;
-        var resourceNr = Math.floor(Math.random() * ((output.getSize() - 1) + 1));
-        var resourceName = output.getItemByNumber(resourceNr).getName();
+    this.gainResource = function () {
+        var quantity = Math.floor(Math.random() * (this.maxOutput - this.minOuput + 1)) + this.minOuput;
+        var resourceNr = Math.floor(Math.random() * ((this.output.getSize() - 1) + 1));
+        var resourceName = this.output.getItemByNumber(resourceNr).getName();
 
         return new Resource(resourceName, quantity);
     };
@@ -79,15 +84,15 @@ function Source(sourceName, sourceMaxOutput, placeName) {
     this.setOutputList = function (outputs) {
 
         for (var outputNr in outputs) {
-            output.addAnItem(outputs[outputNr]);
+            this.output.addAnItem(outputs[outputNr]);
         }
     };
 
     this.getName = function () {
-        return name;
+        return this.name;
     };
 
     this.getPlace = function () {
-        return place;
+        return this.place;
     };
 }

@@ -1,52 +1,57 @@
-function Process(processName, timeNeededToFinish, inputList, outputItem) {
+function Process(processName, timeNeededToFinish, inputList, processingUnit, outputItem) {
 
-    var name = processName;
-    var time = timeNeededToFinish;
-    var input = inputList;
-    var output = outputItem;
+    this.name = processName;
+    this.time = timeNeededToFinish;
+    this.input = inputList;
+    this.processor = processingUnit;
+    this.output = outputItem;
 
-    var storage = null;
-    var utility = null;
+    this.storage = null;
+    this.utility = null;
 
 // Getters of Process
 
     this.getInput = function () {
-        return input;
+        return this.input;
+    };
+
+    this.getProcessor = function () {
+        return this.processor;
     };
 
     this.getOutput = function () {
-        return output;
+        return this.output;
     };
 
     this.getName = function () {
-        return name;
+        return this.name;
     };
 
     this.getTime = function () {
-        return time;
+        return this.time;
     };
 
     this.getStorage = function () {
-        
-        if (output.getResourceType() == "fluid" && storage == null) {
-            storage = new Tank(output,100);
+
+        if (this.storage == null) {
+            this.storage = new Tank(this.output, 100);
         }
 
-        return storage;
+        return this.storage;
     };
 
     this.getUtility = function () {
-        return utility;
+        return this.utility;
     };
-    
+
 // Setters of Process
 
     this.setStorage = function (newStorage) {
-        storage = newStorage;
+        this.storage = newStorage;
     };
 
     this.setUtility = function (newUtility) {
-        utility = newUtility;
+        this.utility = newUtility;
     };
 
 // Functions of Process
@@ -55,31 +60,31 @@ function Process(processName, timeNeededToFinish, inputList, outputItem) {
 
         var ingredients = "";
 
-        switch (input.constructor) {
+        switch (this.input.constructor) {
             case Array:
 
-                for (var inputNr = 0; inputNr < input.length-1; inputNr++) {
-                    ingredients += input[inputNr].toString() + ", ";
+                for (var inputNr = 0; inputNr < this.input.length - 1; inputNr++) {
+                    ingredients += this.input[inputNr].toString() + ", ";
                 }
 
-                ingredients+= input[input.length-1].toString();
+                ingredients += this.input[this.input.length - 1].toString();
                 break;
 
             case List:
-                ingredients = input.allItemsToString();
+                ingredients = this.input.allItemsToString();
                 break;
 
             default:
-                ingredients = input.toString();
+                ingredients = this.input.toString();
                 break;
         }
 
-        var nameString = name;
+        var nameString = this.name;
 
-        if (name.substr(name.length-3) == "ing") {
-            nameString = nameString.substr(0,name.length-3);
+        if (this.name.substr(this.name.length - 3) == "ing") {
+            nameString = nameString.substr(0, this.name.length - 3);
         }
 
-        return nameString +" " + ingredients.toLowerCase() + ".";
+        return nameString + " " + ingredients.toLowerCase() + ".";
     };
 }

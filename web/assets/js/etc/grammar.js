@@ -1,18 +1,18 @@
 function Grammar() {
 
-    var gender = null;
+    this.gender = null;
 
     //functions of Grammar
 
     this.setGender = function (newGender) {
-        gender = newGender;
+        this.gender = newGender;
     };
 
     this.hisOrHer = function () {
 
         var possive = "his";
 
-        if (gender == "girl") {
+        if (this.gender == "girl") {
             possive = "her";
         }
 
@@ -22,7 +22,7 @@ function Grammar() {
     this.heOrShe = function () {
         var noun = "he";
 
-        if (gender == "girl") {
+        if (this.gender == "girl") {
             noun = "she";
         }
 
@@ -32,7 +32,7 @@ function Grammar() {
     this.himOrHer = function () {
         var noun = "him";
 
-        if (gender == "she") {
+        if (this.gender == "she") {
             noun = "she";
         }
 

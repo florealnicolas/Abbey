@@ -30,7 +30,7 @@ function showInstances(game, instanceType, plaats) {
 
             if (instanceGroup == game.getProcessors()) {
                 instanceForm += "<label for='" + instance.getName() + "'>";
-                instanceForm += "How much " + instance.getProcess().getInput().getName() + " you want to convert to " + instance.getProcess().getOutput().getName() + "?</label>";
+                instanceForm += "How much " + instance.getPossibleInputs().getItemByNumber(0).getName() + " you want to convert to " + instance.getOutput().getName() + "?</label>";
                 instanceForm += "<input id='inputNumber" + instance.getName() + "' type='number' min='0' value='0'/>";
             }
 

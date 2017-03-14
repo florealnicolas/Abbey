@@ -1,23 +1,23 @@
 function Scheme() {
 
-    var steps = new List();
+    this.steps = new List();
 
-    var usedStorage = new List();
+    this.usedStorage = new List();
 
 // Getters of Scheme
 
     this.getStepByNumber = function (stepNr) {
-        return steps.getItemByNumber(stepNr);
+        return this.steps.getItemByNumber(stepNr);
     };
 
     this.getAmtOfSteps = function () {
-        return steps.getSize();
+        return this.steps.getSize();
     };
 
 // Functions of Scheme
 
     this.addStep = function (newStep) {
-        return steps.addAnItem(newStep);
+        return this.steps.addAnItem(newStep);
     };
 
     this.visualizeArrow = function () {
@@ -33,7 +33,7 @@ function Scheme() {
 
         for (var stepNr = 1; stepNr < this.getAmtOfSteps()+1; stepNr++) {
 
-            var selectedStep = steps.getItemByNumber(stepNr-1);
+            var selectedStep = this.steps.getItemByNumber(stepNr-1);
             stepString += "<div class='schemeStep medium-4 columns' id='"+selectedStep.getName()+(stepNr-1)+"'>";
             stepString += "<h4>" + selectedStep.getName() + "</h4>";
 
@@ -67,10 +67,10 @@ function Scheme() {
 
         for (var stepNr = 0; stepNr < this.getAmtOfSteps(); stepNr++) {
 
-            var selectedStep = steps.getItemByNumber(stepNr);
+            var selectedStep = this.steps.getItemByNumber(stepNr);
 
             if (selectedStep.getStorage() != null) {
-                usedStorage.addAnItem(steps.getItemByNumber(stepNr).getStorage());
+                this.usedStorage.addAnItem(this.steps.getItemByNumber(stepNr).getStorage());
             }
         }
     }

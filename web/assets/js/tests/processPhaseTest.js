@@ -21,8 +21,12 @@ var beer = new Resource("Beer", 1);
 var mashingInput = [starch, water];
 var cookingInput = [sugarWater, hop];
 
+//These are the processors needed for this scheme
+
+var windmill = new Processor("windmill",wheat,malt,1,"outside");
+
 //These are the steps we need to follow
-var malting = new Process("Malting", 10, wheat, malt);
+var malting = new Process("Malting", 10, wheat, windmill, malt);
 var grinding = new Process("Grinding", 10, malt, starch);
 var mashing = new Process("Mashing", 10, mashingInput, sugarWater);
 var cooking = new Process("Cooking", 10, cookingInput, pulp);
@@ -56,6 +60,10 @@ assertEquals("Malting",brewingProcess.getStepByNumber(0).getName());
 //Then that means the last one is... Filtering3
 assertEquals("Third filtering",brewingProcess.getStepByNumber(9).getName());
 
-//Let's try to brew beer from wheat and water
+//Let's try to malt some wheat
+dummyGame2.getStock().addAnItem(new Resource("wheat",10,1,"crop"));
+var maltOutput = malting.getProcessor().testFromInputToOutput(wheat,10,dummyGame2);
+
+assertEquals("malt",maltOutput.getName());
 
 //End of test 6

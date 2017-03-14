@@ -1,31 +1,31 @@
 function Recipe(outputItem, ingredientsList, newScheme, authorName) {
 
-    var output = outputItem;
-    var ingredients = ingredientsList;
-    var scheme = newScheme;
-    var author = authorName;
-    var description = "";
-    var name = output.getName();
+    this.output = outputItem;
+    this.ingredients = ingredientsList;
+    this.scheme = newScheme;
+    this.author = authorName;
+    this.description = "";
+    this.name = this.output.getName();
 
 // Getters of Recipe
 
     this.getName = function () {
-        return name;
+        return this.name;
     };
 
     this.getOutput = function () {
-        return output;
+        return this.output;
     };
 
     this.getDescription = function () {
-        if (description == "") {
-            description = this.writeDescription();
+        if (this.description == "") {
+            this.description = this.writeDescription();
         }
-        return description;
+        return this.description;
     };
 
     this.getScheme = function () {
-      return scheme;
+      return this.scheme;
     };
 
 // Functions of Recipe
@@ -34,20 +34,20 @@ function Recipe(outputItem, ingredientsList, newScheme, authorName) {
 
         var descriptionString = "<h3>"+ this.getName().toUpperCase() + "</h3>";
         descriptionString += "<h4>Story</h4>";
-        descriptionString += "<p>Discovered by " + author + ".</p>";
+        descriptionString += "<p>Discovered by " + this.author + ".</p>";
         descriptionString += "<h4>Ingredients</h4>";
 
         descriptionString += "<ul>";
-        for (var ingredientNr = 0; ingredientNr < ingredients.getSize(); ingredientNr++) {
-            descriptionString += "<li>"+ingredients.getItemByNumber(ingredientNr).toString().toLowerCase()+"</li>";
+        for (var ingredientNr = 0; ingredientNr < this.ingredients.getSize(); ingredientNr++) {
+            descriptionString += "<li>"+this.ingredients.getItemByNumber(ingredientNr).toString().toLowerCase()+"</li>";
         }
         descriptionString += "</ul>";
         
         descriptionString += "<h4>Production scheme</h4>";
 
         descriptionString += "<ol>";
-        for (var stepNr = 0; stepNr < scheme.getAmtOfSteps(); stepNr++) {
-            descriptionString += "<li>"+scheme.getStepByNumber(stepNr)+"</li>";
+        for (var stepNr = 0; stepNr < this.scheme.getAmtOfSteps(); stepNr++) {
+            descriptionString += "<li>"+this.scheme.getStepByNumber(stepNr)+"</li>";
         }
         descriptionString += "</ol>";
 

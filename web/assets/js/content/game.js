@@ -1,110 +1,109 @@
 function Game() {
-    var story = new Story();
-    var stock = new List();
-    var sources = new List();
-    var processors = new List();
-    var processes = new List();
-    var fields = new List();
-    var fieldCategories = null;
-    var recipes = new List();
-    var tanks = new List();
+    this.story = new Story();
+    this.stock = new List();
+    this.sources = new List();
+    this.processors = new List();
+    this.processes = new List();
+    this.fields = new List();
+    this.fieldCategories = null;
+    this.recipes = new List();
+    this.tanks = new List();
 
-    var totalAmtOfMonks = 20;
-    var amtOfOccupiedMonks = 0;
-    var amtOfAvailableMonks = totalAmtOfMonks;
+    this.totalAmtOfMonks = 20;
+    this.amtOfOccupiedMonks = 0;
+    this.amtOfAvailableMonks = this.totalAmtOfMonks;
 
-    var departments = ["Brew", "Work", "Vendor", "Improve"];
+    this.departments = ["Brew", "Work", "Vendor", "Improve"];
 
-    var priceForAField = 0;
-    var fieldsMade = 0;
-    var player = null;
+    this.priceForAField = 0;
+    this.fieldsMade = 0;
+    this.player = null;
 
 //Setters of Game
 
     this.setAPlayer = function (newPlayer) {
-        player = newPlayer;
+        this.player = newPlayer;
     };
 
 //Getters of Game
 
     this.getPlayer = function () {
-        return player;
+        return this.player;
     };
 
     this.getPriceOfAField = function () {
-        return priceForAField;
+        return this.priceForAField;
     };
 
     this.getStory = function () {
-        return story;
+        return this.story;
     };
 
     this.getDepartments = function () {
-        return departments;
+        return this.departments;
     };
 
     this.getTanks = function () {
-        return tanks;
+        return this.tanks;
     };
 
     this.getFieldCategories = function () {
-        return fieldCategories;
+        return this.fieldCategories;
     };
 
     this.getStock = function () {
-        return stock;
+        return this.stock;
     };
 
     this.getStockInString = function () {
-        return stock.allItemsToStringWithName("Stock") + ".";
+        return this.stock.allItemsToStringWithName("Stock");
     };
 
     this.getRecipes = function () {
-        return recipes;
+        return this.recipes;
     };
 
     this.getProcesses = function () {
-        return processes;
+        return this.processes;
     };
 
     this.getProcessors = function () {
-        return processors;
+        return this.processors;
     };
 
     this.getSources = function () {
-        return sources;
+        return this.sources;
     };
 
     this.getFields = function () {
-        return fields;
+        return this.fields;
     };
 
     this.getFieldTypes = function () {
-        return fieldCategories;
+        return this.fieldCategories;
     };
 
     this.getTotalAmtOfMonks = function () {
-        return totalAmtOfMonks;
+        return this.totalAmtOfMonks;
     };
 
     this.getAmtOfOccupiedMonks = function () {
-        return amtOfOccupiedMonks;
+        return this.amtOfOccupiedMonks;
     };
 
     this.getAmtOfAvailableMonks = function () {
-        return amtOfAvailableMonks;
+        return this.amtOfAvailableMonks;
     };
 
-
     this.getAmtOfFieldsMade = function () {
-      return fieldsMade;
+      return this.fieldsMade;
     };
 
     this.getRecipesAsOptions = function () {
         var recipeString = "";
 
-        for (var recipeNr = 0; recipeNr < recipes.getSize(); recipeNr++) {
-            var selectedRecipeName = recipes.getItemByNumber(recipeNr).getOutput().getName();
+        for (var recipeNr = 0; recipeNr < this.recipes.getSize(); recipeNr++) {
+            var selectedRecipeName = this.recipes.getItemByNumber(recipeNr).getOutput().getName();
             recipeString += "<option value='" + recipeNr + "'>" + selectedRecipeName + "</option>";
         }
 
@@ -125,32 +124,32 @@ function Game() {
         var amtOfImprovers = eval(improvers.val());
         var amtOfVendors = eval(vendors.val());
 
-        totalAmtOfMonks = 20;
-        amtOfOccupiedMonks = amtOfBrewers + amtOfWorkers + amtOfImprovers + amtOfVendors;
-        amtOfAvailableMonks = totalAmtOfMonks - amtOfOccupiedMonks;
+        this.totalAmtOfMonks = 20;
+        this.amtOfOccupiedMonks = amtOfBrewers + amtOfWorkers + amtOfImprovers + amtOfVendors;
+        this.amtOfAvailableMonks = this.totalAmtOfMonks - this.amtOfOccupiedMonks;
 
-        brewers.attr("max", amtOfBrewers + amtOfAvailableMonks);
+        brewers.attr("max", amtOfBrewers + this.amtOfAvailableMonks);
         brewers.attr("value", amtOfBrewers);
 
-        workers.attr("max", amtOfWorkers + amtOfAvailableMonks);
+        workers.attr("max", amtOfWorkers + this.amtOfAvailableMonks);
         workers.attr("value", amtOfWorkers);
 
-        improvers.attr("max", amtOfImprovers + amtOfAvailableMonks);
+        improvers.attr("max", amtOfImprovers + this.amtOfAvailableMonks);
         improvers.attr("value", amtOfImprovers);
 
-        vendors.attr("max", amtOfVendors + amtOfAvailableMonks);
+        vendors.attr("max", amtOfVendors + this.amtOfAvailableMonks);
         vendors.attr("value", amtOfVendors);
 
-        $('#bezetMonniken').text(amtOfOccupiedMonks);
+        $('#bezetMonniken').text(this.amtOfOccupiedMonks);
     };
 
     this.buyAField = function () {
         
-        if (player.getCoins() >= priceForAField) {
-            player.reduceCoins(priceForAField);
-            fields.addAnItem(new Field(fieldsMade,priceForAField,null,fieldCategories));
-            raiseFieldsMadeByOne();
-            raiseFieldPrice();
+        if (this.player.getCoins() >= this.priceForAField) {
+            this.player.reduceCoins(this.priceForAField);
+            this.fields.addAnItem(new Field(this.fieldsMade,this.priceForAField,null,this.fieldCategories));
+            this.raiseFieldsMadeByOne();
+            this.raiseFieldPrice();
         }
         
         else {
@@ -158,25 +157,25 @@ function Game() {
         }
         
     };
-    
-    var raiseFieldPrice = function () {
 
-        if (priceForAField == 0) {
-            priceForAField = 50;
+    this.raiseFieldPrice = function () {
+
+        if (this.priceForAField == 0) {
+            this.priceForAField = 50;
         }
 
         else {
-            priceForAField = priceForAField * 4;
+            this.priceForAField = this.priceForAField * 4;
         }
     };
 
-    var raiseFieldsMadeByOne = function () {
-      fieldsMade ++;
+    this.raiseFieldsMadeByOne = function () {
+        this.fieldsMade ++;
     };
 
     this.sellField = function (fieldName) {
 
-        var selectedField = fields.getItemByName(fieldName);
+        var selectedField = this.fields.getItemByName(fieldName);
 
         var message = "Do you really want to sell your " + selectedField.getResourceName() + " field?\n";
         var value = selectedField.getFieldValue() + " coins";
@@ -190,17 +189,17 @@ function Game() {
         var sold = confirm(message);
 
         if (sold) {
-            player.addCoins(selectedField.getFieldValue());
-            fields.removeAnItem(selectedField);
+            this.player.addCoins(selectedField.getFieldValue());
+            this.fields.removeAnItem(selectedField);
         }
     };
 
     this.setFieldCategories = function (categories) {
-        fieldCategories = categories;
+        this.fieldCategories = categories;
     };
 
     this.setAmtOfFieldsMade = function (newAmtOfFieldsMade) {
-        fieldsMade = newAmtOfFieldsMade;
+        this.fieldsMade = newAmtOfFieldsMade;
     }
 
 }

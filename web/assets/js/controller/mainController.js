@@ -6,8 +6,8 @@
 
     //APAIRY
     var apairyOutputs = {
-        honey: new Resource("honey",0,"mass"),
-        bee: new Resource("bee",0,"mass")
+        honey: new Resource("honey", 0, "natural product"),
+        bee: new Resource("bee", 0, "critter")
     };
 
     //FOREST
@@ -23,31 +23,31 @@
     //Stop
 
     var forestOutputs = {
-        raspberry: new Resource("raspberry",0,"mass"),
-        cranberry: new Resource("cranberry",0,"mass"),
-        strawberry: new Resource("strawberry",0,"mass"),
-        wood: new Resource("wood",0,"mass"),
-        woodSorrel: new Resource("wood sorrel",0,"mass"),
-        mushroom: new Resource("mushroom",0,"mass"),
-        chicory: new Resource("chicory",0,"mass"),
-        chestnut: new Resource("chestnut",0,"mass"),
-        rose: new Resource("rose",0,"mass"),
-        daisy: new Resource("daisy",0,"mass"),
-        banana: new Resource("banana",0,"mass")
+        raspberry: new Resource("raspberry", 0, "fruit"),
+        cranberry: new Resource("cranberry", 0, "fruit"),
+        strawberry: new Resource("strawberry", 0, "fruit"),
+        wood: new Resource("wood", 0, "material"),
+        woodSorrel: new Resource("wood sorrel", 0, "flower"),
+        mushroom: new Resource("mushroom", 0, "fungus"),
+        chicory: new Resource("chicory", 0, "flower"),
+        chestnut: new Resource("chestnut", 0, "nut"),
+        rose: new Resource("rose", 0, "flower"),
+        daisy: new Resource("daisy", 0, "flower"),
+        banana: new Resource("banana", 0, "fruit")
     };
 
     //WELL
     var wellOutputs = {
-        water: new Resource("water",0,"mass"),
-        frog: new Resource("frog",0,"mass")
+        water: new Resource("water", 0, "liquid"),
+        frog: new Resource("frog", 0, "critter")
     };
 
     //SEA
     var seaOutputs = {
-        seawater: new Resource("seawater",0,"fluid"),
-        seasnail: new Resource("sea snail",0,"mass"),
-        shell: new Resource("shell",0,"mass"),
-        duneGrass: new Resource("dune grass",0,"mass")
+        seawater: new Resource("seawater", 0, "liquid"),
+        seasnail: new Resource("sea snail", 0, "critter"),
+        shell: new Resource("shell", 0, "other"),
+        duneGrass: new Resource("dune grass", 0, "plant")
     };
 
     //FIELDS
@@ -55,14 +55,15 @@
     var fieldTypes = ["barley", "corn", "hop", "potato", "rice", "wheat"];
 
     //PROCESSED
-    var wheat = new Resource("wheat",0,"mass");
-    var flour = new Resource("flour",0,"mass");
-
-    //PROCESSES NEEDED IN THE GAME
-    var graanMalen = new Process("graan malen", 10, wheat, flour, game1);
+    var wheat = new Resource("wheat", 0, "crop");
+    var flour = new Resource("flour", 0, "product");
 
     //PROCESSORS NEEDED IN THE GAME
-    var mill = new Processor("windmill", graanMalen, 0.25, "outside");
+    var mill = new Processor("windmill", wheat, flour, 0.25, "outside");
+
+    //PROCESSES NEEDED IN THE GAME
+    var graanMalen = new Process("graan malen", 10, wheat, mill, flour);
+    mill.addPossibleProcess(graanMalen);
 
     //SOURCES
     var apairy = new Source("Apairy", 10, "inside");
@@ -99,10 +100,10 @@
         //EXPERIMENTAL
         var aleIngredients = new List();
 
-        var angelTears = new Resource("Angel tears", 10, "fluid");
-        var daisy = new Resource("Daisy", 20, "mass");
-        var water = new Resource("Water", 50, "mass");
-        var yeast = new Resource("Yeast", 30, "mass");
+        var angelTears = new Resource("Angel tears", 10, "liquid");
+        var daisy = new Resource("Daisy", 20, "flower");
+        var water = new Resource("Water", 50, "liquid");
+        var yeast = new Resource("Yeast", 30, "product");
 
         aleIngredients.addAnItem(angelTears);
         aleIngredients.addAnItem(daisy);
@@ -110,36 +111,36 @@
         aleIngredients.addAnItem(yeast);
 
         //These are the ingredients that we need to have to get beer
-        var wheat = new Resource("wheat", 1, "mass");
-        var malt = new Resource("malt", 1, "mass");
-        var starch = new Resource("starch", 1, "mass");
-        var sugarWater = new Resource("Sugar water", 1, "fluid");
-        var hop = new Resource("Hop", 1, "mass");
-        var pulp = new Resource("Pulp", 1, "fluid");
-        var wort = new Resource("Wort", 1, "fluid");
-        var beerToFerment = new Resource("Beer to ferment", 1, "fluid");
-        var fermentedBeer = new Resource("Fermented beer", 1, "fluid");
-        var beerToRipe = new Resource("Beer to ripe", 1, "fluid");
-        var ripeBeer = new Resource("Ripe beer", 1, "fluid");
-        var beer = new Resource("Beer", 1, "fluid");
+        var wheat = new Resource("wheat", 1, "crop");
+        var malt = new Resource("malt", 1, "product");
+        var starch = new Resource("starch", 1, "product");
+        var sugarWater = new Resource("Sugar water", 1, "liquid");
+        var hop = new Resource("Hop", 1, "plant");
+        var pulp = new Resource("Pulp", 1, "product");
+        var wort = new Resource("Wort", 1, "liquid");
+        var beerToFerment = new Resource("Beer to ferment", 1, "liquid");
+        var fermentedBeer = new Resource("Fermented beer", 1, "liquid");
+        var beerToRipe = new Resource("Beer to ripe", 1, "liquid");
+        var ripeBeer = new Resource("Ripe beer", 1, "liquid");
+        var beer = new Resource("Beer", 1, "product");
 
         var mashingInput = new List();
         mashingInput.addListOfItems([starch, water]);
-        
+
         var cookingInput = new List();
         cookingInput.addListOfItems([sugarWater, hop]);
 
         //These are the steps we need to follow
-        var malting = new Process("Malting", 10, wheat, malt);
-        var grinding = new Process("Grinding", 10, malt, starch);
-        var mashing = new Process("Mashing", 10, mashingInput, sugarWater);
-        var cooking = new Process("Cooking", 10, cookingInput, pulp);
-        var filtering1 = new Process("First filtering", 10, pulp, wort);
-        var cooldown = new Process("Cooldown", 10, wort, beerToFerment);
-        var fermenting = new Process("Fermenting", 10, beerToFerment, fermentedBeer);
-        var filtering2 = new Process("Second filtering", 10, fermentedBeer, beerToRipe);
-        var ripening = new Process("Ripening", 10, beerToRipe, ripeBeer);
-        var filtering3 = new Process("Third filtering", 10, ripeBeer, beer);
+        var malting = new Process("Malting", 10, wheat, windmill, malt);
+        var grinding = new Process("Grinding", 10, malt, windmill, starch);
+        var mashing = new Process("Mashing", 10, mashingInput, windmill, sugarWater);
+        var cooking = new Process("Cooking", 10, cookingInput, windmill, pulp);
+        var filtering1 = new Process("First filtering", 10, pulp, windmill, wort);
+        var cooldown = new Process("Cooldown", 10, wort, windmill, beerToFerment);
+        var fermenting = new Process("Fermenting", 10, beerToFerment, windmill, fermentedBeer);
+        var filtering2 = new Process("Second filtering", 10, fermentedBeer, windmill, beerToRipe);
+        var ripening = new Process("Ripening", 10, beerToRipe, windmill, ripeBeer);
+        var filtering3 = new Process("Third filtering", 10, ripeBeer, windmill, beer);
 
         //Let's put these steps into a Scheme
         var aleScheme = new Scheme();
@@ -167,7 +168,7 @@
         $('.menu a:first-child').addClass("active");
 
         $('#secondary a:first-child').addClass("active");
-        
+
         //TESTPLAYER
         var Laerolf = new Player("Laerolf", 1000, 50);
         game1.setAPlayer(Laerolf);
@@ -208,7 +209,7 @@
             var idParts = $(this).attr("id").split("-");
             var stepNr = idParts[1].substr(4);
             var recipeName = idParts[0];
-            var selectedTank = game1.getRecipes().getItemByName(recipeName).getScheme().getStepByNumber(stepNr-1).getStorage();
+            var selectedTank = game1.getRecipes().getItemByName(recipeName).getScheme().getStepByNumber(stepNr - 1).getStorage();
 
             selectedTank.raiseFluidLevel(10);
             selectedTank.updateFluidLevel();
