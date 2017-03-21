@@ -77,26 +77,48 @@ function showPage(e) {
     $('#main a').removeClass("active");
 
     var page = $(this).text().toLowerCase();
+    page = page.replace(" ", "-");
 
     $('#' + page).show();
     $(this).addClass("active");
 
     if (page == "work") {
-        var activePage = $("#secondary > .active").text();
+        var activePage = $("#secondaryWork > .active").text();
+        $('.' + activePage.toLowerCase()).show();
+    }
+
+    if (page == "brew") {
+        activePage = $("#secondaryBrew > .active").text();
         $('.' + activePage.toLowerCase()).show();
     }
 }
 
-function showSubpage(e, game) {
+function showWorkSubpage(e, game) {
     e.preventDefault();
 
-    var prevPage = $("#secondary > .active").text();
+    var prevPage = $("#secondaryWork > .active").text();
     var currentPage = $(this).text().toLowerCase();
 
     if (prevPage != currentPage) {
 
         $('#work > div').hide();
-        $('#secondary > a').removeClass("active");
+        $('#secondaryWork > a').removeClass("active");
+
+        $('.' + currentPage).show();
+        $(this).addClass("active");
+    }
+}
+
+function showBrewSubpage(e, game) {
+    e.preventDefault();
+
+    var prevPage = $("#secondaryBrew > .active").text();
+    var currentPage = $(this).text().toLowerCase();
+
+    if (prevPage != currentPage) {
+
+        $('#brew > div').hide();
+        $('#secondaryBrew > a').removeClass("active");
 
         $('.' + currentPage).show();
         $(this).addClass("active");
@@ -107,6 +129,12 @@ function showStock(stock) {
     $("#stock").html("");
     var content = "<h3>Stock</h3>" + stock;
     $("#stock").html(content);
+}
+
+function showBrewery(game) {
+    $("#brew .overview").html("");
+    var content = game.getBrewery().visualize();
+    $("#brew .overview").html(content);
 }
 
 function updateFields(game) {

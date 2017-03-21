@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="Author" content="Nicolas Floréal">
     <title>Abbey | Let's brew some history</title>
-    <link href="assets/images/a.ico" rel="icon" type="image/ico"/>
+    <link href="assets/icons/a.ico" rel="icon" type="image/ico"/>
     <link rel="stylesheet" href="assets/lib/jquery-ui-1.12.1/jquery-ui.min.css">
     <link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.min.css"/>
     <link href="assets/css/foundation.css" type="text/css" rel="stylesheet"/>
@@ -32,6 +32,7 @@
         <nav id='main' class="menu vertical medium-2 column">
 
             <a href="#"><i class="fa fa-book" aria-hidden="true"></i>Abbey</a>
+            <a href="#"><i class="fa fa-bookmark" aria-hidden="true"></i>Recipe Book</a>
             <a href="#"><i class="fa fa-beer" aria-hidden="true"></i>Brew</a>
             <a href="#"><i class="fa fa-cogs" aria-hidden="true"></i>Work</a>
             <a href="#"><i class="fa fa-balance-scale" aria-hidden="true"></i>Vendor</a>
@@ -47,17 +48,33 @@
             <div id="abbey">
             </div>
 
-            <div id="brew">
+            <div id="recipe-book">
+                <h3>Book of recipes</h3>
                 <label for="recipes">Select a recipe:</label>
                 <select id='recipes'></select>
                 <button class='button' id="selectedRecipe">Choose recipe</button>
                 <div id="recipeDescription"></div>
             </div>
 
+            <div id="brew">
+
+                <h3>The Brewery</h3>
+
+                <nav id='secondaryBrew' class="menu medium-12 row">
+                    <a class="column medium-2" href="#">Overview</a>
+                    <a class="column medium-2" href="#">Process</a>
+                    <a class="column medium-2" href="#">Storage</a>
+                </nav>
+
+                <div class="overview"><h4>Overview</h4></div>
+                <div class="process"><h4>Process</h4></div>
+                <div class="storage"><h4>Storage</h4></div>
+            </div>
+
             <div id="work">
                 <h3>Work</h3>
 
-                <nav id='secondary' class="menu medium-12 row">
+                <nav id='secondaryWork' class="menu medium-12 row">
                     <a class="column medium-2" href="#">Fields</a>
                     <a class="column medium-2" href="#">Inside</a>
                     <a class="column medium-2" href="#">Outside</a>
@@ -96,6 +113,7 @@
 <script type="text/javascript" src="assets/js/etc/list.js"></script>
 
 <!-- The gamecontent itself -->
+<script type="text/javascript" src="assets/js/content/brewery.js"></script>
 <script type="text/javascript" src="assets/js/content/player.js"></script>
 <script type="text/javascript" src="assets/js/content/story.js"></script>
 <script type="text/javascript" src="assets/js/content/recipe.js"></script>

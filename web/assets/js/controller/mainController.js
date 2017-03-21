@@ -167,11 +167,17 @@
         $('#abbey').show();
         $('.menu a:first-child').addClass("active");
 
-        $('#secondary a:first-child').addClass("active");
+        $('#secondaryWork a:first-child').addClass("active");
 
         //TESTPLAYER
         var Laerolf = new Player("Laerolf", 1000, 50);
         game1.setAPlayer(Laerolf);
+
+        //BREWERY
+        var kettle = new Processor("Kettle",water,wort,1,"brewery");
+        var breweryEquipment = new List();
+        breweryEquipment.addAnItem(kettle);
+        game1.getBrewery().setEquipment(breweryEquipment);
 
         showNCRCounter(game1);
         showStock(game1.getStock().allItemsIntoAStockWay());
@@ -184,23 +190,27 @@
 
         showRecipesAsOptions(game1);
         showStory(game1);
+        showBrewery(game1);
+
+        //EXPERIMENTAL
 
         var schemeString = "<h2>Schemes</h2>";
 
-        //EXPERIMENTAL
         for (var recipeNr = 0; recipeNr < game1.getRecipes().getSize(); recipeNr++) {
             var selectedScheme = game1.getRecipes().getItemByNumber(recipeNr).getScheme();
             selectedScheme.loadUsedStorage();
             schemeString += selectedScheme.visualizeScheme(game1.getRecipes().getItemByNumber(recipeNr).getName());
         }
 
-        $("#research").append(schemeString);
-
         $("#main a").on("click", showPage);
-        $("#secondary a").on("click", showSubpage);
-        $(game1.getStock()).on("change", showStock(game1.getStock().allItemsIntoAStockWay()));
+        $("#secondaryWork a").on("click", showWorkSubpage);
+        $("#secondaryBrew a").on("click", showBrewSubpage);
+        $(game1.getStock()).on("change", showStock(game1.getStock().allItemsIntoAStockWay(game1.getResourceCategories())));
         $(game1.getPlayer()).on("change", showNCRCounter(game1));
-        $("#people").on("click", game1.manageMonks);
+        $("#people").on("click", function () {
+            game1.manageMonks();
+            showBrewery(game1);
+        });
 
 
         $(".phaseAction").on("click", function (e) {

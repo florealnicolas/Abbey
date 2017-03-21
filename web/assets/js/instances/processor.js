@@ -111,7 +111,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
         harvestMessage.show();
 
         game.getStock().addAResource(gain);
-        $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay()));
+        $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
     };
 
     this.fromInputToOutput = function (input, numberOfInput, game) {

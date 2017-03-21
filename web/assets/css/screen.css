@@ -137,18 +137,18 @@ a.active, a:hover, a:focus {
     color: #b09348;
 }
 
-#secondary {
+#secondaryWork, #secondaryBrew {
     border-bottom: solid rgb(250, 235, 215) 2pt;
     padding-bottom: 2%;
     margin-bottom: 2%;
 }
 
-#secondary a {
+#secondaryWork a, #secondaryBrew a {
     padding: 1%;
     margin-right: 2%;
 }
 
-#secondary a:last-child {
+#secondaryWork a:last-child, #secondaryBrew a:last-child {
     float: none;
     margin-right: 0;
 }
@@ -239,7 +239,7 @@ fieldset:last-child {
 
 .workspace {
     overflow: auto;
-    max-height: 60vh;
+    max-height: 80vh;
     padding: 2%;
 }
 
@@ -309,6 +309,10 @@ fieldset:last-child {
 }
 
 #work > div {
+    display: none;
+}
+
+#brew > div {
     display: none;
 }
 

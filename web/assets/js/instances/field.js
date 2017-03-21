@@ -79,7 +79,7 @@ function Field(fieldNumber, priceOfField, resource, categories) {
         harvestMessage.show();
 
         //$(game.getStock()).on("change", showStock(game.getStockInString("stock")));
-        $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay()));
+        $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
     };
 
     this.progressing = function (fieldBtn, game) {

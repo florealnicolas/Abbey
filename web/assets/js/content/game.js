@@ -8,12 +8,21 @@ function Game() {
     this.fieldCategories = null;
     this.recipes = new List();
     this.tanks = new List();
+    this.brewery = new Brewery();
 
     this.totalAmtOfMonks = 20;
     this.amtOfOccupiedMonks = 0;
     this.amtOfAvailableMonks = this.totalAmtOfMonks;
 
     this.departments = ["Brew", "Work", "Vendor", "Improve"];
+
+    this.resourceCategories = new Map();
+    this.resourceCategories.set("liquid","bucket");
+    this.resourceCategories.set("critter","ladybug");
+    this.resourceCategories.set("fungus","mushroom");
+    this.resourceCategories.set("crop","plant");
+    this.resourceCategories.set("material","suitcase");
+    this.resourceCategories.set("flower","tulip");
 
     this.priceForAField = 0;
     this.fieldsMade = 0;
@@ -43,9 +52,17 @@ function Game() {
         return this.departments;
     };
 
+    this.getResourceCategories = function () {
+        return this.resourceCategories;
+    };
+
     this.getTanks = function () {
         return this.tanks;
     };
+
+    this.getBrewery = function () {
+        return this.brewery;
+    }
 
     this.getFieldCategories = function () {
         return this.fieldCategories;
@@ -141,6 +158,8 @@ function Game() {
         vendors.attr("value", amtOfVendors);
 
         $('#bezetMonniken').text(this.amtOfOccupiedMonks);
+
+        this.brewery.setAmtOfMonks(amtOfBrewers);
     };
 
     this.buyAField = function () {

@@ -21,7 +21,7 @@ function Scheme() {
     };
 
     this.visualizeArrow = function () {
-        return "<i id='arrow' class='fa fa-chevron-right fa-5x notProcessable medium-2 column arrow'></i>";
+        return "<div class='arrow'><i id='arrow' class='fa fa-chevron-right fa-5x notProcessable medium-2 column arrow'></i></div>";
     };
 
     this.visualizeScheme = function (recipeName) {

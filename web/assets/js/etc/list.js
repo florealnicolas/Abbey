@@ -106,7 +106,7 @@ function List() {
         return someCategory;
     };
 
-    this.allItemsIntoAStockWay = function () {
+    this.allItemsIntoAStockWay = function (iconsMap) {
 
         var list = this;
 
@@ -118,10 +118,12 @@ function List() {
             categories.forEach(function (category) {
 
                 var resources = list.getResourcesByCategory(category);
+                var className = iconsMap.get(category);
 
                 if (category != "fungus") {
                     category = category.substr(0, 1).toUpperCase() + category.substr(1) + "s";
                 }
+
 
                 itemMessage += "<h4>" + category + "</h4>";
                 itemMessage += "<ul>";

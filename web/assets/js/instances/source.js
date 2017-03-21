@@ -69,7 +69,7 @@ function Source(sourceName, sourceMaxOutput, placeName) {
         harvestMessage.text(message);
         harvestMessage.show();
 
-        $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay()));
+        $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
 
     };
 
