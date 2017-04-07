@@ -102,6 +102,7 @@ input[type='number'] {
     margin: 2% 0 2% 0;
     background-color: rgb(250, 235, 215);
     padding: 1% 2% 1% 2%;
+    display: none;
 }
 
 a.active, a:hover, a:focus {
@@ -359,6 +360,46 @@ fieldset:last-child {
 #arrow {
     text-align: center;
     padding-top: 12%;
+}
+
+.row .input, .row .output,  .row .processor {
+    display: inline-block;
+}
+
+.row .input, .row .output {
+    border: solid black 2pt;
+    border-radius: 5%;
+    padding: 2%;
+    background-color: white ;
+}
+
+.row .input p, .row .output p, .row .processor p{
+    display: block;
+    text-align: center;
+}
+
+.row .processor .progressbar {
+    width: 100%;
+}
+
+.row .processor {
+    width: 40%;
+}
+
+.row .processor p {
+    padding: 0 10% 0 10%;
+}
+
+.processRow {
+    margin-bottom: 5%;
+}
+
+.processRow h5 {
+    margin-bottom: 4%;
+}
+
+.processRow button {
+    margin-top: 3%;
 }
 
 /* --- Home --- */

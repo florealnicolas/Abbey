@@ -29,10 +29,14 @@ var energy = new Resource("Energy");
 //But first, we need a Mouth and the ability to eat
 var mouth = new Processor("Mouth", strawberry, energy, 1, "inside");
 
+dummyGame2.processors.addAnItem(mouth);
+
 var eat = new Process("eat", 1, strawberry, mouth, energy);
 
+dummyGame2.addProcess(eat);
+
 //Let's eat our last 2 strawberries!
-var gain = eat.getProcessor().testFromInputToOutput(strawberry, 2, dummyGame2);
+var gain = dummyGame2.getProcessors().getItemByName(eat.getProcessorName()).testFromInputToOutput(strawberry, 2, dummyGame2);
 
 //We receive 4 energy units of eating 2 strawberries
 assertEquals("4 units of Energy", gain.toString());

@@ -10,8 +10,16 @@ function Scheme() {
         return this.steps.getItemByNumber(stepNr);
     };
 
+    this.getStepByName = function (stepName) {
+        return this.steps.getItemByName(stepName);
+    };
+
     this.getAmtOfSteps = function () {
         return this.steps.getSize();
+    };
+
+    this.getSteps = function () {
+        return this.steps.list;
     };
 
 // Functions of Scheme

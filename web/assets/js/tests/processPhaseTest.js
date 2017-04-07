@@ -51,6 +51,9 @@ brewingProcess.addStep(filtering2);
 brewingProcess.addStep(ripening);
 brewingProcess.addStep(filtering3);
 
+dummyGame2.getProcessors().addAnItem(windmill);
+dummyGame2.addProcess(malting);
+
 //We should have 10 steps
 assertEquals(10, brewingProcess.getAmtOfSteps());
 
@@ -62,7 +65,7 @@ assertEquals("Third filtering", brewingProcess.getStepByNumber(9).getName());
 
 //Let's try to malt some wheat
 dummyGame2.getStock().addAnItem(new Resource("wheat", 10, 1, "crop"));
-var maltOutput = malting.getProcessor().testFromInputToOutput(wheat, 10, dummyGame2);
+var maltOutput = dummyGame2.getProcessors().getItemByName(malting.getProcessorName()).testFromInputToOutput(wheat, 10, dummyGame2);
 
 assertEquals("malt", maltOutput.getName());
 

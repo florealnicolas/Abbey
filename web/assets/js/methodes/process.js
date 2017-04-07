@@ -5,6 +5,7 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
     this.input = inputList;
     this.processor = processingUnit;
     this.output = outputItem;
+    this.outputQuantity = 0;
 
     this.storage = null;
     this.utility = null;
@@ -19,8 +20,21 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
         return this.processor;
     };
 
+    this.getProcessorName = function () {
+        return this.processor.getName();
+    };
+
     this.getOutput = function () {
         return this.output;
+    };
+
+    this.getOutputQuantity = function () {
+
+        if (this.output.getQuantity() == 0) {
+            return 0;
+        }
+
+        return this.output.getQuantity();
     };
 
     this.getName = function () {
@@ -54,6 +68,10 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
         this.utility = newUtility;
     };
 
+    this.setOutputQuantity = function (newQuantity) {
+        this.outputQuantity = newQuantity;
+    };
+
 // Functions of Process
 
     this.toString = function () {
@@ -79,7 +97,7 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
                 break;
         }
 
-        var nameString = this.name;
+        var nameString = this.getName();
 
         if (this.name.substr(this.name.length - 3) == "ing") {
             nameString = nameString.substr(0, this.name.length - 3);
@@ -87,4 +105,48 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
 
         return nameString + " " + ingredients.toLowerCase() + ".";
     };
+
+    this.visualizeStep = function () {
+
+        var visual = "<h5>" + this.getName() + "</h5>";
+
+        visual += "<div class='row'>";
+
+        visual += "<div class='input small-3-columns'>";
+
+        if (this.getInput().constructor == List) {
+            for (var ingredientNr = 0; ingredientNr < this.getInput().getSize(); ingredientNr++) {
+                visual += "<p>";
+                visual += this.getInput().getItemByNumber(ingredientNr).getName().toLowerCase();
+                visual += " [" + this.getInput().getItemByNumber(ingredientNr).getQuantity() + "]";
+                visual += "</p>";
+            }
+        }
+
+        else {
+            visual += "<p>" + this.getInput().getName() + "</p>";
+            visual += "<p>" + this.getInput().getQuantity() + "</p>";
+        }
+
+        visual += "</div>";
+
+        visual += "<div class='processor small-offset-1 small-4-columns'>";
+        visual += "<p>"+this.getProcessorName()+"</p>";
+        visual += "<div class='progressbar' id='" + this.getName().toLowerCase() + "'><div class='progress-label'>0%</div></div>";
+        visual += "</div>";
+
+        visual += "<div class='output small-offset-1 small-3-columns'>";
+        visual += "<p>"+this.getOutput().getName()+"</p>";
+        visual += "<p>"+this.getOutput().getQuantity()+"</p>";
+        visual += "</div>";
+
+        visual += "</div>";
+
+        visual += "<div id='" + this.getName().toLowerCase() + "' class='opbrengst'></div>";
+
+        visual += "<button id='process" + this.getName().replace(" ","") + "' class='process button'>Process</button>";
+
+        return visual;
+
+    }
 }

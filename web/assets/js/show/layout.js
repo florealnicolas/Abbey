@@ -133,8 +133,23 @@ function showStock(stock) {
 
 function showBrewery(game) {
     $("#brew .overview").html("");
-    var content = game.getBrewery().visualize();
-    $("#brew .overview").html(content);
+    $("#brew .process").html("");
+
+    var overview = game.getBrewery().visualizeOverview();
+    var process = game.getBrewery().visualizeProcess();
+
+    $("#brew .overview").html(overview);
+    $("#brew .process").html(process);
+
+    var recipe = game.getBrewery().getSelectedRecipe();
+
+    if (recipe != null) {
+        for (var stepNr = 0; stepNr < recipe.getScheme().getAmtOfSteps(); stepNr++) {
+            var step = recipe.getScheme().getStepByNumber(stepNr);
+            var address = "#process" + step.getName() + ".process.button";
+            addBehaviour(game,address);
+        }
+    }
 }
 
 function updateFields(game) {
@@ -276,9 +291,8 @@ function showRecipesAsOptions(game) {
     $("#recipes").append(game.getRecipesAsOptions());
 }
 
-function showRecipeDescription(game) {
-    var recipeNr = $("#recipes").val();
-    $("#recipeDescription").append(game.getRecipes().getItemByNumber(recipeNr).getDescription());
+function showRecipeDescription(recipe) {
+    $("#recipeDescription").append(recipe.getDescription());
 }
 
 function showFieldTypes(game, fieldName) {

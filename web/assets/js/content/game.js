@@ -17,12 +17,12 @@ function Game() {
     this.departments = ["Brew", "Work", "Vendor", "Improve"];
 
     this.resourceCategories = new Map();
-    this.resourceCategories.set("liquid","bucket");
-    this.resourceCategories.set("critter","ladybug");
-    this.resourceCategories.set("fungus","mushroom");
-    this.resourceCategories.set("crop","plant");
-    this.resourceCategories.set("material","suitcase");
-    this.resourceCategories.set("flower","tulip");
+    this.resourceCategories.set("liquid", "bucket");
+    this.resourceCategories.set("critter", "ladybug");
+    this.resourceCategories.set("fungus", "mushroom");
+    this.resourceCategories.set("crop", "plant");
+    this.resourceCategories.set("material", "suitcase");
+    this.resourceCategories.set("flower", "tulip");
 
     this.priceForAField = 0;
     this.fieldsMade = 0;
@@ -219,6 +219,30 @@ function Game() {
 
     this.setAmtOfFieldsMade = function (newAmtOfFieldsMade) {
         this.fieldsMade = newAmtOfFieldsMade;
+    };
+
+    this.addARecipe = function (newRecipe) {
+
+        var game = this;
+
+        newRecipe.getScheme().getSteps().forEach(function (step) {
+            game.addProcess(step);
+        });
+
+        this.getRecipes().addAnItem(newRecipe)
+    };
+
+    this.addProcess = function (someNewProcess) {
+        this.getProcesses().addAnItem(someNewProcess);
+
+        var processor = this.getProcessors().getItemByName(someNewProcess.getProcessorName());
+
+        if (processor == null) {
+            this.getProcessors().addAnItem(someNewProcess.getProcessor());
+            processor = this.getProcessors().getItemByName(someNewProcess.getProcessorName());
+        }
+
+        processor.addPossibleProcess(someNewProcess);
     }
 
 }

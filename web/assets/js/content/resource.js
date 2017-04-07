@@ -22,6 +22,12 @@ function Resource(resourceName, resourceAmt, unitValue, resourceCategory) {
         return this.name;
     };
 
+//Setters of Resource
+
+    this.setQuantity = function (newQuantity) {
+        this.quantity = newQuantity;
+    };
+
 //Functions of Resource
 
     this.addQuantityOfAResource = function (amtToAdd) {
@@ -36,10 +42,10 @@ function Resource(resourceName, resourceAmt, unitValue, resourceCategory) {
 
         var word = "units";
 
-        if (this.quantity == 1) {
+        if (this.getQuantity() == 1) {
             word = "unit";
         }
 
-        return this.quantity + " " + word + " of " + this.name;
+        return this.getQuantity()+ " " + word + " of " + this.getName();
     }
 }

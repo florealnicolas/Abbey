@@ -59,6 +59,7 @@
     var flour = new Resource("flour", 0, 1, "product");
 
     //PROCESSORS NEEDED IN THE GAME
+    var kiln;
     var mill = new Processor("windmill", wheat, flour, 0.25, "outside");
 
     //PROCESSES NEEDED IN THE GAME
@@ -130,17 +131,49 @@
         var cookingInput = new List();
         cookingInput.addListOfItems([sugarWater, hop]);
 
+        var barrelInput = new List();
+        barrelInput.addListOfItems([beerToRipe,ripeBeer]);
+
+        //Maybe work with itemcategories instead of names?
+        var barrelOutput = new List();
+        barrelOutput.addListOfItems([beerToRipe, beer]);
+
+        //These are the processors needed for this scheme
+
+        var breweryEquipment = new List();
+
+        var kiln = new Processor("Kiln", wheat, malt, 1, "brewery");
+        var gristmill = new Processor("Gristmill", malt, starch, 1, "outside");
+        var mashingTun = new Processor("Mashing tun", mashingInput, sugarWater, 1, "brewery");
+        var brewKettle = new Processor("Brew Kettle", cookingInput, pulp, 1, "brewery");
+        var filterBucket = new Processor("Filter bucket", pulp, wort, 1, "brewery");
+        var spiralHeatExchanger = new Processor("Spiral heat exchanger", wort, beerToFerment, 1, "brewery");
+        var fermentationTank = new Processor("Fermentation tank", beerToFerment, beerToRipe, 1, "brewery");
+        var barrel = new Processor("Barrel", barrelInput, barrelOutput, 1, "brewery");
+
+        breweryEquipment.addAnItem(kiln);
+        breweryEquipment.addAnItem(gristmill);
+        breweryEquipment.addAnItem(mashingTun);
+        breweryEquipment.addAnItem(brewKettle);
+        breweryEquipment.addAnItem(filterBucket);
+        breweryEquipment.addAnItem(spiralHeatExchanger);
+        breweryEquipment.addAnItem(fermentationTank);
+        breweryEquipment.addAnItem(barrel);
+
+        game1.getBrewery().setEquipment(breweryEquipment);
+
         //These are the steps we need to follow
-        var malting = new Process("Malting", 10, wheat, windmill, malt);
-        var grinding = new Process("Grinding", 10, malt, windmill, starch);
-        var mashing = new Process("Mashing", 10, mashingInput, windmill, sugarWater);
-        var cooking = new Process("Cooking", 10, cookingInput, windmill, pulp);
-        var filtering1 = new Process("First filtering", 10, pulp, windmill, wort);
-        var cooldown = new Process("Cooldown", 10, wort, windmill, beerToFerment);
-        var fermenting = new Process("Fermenting", 10, beerToFerment, windmill, fermentedBeer);
-        var filtering2 = new Process("Second filtering", 10, fermentedBeer, windmill, beerToRipe);
-        var ripening = new Process("Ripening", 10, beerToRipe, windmill, ripeBeer);
-        var filtering3 = new Process("Third filtering", 10, ripeBeer, windmill, beer);
+
+        var malting = new Process("Malting", 10, wheat, kiln, malt);
+        var grinding = new Process("Grinding", 10, malt, gristmill, starch);
+        var mashing = new Process("Mashing", 10, mashingInput, mashingTun, sugarWater);
+        var cooking = new Process("Cooking", 10, cookingInput, brewKettle, pulp);
+        var filtering1 = new Process("First filtering", 10, pulp, filterBucket, wort);
+        var cooldown = new Process("Cooldown", 10, wort, spiralHeatExchanger, beerToFerment);
+        var fermenting = new Process("Fermenting", 10, beerToFerment, fermentationTank, fermentedBeer);
+        var filtering2 = new Process("Second filtering", 10, fermentedBeer, filterBucket, beerToRipe);
+        var ripening = new Process("Ripening", 10, beerToRipe, barrel, ripeBeer);
+        var filtering3 = new Process("Third filtering", 10, ripeBeer, filterBucket, beer);
 
         //Let's put these steps into a Scheme
         var aleScheme = new Scheme();
@@ -160,7 +193,7 @@
 
         var aleRecipe = new Recipe(ale, aleIngredients, aleScheme, "Liya");
 
-        game1.getRecipes().addAnItem(aleRecipe);
+        game1.addARecipe(aleRecipe);
 
         //End of to-move
 
@@ -172,12 +205,6 @@
         //TESTPLAYER
         var Laerolf = new Player("Laerolf", 1000, 50);
         game1.setAPlayer(Laerolf);
-
-        //BREWERY
-        var kettle = new Processor("Kettle",water,wort,1,"brewery");
-        var breweryEquipment = new List();
-        breweryEquipment.addAnItem(kettle);
-        game1.getBrewery().setEquipment(breweryEquipment);
 
         showNCRCounter(game1);
         showStock(game1.getStock().allItemsIntoAStockWay());
@@ -227,7 +254,12 @@
 
         $("#selectedRecipe").on("click", function (e) {
             e.preventDefault();
-            showRecipeDescription(game1)
+
+            var recipe = game1.getRecipes().getItemByNumber($("#recipes").val());
+
+            showRecipeDescription(recipe);
+            game1.getBrewery().setSelectedRecipe(recipe);
+            showBrewery(game1);
         });
     });
 })(window.jQuery, window, document);
