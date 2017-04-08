@@ -89,6 +89,8 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
                 break;
 
             case List:
+
+                console.log("THIS IS LIST",this.getName());
                 ingredients = this.input.allItemsToString();
                 break;
 

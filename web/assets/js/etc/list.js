@@ -202,57 +202,51 @@ function List() {
 
         else {
 
-            var item = this.list[0];
-            itemMessage += item.toString() + ",";
+            for (var itemNr = 0; itemNr < amtOfItems-1; itemNr++) {
+                var item = this.list[itemNr];
+                itemMessage += " ";
+                itemMessage += item.toString();
 
-            if (amtOfItems > 2) {
-                for (var itemNr = 1; itemNr < amtOfItems - 2; itemNr++) {
-                    item = this.list[itemNr];
-                    itemMessage += " ";
-                    itemMessage += item.toString() + ",";
+                if (amtOfItems-itemNr > 2) {
+                    itemMessage += ",";
                 }
             }
 
-            if (amtOfItems > 1) {
-                item = this.list[amtOfItems - 2];
-                itemMessage += " ";
-                itemMessage += item.toString() + " and";
-            }
-
-            item = this.list[amtOfItems - 1];
+            item = this.list[itemNr];
             itemMessage += " ";
-            itemMessage += item.toString();
-        }
-        return itemMessage;
-    };
-
-    this.removeResourceIfThereIsNoQuantity = function (resource) {
-        if (resource.getQuantity() == 0) {
-            this.removeAnItem(resource);
-        }
-    };
-
-    this.contains = function (something) {
-        var contains = false;
-
-        for (var item in this.list) {
-            if (something == this.list[item]) {
-                contains = true;
-            }
+            itemMessage += " and " + item.toString();
         }
 
-        return contains;
-    };
+    return itemMessage;
+};
 
-    this.getIndex = function (something) {
-        var index = -1;
-
-        for (var itemNr in this.list) {
-            if (something.getName() == this.list[itemNr].getName()) {
-                index = itemNr;
-            }
-        }
-
-        return index;
+this.removeResourceIfThereIsNoQuantity = function (resource) {
+    if (resource.getQuantity() == 0) {
+        this.removeAnItem(resource);
     }
+};
+
+this.contains = function (something) {
+    var contains = false;
+
+    for (var item in this.list) {
+        if (something == this.list[item]) {
+            contains = true;
+        }
+    }
+
+    return contains;
+};
+
+this.getIndex = function (something) {
+    var index = -1;
+
+    for (var itemNr in this.list) {
+        if (something.getName() == this.list[itemNr].getName()) {
+            index = itemNr;
+        }
+    }
+
+    return index;
+}
 }

@@ -47,7 +47,7 @@ function Recipe(outputItem, ingredientsList, newScheme, authorName) {
 
         descriptionString += "<ol>";
         for (var stepNr = 0; stepNr < this.scheme.getAmtOfSteps(); stepNr++) {
-            descriptionString += "<li>" + this.scheme.getStepByNumber(stepNr) + "</li>";
+            descriptionString += "<li>" + this.scheme.getStepByNumber(stepNr).toString() + "</li>";
         }
         descriptionString += "</ol>";
 
