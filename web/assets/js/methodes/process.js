@@ -132,7 +132,7 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
 
         visual += "<div class='processor small-offset-1 small-4-columns'>";
         visual += "<p>"+this.getProcessorName()+"</p>";
-        visual += "<div class='progressbar' id='" + this.getName().toLowerCase() + "'><div class='progress-label'>0%</div></div>";
+        visual += "<div class='progressbar' id='" + this.getName().toLowerCase().replace(" ","-") + "'><div class='progress-label'>0%</div></div>";
         visual += "</div>";
 
         visual += "<div class='output small-offset-1 small-3-columns'>";
@@ -144,7 +144,7 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
 
         visual += "<div id='" + this.getName().toLowerCase() + "' class='opbrengst'></div>";
 
-        visual += "<button id='process" + this.getName().replace(" ","") + "' class='process button'>Process</button>";
+        visual += "<button id='process" + this.getName().replace(" ","-") + "' class='process button'>Process</button>";
 
         return visual;
 

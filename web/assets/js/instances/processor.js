@@ -69,7 +69,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         var sufficientResources = this.enoughInputResources(process, game);
 
-        var processBtn = $("#process" + processName + ".process.button");
+        var processBtn = $("#process" + processName.replace(" ", "-") + ".process.button");
 
         if (processBtn.attr('value') != "busy" && sufficientResources) {
 
@@ -199,10 +199,8 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
     this.brewWork = function (processBtn, game) {
 
-        var processName = processBtn[0].id.replace("process", "");
+        var processName = processBtn[0].id.replace("process", "").replace("-", " ");
         var process = game.getProcesses().getItemByName(processName);
-
-        console.log("ProcessName", processName);
 
         var harvestMessage = $('div[class="opbrengst"][id="' + processName.toLowerCase() + '"]');
 
@@ -229,11 +227,16 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
             game.getStock().removeResourceIfThereIsNoQuantity(stockOfInput);
         }
 
-        var gain = new Resource(this.output.getName(), process.getOutputQuantity(), this.output.getUnitValue(), this.output.getCategory());
-        console.log("AMOUNT OF OUTPUT", process.getOutputQuantity());
-        console.log("Process", process);
-        console.log("Process output", process.getOutput());
-        console.log("Gain", gain);
+        var gain = null;
+
+        if (this.output.constructor == List) {
+            var neededOutput = process.getOutput();
+            gain = new Resource(this.output.getItemByName(neededOutput.getName()).getName(), neededOutput.getQuantity(), neededOutput.getUnitValue(), neededOutput.getCategory());
+        }
+
+        else {
+            gain = new Resource(this.output.getName(), process.getOutputQuantity(), this.output.getUnitValue(), this.output.getCategory());
+        }
 
         var message = "You got ";
         message += gain.toString() + ".";

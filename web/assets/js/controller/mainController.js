@@ -101,10 +101,10 @@
         //EXPERIMENTAL
         var aleIngredients = new List();
 
-        var angelTears = new Resource("Angel tears", 10, 1, "liquid");
-        var daisy = new Resource("Daisy", 20, 1, "flower");
-        var water = new Resource("Water", 50, 1, "liquid");
-        var yeast = new Resource("Yeast", 30, 1, "product");
+        var angelTears = new Resource("angel tears", 10, 1, "liquid");
+        var daisy = new Resource("daisy", 20, 1, "flower");
+        var water = new Resource("water", 50, 1, "liquid");
+        var yeast = new Resource("yeast", 30, 1, "product");
 
         aleIngredients.addAnItem(angelTears);
         aleIngredients.addAnItem(daisy);
@@ -115,15 +115,18 @@
         var wheat = new Resource("wheat", 1, 1, "crop");
         var malt = new Resource("malt", 1, 1, "product");
         var starch = new Resource("starch", 1, 1, "product");
-        var sugarWater = new Resource("Sugar water", 1, 1, "liquid");
-        var hop = new Resource("Hop", 1, 1, "plant");
-        var pulp = new Resource("Pulp", 1, 1, "product");
-        var wort = new Resource("Wort", 1, 1, "liquid");
-        var beerToFerment = new Resource("Beer to ferment", 1, 1, "liquid");
-        var fermentedBeer = new Resource("Fermented beer", 1, 1, "liquid");
-        var beerToRipe = new Resource("Beer to ripe", 1, 1, "liquid");
-        var ripeBeer = new Resource("Ripe beer", 1, 1, "liquid");
-        var beer = new Resource("Beer", 1, 1, "product");
+        var sugarWater = new Resource("sugar water", 1, 1, "liquid");
+        var hop = new Resource("hop", 1, 1, "plant");
+        var pulp = new Resource("pulp", 1, 1, "product");
+        var wort = new Resource("wort", 1, 1, "liquid");
+        var beerToFerment = new Resource("beer to ferment", 1, 1, "liquid");
+        var fermentedBeer = new Resource("fermented beer", 1, 1, "liquid");
+        var beerToRipe = new Resource("beer to ripe", 1, 1, "liquid");
+        var ripeBeer = new Resource("ripe beer", 1, 1, "liquid");
+        var beer = new Resource("beer", 1, 1, "product");
+
+
+        //Maybe work with itemcategories instead of names? !!!!
 
         var mashingInput = new List();
         mashingInput.addListOfItems([starch, water]);
@@ -131,12 +134,11 @@
         var cookingInput = new List();
         cookingInput.addListOfItems([sugarWater, hop]);
 
-        var barrelInput = new List();
-        barrelInput.addListOfItems([beerToRipe,ripeBeer]);
+        var bucketInput = new List();
+        bucketInput.addListOfItems([pulp, fermentedBeer, ripeBeer]);
 
-        //Maybe work with itemcategories instead of names?
-        var barrelOutput = new List();
-        barrelOutput.addListOfItems([beerToRipe, beer]);
+        var bucketOutput = new List();
+        bucketOutput.addListOfItems([wort, beerToRipe, beer]);
 
         //These are the processors needed for this scheme
 
@@ -146,10 +148,10 @@
         var gristmill = new Processor("Gristmill", malt, starch, 1, "outside");
         var mashingTun = new Processor("Mashing tun", mashingInput, sugarWater, 1, "brewery");
         var brewKettle = new Processor("Brew Kettle", cookingInput, pulp, 1, "brewery");
-        var filterBucket = new Processor("Filter bucket", pulp, wort, 1, "brewery");
+        var filterBucket = new Processor("Filter bucket", bucketInput, bucketOutput, 1, "brewery");
         var spiralHeatExchanger = new Processor("Spiral heat exchanger", wort, beerToFerment, 1, "brewery");
-        var fermentationTank = new Processor("Fermentation tank", beerToFerment, beerToRipe, 1, "brewery");
-        var barrel = new Processor("Barrel", barrelInput, barrelOutput, 1, "brewery");
+        var fermentationTank = new Processor("Fermentation tank", beerToFerment, fermentedBeer, 1, "brewery");
+        var barrel = new Processor("Barrel", beerToRipe, ripeBeer, 1, "brewery");
 
         breweryEquipment.addAnItem(kiln);
         breweryEquipment.addAnItem(gristmill);

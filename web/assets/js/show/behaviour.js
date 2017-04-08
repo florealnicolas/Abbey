@@ -3,8 +3,9 @@ function addBehaviour(game, address) {
     var instanceName = address.split(".")[0].substr(1);
     var instanceClass = address.split('.')[1];
 
-    //console.log("InstanceName",instanceName);
-    //console.log("InstanceClass",instanceClass);
+    /*console.log("ADDRESS",address);
+     console.log("InstanceName",instanceName);
+     console.log("InstanceClass",instanceClass);*/
 
     switch (instanceClass) {
 
@@ -19,6 +20,7 @@ function addBehaviour(game, address) {
             $(address).click(function (e) {
                 e.preventDefault();
                 var processName = instanceName.replace("process","");
+                processName = processName.replace("-"," ");
                 var step = game.getBrewery().getSelectedRecipe().getScheme().getStepByName(processName);
                 game.getProcessors().getItemByName(step.getProcessorName()).brewProcess(game, processName);
             });

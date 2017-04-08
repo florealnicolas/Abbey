@@ -146,7 +146,7 @@ function showBrewery(game) {
     if (recipe != null) {
         for (var stepNr = 0; stepNr < recipe.getScheme().getAmtOfSteps(); stepNr++) {
             var step = recipe.getScheme().getStepByNumber(stepNr);
-            var address = "#process" + step.getName() + ".process.button";
+            var address = "#process" + step.getName().replace(" ", "-") + ".process.button";
             addBehaviour(game,address);
         }
     }
