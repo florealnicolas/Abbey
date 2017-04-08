@@ -98,36 +98,41 @@
 
     $(document).ready(function () {
 
-        //EXPERIMENTAL
+        //EXPERIMENTAL: BREWERY + RECIPES
+
+        var ale = new Resource("Ale",10,50,"beer");
+
+        //INGREDIENTSLIST
         var aleIngredients = new List();
 
-        var angelTears = new Resource("angel tears", 10, 1, "liquid");
-        var daisy = new Resource("daisy", 20, 1, "flower");
-        var water = new Resource("water", 50, 1, "liquid");
-        var yeast = new Resource("yeast", 30, 1, "product");
-
-        aleIngredients.addAnItem(angelTears);
-        aleIngredients.addAnItem(daisy);
-        aleIngredients.addAnItem(water);
-        aleIngredients.addAnItem(yeast);
-
-        //These are the ingredients that we need to have to get beer
+        //Basic ingredients
         var wheat = new Resource("wheat", 1, 1, "crop");
+        var hop = new Resource("hop", 1, 1, "crop");
+        var water = new Resource("water", 50, 1, "liquid");
+
+        //Special ingredient
+        var daisy = new Resource("daisy", 20, 1, "flower");
+
+        aleIngredients.addAnItem(wheat);
+        aleIngredients.addAnItem(hop);
+        aleIngredients.addAnItem(water);
+
+        aleIngredients.addAnItem(daisy);
+
+        //These are the inputs of our further steps in the scheme
         var malt = new Resource("malt", 1, 1, "product");
         var starch = new Resource("starch", 1, 1, "product");
         var sugarWater = new Resource("sugar water", 1, 1, "liquid");
-        var hop = new Resource("hop", 1, 1, "plant");
         var pulp = new Resource("pulp", 1, 1, "product");
         var wort = new Resource("wort", 1, 1, "liquid");
         var beerToFerment = new Resource("beer to ferment", 1, 1, "liquid");
         var fermentedBeer = new Resource("fermented beer", 1, 1, "liquid");
         var beerToRipe = new Resource("beer to ripe", 1, 1, "liquid");
         var ripeBeer = new Resource("ripe beer", 1, 1, "liquid");
-        var beer = new Resource("beer", 1, 1, "product");
 
+        //BREWERY
 
         //Maybe work with itemcategories instead of names? !!!!
-
         var mashingInput = new List();
         mashingInput.addListOfItems([starch, water]);
 
@@ -138,10 +143,12 @@
         bucketInput.addListOfItems([pulp, fermentedBeer, ripeBeer]);
 
         var bucketOutput = new List();
-        bucketOutput.addListOfItems([wort, beerToRipe, beer]);
+        bucketOutput.addListOfItems([wort, beerToRipe, ale]);
+
+        var cooldownInput = new List();
+        cooldownInput.addListOfItems([wort,daisy]);
 
         //These are the processors needed for this scheme
-
         var breweryEquipment = new List();
 
         var kiln = new Processor("Kiln", wheat, malt, 1, "brewery");
@@ -149,7 +156,7 @@
         var mashingTun = new Processor("Mashing tun", mashingInput, sugarWater, 1, "brewery");
         var brewKettle = new Processor("Brew Kettle", cookingInput, pulp, 1, "brewery");
         var filterBucket = new Processor("Filter bucket", bucketInput, bucketOutput, 1, "brewery");
-        var spiralHeatExchanger = new Processor("Spiral heat exchanger", wort, beerToFerment, 1, "brewery");
+        var spiralHeatExchanger = new Processor("Spiral heat exchanger", breweryEquipment, beerToFerment, 1, "brewery");
         var fermentationTank = new Processor("Fermentation tank", beerToFerment, fermentedBeer, 1, "brewery");
         var barrel = new Processor("Barrel", beerToRipe, ripeBeer, 1, "brewery");
 
@@ -164,18 +171,19 @@
 
         game1.getBrewery().setEquipment(breweryEquipment);
 
-        //These are the steps we need to follow
+        //SCHEME
 
+        //These are the steps we need to follow
         var malting = new Process("Malting", 10, wheat, kiln, malt);
         var grinding = new Process("Grinding", 10, malt, gristmill, starch);
         var mashing = new Process("Mashing", 10, mashingInput, mashingTun, sugarWater);
         var cooking = new Process("Cooking", 10, cookingInput, brewKettle, pulp);
         var filtering1 = new Process("First filtering", 10, pulp, filterBucket, wort);
-        var cooldown = new Process("Cooldown", 10, wort, spiralHeatExchanger, beerToFerment);
+        var cooldown = new Process("Cooldown", 10, cooldownInput, spiralHeatExchanger, beerToFerment);
         var fermenting = new Process("Fermenting", 10, beerToFerment, fermentationTank, fermentedBeer);
         var filtering2 = new Process("Second filtering", 10, fermentedBeer, filterBucket, beerToRipe);
         var ripening = new Process("Ripening", 10, beerToRipe, barrel, ripeBeer);
-        var filtering3 = new Process("Third filtering", 10, ripeBeer, filterBucket, beer);
+        var filtering3 = new Process("Third filtering", 10, ripeBeer, filterBucket, ale);
 
         //Let's put these steps into a Scheme
         var aleScheme = new Scheme();
@@ -191,11 +199,10 @@
         aleScheme.addStep(ripening);
         aleScheme.addStep(filtering3);
 
-        var ale = new Resource("Ale");
-
         var aleRecipe = new Recipe(ale, aleIngredients, aleScheme, "Liya");
 
         game1.addARecipe(aleRecipe);
+
 
         //End of to-move
 
