@@ -87,12 +87,11 @@ function Vendor(vendorName, vendingCategories) {
         greeting += this.categories.allItemsToString() + ".";
         greeting += "<br>Go ahead and offer me an item, so we can do business.</p>";
 
-        visual += name + greeting;
+        var dropzone = "<p>Drop the item you wish the sell here:</p>";
+        dropzone += "<div id='itemToSell'></div>";
 
-        visual += "</div>";
+        visual += name + greeting + dropzone;
 
-        return visual;
+        return visual + "</div>";
     }
-
-
 }

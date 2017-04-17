@@ -362,7 +362,7 @@ fieldset:last-child {
     padding-top: 12%;
 }
 
-.row .input, .row .output,  .row .processor {
+.row .input, .row .output, .row .processor {
     display: inline-block;
 }
 
@@ -370,10 +370,10 @@ fieldset:last-child {
     border: solid black 2pt;
     border-radius: 5%;
     padding: 2%;
-    background-color: white ;
+    background-color: white;
 }
 
-.row .input p, .row .output p, .row .processor p{
+.row .input p, .row .output p, .row .processor p {
     display: block;
     text-align: center;
 }
@@ -400,6 +400,16 @@ fieldset:last-child {
 
 .processRow button {
     margin-top: 3%;
+}
+
+#itemToSell {
+    width: 150px;
+    height: 150px;
+    padding: 0.5em;
+    margin: 10px;
+    background-color: ghostwhite;
+    border: solid black 2pt;
+    border-radius: 5%;
 }
 
 /* --- Home --- */
