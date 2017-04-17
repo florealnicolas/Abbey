@@ -3,6 +3,17 @@ function List() {
 
 //Getters of List
 
+    this.getList = function () {
+
+        if (this.getSize() == 0) {
+            return null;
+        }
+
+        else {
+            return this.list;
+        }
+    };
+
     this.getItemByNumber = function (itemNumber) {
         return this.list[itemNumber];
     };
@@ -202,12 +213,12 @@ function List() {
 
         else {
 
-            for (var itemNr = 0; itemNr < amtOfItems-1; itemNr++) {
+            for (var itemNr = 0; itemNr < amtOfItems - 1; itemNr++) {
                 var item = this.list[itemNr];
                 itemMessage += " ";
                 itemMessage += item.toString();
 
-                if (amtOfItems-itemNr > 2) {
+                if (amtOfItems - itemNr > 2) {
                     itemMessage += ",";
                 }
             }
@@ -217,36 +228,41 @@ function List() {
             itemMessage += " and " + item.toString();
         }
 
-    return itemMessage;
-};
+        return itemMessage;
+    };
 
-this.removeResourceIfThereIsNoQuantity = function (resource) {
-    if (resource.getQuantity() == 0) {
-        this.removeAnItem(resource);
-    }
-};
-
-this.contains = function (something) {
-    var contains = false;
-
-    for (var item in this.list) {
-        if (something == this.list[item]) {
-            contains = true;
+    this.removeResourceIfThereIsNoQuantity = function (resource) {
+        if (resource.getQuantity() == 0) {
+            this.removeAnItem(resource);
         }
-    }
+    };
 
-    return contains;
-};
+    this.contains = function (something) {
+        var contains = false;
 
-this.getIndex = function (something) {
-    var index = -1;
-
-    for (var itemNr in this.list) {
-        if (something.getName() == this.list[itemNr].getName()) {
-            index = itemNr;
+        for (var item in this.list) {
+            if (something == this.list[item]) {
+                contains = true;
+            }
         }
-    }
 
-    return index;
-}
+        return contains;
+    };
+
+    this.getIndex = function (something) {
+        var index = -1;
+
+        for (var itemNr in this.list) {
+            if (something.getName() == this.list[itemNr].getName()) {
+                index = itemNr;
+            }
+        }
+
+        return index;
+    };
+
+    this.clearList = function () {
+        this.list = [];
+    };
+
 }
