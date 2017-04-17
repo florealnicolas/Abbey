@@ -203,6 +203,14 @@
 
         game1.addARecipe(aleRecipe);
 
+        //EXPERIMENT: VENDOR
+
+        var mauritsInterests = new List();
+        mauritsInterests.addListOfItems(["beer","flower"]);
+
+        var maurits = new Vendor("Maurits", mauritsInterests);
+
+        game1.getVendors().addAnItem(maurits);
 
         //End of to-move
 
@@ -227,6 +235,7 @@
         showRecipesAsOptions(game1);
         showStory(game1);
         showBrewery(game1);
+        showMarket(game1);
 
         //EXPERIMENTAL
 

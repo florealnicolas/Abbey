@@ -9,6 +9,7 @@ function Game() {
     this.recipes = new List();
     this.tanks = new List();
     this.brewery = new Brewery();
+    this.vendors = new List();
 
     this.totalAmtOfMonks = 20;
     this.amtOfOccupiedMonks = 0;
@@ -62,7 +63,11 @@ function Game() {
 
     this.getBrewery = function () {
         return this.brewery;
-    }
+    };
+
+    this.getVendors = function () {
+        return this.vendors;
+    };
 
     this.getFieldCategories = function () {
         return this.fieldCategories;

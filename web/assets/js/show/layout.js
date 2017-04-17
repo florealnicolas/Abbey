@@ -152,6 +152,14 @@ function showBrewery(game) {
     }
 }
 
+function showMarket(game) {
+
+    for (var vendorNr = 0; vendorNr < game.getVendors().getSize(); vendorNr++) {
+        var selectedVendor = game.getVendors().getItemByNumber(vendorNr);
+        $("#market").append(selectedVendor.visualizeVendor());
+    }
+}
+
 function updateFields(game) {
     $(".grounds").html("");
 

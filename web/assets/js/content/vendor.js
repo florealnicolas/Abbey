@@ -1,7 +1,7 @@
 function Vendor(vendorName, vendingCategories) {
 
     this.name = vendorName;
-    this.categories = new List();
+    this.categories = vendingCategories;
     this.inventory = new List();
 
     //Getters of Vendor
@@ -11,7 +11,12 @@ function Vendor(vendorName, vendingCategories) {
     };
 
     this.getCategories = function () {
-        return this.categories.getList();
+
+        if (this.categories == null) {
+            this.categories = new List();
+        }
+            return this.categories.getList();
+
     };
 
     this.getInventory = function () {
@@ -72,14 +77,14 @@ function Vendor(vendorName, vendingCategories) {
 
     };
 
-    this.visualize = function () {
+    this.visualizeVendor = function () {
 
         var visual = "<div class='vendor' id='"+this.getName()+"'>";
 
         var name = "<h4>"+this.getName()+"</h4>";
 
         var greeting = "<p>Hello!<br>I'm " + this.getName() + " and I'm interested in all your ";
-        greeting += this.getCategories().allItemsToString() + ".";
+        greeting += this.categories.allItemsToString() + ".";
         greeting += "<br>Go ahead and offer me an item, so we can do business.</p>";
 
         visual += name + greeting;
