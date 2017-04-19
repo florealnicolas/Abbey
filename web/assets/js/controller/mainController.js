@@ -257,7 +257,6 @@
             showBrewery(game1);
         });
 
-
         $(".phaseAction").on("click", function (e) {
             e.preventDefault();
 

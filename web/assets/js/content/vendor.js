@@ -15,7 +15,7 @@ function Vendor(vendorName, vendingCategories) {
         if (this.categories == null) {
             this.categories = new List();
         }
-            return this.categories.getList();
+        return this.categories.getList();
 
     };
 
@@ -79,9 +79,9 @@ function Vendor(vendorName, vendingCategories) {
 
     this.visualizeVendor = function () {
 
-        var visual = "<div class='vendor' id='"+this.getName()+"'>";
+        var visual = "<div class='vendor' id='" + this.getName() + "'>";
 
-        var name = "<h4>"+this.getName()+"</h4>";
+        var name = "<h4>" + this.getName() + "</h4>";
 
         var greeting = "<p>Hello!<br>I'm " + this.getName() + " and I'm interested in all your ";
         greeting += this.categories.allItemsToString() + ".";
@@ -93,5 +93,67 @@ function Vendor(vendorName, vendingCategories) {
         visual += name + greeting + dropzone;
 
         return visual + "</div>";
-    }
+    };
+
+    this.visualizeRFQ = function (itemToSell) {
+
+        var visual = "<div class='RFQ'>";
+
+        var question = "<form>";
+        question += "<p>So you want to sell " + itemToSell.getName() + ", eh?</br>";
+
+        var interest = "I'm very interested in " + itemToSell.getName() + ".";
+
+        if (!this.proposeItem(itemToSell)) {
+            interest = "I'm not interested in " + itemToSell.getName() + ", so I'll only give you half the price of its value.";
+        }
+
+        question += interest + "</br>";
+        question += "How much do you want to sell?</p>";
+        question += "<input type='number' id='itemQuantity' min='0' max='" + itemToSell.getQuantity() + "'/>";
+        question += "</form>";
+
+        question += "<div id='finalItemQuantity'>";
+        question += "</div>";
+
+        question += "<div id='offer'>";
+        question += "</div>";
+
+        visual += question;
+        visual += "</div>";
+
+        return visual;
+    };
+
+    this.visualizeFinalItemQuantity = function (itemToSell, itemQuantity) {
+
+        itemQuantity = eval(itemQuantity);
+
+        switch (itemQuantity) {
+            case 0:
+                itemQuantity = "no";
+                break;
+
+            case itemToSell.getQuantity():
+                itemQuantity = "all your";
+                break;
+
+            default:
+                break;
+        }
+
+        return "<p>You want to sell " + itemQuantity + " units of " + itemToSell.getName() + "?</p>";
+    };
+
+    this.visualizeOffer = function (itemToSell, finalQuantity) {
+
+        var finalItem = finalQuantity + " units of " + itemToSell.getName();
+        var price = this.makeOffer(itemToSell) * finalQuantity;
+
+        var offer = "<p>I can sell you " + finalItem + " for " + price + " coins.</p>";
+        offer += "<p>Are you alright with that?</p>";
+        offer += "<button class='button 'value='yes'>Yes</button><button class='button' value='no'>No</button>";
+
+        return offer;
+    };
 }

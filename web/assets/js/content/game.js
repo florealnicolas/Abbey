@@ -248,6 +248,20 @@ function Game() {
         }
 
         processor.addPossibleProcess(someNewProcess);
-    }
+    };
+
+    this.visualizeInventory = function () {
+
+        var visual = "<h4>Inventory</h4>";
+        visual += "<div class='inventoryRow'>";
+
+        for (var itemNr = 0; itemNr < this.getStock().getSize(); itemNr++) {
+            visual+= this.getStock().getItemByNumber(itemNr).visualizeResource();
+        }
+
+        visual += "</div>";
+
+        return visual;
+    };
 
 }

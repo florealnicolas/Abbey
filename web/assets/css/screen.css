@@ -410,6 +410,27 @@ fieldset:last-child {
     background-color: ghostwhite;
     border: solid black 2pt;
     border-radius: 5%;
+    text-align: center;
+}
+
+#itemToSell p {
+    padding: 40%;
+}
+
+#inventoryItem {
+    /*width: 100px;
+    height: 100px;*/
+    padding: 2% 3%;
+    margin: 10px;
+    background-color: ghostwhite;
+    border: solid black 2pt;
+    border-radius: 5%;
+    display: inline-block;
+}
+
+#inventoryItem p {
+    /*padding: 35% 0;*/
+    text-align: center;
 }
 
 /* --- Home --- */

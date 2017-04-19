@@ -195,6 +195,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         game.getStock().addAResource(gain);
         $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
+        showInventory(game);
     };
 
     this.brewWork = function (processBtn, game) {
@@ -246,6 +247,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         game.getStock().addAResource(gain);
         $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
+        showInventory(game);
     };
 
     this.fromInputToOutput = function (input, numberOfInput, game) {

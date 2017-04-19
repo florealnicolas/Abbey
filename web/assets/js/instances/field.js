@@ -78,8 +78,8 @@ function Field(fieldNumber, priceOfField, resource, categories) {
         harvestMessage.text(boodschap);
         harvestMessage.show();
 
-        //$(game.getStock()).on("change", showStock(game.getStockInString("stock")));
         $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
+        showInventory(game);
     };
 
     this.progressing = function (fieldBtn, game) {

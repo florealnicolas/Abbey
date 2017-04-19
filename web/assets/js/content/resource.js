@@ -47,5 +47,14 @@ function Resource(resourceName, resourceAmt, unitValue, resourceCategory) {
         }
 
         return this.getQuantity()+ " " + word + " of " + this.getName();
-    }
+    };
+
+    this.visualizeResource = function () {
+        var productVisual = "<div id='inventoryItem' class='"+this.getName()+"'>";
+        productVisual += "<p class='"+this.getName()+"'>" + this.getName() + "</p>";
+        productVisual += "</div>";
+
+        return productVisual;
+    };
+
 }

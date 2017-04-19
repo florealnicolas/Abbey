@@ -152,12 +152,63 @@ function showBrewery(game) {
     }
 }
 
+function showInventory(game) {
+    $("#inventory").html(game.visualizeInventory());
+
+    $("#inventoryItem").draggable();
+}
+
 function showMarket(game) {
+    $("#vendors").html("");
 
     for (var vendorNr = 0; vendorNr < game.getVendors().getSize(); vendorNr++) {
         var selectedVendor = game.getVendors().getItemByNumber(vendorNr);
-        $("#market").append(selectedVendor.visualizeVendor());
+        $("#vendors").append(selectedVendor.visualizeVendor());
     }
+
+    showInventory(game);
+
+    $("#itemToSell").droppable({
+        drop: function(event, ui) {
+
+            var vendorName = $(this).parents()[0].id;
+            var productName = ui.draggable[0].children[0].className;
+
+            $(this).droppable("disable");
+
+            $(this).html("<p>"+productName+"</p>");
+            $("#inventoryItem."+productName).css("display","none");
+
+            var vendor = game.getVendors().getItemByName(vendorName);
+            var itemToSell = game.getStock().getItemByName(productName);
+
+            $("#"+vendor.getName()).append(vendor.visualizeRFQ(itemToSell));
+
+            $("#"+vendor.getName() + " #itemQuantity").on("change",function () {
+                var itemQuantity = $(this).val();
+
+                $("#"+vendor.getName() + " #finalItemQuantity").html(vendor.visualizeFinalItemQuantity(itemToSell,itemQuantity));
+                $("#"+vendor.getName() + " #offer").html(vendor.visualizeOffer(itemToSell,itemQuantity));
+
+                $("#"+ vendor.getName() + " #offer .button").on("click", function () {
+
+                    if ($(this).val() == "yes") {
+                        var price = vendor.makeOffer(itemToSell) * itemQuantity;
+                        game.getPlayer().addCoins(price);
+                        var resourceInStock =game.getStock().getItemByName(itemToSell.getName());
+                        resourceInStock.removeQuantityOfAResource(itemQuantity);
+                        game.getStock().removeResourceIfThereIsNoQuantity(resourceInStock);
+                        showNCRCounter(game);
+                    }
+
+                    $("#" + vendor.getName() + " .RFQ").remove();
+                    showInventory(game);
+                    $("#" + vendor.getName() + " #itemToSell").droppable("enable");
+
+                });
+            });
+        }
+    });
 }
 
 function updateFields(game) {
