@@ -403,10 +403,9 @@ fieldset:last-child {
 }
 
 #itemToSell {
-    width: 150px;
-    height: 150px;
-    padding: 0.5em;
-    margin: 10px;
+    width: 100px;
+    height: 100px;
+    margin: 2%;
     background-color: ghostwhite;
     border: solid black 2pt;
     border-radius: 5%;
@@ -417,10 +416,16 @@ fieldset:last-child {
     padding: 40%;
 }
 
-#inventoryItem {
-    /*width: 100px;
-    height: 100px;*/
-    padding: 2% 3%;
+.inventoryRow {
+    background-color: whitesmoke;
+    border-radius: 2%;
+    border: solid 2px black;
+    padding: 2%;
+    text-align: center;
+}
+
+.inventoryItem {
+    padding: 2%;
     margin: 10px;
     background-color: ghostwhite;
     border: solid black 2pt;
@@ -429,8 +434,17 @@ fieldset:last-child {
 }
 
 #inventoryItem p {
-    /*padding: 35% 0;*/
     text-align: center;
+}
+
+#message {
+    display: none;
+    background-color: #b09348;
+    color: white;
+    border: 2px solid black;
+    margin: 4% 2%;
+    text-align: center;
+    padding: 1.5%;
 }
 
 /* --- Home --- */

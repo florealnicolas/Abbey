@@ -147,7 +147,7 @@ function showBrewery(game) {
         for (var stepNr = 0; stepNr < recipe.getScheme().getAmtOfSteps(); stepNr++) {
             var step = recipe.getScheme().getStepByNumber(stepNr);
             var address = "#process" + step.getName().replace(" ", "-") + ".process.button";
-            addBehaviour(game,address);
+            addBehaviour(game, address);
         }
     }
 }
@@ -155,7 +155,7 @@ function showBrewery(game) {
 function showInventory(game) {
     $("#inventory").html(game.visualizeInventory());
 
-    $("#inventoryItem").draggable();
+    $(".inventoryItem").draggable();
 }
 
 function showMarket(game) {
@@ -169,33 +169,39 @@ function showMarket(game) {
     showInventory(game);
 
     $("#itemToSell").droppable({
-        drop: function(event, ui) {
+        drop: function (event, ui) {
 
             var vendorName = $(this).parents()[0].id;
             var productName = ui.draggable[0].children[0].className;
 
             $(this).droppable("disable");
 
-            $(this).html("<p>"+productName+"</p>");
-            $("#inventoryItem."+productName).css("display","none");
+            $(this).html("<p>" + productName + "</p>");
+            $(".inventoryItem." + productName).css("display", "none");
 
             var vendor = game.getVendors().getItemByName(vendorName);
             var itemToSell = game.getStock().getItemByName(productName);
 
-            $("#"+vendor.getName()).append(vendor.visualizeRFQ(itemToSell));
+            $("#" + vendor.getName() + " #message").hide();
 
-            $("#"+vendor.getName() + " #itemQuantity").on("change",function () {
+            $("#" + vendor.getName()).append(vendor.visualizeRFQ(itemToSell));
+            $("#" + vendor.getName() + " #itemQuantity").val(0);
+
+            $("#" + vendor.getName() + " #itemQuantity").on("change", function () {
                 var itemQuantity = $(this).val();
 
-                $("#"+vendor.getName() + " #finalItemQuantity").html(vendor.visualizeFinalItemQuantity(itemToSell,itemQuantity));
-                $("#"+vendor.getName() + " #offer").html(vendor.visualizeOffer(itemToSell,itemQuantity));
+                $("#" + vendor.getName() + " #finalItemQuantity").html(vendor.visualizeFinalItemQuantity(itemToSell, itemQuantity));
+                $("#" + vendor.getName() + " #offer").html(vendor.visualizeOffer(itemToSell, itemQuantity));
 
-                $("#"+ vendor.getName() + " #offer .button").on("click", function () {
+                $("#" + vendor.getName() + " #offer .button").on("click", function () {
+
+                    var deal = false;
 
                     if ($(this).val() == "yes") {
+                        deal = true;
                         var price = vendor.makeOffer(itemToSell) * itemQuantity;
                         game.getPlayer().addCoins(price);
-                        var resourceInStock =game.getStock().getItemByName(itemToSell.getName());
+                        var resourceInStock = game.getStock().getItemByName(itemToSell.getName());
                         resourceInStock.removeQuantityOfAResource(itemQuantity);
                         game.getStock().removeResourceIfThereIsNoQuantity(resourceInStock);
                         showNCRCounter(game);
@@ -203,8 +209,10 @@ function showMarket(game) {
 
                     $("#" + vendor.getName() + " .RFQ").remove();
                     showInventory(game);
+                    $("#" + vendor.getName() + " #itemToSell").html("");
                     $("#" + vendor.getName() + " #itemToSell").droppable("enable");
-
+                    $("#" + vendor.getName() + " #message").html(vendor.visualizeDealMessage(deal));
+                    $("#" + vendor.getName() + " #message").show();
                 });
             });
         }

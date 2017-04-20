@@ -255,8 +255,14 @@ function Game() {
         var visual = "<h4>Inventory</h4>";
         visual += "<div class='inventoryRow'>";
 
-        for (var itemNr = 0; itemNr < this.getStock().getSize(); itemNr++) {
-            visual+= this.getStock().getItemByNumber(itemNr).visualizeResource();
+        if (this.getStock().getSize() == 0) {
+            visual += "<p>There is nothing here.</p>";
+        }
+
+        else {
+            for (var itemNr = 0; itemNr < this.getStock().getSize(); itemNr++) {
+                visual += this.getStock().getItemByNumber(itemNr).visualizeResource();
+            }
         }
 
         visual += "</div>";

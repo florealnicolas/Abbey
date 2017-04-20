@@ -50,7 +50,7 @@ function Resource(resourceName, resourceAmt, unitValue, resourceCategory) {
     };
 
     this.visualizeResource = function () {
-        var productVisual = "<div id='inventoryItem' class='"+this.getName()+"'>";
+        var productVisual = "<div class='inventoryItem "+this.getName()+"'>";
         productVisual += "<p class='"+this.getName()+"'>" + this.getName() + "</p>";
         productVisual += "</div>";
 

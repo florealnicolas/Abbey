@@ -90,7 +90,9 @@ function Vendor(vendorName, vendingCategories) {
         var dropzone = "<p>Drop the item you wish the sell here:</p>";
         dropzone += "<div id='itemToSell'></div>";
 
-        visual += name + greeting + dropzone;
+        var message = "<div id='message'></div>";
+
+        visual += name + greeting + dropzone + message;
 
         return visual + "</div>";
     };
@@ -109,7 +111,8 @@ function Vendor(vendorName, vendingCategories) {
         }
 
         question += interest + "</br>";
-        question += "How much do you want to sell?</p>";
+        question += "How much do you want to sell?</br>";
+        question += "I can see you have " + itemToSell.getQuantity() + " units with you.</p>";
         question += "<input type='number' id='itemQuantity' min='0' max='" + itemToSell.getQuantity() + "'/>";
         question += "</form>";
 
@@ -155,5 +158,15 @@ function Vendor(vendorName, vendingCategories) {
         offer += "<button class='button 'value='yes'>Yes</button><button class='button' value='no'>No</button>";
 
         return offer;
+    };
+
+    this.visualizeDealMessage = function (deal) {
+        var message = "<p>" + this.getName() + ": No deal means no deal, come back when you change your mind.</p>";
+
+        if (deal) {
+            message = "<p>" + this.getName() + ": Glad to do business with you.</p>";
+        }
+
+        return message;
     };
 }
