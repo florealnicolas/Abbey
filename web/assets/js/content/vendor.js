@@ -57,8 +57,8 @@ function Vendor(vendorName, vendingCategories) {
 
     this.trade = function (tradeItem, tradeAmt, game) {
 
-        var cost = null;
-        var stockOfTradeItem = game.getStock().getItemByName(tradeItem.getName());
+        let cost = null;
+        const stockOfTradeItem = game.getStock().getItemByName(tradeItem.getName());
 
         //Second condition can be removed after tests
         if (tradeItem.getQuantity() >= tradeAmt && stockOfTradeItem.getQuantity() >= tradeAmt) {
@@ -69,7 +69,7 @@ function Vendor(vendorName, vendingCategories) {
             game.getStock().getItemByName(tradeItem.getName()).removeQuantityOfAResource(tradeAmt);
             game.getStock().removeResourceIfThereIsNoQuantity(game.getStock().getItemByName(tradeItem.getName()));
 
-            var tradedItem = new Resource(tradeItem.getName(), tradeAmt, tradeItem.getUnitValue(), tradeItem.getCategory());
+            const tradedItem = new Resource(tradeItem.getName(), tradeAmt, tradeItem.getUnitValue(), tradeItem.getCategory());
             this.inventory.addAnItem(tradedItem);
 
             game.getPlayer().addCoins(cost);
@@ -83,18 +83,18 @@ function Vendor(vendorName, vendingCategories) {
 
     this.visualizeVendor = function () {
 
-        var visual = "<div class='vendor' id='" + this.getName() + "'>";
+        let visual = "<div class='vendor' id='" + this.getName() + "'>";
 
-        var name = "<h4>" + this.getName() + "</h4>";
+        const name = "<h4>" + this.getName() + "</h4>";
 
-        var greeting = "<p>Hello!<br>I'm " + this.getName() + " and I'm interested in all your ";
+        let greeting = "<p>Hello!<br>I'm " + this.getName() + " and I'm interested in all your ";
         greeting += this.categories.allItemsToString() + ".";
         greeting += "<br>Go ahead and offer me an item, so we can do business.</p>";
 
-        var dropzone = "<p>Drop the item you wish the sell here:</p>";
+        let dropzone = "<p>Drop the item you wish the sell here:</p>";
         dropzone += "<div id='itemToSell'></div>";
 
-        var message = "<div id='message'></div>";
+        const message = "<div id='message'></div>";
 
         visual += name + greeting + dropzone + message;
 
@@ -103,12 +103,12 @@ function Vendor(vendorName, vendingCategories) {
 
     this.visualizeRFQ = function (itemToSell) {
 
-        var visual = "<div class='RFQ'>";
+        let visual = "<div class='RFQ'>";
 
-        var question = "<form>";
+        let question = "<form>";
         question += "<p>So you want to sell " + itemToSell.getName() + ", eh?</br>";
 
-        var interest = "I'm very interested in " + itemToSell.getName() + ".";
+        let interest = "I'm very interested in " + itemToSell.getName() + ".";
 
         if (!this.proposeItem(itemToSell)) {
             interest = "I'm not interested in " + itemToSell.getName() + ", so I'll only give you half the price of its value.";
@@ -154,18 +154,18 @@ function Vendor(vendorName, vendingCategories) {
 
     this.visualizeOffer = function (itemToSell, finalQuantity) {
 
-        var finalItem = finalQuantity + " units of " + itemToSell.getName();
-        var price = this.makeOffer(itemToSell) * finalQuantity;
+        const finalItem = finalQuantity + " units of " + itemToSell.getName();
+        const price = this.makeOffer(itemToSell) * finalQuantity;
 
-        var offer = "<p>I can sell you " + finalItem + " for " + price + " coins.</p>";
+        let offer = "<p>I can sell you " + finalItem + " for " + price + " coins.</p>";
         offer += "<p>Are you alright with that?</p>";
-        offer += "<button class='button 'value='yes'>Yes</button><button class='button' value='no'>No</button>";
+        offer += "<button class='button ' value='yes'>Yes</button><button class='button' value='no'>No</button>";
 
         return offer;
     };
 
     this.visualizeDealMessage = function (deal) {
-        var message = "<p>" + this.getName() + ": No deal means no deal, come back when you change your mind.</p>";
+        let message = "<p>" + this.getName() + ": No deal means no deal, come back when you change your mind.</p>";
 
         if (deal) {
             message = "<p>" + this.getName() + ": Glad to do business with you.</p>";

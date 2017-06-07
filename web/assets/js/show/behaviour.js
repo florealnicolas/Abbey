@@ -1,7 +1,7 @@
 function addBehaviour(game, address) {
 
-    var instanceName = address.split(".")[0].substr(1);
-    var instanceClass = address.split('.')[1];
+    const instanceName = address.split(".")[0].substr(1);
+    const instanceClass = address.split('.')[1];
 
     /*console.log("ADDRESS",address);
      console.log("InstanceName",instanceName);
@@ -19,9 +19,9 @@ function addBehaviour(game, address) {
         case "process":
             $(address).click(function (e) {
                 e.preventDefault();
-                var processName = instanceName.replace("process","");
+                const processName = instanceName.replace("process","");
                 processName = processName.replace("-"," ");
-                var step = game.getBrewery().getSelectedRecipe().getScheme().getStepByName(processName);
+                const step = game.getBrewery().getSelectedRecipe().getScheme().getStepByName(processName);
                 game.getProcessors().getItemByName(step.getProcessorName()).brewProcess(game, processName);
             });
 
@@ -42,11 +42,11 @@ function addBehaviour(game, address) {
 
             $("#" + instanceName + ".fieldChanger").click(function (e) {
                 e.preventDefault();
-                var newType = $("#Type" + instanceName).val();
+                const newType = $("#Type" + instanceName).val();
 
-                var selectedField = game.getFields().getItemByName(instanceName);
+                const selectedField = game.getFields().getItemByName(instanceName);
                 selectedField.changeFieldType(newType);
-                var resourceName = selectedField.getResourceName();
+                const resourceName = selectedField.getResourceName();
                 $("#" + instanceName + ".type").text(resourceName);
 
                 updateFieldTypes(game, instanceName);

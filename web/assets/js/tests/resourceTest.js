@@ -2,10 +2,10 @@
 //We make 3 resources, add them to stock and remove 1 from stock
 console.log("TEST 2: Resource\n");
 
-var dummyGame2 = new Game();
-var strawberry = new Resource("Strawberry", 2, 1, "fruit");
-var wood = new Resource("Wood", 5, 1, "material");
-var fun = new Resource("Fun", 100, 1, "experience");
+const dummyGame2 = new Game();
+const strawberry = new Resource("Strawberry", 2, 1, "fruit");
+const wood = new Resource("Wood", 5, 1, "material");
+const fun = new Resource("Fun", 100, 1, "experience");
 
 dummyGame2.getStock().addAnItem(strawberry);
 dummyGame2.getStock().addAnItem(wood);
@@ -24,19 +24,19 @@ assertEquals("Stock: 2 units of strawberry and 100 units of fun.", dummyGame2.ge
 assertEquals(true, dummyGame2.getStock().contains(fun));
 
 //Great, let's use some and I'm feeling a little hungry, so let's eat 2 strawberries!
-var energy = new Resource("Energy");
+const energy = new Resource("Energy");
 
 //But first, we need a Mouth and the ability to eat
-var mouth = new Processor("Mouth", strawberry, energy, 1, "inside");
+const mouth = new Processor("Mouth", strawberry, energy, 1, "inside");
 
 dummyGame2.processors.addAnItem(mouth);
 
-var eat = new Process("eat", 1, strawberry, mouth, energy);
+const eat = new Process("eat", 1, strawberry, mouth, energy);
 
 dummyGame2.addProcess(eat);
 
 //Let's eat our last 2 strawberries!
-var gain = dummyGame2.getProcessors().getItemByName(eat.getProcessorName()).testFromInputToOutput(strawberry, 2, dummyGame2);
+const gain = dummyGame2.getProcessors().getItemByName(eat.getProcessorName()).testFromInputToOutput(strawberry, 2, dummyGame2);
 
 //We receive 4 energy units of eating 2 strawberries
 assertEquals("4 units of Energy", gain.toString());
@@ -54,7 +54,7 @@ assertEquals(2, dummyGame2.getStock().getSize());
 //Let's say we bought a couple of tomatoes...
 //Let's say we don't know a tomato is a fruit.
 
-var tomatoes = new Resource("Tomato", 2, 1, "fruit");
+const tomatoes = new Resource("Tomato", 2, 1, "fruit");
 
 //assertEquals("vegetable", tomatoes.getCategory());
 

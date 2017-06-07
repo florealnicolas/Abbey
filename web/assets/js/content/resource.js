@@ -40,7 +40,7 @@ function Resource(resourceName, resourceAmt, unitValue, resourceCategory) {
 
     this.toString = function () {
 
-        var word = "units";
+        let word = "units";
 
         if (this.getQuantity() == 1) {
             word = "unit";
@@ -50,7 +50,7 @@ function Resource(resourceName, resourceAmt, unitValue, resourceCategory) {
     };
 
     this.visualizeResource = function () {
-        var productVisual = "<div class='inventoryItem "+this.getName()+"'>";
+        let productVisual = "<div class='inventoryItem "+this.getName()+"'>";
         productVisual += "<p class='"+this.getName()+"'>" + this.getName() + "</p>";
         productVisual += "</div>";
 

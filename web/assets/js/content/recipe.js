@@ -32,13 +32,13 @@ function Recipe(outputItem, ingredientsList, newScheme, authorName) {
 
     this.writeDescription = function () {
 
-        var descriptionString = "<h3>" + this.getName().toUpperCase() + "</h3>";
+        let descriptionString = "<h3>" + this.getName().toUpperCase() + "</h3>";
         descriptionString += "<h4>Story</h4>";
         descriptionString += "<p>Discovered by " + this.author + ".</p>";
         descriptionString += "<h4>Ingredients</h4>";
 
         descriptionString += "<ul>";
-        for (var ingredientNr = 0; ingredientNr < this.ingredients.getSize(); ingredientNr++) {
+        for (let ingredientNr = 0; ingredientNr < this.ingredients.getSize(); ingredientNr++) {
             descriptionString += "<li>" + this.ingredients.getItemByNumber(ingredientNr).toString().toLowerCase() + "</li>";
         }
         descriptionString += "</ul>";
@@ -46,7 +46,7 @@ function Recipe(outputItem, ingredientsList, newScheme, authorName) {
         descriptionString += "<h4>Production scheme</h4>";
 
         descriptionString += "<ol>";
-        for (var stepNr = 0; stepNr < this.scheme.getAmtOfSteps(); stepNr++) {
+        for (let stepNr = 0; stepNr < this.scheme.getAmtOfSteps(); stepNr++) {
             descriptionString += "<li>" + this.scheme.getStepByNumber(stepNr).toString() + "</li>";
         }
         descriptionString += "</ol>";

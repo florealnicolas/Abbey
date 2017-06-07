@@ -1,26 +1,26 @@
 function showInstances(game, instanceType, plaats) {
 
-    var addresses = [];
+    let addresses = [];
 
     switch (instanceType) {
 
         case "source":
-            var instanceGroup = game.getSources();
+            const instanceGroup = game.getSources();
             break;
         case "processor":
             instanceGroup = game.getProcessors();
             break;
     }
 
-    var instanceForm = "<form>";
+    let instanceForm = "<form>";
 
-    for (var instanceNr = 0; instanceNr < instanceGroup.getSize(); instanceNr++) {
+    for (let instanceNr = 0; instanceNr < instanceGroup.getSize(); instanceNr++) {
 
-        var instance = instanceGroup.getItemByNumber(instanceNr);
+        let instance = instanceGroup.getItemByNumber(instanceNr);
 
         if (plaats == instance.getPlace()) {
 
-            var address = "#" + instance.getName() + '.' + instanceType;
+            const address = "#" + instance.getName() + '.' + instanceType;
 
             instanceForm += "<fieldset>";
             instanceForm += "<h5>The ";
@@ -76,19 +76,19 @@ function showPage(e) {
     $('.workspace > div').hide();
     $('#main a').removeClass("active");
 
-    var page = $(this).text().toLowerCase();
+    let page = $(this).text().toLowerCase();
     page = page.replace(" ", "-");
 
     $('#' + page).show();
     $(this).addClass("active");
 
     if (page == "work") {
-        var activePage = $("#secondaryWork > .active").text();
+        const activePage = $("#secondaryWork > .active").text();
         $('.' + activePage.toLowerCase()).show();
     }
 
     if (page == "brew") {
-        activePage = $("#secondaryBrew > .active").text();
+        const activePage = $("#secondaryBrew > .active").text();
         $('.' + activePage.toLowerCase()).show();
     }
 }
@@ -96,8 +96,8 @@ function showPage(e) {
 function showWorkSubpage(e, game) {
     e.preventDefault();
 
-    var prevPage = $("#secondaryWork > .active").text();
-    var currentPage = $(this).text().toLowerCase();
+    const prevPage = $("#secondaryWork > .active").text();
+    const currentPage = $(this).text().toLowerCase();
 
     if (prevPage != currentPage) {
 
@@ -112,8 +112,8 @@ function showWorkSubpage(e, game) {
 function showBrewSubpage(e, game) {
     e.preventDefault();
 
-    var prevPage = $("#secondaryBrew > .active").text();
-    var currentPage = $(this).text().toLowerCase();
+    const prevPage = $("#secondaryBrew > .active").text();
+    const currentPage = $(this).text().toLowerCase();
 
     if (prevPage != currentPage) {
 
@@ -135,18 +135,18 @@ function showBrewery(game) {
     $("#brew .overview").html("");
     $("#brew .process").html("");
 
-    var overview = game.getBrewery().visualizeOverview();
-    var process = game.getBrewery().visualizeProcess();
+    const overview = game.getBrewery().visualizeOverview();
+    const process = game.getBrewery().visualizeProcess();
 
     $("#brew .overview").html(overview);
     $("#brew .process").html(process);
 
-    var recipe = game.getBrewery().getSelectedRecipe();
+    const recipe = game.getBrewery().getSelectedRecipe();
 
     if (recipe != null) {
-        for (var stepNr = 0; stepNr < recipe.getScheme().getAmtOfSteps(); stepNr++) {
-            var step = recipe.getScheme().getStepByNumber(stepNr);
-            var address = "#process" + step.getName().replace(" ", "-") + ".process.button";
+        for (let stepNr = 0; stepNr < recipe.getScheme().getAmtOfSteps(); stepNr++) {
+            const step = recipe.getScheme().getStepByNumber(stepNr);
+            const address = "#process" + step.getName().replace(" ", "-") + ".process.button";
             addBehaviour(game, address);
         }
     }
@@ -236,67 +236,6 @@ function showVendor(game, vendorName) {
     });
 }
 
-/*function showMarket(game) {
-    $("#vendors").html("");
-
-    for (var vendorNr = 0; vendorNr < game.getVendors().getSize(); vendorNr++) {
-        var selectedVendor = game.getVendors().getItemByNumber(vendorNr);
-        $("#vendors").append(selectedVendor.visualizeVendor());
-    }
-
-    showInventory(game);
-
-    $("#itemToSell").droppable({
-        drop: function (event, ui) {
-
-            var vendorName = $(this).parents()[0].id;
-            var productName = ui.draggable[0].children[0].className;
-
-            $(this).droppable("disable");
-
-            $(this).html("<p>" + productName + "</p>");
-            $(".inventoryItem." + productName).css("display", "none");
-
-            var vendor = game.getVendors().getItemByName(vendorName);
-            var itemToSell = game.getStock().getItemByName(productName);
-
-            $("#" + vendor.getName() + " #message").hide();
-
-            $("#" + vendor.getName()).append(vendor.visualizeRFQ(itemToSell));
-            $("#" + vendor.getName() + " #itemQuantity").val(0);
-
-            $("#" + vendor.getName() + " #itemQuantity").on("change", function () {
-                var itemQuantity = $(this).val();
-
-                $("#" + vendor.getName() + " #finalItemQuantity").html(vendor.visualizeFinalItemQuantity(itemToSell, itemQuantity));
-                $("#" + vendor.getName() + " #offer").html(vendor.visualizeOffer(itemToSell, itemQuantity));
-
-                $("#" + vendor.getName() + " #offer .button").on("click", function () {
-
-                    var deal = false;
-
-                    if ($(this).val() == "yes") {
-                        deal = true;
-                        var price = vendor.makeOffer(itemToSell) * itemQuantity;
-                        game.getPlayer().addCoins(price);
-                        var resourceInStock = game.getStock().getItemByName(itemToSell.getName());
-                        resourceInStock.removeQuantityOfAResource(itemQuantity);
-                        game.getStock().removeResourceIfThereIsNoQuantity(resourceInStock);
-                        showNCRCounter(game);
-                    }
-
-                    $("#" + vendor.getName() + " .RFQ").remove();
-                    showInventory(game);
-                    $("#" + vendor.getName() + " #itemToSell").html("");
-                    $("#" + vendor.getName() + " #itemToSell").droppable("enable");
-                    $("#" + vendor.getName() + " #message").html(vendor.visualizeDealMessage(deal));
-                    $("#" + vendor.getName() + " #message").show();
-                });
-            });
-        }
-    });
-}*/
-
 function showProfilePage(game) {
 
     const player = game.getPlayer();
@@ -371,16 +310,16 @@ function showProfilePage(game) {
 function updateFields(game) {
     $(".grounds").html("");
 
-    var addresses = [];
+    let addresses = [];
 
-    var field = "<form>";
+    let field = "<form>";
 
-    for (var fieldNr = 0, amtOfFields = game.getFields().getSize(); fieldNr < amtOfFields; fieldNr++) {
+    for (let fieldNr = 0, amtOfFields = game.getFields().getSize(); fieldNr < amtOfFields; fieldNr++) {
 
-        var selectedField = game.getFields().getItemByNumber(fieldNr);
-        var address = "#" + selectedField.getName() + '.field.button';
+        let selectedField = game.getFields().getItemByNumber(fieldNr);
+        let address = "#" + selectedField.getName() + '.field.button';
 
-        var resourceName = game.getFields().getItemByNumber(fieldNr).getResourceName().toLowerCase();
+        let resourceName = game.getFields().getItemByNumber(fieldNr).getResourceName().toLowerCase();
 
         field += "<fieldset>";
         field += "<h5>A <span id='" + selectedField.getName() + "' class='type'>";
@@ -411,7 +350,7 @@ function updateFields(game) {
 
     $(".opbrengst").hide();
 
-    for (var addressNr = 0; addressNr < addresses.length; addressNr++) {
+    for (let addressNr = 0; addressNr < addresses.length; addressNr++) {
         addBehaviour(game, addresses[addressNr]);
     }
 }
@@ -429,16 +368,16 @@ function updateBuyFieldButton(game) {
 
 function buildFields(game) {
 
-    var addresses = [];
+    let addresses = [];
 
-    var field = "<div class='grounds'><form>";
+    let  field = "<div class='grounds'><form>";
 
-    for (var fieldNr = 0, amtOfFields = game.getFields().getSize(); fieldNr < amtOfFields; fieldNr++) {
+    for (let fieldNr = 0, amtOfFields = game.getFields().getSize(); fieldNr < amtOfFields; fieldNr++) {
 
-        var selectedField = game.getFields().getItemByNumber(fieldNr);
-        var address = "#" + selectedField.getName() + '.field.button';
+        let selectedField = game.getFields().getItemByNumber(fieldNr);
+        let address = "#" + selectedField.getName() + '.field.button';
 
-        var resourceName = game.getFields().getItemByNumber(fieldNr).getResourceName().toLowerCase();
+        let resourceName = game.getFields().getItemByNumber(fieldNr).getResourceName().toLowerCase();
 
         field += "<fieldset>";
         field += "<h5>A <span id='" + selectedField.getName() + "' class='type'>";
@@ -485,12 +424,12 @@ function buildFields(game) {
 
 function showPeople(game) {
 
-    var peopleForm = "<form name='people' method='post'>";
+    let peopleForm = "<form name='people' method='post'>";
     peopleForm += "<h3>People</h3><p>Here you can say how many people need to work on a certain job.</p>";
     peopleForm += "<p>Your abbey counts <span id='totaalMonniken'>" + game.totalAmtOfMonks + "</span> monks, ";
     peopleForm += "<span id='bezetMonniken'>" + game.getAmtOfOccupiedMonks() + "</span> of them are already working.</p>";
 
-    for (var departementNr = 0, aantalDepartementen = game.getDepartments().length; departementNr < aantalDepartementen; departementNr++) {
+    for (let departementNr = 0, aantalDepartementen = game.getDepartments().length; departementNr < aantalDepartementen; departementNr++) {
 
         peopleForm += "<fieldset> <legend>" + game.getDepartments()[departementNr] + "</legend>";
         peopleForm += "<label>Number of monks:</label>";
@@ -513,17 +452,17 @@ function showRecipeDescription(recipe) {
 
 function showFieldTypes(game, fieldName) {
 
-    var resourceName = game.getFields().getItemByName(fieldName).getResourceName();
-    var fieldTypes = "<select id='Type" + fieldName + "'>";
+    const resourceName = game.getFields().getItemByName(fieldName).getResourceName();
+    let fieldTypes = "<select id='Type" + fieldName + "'>";
 
-    var allFieldTypes = game.getFieldTypes().sort();
+    const allFieldTypes = game.getFieldTypes().sort();
 
-    for (var fieldTypeNr = 0; fieldTypeNr < allFieldTypes.length; fieldTypeNr++) {
+    for (let fieldTypeNr = 0; fieldTypeNr < allFieldTypes.length; fieldTypeNr++) {
 
-        var fieldType = allFieldTypes[fieldTypeNr];
+        let fieldType = allFieldTypes[fieldTypeNr];
 
         if (fieldType != resourceName) {
-            var fieldTypeName = fieldType.substring(0, 1).toUpperCase() + fieldType.substring(1).toLowerCase();
+            let fieldTypeName = fieldType.substring(0, 1).toUpperCase() + fieldType.substring(1).toLowerCase();
             fieldTypes += "<option value='" + fieldType + "'>" + fieldTypeName + "</option>";
         }
     }

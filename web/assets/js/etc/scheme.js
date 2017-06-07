@@ -34,14 +34,14 @@ function Scheme() {
 
     this.visualizeScheme = function (recipeName) {
 
-        var stepString = "<h3>" + recipeName + " scheme</h3>";
+        let stepString = "<h3>" + recipeName + " scheme</h3>";
 
         stepString += "<div id='" + recipeName + "' class='scheme'>";
         stepString += "<div class='row medium-12'>";
 
-        for (var stepNr = 1; stepNr < this.getAmtOfSteps() + 1; stepNr++) {
+        for (let stepNr = 1; stepNr < this.getAmtOfSteps() + 1; stepNr++) {
 
-            var selectedStep = this.steps.getItemByNumber(stepNr - 1);
+            let selectedStep = this.steps.getItemByNumber(stepNr - 1);
             stepString += "<div class='schemeStep medium-4 columns' id='" + selectedStep.getName() + (stepNr - 1) + "'>";
             stepString += "<h4>" + selectedStep.getName() + "</h4>";
 
@@ -73,9 +73,9 @@ function Scheme() {
 
     this.loadUsedStorage = function () {
 
-        for (var stepNr = 0; stepNr < this.getAmtOfSteps(); stepNr++) {
+        for (let stepNr = 0; stepNr < this.getAmtOfSteps(); stepNr++) {
 
-            var selectedStep = this.steps.getItemByNumber(stepNr);
+            const selectedStep = this.steps.getItemByNumber(stepNr);
 
             if (selectedStep.getStorage() != null) {
                 this.usedStorage.addAnItem(this.steps.getItemByNumber(stepNr).getStorage());

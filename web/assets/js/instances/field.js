@@ -41,8 +41,8 @@ function Field(fieldNumber, priceOfField, resource, categories) {
 
     this.fieldProcess = function (game) {
 
-        var fieldBtn = $('#' + this.fieldName + ".field.button");
-        var fieldChanger = $('.veldWijzigen [id="' + this.fieldName + '"]');
+        const fieldBtn = $('#' + this.fieldName + ".field.button");
+        const fieldChanger = $('.veldWijzigen [id="' + this.fieldName + '"]');
 
         if (fieldBtn.attr("value") != "busy" && this.fieldResource != null) {
 
@@ -63,17 +63,17 @@ function Field(fieldNumber, priceOfField, resource, categories) {
 
     this.work = function (fieldBtn, game) {
 
-        var harvestMessage = $('div[class="opbrengst"][id="' + this.fieldName + '"]');
-        var fieldChanger = $('.veldWijzigen [id="' + this.fieldName + '"]');
+        const harvestMessage = $('div[class="opbrengst"][id="' + this.fieldName + '"]');
+        const fieldChanger = $('.veldWijzigen [id="' + this.fieldName + '"]');
 
         fieldBtn.attr("value", "free");
 
         fieldChanger.attr("disabled", false);
         fieldChanger.removeClass("disabled");
 
-        var gainedResource = this.gainResource();
+        const gainedResource = this.gainResource();
         game.getStock().addAResource(gainedResource);
-        var boodschap = "You got " + gainedResource.toString() + ".";
+        const boodschap = "You got " + gainedResource.toString() + ".";
 
         harvestMessage.text(boodschap);
         harvestMessage.show();
@@ -84,9 +84,9 @@ function Field(fieldNumber, priceOfField, resource, categories) {
 
     this.progressing = function (fieldBtn, game) {
 
-        var field = this;
+        const field = this;
 
-        var progressbar = $("#" + this.fieldName + '[class="progressbar"]'),
+        const progressbar = $("#" + this.fieldName + '[class="progressbar"]'),
             progressLabel = $("#" + this.fieldName + '[class="progressbar"] > .progress-label');
 
         progressbar.progressbar({
@@ -109,7 +109,7 @@ function Field(fieldNumber, priceOfField, resource, categories) {
         });
 
         function progress() {
-            var val = progressbar.progressbar("value") || 0;
+            const val = progressbar.progressbar("value") || 0;
 
             progressbar.progressbar("value", val + 1);
 
@@ -122,10 +122,10 @@ function Field(fieldNumber, priceOfField, resource, categories) {
     };
 
     this.gainResource = function () {
-        var quantity = this.maxOutput;
-        var resourceName = this.fieldResource.getName();
-        var unitValue = this.fieldResource.getUnitValue();
-        var category = this.fieldResource.getCategory();
+        const quantity = this.maxOutput;
+        const resourceName = this.fieldResource.getName();
+        const unitValue = this.fieldResource.getUnitValue();
+        const category = this.fieldResource.getCategory();
 
         return new Resource(resourceName, quantity, unitValue, category);
     };

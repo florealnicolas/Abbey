@@ -7,7 +7,7 @@ function Source(sourceName, sourceMaxOutput, placeName) {
 
     this.sourceProcess = function (game) {
 
-        var sourceBtn = $("#" + this.name + ".source.button");
+        const sourceBtn = $("#" + this.name + ".source.button");
 
         if (sourceBtn.attr('value') != "busy") {
 
@@ -21,9 +21,9 @@ function Source(sourceName, sourceMaxOutput, placeName) {
 
     this.progressing = function (sourceBtn, game) {
 
-        var source = this;
+        const source = this;
 
-        var progressbar = $('#' + source.name + '[class="progressbar"]'),
+        const progressbar = $('#' + source.name + '[class="progressbar"]'),
             progressLabel = $('#' + source.name + '[class="progressbar"] > .progress-label');
 
         progressbar.progressbar({
@@ -44,7 +44,7 @@ function Source(sourceName, sourceMaxOutput, placeName) {
         });
 
         function progress() {
-            var val = progressbar.progressbar("value") || 0;
+            const val = progressbar.progressbar("value") || 0;
 
             progressbar.progressbar("value", val + 1);
 
@@ -58,13 +58,13 @@ function Source(sourceName, sourceMaxOutput, placeName) {
 
     this.work = function (processBtn, game) {
 
-        var harvestMessage = $('div[class="opbrengst"][id="' + this.name + '"]');
+        const harvestMessage = $('div[class="opbrengst"][id="' + this.name + '"]');
 
         processBtn.attr("value", "free");
 
-        var resource = this.gainResource();
+        const resource = this.gainResource();
         game.getStock().addAResource(resource);
-        var message = "You got " + resource.toString() + ".";
+        let message = "You got " + resource.toString() + ".";
 
         harvestMessage.text(message);
         harvestMessage.show();
@@ -74,16 +74,16 @@ function Source(sourceName, sourceMaxOutput, placeName) {
     };
 
     this.gainResource = function () {
-        var quantity = Math.floor(Math.random() * (this.maxOutput - this.minOuput + 1)) + this.minOuput;
-        var resourceNr = Math.floor(Math.random() * ((this.output.getSize() - 1) + 1));
-        var resource = this.output.getItemByNumber(resourceNr);
+        const quantity = Math.floor(Math.random() * (this.maxOutput - this.minOuput + 1)) + this.minOuput;
+        const resourceNr = Math.floor(Math.random() * ((this.output.getSize() - 1) + 1));
+        const resource = this.output.getItemByNumber(resourceNr);
 
         return new Resource(resource.getName(), quantity, resource.getUnitValue(), resource.getCategory());
     };
 
     this.setOutputList = function (outputs) {
 
-        for (var outputNr in outputs) {
+        for (let outputNr in outputs) {
             this.output.addAnItem(outputs[outputNr]);
         }
     };

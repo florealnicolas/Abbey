@@ -26,9 +26,9 @@ function Tank(contentResource, capacity) {
 // Functions of Tank    
 
     this.visualizeTank = function () {
-        var tankShell = "<div id='" + this.tankName.replace(" ", "-") + "' class='" + this.tankMaterial + "Tank tankShell'>";
-        var contentContainer = "<div class='contentContainer'>";
-        var fluid = "<div class='fluid'>";
+        const tankShell = "<div id='" + this.tankName.replace(" ", "-") + "' class='" + this.tankMaterial + "Tank tankShell'>";
+        const contentContainer = "<div class='contentContainer'>";
+        const fluid = "<div class='fluid'>";
 
         return tankShell + contentContainer + fluid + "</div></div></div>";
     };
@@ -49,7 +49,7 @@ function Tank(contentResource, capacity) {
 
     this.updateTankMaterial = function () {
 
-        for (var materialNr in this.tankMaterials) {
+        for (let materialNr in this.tankMaterials) {
             $("#" + this.tankName).removeClass(this.tankMaterials[materialNr] + "Tank");
         }
 

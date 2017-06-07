@@ -1,11 +1,11 @@
 (function ($, window, document) {
 
-    var game1 = new Game();
+    const game1 = new Game();
 
     //Resources needed in the game
 
     //APAIRY
-    var apairyOutputs = {
+    const apairyOutputs = {
         honey: new Resource("honey", 0, 1, "natural product"),
         bee: new Resource("bee", 0, 1, "critter")
     };
@@ -14,15 +14,15 @@
 
     //Liya's recommendations
 
-    //var banana = new Resource("banana");
-    //var daisy = new Resource("daisy");
-    //var rose = new Resource("rose");
-    //var chestnut = new Resource("chestnut");
-    //var herb -> more specific;
+    //const banana = new Resource("banana");
+    //const daisy = new Resource("daisy");
+    //const rose = new Resource("rose");
+    //const chestnut = new Resource("chestnut");
+    //const herb -> more specific;
 
     //Stop
 
-    var forestOutputs = {
+    const forestOutputs = {
         raspberry: new Resource("raspberry", 0, 1, "fruit"),
         cranberry: new Resource("cranberry", 0, 1, "fruit"),
         strawberry: new Resource("strawberry", 0, 1, "fruit"),
@@ -37,13 +37,13 @@
     };
 
     //WELL
-    var wellOutputs = {
+    const wellOutputs = {
         water: new Resource("water", 0, 1, "liquid"),
         frog: new Resource("frog", 0, 1, "critter")
     };
 
     //SEA
-    var seaOutputs = {
+    const seaOutputs = {
         seawater: new Resource("seawater", 0, 1, "liquid"),
         seasnail: new Resource("sea snail", 0, 1, "critter"),
         shell: new Resource("shell", 0, 1, "other"),
@@ -51,26 +51,26 @@
     };
 
     //FIELDS
-    var rice = new Resource("rice", 0, 1, "crop");
-    var fieldTypes = ["barley", "corn", "hop", "potato", "rice", "wheat"];
+    const rice = new Resource("rice", 0, 1, "crop");
+    const fieldTypes = ["barley", "corn", "hop", "potato", "rice", "wheat"];
 
     //PROCESSED
-    var wheat = new Resource("wheat", 0, 1, "crop");
-    var flour = new Resource("flour", 0, 1, "product");
+    const wheat = new Resource("wheat", 0, 1, "crop");
+    const flour = new Resource("flour", 0, 1, "product");
 
     //PROCESSORS NEEDED IN THE GAME
-    var kiln;
-    var mill = new Processor("windmill", wheat, flour, 0.25, "outside");
+    const kiln;
+    const mill = new Processor("windmill", wheat, flour, 0.25, "outside");
 
     //PROCESSES NEEDED IN THE GAME
-    var graanMalen = new Process("graan malen", 10, wheat, mill, flour);
+    const graanMalen = new Process("graan malen", 10, wheat, mill, flour);
     mill.addPossibleProcess(graanMalen);
 
     //SOURCES
-    var apairy = new Source("Apairy", 10, "inside");
-    var forest = new Source("Forest", 10, "outside");
-    var well = new Source("Well", 10, "outside");
-    var sea = new Source("Sea", 10, "outside");
+    const apairy = new Source("Apairy", 10, "inside");
+    const forest = new Source("Forest", 10, "outside");
+    const well = new Source("Well", 10, "outside");
+    const sea = new Source("Sea", 10, "outside");
 
     //ACTIONS DONE FOR PROCESSES
     game1.getProcesses().addAnItem(graanMalen);
@@ -85,7 +85,7 @@
     game1.setFieldCategories(fieldTypes);
 
     //MAKING FIELD
-    var ricefield = new Field(game1.getAmtOfFieldsMade(), game1.getPriceOfAField(), rice, game1.getFieldCategories());
+    const ricefield = new Field(game1.getAmtOfFieldsMade(), game1.getPriceOfAField(), rice, game1.getFieldCategories());
     game1.setAmtOfFieldsMade(1);
 
     //LOADING EVERYTHING INTO THE GAME
@@ -100,18 +100,18 @@
 
         //EXPERIMENTAL: BREWERY + RECIPES
 
-        var ale = new Resource("Ale", 20, 50, "beer");
+        const ale = new Resource("Ale", 20, 50, "beer");
 
         //INGREDIENTSLIST
-        var aleIngredients = new List();
+        const aleIngredients = new List();
 
         //Basic ingredients
-        var wheat = new Resource("wheat", 30, 1, "crop");
-        var hop = new Resource("hop", 10, 1, "crop");
-        var water = new Resource("water", 50, 1, "liquid");
+        const wheat = new Resource("wheat", 30, 1, "crop");
+        const hop = new Resource("hop", 10, 1, "crop");
+        const water = new Resource("water", 50, 1, "liquid");
 
         //Special ingredient
-        var daisy = new Resource("daisy", 20, 1, "flower");
+        const daisy = new Resource("daisy", 20, 1, "flower");
 
         aleIngredients.addAnItem(wheat);
         aleIngredients.addAnItem(hop);
@@ -120,45 +120,45 @@
         aleIngredients.addAnItem(daisy);
 
         //These are the inputs of our further steps in the scheme
-        var malt = new Resource("malt", 20, 1, "product");
-        var starch = new Resource("starch", 10, 1, "product");
-        var sugarWater = new Resource("sugar water", 30, 1, "liquid");
-        var pulp = new Resource("pulp", 10, 1, "product");
-        var wort = new Resource("wort", 20, 1, "liquid");
-        var beerToFerment = new Resource("beer to ferment", 20, 1, "liquid");
-        var fermentedBeer = new Resource("fermented beer", 20, 1, "liquid");
-        var beerToRipe = new Resource("beer to ripe", 20, 1, "liquid");
-        var ripeBeer = new Resource("ripe beer", 20, 1, "liquid");
+        const malt = new Resource("malt", 20, 1, "product");
+        const starch = new Resource("starch", 10, 1, "product");
+        const sugarWater = new Resource("sugar water", 30, 1, "liquid");
+        const pulp = new Resource("pulp", 10, 1, "product");
+        const wort = new Resource("wort", 20, 1, "liquid");
+        const beerToFerment = new Resource("beer to ferment", 20, 1, "liquid");
+        const fermentedBeer = new Resource("fermented beer", 20, 1, "liquid");
+        const beerToRipe = new Resource("beer to ripe", 20, 1, "liquid");
+        const ripeBeer = new Resource("ripe beer", 20, 1, "liquid");
 
         //BREWERY
 
         //Maybe work with itemcategories instead of names? !!!!
-        var mashingInput = new List();
+        const mashingInput = new List();
         mashingInput.addListOfItems([starch, water]);
 
-        var cookingInput = new List();
+        const cookingInput = new List();
         cookingInput.addListOfItems([sugarWater, hop]);
 
-        var bucketInput = new List();
+        const bucketInput = new List();
         bucketInput.addListOfItems([pulp, fermentedBeer, ripeBeer]);
 
-        var bucketOutput = new List();
+        const bucketOutput = new List();
         bucketOutput.addListOfItems([wort, beerToRipe, ale]);
 
-        var cooldownInput = new List();
+        const cooldownInput = new List();
         cooldownInput.addListOfItems([wort, daisy]);
 
         //These are the processors needed for this scheme
-        var breweryEquipment = new List();
+        const breweryEquipment = new List();
 
-        var kiln = new Processor("Kiln", wheat, malt, 0.5, "brewery");
-        var gristmill = new Processor("Gristmill", malt, starch, 0.5, "outside");
-        var mashingTun = new Processor("Mashing tun", mashingInput, sugarWater, 3, "brewery");
-        var brewKettle = new Processor("Brew Kettle", cookingInput, pulp, 0.25, "brewery");
-        var filterBucket = new Processor("Filter bucket", bucketInput, bucketOutput, 1.50, "brewery");
-        var spiralHeatExchanger = new Processor("Spiral heat exchanger", breweryEquipment, beerToFerment, 1, "brewery");
-        var fermentationTank = new Processor("Fermentation tank", beerToFerment, fermentedBeer, 1, "brewery");
-        var barrel = new Processor("Barrel", beerToRipe, ripeBeer, 1, "brewery");
+        const kiln = new Processor("Kiln", wheat, malt, 0.5, "brewery");
+        const gristmill = new Processor("Gristmill", malt, starch, 0.5, "outside");
+        const mashingTun = new Processor("Mashing tun", mashingInput, sugarWater, 3, "brewery");
+        const brewKettle = new Processor("Brew Kettle", cookingInput, pulp, 0.25, "brewery");
+        const filterBucket = new Processor("Filter bucket", bucketInput, bucketOutput, 1.50, "brewery");
+        const spiralHeatExchanger = new Processor("Spiral heat exchanger", breweryEquipment, beerToFerment, 1, "brewery");
+        const fermentationTank = new Processor("Fermentation tank", beerToFerment, fermentedBeer, 1, "brewery");
+        const barrel = new Processor("Barrel", beerToRipe, ripeBeer, 1, "brewery");
 
         breweryEquipment.addAnItem(kiln);
         breweryEquipment.addAnItem(gristmill);
@@ -174,19 +174,19 @@
         //SCHEME
 
         //These are the steps we need to follow
-        var malting = new Process("Malting", 10, wheat, kiln, malt);
-        var grinding = new Process("Grinding", 10, malt, gristmill, starch);
-        var mashing = new Process("Mashing", 10, mashingInput, mashingTun, sugarWater);
-        var cooking = new Process("Cooking", 10, cookingInput, brewKettle, pulp);
-        var filtering1 = new Process("First filtering", 10, pulp, filterBucket, wort);
-        var cooldown = new Process("Cooldown", 10, cooldownInput, spiralHeatExchanger, beerToFerment);
-        var fermenting = new Process("Fermenting", 10, beerToFerment, fermentationTank, fermentedBeer);
-        var filtering2 = new Process("Second filtering", 10, fermentedBeer, filterBucket, beerToRipe);
-        var ripening = new Process("Ripening", 10, beerToRipe, barrel, ripeBeer);
-        var filtering3 = new Process("Third filtering", 10, ripeBeer, filterBucket, ale);
+        const malting = new Process("Malting", 10, wheat, kiln, malt);
+        const grinding = new Process("Grinding", 10, malt, gristmill, starch);
+        const mashing = new Process("Mashing", 10, mashingInput, mashingTun, sugarWater);
+        const cooking = new Process("Cooking", 10, cookingInput, brewKettle, pulp);
+        const filtering1 = new Process("First filtering", 10, pulp, filterBucket, wort);
+        const cooldown = new Process("Cooldown", 10, cooldownInput, spiralHeatExchanger, beerToFerment);
+        const fermenting = new Process("Fermenting", 10, beerToFerment, fermentationTank, fermentedBeer);
+        const filtering2 = new Process("Second filtering", 10, fermentedBeer, filterBucket, beerToRipe);
+        const ripening = new Process("Ripening", 10, beerToRipe, barrel, ripeBeer);
+        const filtering3 = new Process("Third filtering", 10, ripeBeer, filterBucket, ale);
 
         //Let's put these steps into a Scheme
-        var aleScheme = new Scheme();
+        const aleScheme = new Scheme();
 
         aleScheme.addStep(malting);
         aleScheme.addStep(grinding);
@@ -199,16 +199,16 @@
         aleScheme.addStep(ripening);
         aleScheme.addStep(filtering3);
 
-        var aleRecipe = new Recipe(ale, aleIngredients, aleScheme, "Liya");
+        const aleRecipe = new Recipe(ale, aleIngredients, aleScheme, "Liya");
 
         game1.addARecipe(aleRecipe);
 
         //EXPERIMENT: VENDOR
 
-        var mauritsInterests = new List();
+        const mauritsInterests = new List();
         mauritsInterests.addListOfItems(["beer","flower"]);
 
-        var maurits = new Vendor("Maurits", mauritsInterests);
+        const maurits = new Vendor("Maurits", mauritsInterests);
 
         const zinasInterests = new List();
         zinasInterests.addListOfItems(["critter","crop"]);
@@ -226,7 +226,7 @@
         $('#secondaryWork a:first-child').addClass("active");
 
         //TESTPLAYER
-        var Laerolf = new Player("Laerolf", 1000, 50);
+        const Laerolf = new Player("Laerolf", 1000, 50);
         game1.setAPlayer(Laerolf);
 
         showNCRCounter(game1);
@@ -245,10 +245,10 @@
 
         //EXPERIMENTAL
 
-        var schemeString = "<h2>Schemes</h2>";
+        const schemeString = "<h2>Schemes</h2>";
 
-        for (var recipeNr = 0; recipeNr < game1.getRecipes().getSize(); recipeNr++) {
-            var selectedScheme = game1.getRecipes().getItemByNumber(recipeNr).getScheme();
+        for (const recipeNr = 0; recipeNr < game1.getRecipes().getSize(); recipeNr++) {
+            const selectedScheme = game1.getRecipes().getItemByNumber(recipeNr).getScheme();
             selectedScheme.loadUsedStorage();
             schemeString += selectedScheme.visualizeScheme(game1.getRecipes().getItemByNumber(recipeNr).getName());
         }
@@ -266,10 +266,10 @@
         $(".phaseAction").on("click", function (e) {
             e.preventDefault();
 
-            var idParts = $(this).attr("id").split("-");
-            var stepNr = idParts[1].substr(4);
-            var recipeName = idParts[0];
-            var selectedTank = game1.getRecipes().getItemByName(recipeName).getScheme().getStepByNumber(stepNr - 1).getStorage();
+            const idParts = $(this).attr("id").split("-");
+            const stepNr = idParts[1].substr(4);
+            const recipeName = idParts[0];
+            const selectedTank = game1.getRecipes().getItemByName(recipeName).getScheme().getStepByNumber(stepNr - 1).getStorage();
 
             selectedTank.raiseFluidLevel(10);
             selectedTank.updateFluidLevel();
@@ -278,7 +278,7 @@
         $("#selectedRecipe").on("click", function (e) {
             e.preventDefault();
 
-            var recipe = game1.getRecipes().getItemByNumber($("#recipes").val());
+            const recipe = game1.getRecipes().getItemByNumber($("#recipes").val());
 
             showRecipeDescription(recipe);
             game1.getBrewery().setSelectedRecipe(recipe);

@@ -10,7 +10,7 @@ function Grammar() {
 
     this.hisOrHer = function () {
 
-        var possive = "his";
+        let possive = "his";
 
         if (this.gender == "girl") {
             possive = "her";
@@ -20,7 +20,7 @@ function Grammar() {
     };
 
     this.heOrShe = function () {
-        var noun = "he";
+        let noun = "he";
 
         if (this.gender == "girl") {
             noun = "she";
@@ -30,7 +30,7 @@ function Grammar() {
     };
 
     this.himOrHer = function () {
-        var noun = "him";
+        let noun = "him";
 
         if (this.gender == "she") {
             noun = "she";
@@ -40,9 +40,9 @@ function Grammar() {
     };
 
     this.writeBackwards = function (something) {
-        var backwardsSomething = "";
+        let backwardsSomething = "";
 
-        for (var letterNr = something.length - 1; 0 <= letterNr; letterNr--) {
+        for (let letterNr = something.length - 1; 0 <= letterNr; letterNr--) {
             backwardsSomething += something[letterNr];
         }
 

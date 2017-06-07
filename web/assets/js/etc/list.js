@@ -19,9 +19,9 @@ function List() {
     };
 
     this.getItemByName = function (itemName) {
-        var foundItem = null;
+        let foundItem = null;
 
-        for (var itemNr = 0, amtOfItems = this.list.length; itemNr < amtOfItems; itemNr++) {
+        for (let itemNr = 0, amtOfItems = this.list.length; itemNr < amtOfItems; itemNr++) {
 
             if (this.list[itemNr].getName() == itemName) {
                 foundItem = this.list[itemNr];
@@ -38,7 +38,7 @@ function List() {
 
     this.addAResource = function (itemToAdd) {
 
-        var index = this.getIndex(itemToAdd);
+        const index = this.getIndex(itemToAdd);
 
         if (index != -1) {
             this.list[index].addQuantityOfAResource(itemToAdd.getQuantity());
@@ -63,7 +63,7 @@ function List() {
     this.addListOfItems = function (listOfItems) {
 
         if (listOfItems.constructor == List) {
-            for (var itemNr = 0; itemNr < listOfItems.getSize(); itemNr++) {
+            for (let itemNr = 0; itemNr < listOfItems.getSize(); itemNr++) {
                 this.addAnItem(listOfItems.getItemByNumber(itemNr));
             }
         }
@@ -76,13 +76,13 @@ function List() {
     };
 
     this.removeAnItem = function (itemToRemove) {
-        var itemNrToRemove = this.list.indexOf(itemToRemove);
+        const itemNrToRemove = this.list.indexOf(itemToRemove);
         this.list.splice(itemNrToRemove, 1);
     };
 
     this.getAllResourceCategories = function () {
 
-        var categories = [];
+        let categories = [];
 
         this.list.forEach(function (resource) {
 
@@ -104,10 +104,10 @@ function List() {
 
     this.getResourcesByCategory = function (someCategoryName) {
 
-        var someCategory = [];
+        let someCategory = [];
 
-        for (var itemNr = 0; itemNr < this.getSize(); itemNr++) {
-            var selectedItem = this.getItemByNumber(itemNr);
+        for (let itemNr = 0; itemNr < this.getSize(); itemNr++) {
+            const selectedItem = this.getItemByNumber(itemNr);
 
             if (selectedItem.getCategory() == someCategoryName) {
                 someCategory.push(selectedItem);
@@ -119,17 +119,17 @@ function List() {
 
     this.allItemsIntoAStockWay = function (iconsMap) {
 
-        var list = this;
+        let list = this;
 
-        var categories = this.getAllResourceCategories();
-        var itemMessage = "";
+        const categories = this.getAllResourceCategories();
+        let itemMessage = "";
 
         if (categories != null) {
 
             categories.forEach(function (category) {
 
-                var resources = list.getResourcesByCategory(category);
-                var className = iconsMap.get(category);
+                let resources = list.getResourcesByCategory(category);
+                let className = iconsMap.get(category);
 
                 if (category != "fungus") {
                     category = category.substr(0, 1).toUpperCase() + category.substr(1) + "s";
@@ -157,8 +157,8 @@ function List() {
 
     this.allItemsToStringWithName = function (listName) {
 
-        var amtOfItems = this.list.length;
-        var itemMessage = listName + ":";
+        const amtOfItems = this.list.length;
+        let itemMessage = listName + ":";
 
         //this.stock = this.stock.sort(); --> something for sorted people???
 
@@ -168,8 +168,8 @@ function List() {
 
         else {
             if (amtOfItems > 2) {
-                for (var itemnr = 0; itemnr < amtOfItems - 2; itemnr++) {
-                    item = this.list[itemnr];
+                for (let itemnr = 0; itemnr < amtOfItems - 2; itemnr++) {
+                    var item = this.list[itemnr];
                     itemMessage += " ";
 
                     if (listName == "Stock") {
@@ -189,7 +189,7 @@ function List() {
                 itemMessage += item.getName().toLowerCase() + " and";
             }
 
-            item = this.list[amtOfItems - 1];
+             item = this.list[amtOfItems - 1];
             itemMessage += " ";
 
             if (listName == "Stock") {
@@ -204,8 +204,8 @@ function List() {
 
     this.allItemsToString = function () {
 
-        var amtOfItems = this.list.length;
-        var itemMessage = "";
+        const amtOfItems = this.list.length;
+        let itemMessage = "";
 
         if (amtOfItems == 0) {
             itemMessage += "nothing.";
@@ -213,7 +213,7 @@ function List() {
 
         else {
 
-            for (var itemNr = 0; itemNr < amtOfItems - 1; itemNr++) {
+            for (let itemNr = 0; itemNr < amtOfItems - 1; itemNr++) {
                 var item = this.list[itemNr];
                 itemMessage += " ";
                 itemMessage += item.toString();
@@ -238,9 +238,9 @@ function List() {
     };
 
     this.contains = function (something) {
-        var contains = false;
+        let contains = false;
 
-        for (var item in this.list) {
+        for (let item in this.list) {
             if (something == this.list[item]) {
                 contains = true;
             }
@@ -250,9 +250,9 @@ function List() {
     };
 
     this.getIndex = function (something) {
-        var index = -1;
+        let index = -1;
 
-        for (var itemNr in this.list) {
+        for (let itemNr in this.list) {
             if (something.getName() == this.list[itemNr].getName()) {
                 index = itemNr;
             }

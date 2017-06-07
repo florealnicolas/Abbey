@@ -1,11 +1,11 @@
 function showStory(game) {
 
-    var coins = $("#valuta span");
-    var reputation = $("#reputatie span");
+    const coins = $("#valuta span");
+    const reputation = $("#reputatie span");
 
     $(game.getStory().getActiveArticle()).on("change", game.getStory().showActiveArticle);
 
-    var abbotName = game.getStory().randomizer(game.getStory().getAbbotsNames());
+    const abbotName = game.getStory().randomizer(game.getStory().getAbbotsNames());
 
     game.getStory().setAbbotName(abbotName);
 
@@ -19,11 +19,11 @@ function showStory(game) {
 
     $(".beer").on('click', function () {
 
-        var answer1 = $(this).val();
+        const answer1 = $(this).val();
 
         if (answer1 == "1") {
-            var currentAmtOfCoins = eval(coins.text());
-            var currentAmtOfReputation = eval(reputation.text());
+            const currentAmtOfCoins = eval(coins.text());
+            const currentAmtOfReputation = eval(reputation.text());
 
             coins.text(currentAmtOfCoins--);
             reputation.text(currentAmtOfReputation++);
@@ -35,7 +35,7 @@ function showStory(game) {
         game.getStory().part2(answer1);
 
         $(".choice").on('click', function () {
-            var answer2 = eval($(this).val()) + eval(answer1);
+            const answer2 = eval($(this).val()) + eval(answer1);
 
             $(this).addClass("chosen");
             game.getStory().disableButtons(this);
@@ -46,7 +46,7 @@ function showStory(game) {
 
             $("#name").keyup(function (e) {
 
-                var playerName = $(this).val();
+                const playerName = $(this).val();
 
                 if (e.keyCode == 13) {
 
@@ -62,19 +62,19 @@ function showStory(game) {
                     playerName = String(playerName);
                     $("#naam span").text(playerName);
 
-                    var fact = game.getStory().chooseFact(playerName);
+                    const fact = game.getStory().chooseFact(playerName);
                     game.getStory().setRandomFact(fact);
 
-                    var fatherName = game.getStory().getGrammar().writeBackwards(playerName);
+                    const fatherName = game.getStory().getGrammar().writeBackwards(playerName);
                     fatherName = game.getStory().getGrammar().writeRight(fatherName);
 
                     game.getStory().setPlayerName(playerName);
                     game.getStory().setFatherName(fatherName);
 
-                    var currentAmtOfCoins = coins.text();
-                    var currentAmtOfReputation = reputation.text();
+                    const currentAmtOfCoins = coins.text();
+                    const currentAmtOfReputation = reputation.text();
 
-                    var newPlayer = new Player(playerName, currentAmtOfCoins, currentAmtOfReputation);
+                    const newPlayer = new Player(playerName, currentAmtOfCoins, currentAmtOfReputation);
                     game.setAPlayer(newPlayer);
 
                     //Article1
@@ -97,7 +97,7 @@ function showStory(game) {
 
                         $("#namePlace").keyup(function (e) {
 
-                            var placeName = $(this).val();
+                            const placeName = $(this).val();
 
                             if (e.keyCode == 13) {
 

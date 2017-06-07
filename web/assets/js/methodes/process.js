@@ -76,12 +76,12 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
 
     this.toString = function () {
 
-        var ingredients = "";
+        let ingredients = "";
 
         switch (this.input.constructor) {
             case Array:
 
-                for (var inputNr = 0; inputNr < this.input.length - 1; inputNr++) {
+                for (let inputNr = 0; inputNr < this.input.length - 1; inputNr++) {
                     ingredients += this.input[inputNr].toString() + ", ";
                 }
 
@@ -99,7 +99,7 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
                 break;
         }
 
-        var nameString = this.getName();
+        const nameString = this.getName();
 
         if (this.name.substr(this.name.length - 3) == "ing") {
             nameString = nameString.substr(0, this.name.length - 3);
@@ -110,14 +110,14 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
 
     this.visualizeStep = function () {
 
-        var visual = "<h5>" + this.getName() + "</h5>";
+        let visual = "<h5>" + this.getName() + "</h5>";
 
         visual += "<div class='row'>";
 
         visual += "<div class='input small-3-columns'>";
 
         if (this.getInput().constructor == List) {
-            for (var ingredientNr = 0; ingredientNr < this.getInput().getSize(); ingredientNr++) {
+            for (let ingredientNr = 0; ingredientNr < this.getInput().getSize(); ingredientNr++) {
                 visual += "<p>";
                 visual += this.getInput().getItemByNumber(ingredientNr).getName().toLowerCase();
                 visual += " [" + this.getInput().getItemByNumber(ingredientNr).getQuantity() + "]";

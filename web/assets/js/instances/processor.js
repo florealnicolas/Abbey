@@ -180,14 +180,14 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
     this.work = function (processBtn, input, game) {
 
-        var harvestMessage = $('div[class="opbrengst"][id="' + this.name + '"]');
+        const harvestMessage = $('div[class="opbrengst"][id="' + this.name + '"]');
 
         processBtn.attr("value", "free");
 
-        var numberOfInput = eval($("#inputNumber" + this.name).val());
-        var gain = this.fromInputToOutput(input, numberOfInput, game);
+        const numberOfInput = eval($("#inputNumber" + this.name).val());
+        const gain = this.fromInputToOutput(input, numberOfInput, game);
 
-        var message = "You got ";
+        let message = "You got ";
         message += gain.toString() + ".";
 
         harvestMessage.text(message);
@@ -200,20 +200,20 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
     this.brewWork = function (processBtn, game) {
 
-        var processName = processBtn[0].id.replace("process", "").replace("-", " ");
-        var process = game.getProcesses().getItemByName(processName);
+        const processName = processBtn[0].id.replace("process", "").replace("-", " ");
+        const process = game.getProcesses().getItemByName(processName);
 
-        var harvestMessage = $('div[class="opbrengst"][id="' + processName.toLowerCase() + '"]');
+        const harvestMessage = $('div[class="opbrengst"][id="' + processName.toLowerCase() + '"]');
 
         processBtn.attr("value", "free");
 
-        var input = process.getInput();
+        const input = process.getInput();
 
-        var stockOfInput = null;
+        let stockOfInput = null;
 
         if (input.constructor == List) {
 
-            for (var inputItem = 0; inputItem < input.getSize(); inputItem++) {
+            for (let inputItem = 0; inputItem < input.getSize(); inputItem++) {
                 stockOfInput = game.getStock().getItemByName(input.getItemByNumber(inputItem).getName());
 
                 stockOfInput.removeQuantityOfAResource(input.getItemByNumber(inputItem).getQuantity());
@@ -228,10 +228,10 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
             game.getStock().removeResourceIfThereIsNoQuantity(stockOfInput);
         }
 
-        var gain = null;
+        let gain = null;
 
         if (this.output.constructor == List) {
-            var neededOutput = process.getOutput();
+            let neededOutput = process.getOutput();
             gain = new Resource(this.output.getItemByName(neededOutput.getName()).getName(), neededOutput.getQuantity(), neededOutput.getUnitValue(), neededOutput.getCategory());
         }
 
@@ -239,7 +239,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
             gain = new Resource(this.output.getName(), process.getOutputQuantity(), this.output.getUnitValue(), this.output.getCategory());
         }
 
-        var message = "You got ";
+        let message = "You got ";
         message += gain.toString() + ".";
 
         harvestMessage.text(message);
@@ -251,23 +251,23 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
     };
 
     this.fromInputToOutput = function (input, numberOfInput, game) {
-        var stockOfInput = game.getStock().getItemByName(input.getName());
+        const stockOfInput = game.getStock().getItemByName(input.getName());
         stockOfInput.removeQuantityOfAResource(numberOfInput);
         game.getStock().removeResourceIfThereIsNoQuantity(stockOfInput);
 
-        var numberOfOutput = numberOfInput + (numberOfInput * this.efficiency);
+        const numberOfOutput = numberOfInput + (numberOfInput * this.efficiency);
 
         return new Resource(this.output.getName(), numberOfOutput, this.output.getUnitValue(), this.output.getCategory());
     };
 
     this.enoughInputResources = function (process, game) {
 
-        var enough = true;
+        let enough = true;
 
-        var stockOfInput = null;
+        let stockOfInput = null;
 
         if (process.getInput().constructor == List) {
-            for (var inputItem = 0; enough && inputItem < process.getInput().getSize(); inputItem++) {
+            for (let inputItem = 0; enough && inputItem < process.getInput().getSize(); inputItem++) {
 
                 stockOfInput = game.getStock().getItemByName(process.getInput().getItemByNumber(inputItem).getName());
 
@@ -291,7 +291,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
     this.processableInput = function (someInput) {
 
-        var processable = false;
+        let processable = false;
 
         if (this.getPossibleInputs().getItemByName(someInput.getName()) != null) {
             processable = true;

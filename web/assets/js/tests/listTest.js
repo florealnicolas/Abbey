@@ -11,9 +11,9 @@ console.log('The little canary Liya chirrups: "I am alive and kicking!".');
 //We make 2 resources and add them to the stock
 console.log("TEST 1: List\n");
 
-var melon = new Resource("Melon", 5);
-var banana = new Resource("Banana", 2);
-var dummyGame = new Game();
+const melon = new Resource("Melon", 5);
+const banana = new Resource("Banana", 2);
+const dummyGame = new Game();
 
 dummyGame.getStock().addAnItem(melon);
 dummyGame.getStock().addAnItem(banana);
@@ -25,7 +25,7 @@ assertEquals(2, dummyGame.getStock().getSize());
 assertEquals("Banana", banana.getName());
 
 //We make a task and add it to the games tasklist
-var oogsten = new Process("Oogsten", 10);
+const oogsten = new Process("Oogsten", 10);
 dummyGame.getProcesses().addAnItem(oogsten);
 
 //How much time is it to seize everything?

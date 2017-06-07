@@ -39,9 +39,9 @@ function Brewery(breweryMonks) {
 
     this.visualizeOverview = function () {
 
-        var visual = "<h4>Overview</h4>";
+        let visual = "<h4>Overview</h4>";
 
-        var amtOfMonk = "<h5>Employees</h5>";
+        let amtOfMonk = "<h5>Employees</h5>";
         amtOfMonk += "<p>At the moment there are ";
         if (this.getAmtOfMonks() == undefined) {
             amtOfMonk += "no";
@@ -53,10 +53,10 @@ function Brewery(breweryMonks) {
 
         amtOfMonk += " monks working in your brewery.</p>";
 
-        var recipe = "<h5>Recipe</h5>";
+        let recipe = "<h5>Recipe</h5>";
         recipe += "<p>This brewery will produce ";
 
-        var recipeName = "no beer because you didn't gave them a recipe";
+        let recipeName = "no beer because you didn't gave them a recipe";
 
         if (this.getSelectedRecipe() != null) {
             recipeName = this.getSelectedRecipe().getName();
@@ -64,11 +64,11 @@ function Brewery(breweryMonks) {
 
         recipe += recipeName + ".</p>";
 
-        var equipment = "<h5>Equipment</h5>";
+        let equipment = "<h5>Equipment</h5>";
 
         if (this.getEquipment().getSize() != 0) {
             equipment += "<ul>";
-            for (var equipmentItem = 0; equipmentItem < this.getEquipment().getSize(); equipmentItem++) {
+            for (let equipmentItem = 0; equipmentItem < this.getEquipment().getSize(); equipmentItem++) {
                 equipment += "<li>" + this.getEquipment().getItemByNumber(equipmentItem).getName() + "</li>";
             }
 
@@ -86,15 +86,15 @@ function Brewery(breweryMonks) {
 
     this.visualizeProcess = function () {
 
-        var visual = "<h4>Process</h4>";
+        let visual = "<h4>Process</h4>";
 
-        var process = "<p>There is no recipe selected yet, go to the recipe book and select one.</p>";
+        let process = "<p>There is no recipe selected yet, go to the recipe book and select one.</p>";
 
         if (this.getSelectedRecipe() != null) {
 
             process = "";
 
-            for (var stepNumber = 0; stepNumber < this.getSelectedRecipe().getScheme().getAmtOfSteps(); stepNumber++) {
+            for (let stepNumber = 0; stepNumber < this.getSelectedRecipe().getScheme().getAmtOfSteps(); stepNumber++) {
 
                 process += "<div id='process" + this.getSelectedRecipe().getName() + stepNumber + "' class='processRow'>";
 

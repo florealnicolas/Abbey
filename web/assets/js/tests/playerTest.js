@@ -2,7 +2,7 @@
 console.log("TEST 3: Player\n");
 
 //Make a player -> Liya
-var Liya = new Player("Liya", 0, 0);
+const Liya = new Player("Liya", 0, 0);
 
 //What's your name? Liya, right?
 assertEquals("Liya", Liya.getPlayerName());

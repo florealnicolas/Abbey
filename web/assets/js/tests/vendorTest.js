@@ -1,7 +1,7 @@
 //TEST 7: Vendor
 console.log("TEST 7: Vendor\n");
 
-var vendor = new Vendor("Maurits", null);
+const vendor = new Vendor("Maurits", null);
 
 // Once upon a time there was vendor named Maurits...
 // It was Maurits, right?
@@ -20,23 +20,23 @@ assertEquals("beer", vendor.getCategories().toString());
 // Let's say that we have a beer that we want to sell
 // Let's say that it holds your name, dear one
 
-var beer = new Resource("Liya", 10, 10, 'beer');
+const beer = new Resource("Liya", 10, 10, 'beer');
 
 // We propose it to Maurits, he should be interested in this one
 
-var interested = vendor.proposeItem(beer);
+const interested = vendor.proposeItem(beer);
 assertEquals(true, interested);
 
 // If he is interested he will give us the total value of our beer "Liya"
 
-var offer = vendor.makeOffer(beer);
+const offer = vendor.makeOffer(beer);
 assertEquals(10, offer);
 
 // We accept the offer, so we need 10 coins of you, mister Maurits
 // So let's make it more practical with a new Game and Player
 
-var dummyGame7 = new Game();
-var player = new Player("Laerolf", 0, 0);
+const dummyGame7 = new Game();
+const player = new Player("Laerolf", 0, 0);
 dummyGame7.setAPlayer(player);
 dummyGame7.getStock().addAnItem(beer);
 

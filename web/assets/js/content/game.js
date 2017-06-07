@@ -122,10 +122,10 @@ function Game() {
     };
 
     this.getRecipesAsOptions = function () {
-        var recipeString = "";
+        let recipeString = "";
 
-        for (var recipeNr = 0; recipeNr < this.recipes.getSize(); recipeNr++) {
-            var selectedRecipeName = this.recipes.getItemByNumber(recipeNr).getOutput().getName();
+        for (let recipeNr = 0; recipeNr < this.recipes.getSize(); recipeNr++) {
+            const selectedRecipeName = this.recipes.getItemByNumber(recipeNr).getOutput().getName();
             recipeString += "<option value='" + recipeNr + "'>" + selectedRecipeName + "</option>";
         }
 
@@ -136,15 +136,15 @@ function Game() {
 
     this.manageMonks = function () {
 
-        var brewers = $("#BrewPeople");
-        var workers = $("#WorkPeople");
-        var improvers = $("#ImprovePeople");
-        var vendors = $("#VendorPeople");
+        const brewers = $("#BrewPeople");
+        const workers = $("#WorkPeople");
+        const improvers = $("#ImprovePeople");
+        const vendors = $("#VendorPeople");
 
-        var amtOfBrewers = eval(brewers.val());
-        var amtOfWorkers = eval(workers.val());
-        var amtOfImprovers = eval(improvers.val());
-        var amtOfVendors = eval(vendors.val());
+        const amtOfBrewers = eval(brewers.val());
+        const amtOfWorkers = eval(workers.val());
+        const amtOfImprovers = eval(improvers.val());
+        const amtOfVendors = eval(vendors.val());
 
         this.totalAmtOfMonks = 20;
         this.amtOfOccupiedMonks = amtOfBrewers + amtOfWorkers + amtOfImprovers + amtOfVendors;
@@ -199,10 +199,10 @@ function Game() {
 
     this.sellField = function (fieldName) {
 
-        var selectedField = this.fields.getItemByName(fieldName);
+        const selectedField = this.fields.getItemByName(fieldName);
 
-        var message = "Do you really want to sell your " + selectedField.getResourceName() + " field?\n";
-        var value = selectedField.getFieldValue() + " coins";
+        let message = "Do you really want to sell your " + selectedField.getResourceName() + " field?\n";
+        const value = selectedField.getFieldValue() + " coins";
 
         if (selectedField.getFieldValue() == 0) {
             value = "nothing";
@@ -210,7 +210,7 @@ function Game() {
 
         message += "You'll gain " + value + " for this if you do.";
 
-        var sold = confirm(message);
+        const sold = confirm(message);
 
         if (sold) {
             this.player.addCoins(selectedField.getFieldValue());
@@ -228,7 +228,7 @@ function Game() {
 
     this.addARecipe = function (newRecipe) {
 
-        var game = this;
+        const game = this;
 
         newRecipe.getScheme().getSteps().forEach(function (step) {
             game.addProcess(step);
@@ -240,7 +240,7 @@ function Game() {
     this.addProcess = function (someNewProcess) {
         this.getProcesses().addAnItem(someNewProcess);
 
-        var processor = this.getProcessors().getItemByName(someNewProcess.getProcessorName());
+        const processor = this.getProcessors().getItemByName(someNewProcess.getProcessorName());
 
         if (processor == null) {
             this.getProcessors().addAnItem(someNewProcess.getProcessor());
@@ -252,7 +252,7 @@ function Game() {
 
     this.visualizeInventory = function () {
 
-        var visual = "<h4>Inventory</h4>";
+        let visual = "<h4>Inventory</h4>";
         visual += "<div class='inventoryRow'>";
 
         if (this.getStock().getSize() == 0) {
@@ -260,7 +260,7 @@ function Game() {
         }
 
         else {
-            for (var itemNr = 0; itemNr < this.getStock().getSize(); itemNr++) {
+            for (let itemNr = 0; itemNr < this.getStock().getSize(); itemNr++) {
                 visual += this.getStock().getItemByNumber(itemNr).visualizeResource();
             }
         }
