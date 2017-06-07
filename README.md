@@ -1,4 +1,4 @@
-#Abbey
+# Abbey
 
 This is a personal project of Nicolas Floréal.
 Abbey will be a sort of simulation of the beer brewing-process.
@@ -42,10 +42,14 @@ To be continued...
 ## More about me
 
 I'm Nicolas Floréal, a student of the polytechnic school Howest located in Bruges, Belgium.
-As you can see, I study applied informatics. Learning to program in mainly JavaScript, Java.
+As you can see, I study applied informatics. Learning to program in mainly JavaScript and Java.
 
 Since the end of September 2016,
 I’m also studying Chinese, so there is less Abbey-time for me these days.
+
+## Follow Abbey
+
+> * [Abbey on Facebook](https://www.facebook.com/AbbeyTheGame/)
 
 ## Comments by me to you:
 
@@ -57,7 +61,11 @@ I’m also studying Chinese, so there is less Abbey-time for me these days.
 
 > **24/11/2016**
 > * I'm back in the land of the living, I guess!
-   I started to translate my beloved Abbey in Java OO, what is a more suitable language to talk Abbey.
+    I started to translate my beloved Abbey in Java OO, what is a more suitable language to talk Abbey.
 
 > **01/02/2017**
 > * After all this time choosing between JavaScript and Java. I chose permanently to program a sort of OO in JavaScript.
+
+> **07/06/2017**
+> * The exams came by last week, so why won't I go a little further in this matter?
+    I could use a little break now and then.
