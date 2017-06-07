@@ -1,4 +1,4 @@
-function showInstances(game, instanceType, plaats) {
+function showInstances(game, instanceType, place) {
 
     let addresses = [];
 
@@ -12,13 +12,24 @@ function showInstances(game, instanceType, plaats) {
             break;
     }
 
+    switch (place) {
+        case 'inside':
+            var monks = game.getMonks().amtOfInsideMonks;
+            break;
+        case 'outside':
+            monks = game.getMonks().amtOfOutsideMonks;
+            break;
+    }
+
+    const monkBonus = "Monk bonus: <span>"+ (monks/game.getTotalAmtOfMonks())*100 +"%</span>";
+
     let instanceForm = "<form>";
 
     for (let instanceNr = 0; instanceNr < instanceGroup.getSize(); instanceNr++) {
 
         let instance = instanceGroup.getItemByNumber(instanceNr);
 
-        if (plaats === instance.getPlace()) {
+        if (place === instance.getPlace()) {
 
             const address = "#" + instance.getName() + '.' + instanceType;
 
@@ -43,7 +54,8 @@ function showInstances(game, instanceType, plaats) {
 
     instanceForm += "</form>";
 
-    $("." + plaats).append(instanceForm);
+    $("." + place + " .monkBonus").html(monkBonus);
+    $("." + place).append(instanceForm);
     $('.opbrengst').hide();
 
     for (let addressNr = 0; addressNr < addresses.length; addressNr++) {
@@ -357,7 +369,7 @@ function updateFields(game) {
 
 function updateBuyFieldButton(game) {
 
-    if (game.getPriceOfAField() == 0) {
+    if (game.getPriceOfAField() === 0) {
         $("#fieldPrice").text("Free")
     }
 
@@ -370,7 +382,7 @@ function buildFields(game) {
 
     let addresses = [];
 
-    let  field = "<div class='grounds'><form>";
+    let  field = "<div class='grounds'><p class='monkBonus'>Monk bonus: <span>"+(game.getMonks().amtOfFieldMonks/game.getTotalAmtOfMonks())*100+"%</span></p><form>";
 
     for (let fieldNr = 0, amtOfFields = game.getFields().getSize(); fieldNr < amtOfFields; fieldNr++) {
 
@@ -426,14 +438,16 @@ function showPeople(game) {
 
     let peopleForm = "<form name='people' method='post'>";
     peopleForm += "<h3>People</h3><p>Here you can say how many people need to work on a certain job.</p>";
-    peopleForm += "<p>Your abbey counts <span id='totaalMonniken'>" + game.totalAmtOfMonks + "</span> monks, ";
-    peopleForm += "<span id='bezetMonniken'>" + game.getAmtOfOccupiedMonks() + "</span> of them are already working.</p>";
+    peopleForm += "<p>Your abbey counts <span id='totalAmtOfMonks'>" + game.getTotalAmtOfMonks() + "</span> monks, ";
+    peopleForm += "<span id='amtOfOccupiedMonks'>" + game.getAmtOfOccupiedMonks() + "</span> of them are already working.</p>";
 
-    for (let departementNr = 0, aantalDepartementen = game.getDepartments().length; departementNr < aantalDepartementen; departementNr++) {
+    const departments = game.getDepartments().sort();
 
-        peopleForm += "<fieldset> <legend>" + game.getDepartments()[departementNr] + "</legend>";
+    for (let departmentNr = 0, aantalDepartementen = departments.length; departmentNr < aantalDepartementen; departmentNr++) {
+
+        peopleForm += "<fieldset> <legend>" + departments[departmentNr] + "</legend>";
         peopleForm += "<label>Number of monks:</label>";
-        peopleForm += "<input type='number' id='" + game.getDepartments()[departementNr] + "People' min='0' value='0' max='"
+        peopleForm += "<input type='number' id='" + departments[departmentNr].split(" ")[0] + "People' min='0' value='0' max='"
             + game.getAmtOfAvailableMonks() + "'/></fieldset>";
     }
 
@@ -461,7 +475,7 @@ function showFieldTypes(game, fieldName) {
 
         let fieldType = allFieldTypes[fieldTypeNr];
 
-        if (fieldType != resourceName) {
+        if (fieldType !== resourceName) {
             let fieldTypeName = fieldType.substring(0, 1).toUpperCase() + fieldType.substring(1).toLowerCase();
             fieldTypes += "<option value='" + fieldType + "'>" + fieldTypeName + "</option>";
         }

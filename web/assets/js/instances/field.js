@@ -14,7 +14,7 @@ function Field(fieldNumber, priceOfField, resource, categories) {
 
     this.getResourceName = function () {
 
-        if (this.fieldResource == null) {
+        if (this.fieldResource === null) {
             return "plain";
         }
 
@@ -44,7 +44,7 @@ function Field(fieldNumber, priceOfField, resource, categories) {
         const fieldBtn = $('#' + this.fieldName + ".field.button");
         const fieldChanger = $('.veldWijzigen [id="' + this.fieldName + '"]');
 
-        if (fieldBtn.attr("value") != "busy" && this.fieldResource != null) {
+        if (fieldBtn.attr("value") !== "busy" && this.fieldResource !== null) {
 
             fieldChanger.attr("disabled", true);
             fieldChanger.addClass("disabled");
@@ -56,7 +56,7 @@ function Field(fieldNumber, priceOfField, resource, categories) {
             $(this.progressing(fieldBtn, game));
         }
 
-        if (this.fieldResource == null) {
+        if (this.fieldResource === null) {
             alert("Your field has not been installed yet.");
         }
     };
@@ -84,10 +84,17 @@ function Field(fieldNumber, priceOfField, resource, categories) {
 
     this.progressing = function (fieldBtn, game) {
 
+        const monkBonus = game.getMonks().amtOfFieldMonks / game.getTotalAmtOfMonks();
+
+        console.log("My bonus is ", monkBonus);
+
         const field = this;
 
         const progressbar = $("#" + this.fieldName + '[class="progressbar"]'),
             progressLabel = $("#" + this.fieldName + '[class="progressbar"] > .progress-label');
+
+        let doneTime;
+        let createTime;
 
         progressbar.progressbar({
             value: 0,
@@ -102,9 +109,14 @@ function Field(fieldNumber, priceOfField, resource, categories) {
                 progressbar.progressbar("destroy");
                 progressbar.addClass("completed");
                 fieldBtn.removeClass("disabled");
+
+                doneTime = new Date();
+                console.log("TIME DONE",doneTime - createTime);
             },
             create: function () {
                 $('div[class="opbrengst"][id="' + field.fieldName + '"]').hide();
+
+                createTime = new Date();
             }
         });
 
@@ -114,11 +126,11 @@ function Field(fieldNumber, priceOfField, resource, categories) {
             progressbar.progressbar("value", val + 1);
 
             if (val < 99) {
-                setTimeout(progress, 80);
+                setTimeout(progress, 80 - (80 * monkBonus));
             }
         }
 
-        setTimeout(progress, 100);
+        setTimeout(progress, 100 - (100 * monkBonus));
     };
 
     this.gainResource = function () {
@@ -131,13 +143,13 @@ function Field(fieldNumber, priceOfField, resource, categories) {
     };
 
     this.changeFieldType = function (newFieldResource) {
-        if (this.fieldResource == null || newFieldResource != this.fieldResource.getName()) {
+        if (this.fieldResource === null || newFieldResource !== this.fieldResource.getName()) {
             this.fieldResource = new Resource(newFieldResource, 0, 1, "crop");
         }
     };
 
     this.devaluateField = function () {
-        if (this.fieldValue != 0) {
+        if (this.fieldValue !== 0) {
             this.fieldValue = Math.floor(this.fieldValue - (this.fieldValue * 0.05));
         }
     };

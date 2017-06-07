@@ -15,7 +15,16 @@ function Game() {
     this.amtOfOccupiedMonks = 0;
     this.amtOfAvailableMonks = this.totalAmtOfMonks;
 
-    this.departments = ["Brew", "Work", "Vendor", "Improve"];
+    this.monks = {
+        amtOfBrewerMonks: 0,
+        amtOfOutsideMonks: 0,
+        amtOfInsideMonks: 0,
+        amtOfFieldMonks: 0
+    };
+
+    //IDEA: MARKET MONKS! -> capacity!
+
+    this.departments = ["Fields", "Inside the abbey", "Outside the abbey", "Brewery"];
 
     this.resourceCategories = new Map();
     this.resourceCategories.set("liquid", "bucket");
@@ -36,6 +45,10 @@ function Game() {
     };
 
 //Getters of Game
+
+    this.getMonks = function () {
+        return this.monks;
+    };
 
     this.getPlayer = function () {
         return this.player;
@@ -136,35 +149,45 @@ function Game() {
 
     this.manageMonks = function () {
 
-        const brewers = $("#BrewPeople");
-        const workers = $("#WorkPeople");
-        const improvers = $("#ImprovePeople");
-        const vendors = $("#VendorPeople");
+        const brewerMonks = $("#BreweryPeople");
+        const outsideMonks = $("#OutsidePeople");
+        const insideMonks = $("#InsidePeople");
+        const fieldMonks = $("#FieldsPeople");
 
-        const amtOfBrewers = eval(brewers.val());
-        const amtOfWorkers = eval(workers.val());
-        const amtOfImprovers = eval(improvers.val());
-        const amtOfVendors = eval(vendors.val());
+        this.monks = {
+            amtOfBrewerMonks: eval(brewerMonks.val()),
+            amtOfOutsideMonks: eval(outsideMonks.val()),
+            amtOfInsideMonks: eval(insideMonks.val()),
+            amtOfFieldMonks: eval(fieldMonks.val())
+        };
 
         this.totalAmtOfMonks = 20;
-        this.amtOfOccupiedMonks = amtOfBrewers + amtOfWorkers + amtOfImprovers + amtOfVendors;
+        this.amtOfOccupiedMonks = this.getMonks().amtOfBrewerMonks + this.getMonks().amtOfFieldMonks + this.getMonks().amtOfOutsideMonks + this.getMonks().amtOfInsideMonks;
         this.amtOfAvailableMonks = this.totalAmtOfMonks - this.amtOfOccupiedMonks;
 
-        brewers.attr("max", amtOfBrewers + this.amtOfAvailableMonks);
-        brewers.attr("value", amtOfBrewers);
+        brewerMonks.attr("max", this.getMonks().amtOfBrewerMonks + this.amtOfAvailableMonks);
+        brewerMonks.attr("value", this.getMonks().amtOfBrewerMonks);
 
-        workers.attr("max", amtOfWorkers + this.amtOfAvailableMonks);
-        workers.attr("value", amtOfWorkers);
+        insideMonks.attr("max", this.getMonks().amtOfInsideMonks + this.amtOfAvailableMonks);
+        insideMonks.attr("value", this.getMonks().amtOfInsideMonks);
 
-        improvers.attr("max", amtOfImprovers + this.amtOfAvailableMonks);
-        improvers.attr("value", amtOfImprovers);
+        outsideMonks.attr("max", this.getMonks().amtOfOutsideMonks + this.amtOfAvailableMonks);
+        outsideMonks.attr("value", this.getMonks().amtOfOutsideMonks);
 
-        vendors.attr("max", amtOfVendors + this.amtOfAvailableMonks);
-        vendors.attr("value", amtOfVendors);
+        fieldMonks.attr("max", this.getMonks().amtOfFieldMonks + this.amtOfAvailableMonks);
+        fieldMonks.attr("value", this.getMonks().amtOfFieldMonks);
 
-        $('#bezetMonniken').text(this.amtOfOccupiedMonks);
+        $('#amtOfOccupiedMonks').text(this.amtOfOccupiedMonks);
 
-        this.brewery.setAmtOfMonks(amtOfBrewers);
+        this.brewery.setAmtOfMonks(this.getMonks().amtOfBrewerMonks);
+
+        this.updateMonkBonus();
+    };
+
+    this.updateMonkBonus = function () {
+        $(".inside .monkBonus span").html((this.getMonks().amtOfInsideMonks / this.getTotalAmtOfMonks())*100 + "%");
+        $(".outside .monkBonus span").html((this.getMonks().amtOfOutsideMonks / this.getTotalAmtOfMonks())*100 + "%");
+        $(".grounds .monkBonus span").html((this.getMonks().amtOfFieldMonks / this.getTotalAmtOfMonks())*100 + "%");
     };
 
     this.buyAField = function () {
