@@ -46,16 +46,16 @@ function showInstances(game, instanceType, plaats) {
     $("." + plaats).append(instanceForm);
     $('.opbrengst').hide();
 
-    for (var addressNr = 0; addressNr < addresses.length; addressNr++) {
+    for (let addressNr = 0; addressNr < addresses.length; addressNr++) {
         addBehaviour(game, addresses[addressNr]);
     }
 }
 
 function showNCRCounter(game) {
 
-    var name = $("#naam span");
-    var amtOfCoins = $("#valuta span");
-    var amtOfReputation = $("#reputatie span");
+    const name = $("#naam a");
+    const amtOfCoins = $("#valuta span");
+    const amtOfReputation = $("#reputatie span");
 
     if (game.getPlayer() != null) {
         name.text(game.getPlayer().getPlayerName());
@@ -155,10 +155,88 @@ function showBrewery(game) {
 function showInventory(game) {
     $("#inventory").html(game.visualizeInventory());
 
-    $(".inventoryItem").draggable();
+    $(".inventoryItem").draggable({revert: true});
 }
 
 function showMarket(game) {
+
+    let vendorList = "";
+
+    for (let vendorNr = 0; vendorNr < game.getVendors().getSize(); vendorNr++) {
+        const selectedVendor = game.getVendors().getItemByNumber(vendorNr);
+        vendorList += selectedVendor.visualizeVendorButton();
+    }
+
+    $("#vendors").html(vendorList);
+
+    $(".vendorButton").on("click", function () {
+        $(".vendorButton").removeClass("active");
+        $(this).addClass("active");
+
+        showVendor(game, $(this).text());
+    });
+
+    showInventory(game);
+}
+
+function showVendor(game, vendorName) {
+
+    let selectedVendor = game.getVendors().getItemByName(vendorName);
+
+    $("#dealScreen").html(selectedVendor.visualizeVendor());
+
+    $("#itemToSell").droppable({
+        drop: function (event, ui) {
+
+            const vendorName = $(this).parents()[0].id;
+            const productName = ui.draggable[0].children[0].className;
+
+            $(this).droppable("disable");
+
+            $(this).html("<p>" + productName + "</p>");
+            $(".inventoryItem." + productName).css("display", "none");
+
+            const vendor = game.getVendors().getItemByName(vendorName);
+            const itemToSell = game.getStock().getItemByName(productName);
+
+            $("#" + vendor.getName() + " #message").hide();
+
+            $("#" + vendor.getName()).append(vendor.visualizeRFQ(itemToSell));
+            $("#" + vendor.getName() + " #itemQuantity").val(0);
+
+            $("#" + vendor.getName() + " #itemQuantity").on("change", function () {
+                const itemQuantity = $(this).val();
+
+                $("#" + vendor.getName() + " #finalItemQuantity").html(vendor.visualizeFinalItemQuantity(itemToSell, itemQuantity));
+                $("#" + vendor.getName() + " #offer").html(vendor.visualizeOffer(itemToSell, itemQuantity));
+
+                $("#" + vendor.getName() + " #offer .button").on("click", function () {
+
+                    let deal = false;
+
+                    if ($(this).val() == "yes") {
+                        deal = true;
+                        const price = vendor.makeOffer(itemToSell) * itemQuantity;
+                        game.getPlayer().addCoins(price);
+                        const resourceInStock = game.getStock().getItemByName(itemToSell.getName());
+                        resourceInStock.removeQuantityOfAResource(itemQuantity);
+                        game.getStock().removeResourceIfThereIsNoQuantity(resourceInStock);
+                        showNCRCounter(game);
+                    }
+
+                    $("#" + vendor.getName() + " .RFQ").remove();
+                    showInventory(game);
+                    $("#" + vendor.getName() + " #itemToSell").html("");
+                    $("#" + vendor.getName() + " #itemToSell").droppable("enable");
+                    $("#" + vendor.getName() + " #message").html(vendor.visualizeDealMessage(deal));
+                    $("#" + vendor.getName() + " #message").show();
+                });
+            });
+        }
+    });
+}
+
+/*function showMarket(game) {
     $("#vendors").html("");
 
     for (var vendorNr = 0; vendorNr < game.getVendors().getSize(); vendorNr++) {
@@ -217,6 +295,77 @@ function showMarket(game) {
             });
         }
     });
+}*/
+
+function showProfilePage(game) {
+
+    const player = game.getPlayer();
+
+    let profile = "<p>You are still just a stranger to us...<br/>Finish the story of Troubadour first!</p>";
+
+    console.log("HERE");
+    if (player != null) {
+
+        profile = "<h2>" + player.getPlayerName() + "</h2>" +
+            "<p>Who are you to us?<br/>" +
+            "Here you can find all the information we have about you.</p>";
+
+        profile += "<div class='profileSection'>" +
+            "<h3>Account details</h3>" +
+            "<p>Username: " + player.getPlayerName() + "<br/>" +
+            "Coins: " + player.getCoins() + "<br/>" +
+            "Reputation: " + player.getReputation() + "</p>" +
+            "</div>" +
+
+            "<div class='profileSection'>" +
+            "<h3>Change password</h3>" +
+            "<form action='/PASSWORDCHANGE' method='post'>" +
+            "<label for='currentPassword'>Current password</label>" +
+            "<input type='password' id='currentPassword' name='passwordChange[currentPassword]'/>" +
+            "<label for='newPassword'>New password</label>" +
+            "<input type='password' id='newPassword' name='passwordChange[newPassword]'/>" +
+            "<label for='confirmPassword'>Confirm new password</label>" +
+            "<input type='password' id='confirmPassword' name='passwordChange[confirmNewPassword]'/>" +
+            "<input class='button uk-button uk-button-default' type='submit' name='changePassword' value='Change password'/>" +
+            "</form>" +
+            "<div/>";
+
+        profile += "<div class='profileSection'>" +
+            "<h3 title='Besides playing of course.'>Alternative options</h3>" +
+            "<a class='button uk-button uk-button-default' href='/RESET'>Reset account</a>" +
+            "<a class='button uk-button uk-button-default' href='/LOGOUT'>Log out</a>" +
+            "<button class='button uk-button uk-button-default' id='save'>Save</button>" +
+            "<button class='button uk-button uk-button-default' id='load'>Load</button>" +
+            "</div>";
+    }
+
+    else {
+
+    }
+
+    $("#profile").html(profile);
+
+    /*$("#save").on('click', function () {
+        if (typeof(Storage) !== "undefined") {
+            localStorage.setItem("Game", game.getGameJSON, () => {
+                console.log("Game saved!");
+            })
+        }
+
+        else {
+            console.log("No savings for you as you don't have localstorage...\nYou can always try another browser.");
+        }
+    });
+
+    $("#load").on('click', function () {
+        if (typeof(Storage) !== "undefined") {
+            game.loadGame(localStorage.getItem("Game"));
+        }
+
+        else {
+            console.log("No savings for you as you don't have localstorage...\nYou can always try another browser.");
+        }
+    });*/
 }
 
 function updateFields(game) {

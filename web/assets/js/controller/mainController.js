@@ -210,7 +210,13 @@
 
         var maurits = new Vendor("Maurits", mauritsInterests);
 
+        const zinasInterests = new List();
+        zinasInterests.addListOfItems(["critter","crop"]);
+
+        const zina = new Vendor("Zina", zinasInterests);
+
         game1.getVendors().addAnItem(maurits);
+        game1.getVendors().addAnItem(zina);
 
         //End of to-move
 
@@ -277,6 +283,19 @@
             showRecipeDescription(recipe);
             game1.getBrewery().setSelectedRecipe(recipe);
             showBrewery(game1);
+        });
+
+        $("#naam > a").on("click", function (e) {
+            console.log("HERE");
+            e.preventDefault();
+
+            showProfilePage(game1);
+
+            $('.workspace > div').hide();
+            $('#main a').removeClass("active");
+            $('#offCanvasNav a').removeClass("active");
+
+            $("#profile").show();
         });
     });
 })(window.jQuery, window, document);

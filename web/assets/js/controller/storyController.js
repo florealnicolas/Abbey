@@ -118,25 +118,64 @@ function showStory(game) {
 
                                 window.location.hash = "article2";
 
-                                game.getStory().part6();
-                                game.getStory().part7();
-                                game.getStory().part8();
+                                game.getStory().secretPart();
 
-                                //Article3
+                                window.location.hash = "password";
 
-                                game.getStory().addArticleToStory();
+                                $("#password").keyup(function (e) {
 
-                                game.getStory().part9();
-                                game.getStory().part10();
+                                    if (e.keyCode == 13) {
 
-                                //Article4
+                                        let secret = $(this).val();
 
-                                game.getStory().addArticleToStory();
+                                        game.getPlayer().setPassword(secret);
 
-                                game.getStory().part11();
+                                        console.log("SECRET", game.getPlayer().getPassword());
 
-                                //The end ???
-                                game.getStory().toBeContinued();
+                                        $(this).attr("disabled", true);
+                                        $(this).addClass("disabled");
+
+                                        game.getStory().part6();
+                                        game.getStory().part7();
+                                        game.getStory().part8();
+
+                                        //Article3
+
+                                        game.getStory().addArticleToStory();
+
+                                        game.getStory().part9();
+                                        game.getStory().part10();
+
+                                        //Article4
+
+                                        game.getStory().addArticleToStory();
+
+                                        game.getStory().part11();
+
+                                        //The end ???
+                                        game.getStory().toBeContinued();
+
+                                        $(window).scroll(function (event) {
+                                            const scroll = $(window).scrollTop();
+
+                                            if (game.getMode() && scroll >= 2600) {
+
+                                                let db = new DB();
+
+                                                db.addData("players",game.getPlayer());
+                                                document.cookie = "user=" + game.getPlayer().getPlayerName();
+                                                sessionStorage.setItem("player",game.getPlayer());
+                                                game.strangerMode("OFF");
+
+                                                let message = "Hello there! Thank you for reading this story.\n";
+                                                message += "Let your Abbey-adventure here. Enjoy!\n\n";
+                                                message += "Happy greets, Laerolf.";
+                                                alert(message);
+
+                                            }
+                                        });
+                                    }
+                                })
                             }
                         })
                     })

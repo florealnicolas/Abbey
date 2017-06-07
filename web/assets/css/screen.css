@@ -2,6 +2,26 @@
 /*    HTML ELEMENTS    */
 /*---------------------*/
 
+.vendorButton {
+    cursor: pointer;
+    border: black solid 2pt;
+    border-radius: 5%;
+    color: rgb(250, 235, 215);
+    background-color: #b09348;
+    padding: 2% 3%;
+    display: inline-block;
+    margin-right: 1%;
+}
+
+.vendorButton:focus, .vendorButton:hover, .vendorButton.active {
+    background-color: rgb(250, 235, 215);
+    color: #b09348;
+}
+
+.vendorButton:last-child {
+    margin: 0;
+}
+
 body {
     background-image: url("../images/monastery.jpg");
     background-size: cover;
@@ -110,8 +130,24 @@ a.active, a:hover, a:focus {
     background-color: rgb(250, 235, 215);
 }
 
+.button[value='girl'] {
+    background-color: deeppink;
+}
+
+.button[value='girl'].disabled {
+    background-color: hotpink;
+}
+
 .button.disabled, .button[disabled] {
     opacity: 1;
+}
+
+.button[value='girl'].disabled:hover {
+    background-color: hotpink;
+}
+
+.button[value='girl']:focus, .button[value='girl']:hover {
+    background-color: hotpink;
 }
 
 .button.disabled:hover, .button[disabled]:hover {
@@ -445,6 +481,34 @@ fieldset:last-child {
     margin: 4% 2%;
     text-align: center;
     padding: 1.5%;
+}
+
+#market > div {
+    margin-bottom: 6%;
+}
+
+#market > div:last-child {
+    margin: 0;
+}
+
+.profileSection {
+    margin:3% 0 3% 0;
+}
+
+.profileSection label + input {
+    display: block;
+}
+
+.profileSection input {
+    margin: 0 0 2% 0;
+}
+
+.profileSection input:last-child {
+    margin: 2% 0 0 0;
+}
+
+.profileSection a:first-child {
+    margin-right: 3%;
 }
 
 /* --- Home --- */

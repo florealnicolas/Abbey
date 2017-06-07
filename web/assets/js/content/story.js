@@ -143,12 +143,32 @@ function Story() {
         $("#article1").append(part5);
     };
 
+    this.secretPart = function () {
+        let secretPart = "<p>It's always great to bound with someone, for sure if you have such a nice time like we have.<br/>";
+        secretPart += "I learned from a wise guy once, to get a real connection with someone, you should share a secret.<br/>";
+        secretPart += "What do you say? Up for a trade? I'll tell you one of my secrets and you tell me one in return.</p>";
+        secretPart += "<p>My courtesy wanders off sometimes but what do you say? I'll tell my secret first.<br/>";
+        secretPart += "So that you'll feel less uncomfortable. Let me see... What's my most exotic secret?<br/>";
+        secretPart += "Hmmmm... Yes, haha! Oh, no no no, maybe that's too open. Aaah! Yes, I got one to share!<br/>";
+        secretPart += "Don't you dare to laugh or else I'll laugh with you later on!<br/>";
+        secretPart += "Here we go... " + this.randomizer(this.arrayOfSecrets) + "</p>";
+        secretPart += "<p>Isn't that awkard? Your turn! Don't be shy, you can tell me anything. I'll take it to my grave.</p>";
+
+        secretPart += "<label for='password'>My darkest secret is </label>";
+        secretPart += "<input type='password' name='password' id='password' placeholder='a place for a p@assw0rd'/>";
+
+        $("#article2").append(secretPart);
+    };
+
     this.part6 = function () {
+        //PART OF SECRETPART!!!
+        let secretPart = "<p>Hahaha! That's a dirty one! Thank you for your trust!</p>";
+
         var part6 = "<p>Well, 500 years ago, there once was an abbey on the foot of the hill in a forgotten place called <b>";
         part6 += this.placeName + "</b>.<br/> It was forgotten because it wasn’t important or beautiful, ";
         part6 += "the people living there didn’t care about what happened around them.</p>";
 
-        $("#article2").append(part6);
+        $("#article2").append(secretPart + part6);
     };
 
     this.part7 = function () {

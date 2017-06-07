@@ -77,6 +77,10 @@ function Vendor(vendorName, vendingCategories) {
 
     };
 
+    this.visualizeVendorButton = function () {
+        return "<div class='vendorButton'>"+this.getName()+"</div>";
+    };
+
     this.visualizeVendor = function () {
 
         var visual = "<div class='vendor' id='" + this.getName() + "'>";
