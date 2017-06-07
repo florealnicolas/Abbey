@@ -99,7 +99,7 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
                 break;
         }
 
-        const nameString = this.getName();
+        let nameString = this.getName();
 
         if (this.name.substr(this.name.length - 3) == "ing") {
             nameString = nameString.substr(0, this.name.length - 3);

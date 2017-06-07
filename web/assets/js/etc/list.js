@@ -5,7 +5,7 @@ function List() {
 
     this.getList = function () {
 
-        if (this.getSize() == 0) {
+        if (this.getSize() === 0) {
             return null;
         }
 
@@ -23,7 +23,7 @@ function List() {
 
         for (let itemNr = 0, amtOfItems = this.list.length; itemNr < amtOfItems; itemNr++) {
 
-            if (this.list[itemNr].getName() == itemName) {
+            if (this.list[itemNr].getName() === itemName) {
                 foundItem = this.list[itemNr];
             }
         }
@@ -40,7 +40,7 @@ function List() {
 
         const index = this.getIndex(itemToAdd);
 
-        if (index != -1) {
+        if (index !== -1) {
             this.list[index].addQuantityOfAResource(itemToAdd.getQuantity());
         }
 
@@ -51,7 +51,7 @@ function List() {
 
     this.addAnItem = function (itemToAdd) {
 
-        if (itemToAdd.constructor == Resource) {
+        if (itemToAdd.constructor === Resource) {
             this.addAResource(itemToAdd);
         }
 
@@ -62,7 +62,7 @@ function List() {
 
     this.addListOfItems = function (listOfItems) {
 
-        if (listOfItems.constructor == List) {
+        if (listOfItems.constructor === List) {
             for (let itemNr = 0; itemNr < listOfItems.getSize(); itemNr++) {
                 this.addAnItem(listOfItems.getItemByNumber(itemNr));
             }
@@ -86,12 +86,12 @@ function List() {
 
         this.list.forEach(function (resource) {
 
-            if (resource.constructor == Resource && categories.indexOf(resource.getCategory()) == -1) {
+            if (resource.constructor === Resource && categories.indexOf(resource.getCategory()) === -1) {
                 categories.push(resource.getCategory());
             }
         });
 
-        if (categories.length == 0) {
+        if (categories.length === 0) {
             categories = null;
         }
 
@@ -109,7 +109,7 @@ function List() {
         for (let itemNr = 0; itemNr < this.getSize(); itemNr++) {
             const selectedItem = this.getItemByNumber(itemNr);
 
-            if (selectedItem.getCategory() == someCategoryName) {
+            if (selectedItem.getCategory() === someCategoryName) {
                 someCategory.push(selectedItem);
             }
         }
@@ -124,14 +124,14 @@ function List() {
         const categories = this.getAllResourceCategories();
         let itemMessage = "";
 
-        if (categories != null) {
+        if (categories !== null) {
 
             categories.forEach(function (category) {
 
                 let resources = list.getResourcesByCategory(category);
                 let className = iconsMap.get(category);
 
-                if (category != "fungus") {
+                if (category !== "fungus") {
                     category = category.substr(0, 1).toUpperCase() + category.substr(1) + "s";
                 }
 
@@ -162,17 +162,18 @@ function List() {
 
         //this.stock = this.stock.sort(); --> something for sorted people???
 
-        if (amtOfItems == 0) {
+        if (amtOfItems === 0) {
             itemMessage += " nothing in " + listName.toLowerCase();
         }
 
         else {
+            let item = null;
             if (amtOfItems > 2) {
                 for (let itemnr = 0; itemnr < amtOfItems - 2; itemnr++) {
-                    var item = this.list[itemnr];
+                    item = this.list[itemnr];
                     itemMessage += " ";
 
-                    if (listName == "Stock") {
+                    if (listName === "Stock") {
                         itemMessage += item.getQuantity() + " units of ";
                     }
                     itemMessage += item.getName().toLowerCase() + ",";
@@ -180,19 +181,19 @@ function List() {
             }
 
             if (amtOfItems > 1) {
-                var item = this.list[amtOfItems - 2];
+                item = this.list[amtOfItems - 2];
                 itemMessage += " ";
 
-                if (listName == "Stock") {
+                if (listName === "Stock") {
                     itemMessage += item.getQuantity() + " units of ";
                 }
                 itemMessage += item.getName().toLowerCase() + " and";
             }
 
-             item = this.list[amtOfItems - 1];
+            item = this.list[amtOfItems - 1];
             itemMessage += " ";
 
-            if (listName == "Stock") {
+            if (listName === "Stock") {
                 itemMessage += item.getQuantity() + " units of ";
             }
 
@@ -207,17 +208,16 @@ function List() {
         const amtOfItems = this.list.length;
         let itemMessage = "";
 
-        if (amtOfItems == 0) {
+        if (amtOfItems === 0) {
             itemMessage += "nothing.";
         }
 
         else {
 
-            for (let itemNr = 0; itemNr < amtOfItems - 1; itemNr++) {
+            for (var itemNr = 0; itemNr < amtOfItems - 1; itemNr++) {
                 var item = this.list[itemNr];
                 itemMessage += " ";
                 itemMessage += item.toString();
-
                 if (amtOfItems - itemNr > 2) {
                     itemMessage += ",";
                 }
@@ -232,7 +232,7 @@ function List() {
     };
 
     this.removeResourceIfThereIsNoQuantity = function (resource) {
-        if (resource.getQuantity() == 0) {
+        if (resource.getQuantity() === 0) {
             this.removeAnItem(resource);
         }
     };

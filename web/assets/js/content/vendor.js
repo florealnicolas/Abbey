@@ -12,7 +12,7 @@ function Vendor(vendorName, vendingCategories) {
 
     this.getCategories = function () {
 
-        if (this.categories == null) {
+        if (this.categories === null) {
             this.categories = new List();
         }
         return this.categories.getList();
@@ -27,7 +27,7 @@ function Vendor(vendorName, vendingCategories) {
 
     this.setCategories = function (newCategories) {
 
-        if (newCategories.constructor != List) {
+        if (newCategories.constructor !== List) {
             this.categories.clearList();
             this.categories.addAnItem(newCategories);
         }
@@ -65,7 +65,7 @@ function Vendor(vendorName, vendingCategories) {
             cost = this.makeOffer(tradeItem) * tradeAmt;
         }
 
-        if (cost != null) {
+        if (cost !== null) {
             game.getStock().getItemByName(tradeItem.getName()).removeQuantityOfAResource(tradeAmt);
             game.getStock().removeResourceIfThereIsNoQuantity(game.getStock().getItemByName(tradeItem.getName()));
 

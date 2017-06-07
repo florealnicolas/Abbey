@@ -20,16 +20,16 @@ assertEquals("beer", vendor.getCategories().toString());
 // Let's say that we have a beer that we want to sell
 // Let's say that it holds your name, dear one
 
-const beer = new Resource("Liya", 10, 10, 'beer');
+beer = new Resource("Liya", 10, 10, 'beer');
 
 // We propose it to Maurits, he should be interested in this one
 
-const interested = vendor.proposeItem(beer);
+let interested = vendor.proposeItem(beer);
 assertEquals(true, interested);
 
 // If he is interested he will give us the total value of our beer "Liya"
 
-const offer = vendor.makeOffer(beer);
+let offer = vendor.makeOffer(beer);
 assertEquals(10, offer);
 
 // We accept the offer, so we need 10 coins of you, mister Maurits

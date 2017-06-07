@@ -1,9 +1,6 @@
 //TEST 6: Processes & Phases
 console.log("TEST 6: Processes & Phases\n");
 
-//We should start a new Game here
-const dummyGame2 = new Game();
-
 //These are the ingredients that we need to have to get beer
 const wheat = new Resource("wheat", 1);
 const malt = new Resource("malt", 1);
@@ -16,7 +13,7 @@ const beerToFerment = new Resource("Beer to ferment", 1);
 const fermentedBeer = new Resource("Fermented beer", 1);
 const beerToRipe = new Resource("Beer to ripe", 1);
 const ripeBeer = new Resource("Ripe beer", 1);
-const beer = new Resource("Beer", 1);
+let beer = new Resource("Beer", 1);
 
 const mashingInput = [starch, water];
 const cookingInput = [sugarWater, hop];

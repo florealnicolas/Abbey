@@ -202,7 +202,7 @@ function Game() {
         const selectedField = this.fields.getItemByName(fieldName);
 
         let message = "Do you really want to sell your " + selectedField.getResourceName() + " field?\n";
-        const value = selectedField.getFieldValue() + " coins";
+        let value = selectedField.getFieldValue() + " coins";
 
         if (selectedField.getFieldValue() == 0) {
             value = "nothing";
@@ -228,7 +228,7 @@ function Game() {
 
     this.addARecipe = function (newRecipe) {
 
-        const game = this;
+        let game = this;
 
         newRecipe.getScheme().getSteps().forEach(function (step) {
             game.addProcess(step);
@@ -240,9 +240,9 @@ function Game() {
     this.addProcess = function (someNewProcess) {
         this.getProcesses().addAnItem(someNewProcess);
 
-        const processor = this.getProcessors().getItemByName(someNewProcess.getProcessorName());
+        let processor = this.getProcessors().getItemByName(someNewProcess.getProcessorName());
 
-        if (processor == null) {
+        if (processor === null) {
             this.getProcessors().addAnItem(someNewProcess.getProcessor());
             processor = this.getProcessors().getItemByName(someNewProcess.getProcessorName());
         }
@@ -255,7 +255,7 @@ function Game() {
         let visual = "<h4>Inventory</h4>";
         visual += "<div class='inventoryRow'>";
 
-        if (this.getStock().getSize() == 0) {
+        if (this.getStock().getSize() === 0) {
             visual += "<p>There is nothing here.</p>";
         }
 

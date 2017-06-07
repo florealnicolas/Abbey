@@ -4,7 +4,7 @@
 
 .vendorButton {
     cursor: pointer;
-    border: black solid 2pt;
+    border: black solid 1pt;
     border-radius: 5%;
     color: rgb(250, 235, 215);
     background-color: #b09348;

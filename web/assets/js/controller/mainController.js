@@ -59,7 +59,7 @@
     const flour = new Resource("flour", 0, 1, "product");
 
     //PROCESSORS NEEDED IN THE GAME
-    const kiln;
+    var kiln;
     const mill = new Processor("windmill", wheat, flour, 0.25, "outside");
 
     //PROCESSES NEEDED IN THE GAME
@@ -245,9 +245,9 @@
 
         //EXPERIMENTAL
 
-        const schemeString = "<h2>Schemes</h2>";
+        let schemeString = "<h2>Schemes</h2>";
 
-        for (const recipeNr = 0; recipeNr < game1.getRecipes().getSize(); recipeNr++) {
+        for (let recipeNr = 0; recipeNr < game1.getRecipes().getSize(); recipeNr++) {
             const selectedScheme = game1.getRecipes().getItemByNumber(recipeNr).getScheme();
             selectedScheme.loadUsedStorage();
             schemeString += selectedScheme.visualizeScheme(game1.getRecipes().getItemByNumber(recipeNr).getName());

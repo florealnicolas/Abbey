@@ -5,7 +5,7 @@ function showInstances(game, instanceType, plaats) {
     switch (instanceType) {
 
         case "source":
-            const instanceGroup = game.getSources();
+            var instanceGroup = game.getSources();
             break;
         case "processor":
             instanceGroup = game.getProcessors();
@@ -18,7 +18,7 @@ function showInstances(game, instanceType, plaats) {
 
         let instance = instanceGroup.getItemByNumber(instanceNr);
 
-        if (plaats == instance.getPlace()) {
+        if (plaats === instance.getPlace()) {
 
             const address = "#" + instance.getName() + '.' + instanceType;
 
@@ -28,7 +28,7 @@ function showInstances(game, instanceType, plaats) {
             instanceForm += "<div class='progressbar' id='" + instance.getName() + "'><div class='progress-label'>0%</div></div>";
             instanceForm += "<div class='opbrengst' id='" + instance.getName() + "'></div>";
 
-            if (instanceGroup == game.getProcessors()) {
+            if (instanceGroup === game.getProcessors()) {
                 instanceForm += "<label for='" + instance.getName() + "'>";
                 instanceForm += "How much " + instance.getPossibleInputs().getItemByNumber(0).getName() + " you want to convert to " + instance.getOutput().getName() + "?</label>";
                 instanceForm += "<input id='inputNumber" + instance.getName() + "' type='number' min='0' value='0'/>";
@@ -160,7 +160,7 @@ function showInventory(game) {
 
 function showMarket(game) {
 
-    let vendorList = "";
+    let vendorList = "<h4>Vendors on the marketplace</h4>";
 
     for (let vendorNr = 0; vendorNr < game.getVendors().getSize(); vendorNr++) {
         const selectedVendor = game.getVendors().getItemByNumber(vendorNr);
