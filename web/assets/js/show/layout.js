@@ -436,7 +436,7 @@ function buildFields(game) {
 function showMonks(game) {
 
     let monkForm = "<form name='monk' method='post'>";
-    monkForm += "<h3>People</h3><>Here you can decide how many monks need to work on a certain job.<br/>";
+    monkForm += "<h3>Monks</h3><p>Here you can decide how many monks need to work on a certain job.<br/>";
     monkForm += "Your abbey counts currently <span id='totalAmtOfMonks'>" + game.getTotalAmtOfMonks() + "</span> monks, ";
     monkForm += "<span id='amtOfOccupiedMonks'>" + game.getAmtOfOccupiedMonks() + "</span> of them are already working.</p>";
 
@@ -453,6 +453,29 @@ function showMonks(game) {
     monkForm += "</form>";
 
     $("#monks").append(monkForm);
+}
+
+function showChapel(game) {
+
+    const chapel = game.getChapel();
+
+    $("#chapel").html(chapel.visualize());
+
+    $("#pray").on("click", function () {
+
+        if (chapel.getEnlightmentStatus() >= 1){
+            chapel.enlightment();
+        }
+        else {
+            let newAmtOfPrayers = chapel.getCurrentPrayers() + 1;
+            chapel.setCurrentPrayers(newAmtOfPrayers);
+            chapel.updateEnlightmentStatus();
+        }
+
+       /*console.log("Current prayers", chapel.getCurrentPrayers());
+        console.log("Next enlightment", chapel.getNextEnlightment());
+        console.log("Amount of believe", chapel.getBelieve())*/
+    })
 }
 
 function showRecipesAsOptions(game) {

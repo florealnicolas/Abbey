@@ -242,6 +242,7 @@
         showStory(game1);
         showBrewery(game1);
         showMarket(game1);
+        showChapel(game1);
 
         //EXPERIMENTAL
 
@@ -258,7 +259,7 @@
         $("#secondaryBrew a").on("click", showBrewSubpage);
         $(game1.getStock()).on("change", showStock(game1.getStock().allItemsIntoAStockWay(game1.getResourceCategories())));
         $(game1.getPlayer()).on("change", showNCRCounter(game1));
-        $("#people").on("click", function () {
+        $("#monks").on("click", function () {
             game1.manageMonks();
             showBrewery(game1);
         });
@@ -286,7 +287,6 @@
         });
 
         $("#naam > a").on("click", function (e) {
-            console.log("HERE");
             e.preventDefault();
 
             showProfilePage(game1);
