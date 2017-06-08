@@ -1,5 +1,7 @@
 function showStory(game) {
 
+    game.strangerMode("ON");
+
     const coins = $("#valuta span");
     const reputation = $("#reputatie span");
 
@@ -21,9 +23,9 @@ function showStory(game) {
 
         const answer1 = $(this).val();
 
-        if (answer1 == "1") {
-            const currentAmtOfCoins = eval(coins.text());
-            const currentAmtOfReputation = eval(reputation.text());
+        if (answer1 === "1") {
+            let currentAmtOfCoins = eval(coins.text());
+            let currentAmtOfReputation = eval(reputation.text());
 
             coins.text(currentAmtOfCoins--);
             reputation.text(currentAmtOfReputation++);
@@ -46,11 +48,11 @@ function showStory(game) {
 
             $("#name").keyup(function (e) {
 
-                const playerName = $(this).val();
+                let playerName = $(this).val();
 
-                if (e.keyCode == 13) {
+                if (e.keyCode === 13) {
 
-                    if (playerName == "") {
+                    if (playerName === "") {
                         playerName = $("#name").attr("placeholder");
                     }
 
@@ -65,7 +67,7 @@ function showStory(game) {
                     const fact = game.getStory().chooseFact(playerName);
                     game.getStory().setRandomFact(fact);
 
-                    const fatherName = game.getStory().getGrammar().writeBackwards(playerName);
+                    let fatherName = game.getStory().getGrammar().writeBackwards(playerName);
                     fatherName = game.getStory().getGrammar().writeRight(fatherName);
 
                     game.getStory().setPlayerName(playerName);
@@ -97,11 +99,11 @@ function showStory(game) {
 
                         $("#namePlace").keyup(function (e) {
 
-                            const placeName = $(this).val();
+                            let placeName = $(this).val();
 
-                            if (e.keyCode == 13) {
+                            if (e.keyCode === 13) {
 
-                                if (placeName == "") {
+                                if (placeName === "") {
                                     placeName = $("#namePlace").attr("placeholder");
                                 }
 
@@ -124,7 +126,7 @@ function showStory(game) {
 
                                 $("#password").keyup(function (e) {
 
-                                    if (e.keyCode == 13) {
+                                    if (e.keyCode === 13) {
 
                                         let secret = $(this).val();
 
@@ -160,11 +162,11 @@ function showStory(game) {
 
                                             if (game.getMode() && scroll >= 2600) {
 
-                                                let db = new DB();
+                                                /*let db = new DB();
 
                                                 db.addData("players",game.getPlayer());
                                                 document.cookie = "user=" + game.getPlayer().getPlayerName();
-                                                sessionStorage.setItem("player",game.getPlayer());
+                                                sessionStorage.setItem("player",game.getPlayer());*/
                                                 game.strangerMode("OFF");
 
                                                 let message = "Hello there! Thank you for reading this story.\n";

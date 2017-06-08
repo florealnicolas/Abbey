@@ -18,7 +18,7 @@ function Recipe(outputItem, ingredientsList, newScheme, authorName) {
     };
 
     this.getDescription = function () {
-        if (this.description == "") {
+        if (this.description === "") {
             this.description = this.writeDescription();
         }
         return this.description;

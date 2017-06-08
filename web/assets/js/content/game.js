@@ -149,10 +149,10 @@ function Game() {
 
     this.manageMonks = function () {
 
-        const brewerMonks = $("#BreweryPeople");
-        const outsideMonks = $("#OutsidePeople");
-        const insideMonks = $("#InsidePeople");
-        const fieldMonks = $("#FieldsPeople");
+        const brewerMonks = $("#BreweryMonks");
+        const outsideMonks = $("#OutsideMonks");
+        const insideMonks = $("#InsideMonks");
+        const fieldMonks = $("#FieldsMonks");
 
         this.monks = {
             amtOfBrewerMonks: eval(brewerMonks.val()),
@@ -207,7 +207,7 @@ function Game() {
 
     this.raiseFieldPrice = function () {
 
-        if (this.priceForAField == 0) {
+        if (this.priceForAField === 0) {
             this.priceForAField = 50;
         }
 
@@ -227,7 +227,7 @@ function Game() {
         let message = "Do you really want to sell your " + selectedField.getResourceName() + " field?\n";
         let value = selectedField.getFieldValue() + " coins";
 
-        if (selectedField.getFieldValue() == 0) {
+        if (selectedField.getFieldValue() === 0) {
             value = "nothing";
         }
 
@@ -292,5 +292,25 @@ function Game() {
 
         return visual;
     };
+
+    this.strangerMode = function (onOFF) {
+
+        if (this.getPlayer() === null && onOFF === "ON") {
+            $("#main > a").hide();
+            $("#main > a:first").show();
+
+            $(".uk-nav-offcanvas > a").hide();
+            $(".uk-nav-offcanvas > a:first").show();
+
+            this.strangermode = true;
+        }
+
+        else {
+            $("#main > a").show();
+            $(".uk-nav-offcanvas > a").show();
+
+            this.strangermode = false;
+        }
+    }
 
 }

@@ -10,7 +10,7 @@ function Story() {
     this.randomFact = "";
 
     this.arrayOfAbbotNames = ["Abel", "Berencardus", "Caillin", "Dominic", "Eoban", "Florus", "Grimbald", "Humbald", "Inigo", "John", "Konstanty", "Livinus", "Maurice", "Nicolas", "Omer", "Pelagius", "Quintius", "Robert", "Servan", "Teodor", "Ulfrid", "Vigor", "Walstan", "Xystus", "Yared", "Zeno"];
-
+    this.arrayOfSecrets = ["When I was little, I used to have a lot of 'accidents'. If you know what I mean.", "My favourite colour is pink.", "A lot of my famous stories contain things that I made, just to make it more sensational.", "I sometimes think that I want to live in another time. What would it be to live 600 years from now?", "Honestly saying, I still believe the world is flat."];
     this.arrayOfFacts = ["of a song", "of a movie", "of someone I used to know", "of soup,of noodles", "that I need to feed my cats after this story", "that it’s the same name as the creator of this all", "of someone I have seen on TV"];
 
     this.amtOfArticles = 0;
@@ -76,7 +76,7 @@ function Story() {
         part2 += "<p>Ooh! Still some hope for mankind! Cheers!</br>";
         part2 += "What about I give you a short story in return? </p>";
 
-        if (answer == "-1") {
+        if (answer === "-1") {
             part2 = "<p>I'm sorry to bother you with this.<br/> Jill, I'll pay my tab later. Can you add another beer, sweetheart? Thanks!</p>";
             part2 += "<p>Can I enlighten you with one of my many stories to make the thought of giving me beer go away?</p>";
         }
@@ -256,10 +256,10 @@ function Story() {
 
         let fact = this.arrayOfFacts[5];
 
-        if (playerName != "Laerolf" && playerName != "Nicolas") {
+        if (playerName !== "Laerolf" && playerName !== "Nicolas") {
             fact = this.randomizer(this.arrayOfFacts);
 
-            while (fact == this.arrayOfFacts[5]) {
+            while (fact === this.arrayOfFacts[5]) {
                 fact = this.randomizer(this.arrayOfFacts)
             }
         }

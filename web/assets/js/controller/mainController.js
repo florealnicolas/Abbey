@@ -231,7 +231,7 @@
 
         showNCRCounter(game1);
         showStock(game1.getStock().allItemsIntoAStockWay());
-        showPeople(game1);
+        showMonks(game1);
 
         buildFields(game1);
         showInstances(game1, "source", "inside");

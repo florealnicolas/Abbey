@@ -433,26 +433,26 @@ function buildFields(game) {
     }
 }
 
-function showPeople(game) {
+function showMonks(game) {
 
-    let peopleForm = "<form name='people' method='post'>";
-    peopleForm += "<h3>People</h3><p>Here you can say how many people need to work on a certain job.</p>";
-    peopleForm += "<p>Your abbey counts <span id='totalAmtOfMonks'>" + game.getTotalAmtOfMonks() + "</span> monks, ";
-    peopleForm += "<span id='amtOfOccupiedMonks'>" + game.getAmtOfOccupiedMonks() + "</span> of them are already working.</p>";
+    let monkForm = "<form name='monk' method='post'>";
+    monkForm += "<h3>People</h3><>Here you can decide how many monks need to work on a certain job.<br/>";
+    monkForm += "Your abbey counts currently <span id='totalAmtOfMonks'>" + game.getTotalAmtOfMonks() + "</span> monks, ";
+    monkForm += "<span id='amtOfOccupiedMonks'>" + game.getAmtOfOccupiedMonks() + "</span> of them are already working.</p>";
 
     const departments = game.getDepartments().sort();
 
     for (let departmentNr = 0, aantalDepartementen = departments.length; departmentNr < aantalDepartementen; departmentNr++) {
 
-        peopleForm += "<fieldset> <legend>" + departments[departmentNr] + "</legend>";
-        peopleForm += "<label>Number of monks:</label>";
-        peopleForm += "<input type='number' id='" + departments[departmentNr].split(" ")[0] + "People' min='0' value='0' max='"
+        monkForm += "<fieldset> <legend>" + departments[departmentNr] + "</legend>";
+        monkForm += "<label>Number of monks:</label>";
+        monkForm += "<input type='number' id='" + departments[departmentNr].split(" ")[0] + "Monks' min='0' value='0' max='"
             + game.getAmtOfAvailableMonks() + "'/></fieldset>";
     }
 
-    peopleForm += "</form>";
+    monkForm += "</form>";
 
-    $("#people").append(peopleForm);
+    $("#monks").append(monkForm);
 }
 
 function showRecipesAsOptions(game) {

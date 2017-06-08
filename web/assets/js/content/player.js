@@ -4,6 +4,7 @@ function Player(aPlayerName, initialAmtOfCoins, initialAmtOfReputation) {
     this.playerGender = "";
     this.coins = initialAmtOfCoins;
     this.reputation = initialAmtOfReputation;
+    this.password = "";
 
 //Getters of Player
 
@@ -19,10 +20,18 @@ function Player(aPlayerName, initialAmtOfCoins, initialAmtOfReputation) {
         return this.reputation;
     };
 
+    this.getPassword = function () {
+        return this.password;
+    };
+
 //Setters of Player
 
     this.setPlayerGender = function (gender) {
         this.playerGender = gender;
+    };
+
+    this.setPassword = function (newPassword) {
+        this.password = newPassword;
     };
 
 //Functions of Player
