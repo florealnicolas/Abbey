@@ -37,13 +37,13 @@ function Brewery(breweryMonks) {
 
 // Functions of Brewery
 
-    this.visualizeOverview = function () {
+    this.visualizeOverview = function (game) {
 
         let visual = "<h4>Overview</h4>";
 
         let amtOfMonk = "<h5>Employees</h5>";
         amtOfMonk += "<p>At the moment there are ";
-        if (this.getAmtOfMonks() == undefined) {
+        if (this.getAmtOfMonks() === undefined) {
             amtOfMonk += "no";
         }
 
@@ -51,14 +51,21 @@ function Brewery(breweryMonks) {
             amtOfMonk += this.getAmtOfMonks();
         }
 
-        amtOfMonk += " monks working in your brewery.</p>";
+        let monkBonus = 0;
+
+        if (this.getAmtOfMonks() !== undefined) {
+            monkBonus = (this.getAmtOfMonks() / game.getTotalAmtOfMonks()) * 100;
+        }
+
+        amtOfMonk += " monks working in your brewery.<br/>" +
+            "That results in a monk bonus of " + monkBonus + "%.</p>";
 
         let recipe = "<h5>Recipe</h5>";
         recipe += "<p>This brewery will produce ";
 
-        let recipeName = "no beer because you didn't gave them a recipe";
+        let recipeName = "no beer because you didn't gave them a recipe yet";
 
-        if (this.getSelectedRecipe() != null) {
+        if (this.getSelectedRecipe() !== null) {
             recipeName = this.getSelectedRecipe().getName();
         }
 
@@ -66,7 +73,7 @@ function Brewery(breweryMonks) {
 
         let equipment = "<h5>Equipment</h5>";
 
-        if (this.getEquipment().getSize() != 0) {
+        if (this.getEquipment().getSize() !== 0) {
             equipment += "<ul>";
             for (let equipmentItem = 0; equipmentItem < this.getEquipment().getSize(); equipmentItem++) {
                 equipment += "<li>" + this.getEquipment().getItemByNumber(equipmentItem).getName() + "</li>";
@@ -90,7 +97,7 @@ function Brewery(breweryMonks) {
 
         let process = "<p>There is no recipe selected yet, go to the recipe book and select one.</p>";
 
-        if (this.getSelectedRecipe() != null) {
+        if (this.getSelectedRecipe() !== null) {
 
             process = "";
 

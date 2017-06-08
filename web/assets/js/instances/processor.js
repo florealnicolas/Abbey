@@ -37,16 +37,16 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         var process = this.getPossibleProcesses().getItemByName(processName);
 
-        if (processName == undefined) {
+        if (processName === undefined) {
             process = this.possibleProcesses.getItemByNumber(0);
         }
 
-        var sufficientResources = this.enoughInputResources(process, game);
+        const sufficientResources = this.enoughInputResources(process, game);
 
-        var processBtn = $("#" + processorName + ".processor.button");
-        var numberOfInput = eval($("#inputNumber" + this.name).val());
+        const processBtn = $("#" + processorName + ".processor.button");
+        const numberOfInput = eval($("#inputNumber" + this.name).val());
 
-        if (processBtn.attr('value') != "busy" && numberOfInput != 0 && sufficientResources) {
+        if (processBtn.attr('value') !== "busy" && numberOfInput !== 0 && sufficientResources) {
 
             processBtn.attr("value", "busy");
             processBtn.addClass("disabled");
@@ -56,7 +56,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
         }
 
         else {
-            var resourceName = process.getInput().getName();
+            const resourceName = process.getInput().getName();
             //if (numberOfInput != 0) {
             alert("You have not enough " + resourceName + " in stock.\nTry again when you fetched more " + resourceName + ".");
             //}
@@ -65,13 +65,13 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
     this.brewProcess = function (game, processName) {
 
-        var process = this.getPossibleProcesses().getItemByName(processName);
+        const process = this.getPossibleProcesses().getItemByName(processName);
 
-        var sufficientResources = this.enoughInputResources(process, game);
+        const sufficientResources = this.enoughInputResources(process, game);
 
-        var processBtn = $("#process" + processName.replace(" ", "-") + ".process.button");
+        const processBtn = $("#process" + processName.replace(" ", "-") + ".process.button");
 
-        if (processBtn.attr('value') != "busy" && sufficientResources) {
+        if (processBtn.attr('value') !== "busy" && sufficientResources) {
 
             processBtn.attr("value", "busy");
             processBtn.addClass("disabled");
@@ -82,9 +82,9 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         else {
 
-            if (process.getInput().constructor == List) {
+            if (process.getInput().constructor === List) {
 
-                var message = "You don't have enough of this input:";
+                let message = "You don't have enough of this input:";
 
                 process.getInput().list.forEach(function (input) {
                     message += "\n" + input.getName();
@@ -94,7 +94,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
             }
 
             else {
-                var resourceName = process.getInput().getName();
+                const resourceName = process.getInput().getName();
                 alert("You have not enough " + resourceName + " in stock.\nTry again when you fetched more " + resourceName + ".");
             }
         }
@@ -102,13 +102,14 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
     this.brewProgressing = function (processBtn, game) {
 
+        const processName = processBtn[0].id.replace("process", "").toLowerCase();
 
-        var processName = processBtn[0].id.replace("process", "").toLowerCase();
+        const processor = this;
 
-        var processor = this;
-
-        var progressbar = $('#' + processName + '[class="progressbar"]'),
+        const progressbar = $('#' + processName + '[class="progressbar"]'),
             progressLabel = $('#' + processName + '[class="progressbar"] > .progress-label');
+
+        const monkBonus = game.getMonks().amtOfBrewerMonks / game.getTotalAmtOfMonks();
 
         progressbar.progressbar({
             value: 0,
@@ -133,20 +134,31 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
             progressbar.progressbar("value", val + 1);
 
             if (val < 99) {
-                setTimeout(progress, 80);
+                setTimeout(progress, 80 - (80 * monkBonus));
             }
         }
 
-        setTimeout(progress, 100);
+        setTimeout(progress, 100 - (100 * monkBonus));
 
     };
 
     this.progressing = function (processBtn, game) {
 
-        var processor = this;
+        const processor = this;
 
-        var progressbar = $('#' + processor.getName() + '[class="progressbar"]'),
+        const progressbar = $('#' + processor.getName() + '[class="progressbar"]'),
             progressLabel = $('#' + processor.getName() + '[class="progressbar"] > .progress-label');
+
+        switch (processor.getPlace()) {
+            case "inside":
+                var monks = game.getMonks().amtOfInsideMonks;
+                break;
+            case "outside":
+                monks = game.getMonks().amtOfOutsideMonks;
+                break;
+        }
+
+        const monkBonus = monks / game.getTotalAmtOfMonks();
 
         progressbar.progressbar({
             value: 0,
@@ -171,11 +183,11 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
             progressbar.progressbar("value", val + 1);
 
             if (val < 99) {
-                setTimeout(progress, 80);
+                setTimeout(progress, 80 - (80 * monkBonus));
             }
         }
 
-        setTimeout(progress, 100);
+        setTimeout(progress, 100 - (100 * monkBonus));
     };
 
     this.work = function (processBtn, input, game) {
@@ -211,7 +223,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         let stockOfInput = null;
 
-        if (input.constructor == List) {
+        if (input.constructor === List) {
 
             for (let inputItem = 0; inputItem < input.getSize(); inputItem++) {
                 stockOfInput = game.getStock().getItemByName(input.getItemByNumber(inputItem).getName());
@@ -230,7 +242,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         let gain = null;
 
-        if (this.output.constructor == List) {
+        if (this.output.constructor === List) {
             let neededOutput = process.getOutput();
             gain = new Resource(this.output.getItemByName(neededOutput.getName()).getName(), neededOutput.getQuantity(), neededOutput.getUnitValue(), neededOutput.getCategory());
         }
@@ -266,7 +278,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         let stockOfInput = null;
 
-        if (process.getInput().constructor == List) {
+        if (process.getInput().constructor === List) {
             for (let inputItem = 0; enough && inputItem < process.getInput().getSize(); inputItem++) {
 
                 stockOfInput = game.getStock().getItemByName(process.getInput().getItemByNumber(inputItem).getName());
@@ -281,7 +293,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
             stockOfInput = game.getStock().getItemByName(process.getInput().getName());
 
-            if (stockOfInput == null || stockOfInput.getQuantity() < process.getInput().getQuantity()) {
+            if (stockOfInput === null || stockOfInput.getQuantity() < process.getInput().getQuantity()) {
                 enough = false;
             }
         }
@@ -293,7 +305,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         let processable = false;
 
-        if (this.getPossibleInputs().getItemByName(someInput.getName()) != null) {
+        if (this.getPossibleInputs().getItemByName(someInput.getName()) !== null) {
             processable = true;
         }
 

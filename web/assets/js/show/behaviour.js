@@ -19,7 +19,7 @@ function addBehaviour(game, address) {
         case "process":
             $(address).click(function (e) {
                 e.preventDefault();
-                const processName = instanceName.replace("process","");
+                let processName = instanceName.replace("process","");
                 processName = processName.replace("-"," ");
                 const step = game.getBrewery().getSelectedRecipe().getScheme().getStepByName(processName);
                 game.getProcessors().getItemByName(step.getProcessorName()).brewProcess(game, processName);

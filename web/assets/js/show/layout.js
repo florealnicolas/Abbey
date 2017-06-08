@@ -147,7 +147,7 @@ function showBrewery(game) {
     $("#brew .overview").html("");
     $("#brew .process").html("");
 
-    const overview = game.getBrewery().visualizeOverview();
+    const overview = game.getBrewery().visualizeOverview(game);
     const process = game.getBrewery().visualizeProcess();
 
     $("#brew .overview").html(overview);
@@ -155,7 +155,7 @@ function showBrewery(game) {
 
     const recipe = game.getBrewery().getSelectedRecipe();
 
-    if (recipe != null) {
+    if (recipe !== null) {
         for (let stepNr = 0; stepNr < recipe.getScheme().getAmtOfSteps(); stepNr++) {
             const step = recipe.getScheme().getStepByNumber(stepNr);
             const address = "#process" + step.getName().replace(" ", "-") + ".process.button";
@@ -254,8 +254,7 @@ function showProfilePage(game) {
 
     let profile = "<p>You are still just a stranger to us...<br/>Finish the story of Troubadour first!</p>";
 
-    console.log("HERE");
-    if (player != null) {
+    if (player !== null) {
 
         profile = "<h2>" + player.getPlayerName() + "</h2>" +
             "<p>Who are you to us?<br/>" +

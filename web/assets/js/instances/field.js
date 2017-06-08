@@ -86,15 +86,13 @@ function Field(fieldNumber, priceOfField, resource, categories) {
 
         const monkBonus = game.getMonks().amtOfFieldMonks / game.getTotalAmtOfMonks();
 
-        console.log("My bonus is ", monkBonus);
-
         const field = this;
 
         const progressbar = $("#" + this.fieldName + '[class="progressbar"]'),
             progressLabel = $("#" + this.fieldName + '[class="progressbar"] > .progress-label');
 
-        let doneTime;
-        let createTime;
+        /*let doneTime;
+        let createTime;*/
 
         progressbar.progressbar({
             value: 0,
@@ -110,13 +108,13 @@ function Field(fieldNumber, priceOfField, resource, categories) {
                 progressbar.addClass("completed");
                 fieldBtn.removeClass("disabled");
 
-                doneTime = new Date();
-                console.log("TIME DONE",doneTime - createTime);
+                /*doneTime = new Date();
+                console.log("TIME DONE",doneTime - createTime);*/
             },
             create: function () {
                 $('div[class="opbrengst"][id="' + field.fieldName + '"]').hide();
 
-                createTime = new Date();
+                //createTime = new Date();
             }
         });
 

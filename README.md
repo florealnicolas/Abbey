@@ -49,7 +49,7 @@ I’m also studying Chinese, so there is less Abbey-time for me these days.
 
 ## Follow Abbey
 
-* [Abbey on Facebook](https://www.facebook.com/AbbeyTheGame/)
+* [Abbey on Facebook!](https://www.facebook.com/AbbeyTheGame/)
 
 ## Comments by me to you:
 

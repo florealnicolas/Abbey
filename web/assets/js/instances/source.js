@@ -26,6 +26,17 @@ function Source(sourceName, sourceMaxOutput, placeName) {
         const progressbar = $('#' + source.name + '[class="progressbar"]'),
             progressLabel = $('#' + source.name + '[class="progressbar"] > .progress-label');
 
+        switch (source.getPlace()) {
+            case "inside":
+                var monks = game.getMonks().amtOfInsideMonks;
+                break;
+            case "outside":
+                monks = game.getMonks().amtOfOutsideMonks;
+                break;
+        }
+
+        const monkBonus = monks / game.getTotalAmtOfMonks();
+
         progressbar.progressbar({
             value: 0,
             change: function () {
@@ -49,11 +60,11 @@ function Source(sourceName, sourceMaxOutput, placeName) {
             progressbar.progressbar("value", val + 1);
 
             if (val < 99) {
-                setTimeout(progress, 80);
+                setTimeout(progress, 80 - (80 * monkBonus));
             }
         }
 
-        setTimeout(progress, 100);
+        setTimeout(progress, 100 - (100 * monkBonus));
     };
 
     this.work = function (processBtn, game) {
