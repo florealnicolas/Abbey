@@ -461,6 +461,7 @@ function showChapel(game) {
     const chapel = game.getChapel();
 
     $("#chapel").html(chapel.visualize());
+    chapel.checkIfTeachable();
 
     $("#pray").on("click", function () {
         chapel.manualPraying();
@@ -468,8 +469,8 @@ function showChapel(game) {
 
     $(".enlightScroll").on("click", function () {
         const scrollName = $(this)[0].id.split("-")[1];
-        chapel.getEnlightenmentList().getItemByName(scrollName).learnEnlightenment(dummyGame3);
-        dummyGame3.applyEffects();
+        chapel.getEnlightenmentList().getItemByName(scrollName).learnEnlightenment(game);
+        game.applyEffects();
     });
 }
 

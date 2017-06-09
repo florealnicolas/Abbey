@@ -106,7 +106,7 @@
         //ENLIGHTENMENT LIST
 
         const theWayOfTheLittleOne = new Enlightenment("The way of the little one","There was once a little one called Liya.");
-        theWayOfTheLittleOne.setRequirement("believe",5);
+        theWayOfTheLittleOne.setRequirement("believe",1);
         theWayOfTheLittleOne.setEffect("totalAmtOfMonks","Amount of monks multiplied by 10");
 
         game1.getChapel().getEnlightenmentList().addAnItem(theWayOfTheLittleOne);

@@ -74,7 +74,7 @@ function Chapel() {
 
         visual += "<div id='enlightenmentList'><h4>Scroll of enlightenment</h4>";
 
-        for(let enlightmentNr = 0; enlightmentNr < this.getEnlightenmentList().getSize(); enlightmentNr++) {
+        for (let enlightmentNr = 0; enlightmentNr < this.getEnlightenmentList().getSize(); enlightmentNr++) {
             visual += this.getEnlightenmentList().getItemByNumber(enlightmentNr).visualizeEnlightenment();
         }
 
@@ -95,10 +95,27 @@ function Chapel() {
         enlightenmentStatus.val(this.getCurrentPrayers());
         enlightenmentStatusLabel.html(this.getEnlightenmentStatusLabel());
 
-        $(".progress").css("width", (this.getEnlightenmentStatus() * 100) + "%")
+        $(".progress").css("width", (this.getEnlightenmentStatus() * 100) + "%");
 
         if (this.getEnlightenmentStatus() >= 1) {
             prayButton.html("Enlighten");
+        }
+    };
+
+    this.checkIfTeachable = function () {
+
+        const scrollClass = $(".enlightScroll");
+        scrollClass.attr("disabled", true);
+        scrollClass.addClass("disabled");
+
+        for (let enlightenmentNr = 0, amtOfEnlight = this.getEnlightenmentList().getSize(); enlightenmentNr < amtOfEnlight; enlightenmentNr++) {
+
+            let selectedScroll = $(scrollClass[enlightenmentNr]);
+
+            if (this.getEnlightenmentList().getItemByNumber(enlightenmentNr).ableToLearn(this)) {
+                selectedScroll.attr("disabled", false);
+                selectedScroll.removeClass("disabled");
+            }
         }
     };
 
@@ -109,6 +126,7 @@ function Chapel() {
         this.setCurrentPrayers(0);
         this.setNextEnlightenment();
         this.updateEnlightenmentStatus();
+        this.checkIfTeachable();
     };
 
     this.manualPraying = function () {
