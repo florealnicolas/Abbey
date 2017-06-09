@@ -24,6 +24,8 @@ function Game() {
         amtOfChapelMonks: 0
     };
 
+    this.effects = [];
+
     //IDEA: MARKET MONKS! -> capacity!
 
     this.departments = ["Fields", "Inside the abbey", "Outside the abbey", "Brewery", "Chapel"];
@@ -54,6 +56,10 @@ function Game() {
 
     this.getPlayer = function () {
         return this.player;
+    };
+
+    this.getEffects = function () {
+        return this.effects;
     };
 
     this.getPriceOfAField = function () {
@@ -153,6 +159,22 @@ function Game() {
 
 //Functions of Game
 
+    this.addEffect = function (newEffect) {
+        this.effects.push(newEffect);
+    };
+
+    this.applyEffects = function () {
+
+        for (let effectNr = 0, totalAmtOfEffects = this.effects.length; effectNr < totalAmtOfEffects; effectNr++) {
+            switch (this.effects[effectNr]) {
+                case "The way of the little one":
+                    this.totalAmtOfMonks = this.totalAmtOfMonks * 10;
+                    showMonks(this);
+                    break;
+            }
+        }
+    };
+
     this.manageMonks = function () {
 
         const brewerMonks = $("#BreweryMonks");
@@ -189,16 +211,18 @@ function Game() {
         chapelMonks.attr("value", this.getMonks().amtOfChapelMonks);
 
         $('#amtOfOccupiedMonks').text(this.amtOfOccupiedMonks);
-
-        this.brewery.setAmtOfMonks(this.getMonks().amtOfBrewerMonks);
-
         this.updateMonks();
+
+        this.getBrewery().setAmtOfMonks(this.getMonks().amtOfBrewerMonks);
+        this.getChapel().setAmtOfMonks(this.getMonks().amtOfChapelMonks);
+
+        this.getChapel().automaticPraying();
     };
 
     this.updateMonks = function () {
-        $(".inside .monkBonus span").html((this.getMonks().amtOfInsideMonks / this.getTotalAmtOfMonks())*100 + "%");
-        $(".outside .monkBonus span").html((this.getMonks().amtOfOutsideMonks / this.getTotalAmtOfMonks())*100 + "%");
-        $(".grounds .monkBonus span").html((this.getMonks().amtOfFieldMonks / this.getTotalAmtOfMonks())*100 + "%");
+        $(".inside .monkBonus span").html((this.getMonks().amtOfInsideMonks / this.getTotalAmtOfMonks()) * 100 + "%");
+        $(".outside .monkBonus span").html((this.getMonks().amtOfOutsideMonks / this.getTotalAmtOfMonks()) * 100 + "%");
+        $(".grounds .monkBonus span").html((this.getMonks().amtOfFieldMonks / this.getTotalAmtOfMonks()) * 100 + "%");
         $("#chapelMonks").html(this.getMonks().amtOfChapelMonks);
     };
 

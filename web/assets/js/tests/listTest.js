@@ -1,7 +1,7 @@
 //First I write my testfunction -> assertEquals()
 function assertEquals(expectedValue, realValue) {
     if (expectedValue !== realValue) {
-        console.log("You are expecting '" + expectedValue + "' but the real thing is '" + realValue + "'.");
+        console.log("You are expecting '", expectedValue ,"' but the real thing is '", realValue ,"'.");
     }
 }
 

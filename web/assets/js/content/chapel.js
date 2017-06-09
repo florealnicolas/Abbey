@@ -4,8 +4,9 @@ function Chapel() {
     this.chapelMonks = 0;
 
     this.currentPrayers = 0;
-    this.nextEnlightment = 10;
+    this.nextEnlightenment = 10;
 
+    this.enlightenmentList = new List();
 
 // Getters of Chapel
 
@@ -21,16 +22,20 @@ function Chapel() {
         return this.currentPrayers;
     };
 
-    this.getNextEnlightment = function () {
-        return this.nextEnlightment;
+    this.getEnlightenmentList = function () {
+        return this.enlightenmentList;
     };
 
-    this.getEnlightmentStatus = function () {
-        return this.getCurrentPrayers() / this.getNextEnlightment();
+    this.getNextEnlightenment = function () {
+        return this.nextEnlightenment;
     };
 
-    this.getEnlightmentStatusLabel = function () {
-        return this.getCurrentPrayers() + " / " +this.getNextEnlightment();
+    this.getEnlightenmentStatus = function () {
+        return this.getCurrentPrayers() / this.getNextEnlightenment();
+    };
+
+    this.getEnlightenmentStatusLabel = function () {
+        return this.getCurrentPrayers() + " / " + this.getNextEnlightenment();
     };
 
 // Setters of Chapel
@@ -43,8 +48,12 @@ function Chapel() {
         this.currentPrayers = newAmt;
     };
 
-    this.setNextEnlightment = function () {
-        this.nextEnlightment = Math.round(this.getNextEnlightment() * 5);
+    this.setNextEnlightenment = function () {
+        this.nextEnlightenment = Math.round(this.getNextEnlightenment() * 5);
+    };
+
+    this.setBelieve = function (newAmt) {
+        this.believe = newAmt;
     };
 
 // Functions of Chapel
@@ -52,36 +61,90 @@ function Chapel() {
     this.visualize = function () {
         let visual = "<h3>Chapel</h3>";
         visual += "<p>Amount of believe:\t<span id='believe'>" + this.getBelieve() + "</span></p>";
-        visual += "<p>Here your monks can pray to reach enlightment. Every enlightenment is rewarded with believe.<br/>" +
+        visual += "<p>Here your monks can pray to reach enlightenment. Every enlightenment is rewarded with believe.<br/>" +
             "The more monks you leave to the chapel, the faster your abbey will gain believe.</p>";
-        visual += "<p>Use your believe for some special researches and make your abbey more advanced.</p>";
-        visual += "<p>Currently there are <span id='chapelMonks'>" + this.getAmtOfMonks() + "</span> monks doing some research in the chapel.</p>";
+        visual += "<p>Use your believe for some special insights and make your abbey more advanced.</p>";
+        visual += "<p>Currently there are <span id='chapelMonks'>" + this.getAmtOfMonks() + "</span> monks praying in the chapel.</p>";
 
-        visual += "<div class='progressbar' id='enlightmentStatus' value='" + this.getCurrentPrayers() + "'><div class='progress-label'>" + this.getEnlightmentStatusLabel() + "</div></div>";
+        visual += "<div class='progressbar' id='enlightenmentStatus' value='" + this.getCurrentPrayers() + "'>" +
+            "<div class='progress'></div>" + "<div class='progress-label'>" + this.getEnlightenmentStatusLabel() + "</div>" +
+            "</div>";
+
         visual += "<button class='button' id='pray'>Pray</button>";
+
+        visual += "<div id='enlightenmentList'><h4>Scroll of enlightenment</h4>";
+
+        for(let enlightmentNr = 0; enlightmentNr < this.getEnlightenmentList().getSize(); enlightmentNr++) {
+            visual += this.getEnlightenmentList().getItemByNumber(enlightmentNr).visualizeEnlightenment();
+        }
+
+        visual += "</div>";
 
         return visual;
     };
 
-    this.updateEnlightmentStatus = function () {
-        const enlightmentStatus = $("#enlightmentStatus"),
-            enlightmentStatusLabel = $("#enlightmentStatus .progress-label"),
-        prayButton = $("#pray");
+    this.addEnlightenment = function (newEnlightenment) {
+        this.enlightenmentList.addAnItem(newEnlightenment);
+    };
 
-        enlightmentStatus.val(this.getCurrentPrayers());
-        enlightmentStatusLabel.html(this.getEnlightmentStatusLabel());
+    this.updateEnlightenmentStatus = function () {
+        const enlightenmentStatus = $("#enlightenmentStatus"),
+            enlightenmentStatusLabel = $("#enlightenmentStatus .progress-label"),
+            prayButton = $("#pray");
 
-        if (this.getEnlightmentStatus() >= 1) {
+        enlightenmentStatus.val(this.getCurrentPrayers());
+        enlightenmentStatusLabel.html(this.getEnlightenmentStatusLabel());
+
+        $(".progress").css("width", (this.getEnlightenmentStatus() * 100) + "%")
+
+        if (this.getEnlightenmentStatus() >= 1) {
             prayButton.html("Enlighten");
         }
     };
 
-    this.enlightment = function () {
+    this.enlightenment = function () {
         this.believe++;
         $('#believe').html(this.getBelieve());
         $("#pray").html("Pray");
         this.setCurrentPrayers(0);
-        this.setNextEnlightment();
-        this.updateEnlightmentStatus();
+        this.setNextEnlightenment();
+        this.updateEnlightenmentStatus();
+    };
+
+    this.manualPraying = function () {
+        if (this.getEnlightenmentStatus() >= 1) {
+            this.enlightenment();
+        }
+        else {
+            let newAmtOfPrayers = this.getCurrentPrayers() + 1;
+            this.setCurrentPrayers(newAmtOfPrayers);
+            this.updateEnlightenmentStatus();
+        }
+
+        console.log("Current prayers", this.getCurrentPrayers());
+        console.log("Next enlightment", this.getNextEnlightenment());
+        console.log("Amount of believe", this.getBelieve());
+    };
+
+    this.automaticPraying = function () {
+        const chapel = this;
+        console.log("MONKS", this.getAmtOfMonks());
+        if (this.getAmtOfMonks() > 0) {
+            if (this.getCurrentPrayers() <= this.getNextEnlightenment() - 1) {
+                var timer = window.setTimeout(function () {
+                    let newAmtOfPrayers = chapel.getCurrentPrayers() + 1;
+                    chapel.setCurrentPrayers(newAmtOfPrayers);
+                    chapel.updateEnlightenmentStatus();
+
+                    console.log("Current prayers", chapel.getCurrentPrayers());
+                    console.log("Next enlightment", chapel.getNextEnlightenment());
+                    console.log("Amount of believe", chapel.getBelieve());
+                }, 1000);
+            }
+            else {
+                window.clearInterval(timer);
+            }
+        }
     }
+
 }

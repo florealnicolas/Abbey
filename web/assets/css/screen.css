@@ -59,7 +59,7 @@ a {
     font-weight: bold;
 }
 
-#work label {
+#jobs label {
     font-weight: normal;
 }
 
@@ -174,18 +174,18 @@ a.active, a:hover, a:focus {
     color: #b09348;
 }
 
-#secondaryWork, #secondaryBrew {
+#secondaryJob, #secondaryBrew {
     border-bottom: solid rgb(250, 235, 215) 2pt;
     padding-bottom: 2%;
     margin-bottom: 2%;
 }
 
-#secondaryWork a, #secondaryBrew a {
+#secondaryJob a, #secondaryBrew a {
     padding: 1%;
     margin-right: 2%;
 }
 
-#secondaryWork a:last-child, #secondaryBrew a:last-child {
+#secondaryJob a:last-child, #secondaryBrew a:last-child {
     float: none;
     margin-right: 0;
 }
@@ -345,7 +345,7 @@ fieldset:last-child {
     text-align: center;
 }
 
-#work > div {
+#jobs > div {
     display: none;
 }
 
@@ -509,6 +509,22 @@ fieldset:last-child {
 
 .profileSection a:first-child {
     margin-right: 3%;
+}
+
+.progress {
+    width: 0;
+    height: inherit;
+    background-color: green;
+}
+
+.enlightenment {
+    background-color: #e3c258;
+    padding: 1%;
+    margin: 2% 0 2% 0;
+}
+
+#enlightenmentList {
+    margin-top: 2%;
 }
 
 /* --- Home --- */

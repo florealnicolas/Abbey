@@ -98,6 +98,19 @@
 
     $(document).ready(function () {
 
+        //IDEAS
+        console.log("IDEAS:");
+        console.log("- TOOLTIP FOR RESOURCES ON MARKET (VALUE + TYPE)");
+        console.log("- MONKS ON MARKETPLACE");
+
+        //ENLIGHTENMENT LIST
+
+        const theWayOfTheLittleOne = new Enlightenment("The way of the little one","There was once a little one called Liya.");
+        theWayOfTheLittleOne.setRequirement("believe",5);
+        theWayOfTheLittleOne.setEffect("totalAmtOfMonks","Amount of monks multiplied by 10");
+
+        game1.getChapel().getEnlightenmentList().addAnItem(theWayOfTheLittleOne);
+
         //EXPERIMENTAL: BREWERY + RECIPES
 
         const ale = new Resource("Ale", 20, 50, "beer");
@@ -255,7 +268,7 @@
         }
 
         $("#main a").on("click", showPage);
-        $("#secondaryWork a").on("click", showWorkSubpage);
+        $("#secondaryJob a").on("click", showJobSubpage);
         $("#secondaryBrew a").on("click", showBrewSubpage);
         $(game1.getStock()).on("change", showStock(game1.getStock().allItemsIntoAStockWay(game1.getResourceCategories())));
         $(game1.getPlayer()).on("change", showNCRCounter(game1));

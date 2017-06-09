@@ -94,27 +94,27 @@ function showPage(e) {
     $('#' + page).show();
     $(this).addClass("active");
 
-    if (page == "work") {
-        const activePage = $("#secondaryWork > .active").text();
+    if (page === "jobs") {
+        const activePage = $("#secondaryJob > .active").text();
         $('.' + activePage.toLowerCase()).show();
     }
 
-    if (page == "brew") {
+    if (page === "brew") {
         const activePage = $("#secondaryBrew > .active").text();
         $('.' + activePage.toLowerCase()).show();
     }
 }
 
-function showWorkSubpage(e, game) {
+function showJobSubpage(e, game) {
     e.preventDefault();
 
-    const prevPage = $("#secondaryWork > .active").text();
+    const prevPage = $("#secondaryJob > .active").text();
     const currentPage = $(this).text().toLowerCase();
 
-    if (prevPage != currentPage) {
+    if (prevPage !== currentPage) {
 
-        $('#work > div').hide();
-        $('#secondaryWork > a').removeClass("active");
+        $('#jobs > div').hide();
+        $('#secondaryJob > a').removeClass("active");
 
         $('.' + currentPage).show();
         $(this).addClass("active");
@@ -186,6 +186,7 @@ function showMarket(game) {
         $(this).addClass("active");
 
         showVendor(game, $(this).text());
+        showInventory(game);
     });
 
     showInventory(game);
@@ -462,20 +463,14 @@ function showChapel(game) {
     $("#chapel").html(chapel.visualize());
 
     $("#pray").on("click", function () {
+        chapel.manualPraying();
+    });
 
-        if (chapel.getEnlightmentStatus() >= 1){
-            chapel.enlightment();
-        }
-        else {
-            let newAmtOfPrayers = chapel.getCurrentPrayers() + 1;
-            chapel.setCurrentPrayers(newAmtOfPrayers);
-            chapel.updateEnlightmentStatus();
-        }
-
-       /*console.log("Current prayers", chapel.getCurrentPrayers());
-        console.log("Next enlightment", chapel.getNextEnlightment());
-        console.log("Amount of believe", chapel.getBelieve())*/
-    })
+    $(".enlightScroll").on("click", function () {
+        const scrollName = $(this)[0].id.split("-")[1];
+        chapel.getEnlightenmentList().getItemByName(scrollName).learnEnlightenment(dummyGame3);
+        dummyGame3.applyEffects();
+    });
 }
 
 function showRecipesAsOptions(game) {
