@@ -72,7 +72,7 @@ function Chapel() {
 
         visual += "<button class='button' id='pray'>Pray</button>";
 
-        visual += "<div id='enlightenmentList'><h4>Scroll of enlightenment</h4>";
+        visual += "<div id='enlightenmentList'><h4>Scrolls of enlightenment</h4>";
 
         for (let enlightmentNr = 0; enlightmentNr < this.getEnlightenmentList().getSize(); enlightmentNr++) {
             visual += this.getEnlightenmentList().getItemByNumber(enlightmentNr).visualizeEnlightenment();

@@ -482,6 +482,19 @@ function showRecipeDescription(recipe) {
     $("#recipeDescription").append(recipe.getDescription());
 }
 
+function showWorkshop (game) {
+    const workshop = game.getWorkshop();
+
+  $("#workshop").html(game.getWorkshop().visualizeWorkshop());
+    workshop.checkIfBuyable(game);
+
+    $(".buyUpgrade").on("click", function () {
+        const upgradeName = $(this)[0].id.split("-")[1];
+        workshop.getListOfUpgrades().getItemByName(upgradeName).buyUpgrade(game);
+        //game.applyEffects();
+    });
+};
+
 function showFieldTypes(game, fieldName) {
 
     const resourceName = game.getFields().getItemByName(fieldName).getResourceName();

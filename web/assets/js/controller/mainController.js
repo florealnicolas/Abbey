@@ -117,6 +117,7 @@
         console.log("IDEAS:");
         console.log("- TOOLTIP FOR RESOURCES ON MARKET (VALUE + TYPE)");
         console.log("- MONKS ON MARKETPLACE");
+        console.log("- ABBEY WITH MONK LIMIT");
 
         //ENLIGHTENMENT LIST
 
@@ -271,6 +272,7 @@
         showBrewery(game1);
         showMarket(game1);
         showChapel(game1);
+        showWorkshop(game1);
 
         //EXPERIMENTAL
 

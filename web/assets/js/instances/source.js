@@ -82,6 +82,7 @@ function Source(sourceName, sourceMaxOutput, placeName) {
 
         $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
         showInventory(game);
+        game.getWorkshop().checkIfBuyable(game);
     };
 
     this.gainResource = function () {

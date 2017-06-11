@@ -75,6 +75,9 @@ function Vendor(vendorName, vendingCategories) {
             game.getPlayer().addCoins(cost);
         }
 
+        showStock(game.getStock());
+        showInventory(game);
+        game.getWorkshop().checkIfBuyable(game);
     };
 
     this.visualizeVendorButton = function () {

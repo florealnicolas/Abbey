@@ -208,6 +208,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
         game.getStock().addAResource(gain);
         $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
         showInventory(game);
+        game.getWorkshop().checkIfBuyable(game);
     };
 
     this.brewWork = function (processBtn, game) {

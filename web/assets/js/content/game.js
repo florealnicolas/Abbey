@@ -10,6 +10,7 @@ function Game() {
     this.tanks = new List();
     this.brewery = new Brewery();
     this.chapel = new Chapel();
+    this.workshop = new Workshop();
     this.vendors = new List();
 
     this.totalAmtOfMonks = 20;
@@ -100,6 +101,10 @@ function Game() {
 
     this.getStock = function () {
         return this.stock;
+    };
+
+    this.getWorkshop = function () {
+        return this.workshop;
     };
 
     this.getStockInString = function () {

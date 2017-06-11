@@ -80,6 +80,7 @@ function Field(fieldNumber, priceOfField, resource, categories) {
 
         $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
         showInventory(game);
+        game.getWorkshop().checkIfBuyable(game);
     };
 
     this.progressing = function (fieldBtn, game) {
