@@ -127,6 +127,10 @@
 
         game1.getChapel().getEnlightenmentList().addAnItem(theWayOfTheLittleOne);
 
+        //UPGRADE LIST
+
+        //const golden
+
         //EXPERIMENTAL: BREWERY + RECIPES
 
         const ale = new Resource("Ale", 20, 50, "beer");
@@ -244,8 +248,14 @@
 
         const zina = new Vendor("Zina", zinasInterests);
 
+        const anaisInterests = new List();
+        anaisInterests.addListOfItems(["flower","dreams","crop"]);
+
+        const anais = new Vendor("Anaïs", anaisInterests);
+
         game1.getVendors().addAnItem(maurits);
         game1.getVendors().addAnItem(zina);
+        game1.getVendors().addAnItem(anais);
 
         //End of to-move
 
@@ -273,16 +283,7 @@
         showMarket(game1);
         showChapel(game1);
         showWorkshop(game1);
-
-        //EXPERIMENTAL
-
-        let schemeString = "<h2>Schemes</h2>";
-
-        for (let recipeNr = 0; recipeNr < game1.getRecipes().getSize(); recipeNr++) {
-            const selectedScheme = game1.getRecipes().getItemByNumber(recipeNr).getScheme();
-            selectedScheme.loadUsedStorage();
-            schemeString += selectedScheme.visualizeScheme(game1.getRecipes().getItemByNumber(recipeNr).getName());
-        }
+        showStorage(game1);
 
         $("#main a").on("click", showPage);
         $("#secondaryJob a").on("click", showJobSubpage);
@@ -292,18 +293,6 @@
         $("#monks").on("click", function () {
             game1.manageMonks();
             showBrewery(game1);
-        });
-
-        $(".phaseAction").on("click", function (e) {
-            e.preventDefault();
-
-            const idParts = $(this).attr("id").split("-");
-            const stepNr = idParts[1].substr(4);
-            const recipeName = idParts[0];
-            const selectedTank = game1.getRecipes().getItemByName(recipeName).getScheme().getStepByNumber(stepNr - 1).getStorage();
-
-            selectedTank.raiseFluidLevel(10);
-            selectedTank.updateFluidLevel();
         });
 
         $("#selectedRecipe").on("click", function (e) {

@@ -1,7 +1,6 @@
 function Scheme() {
 
     this.steps = new List();
-
     this.usedStorage = new List();
 
 // Getters of Scheme
@@ -37,29 +36,29 @@ function Scheme() {
         let stepString = "<h3>" + recipeName + " scheme</h3>";
 
         stepString += "<div id='" + recipeName + "' class='scheme'>";
-        stepString += "<div class='row medium-12'>";
+        stepString += "<div class='stepRow'>";
 
         for (let stepNr = 1; stepNr < this.getAmtOfSteps() + 1; stepNr++) {
 
             let selectedStep = this.steps.getItemByNumber(stepNr - 1);
-            stepString += "<div class='schemeStep medium-4 columns' id='" + selectedStep.getName() + (stepNr - 1) + "'>";
+            stepString += "<div class='schemeStep' id='" + selectedStep.getName() + (stepNr - 1) + "'>";
             stepString += "<h4>" + selectedStep.getName() + "</h4>";
 
-            if (selectedStep.getStorage() != null) {
+            if (selectedStep.getStorage() !== null) {
                 stepString += "<div class='tankField'>";
                 stepString += "<p>" + selectedStep.getStorage().getName() + "</p>";
                 stepString += selectedStep.getStorage().visualizeTank();
-                stepString += "<button id='" + recipeName + "-step" + (stepNr) + "' class='phaseAction button'>Go!</button>";
+                //stepString += "<button id='" + recipeName + "-step" + (stepNr) + "' class='phaseAction button'>Go!</button>";
                 stepString += "</div>";
             }
 
             stepString += "</div>";
 
-            if (stepNr != this.getAmtOfSteps() && stepNr % 2 == 0) {
-                stepString += "</div><div class='row medium-12'>";
+            if (stepNr !== this.getAmtOfSteps() && stepNr % 2 === 0) {
+                stepString += "</div><div class='stepRow'>";
             }
 
-            if (stepNr < this.getAmtOfSteps()) {
+            if (stepNr < this.getAmtOfSteps() && stepNr % 2 === 1) {
                 stepString += this.visualizeArrow();
             }
 

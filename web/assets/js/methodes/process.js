@@ -30,7 +30,7 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
 
     this.getOutputQuantity = function () {
 
-        if (this.output.getQuantity() == 0) {
+        if (this.output.getQuantity() === 0) {
             return 0;
         }
 
@@ -47,7 +47,7 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
 
     this.getStorage = function () {
 
-        if (this.storage == null) {
+        if (this.storage === null) {
             this.storage = new Tank(this.output, 100);
         }
 
@@ -99,7 +99,7 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
 
         let nameString = this.getName();
 
-        if (this.name.substr(this.name.length - 3) == "ing") {
+        if (this.name.substr(this.name.length - 3) === "ing") {
             nameString = nameString.substr(0, this.name.length - 3);
         }
 
@@ -111,10 +111,9 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
         let visual = "<h5>" + this.getName() + "</h5>";
 
         visual += "<div class='row'>";
-
         visual += "<div class='input small-3-columns'>";
 
-        if (this.getInput().constructor == List) {
+        if (this.getInput().constructor === List) {
             for (let ingredientNr = 0; ingredientNr < this.getInput().getSize(); ingredientNr++) {
                 visual += "<p>";
                 visual += this.getInput().getItemByNumber(ingredientNr).getName().toLowerCase();

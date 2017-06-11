@@ -261,6 +261,11 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
         game.getStock().addAResource(gain);
         $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
         showInventory(game);
+
+        const tank = process.getStorage();
+
+        tank.raiseFluidLevel((gain.getQuantity()));
+        tank.updateFluidLevel();
     };
 
     this.fromInputToOutput = function (input, numberOfInput, game) {

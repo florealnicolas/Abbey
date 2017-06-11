@@ -527,4 +527,26 @@ fieldset:last-child {
     margin-top: 2%;
 }
 
+.stepRow {
+    width: 100%;
+    margin-bottom: 5%;
+}
+
+.stepRow:last-child {
+    margin-bottom:0 ;
+}
+
+.schemeStep{
+    width: 25%;
+}
+
+.schemeStep {
+    display: inline-block;
+}
+
+.arrow {
+    display: inline-block;
+    margin: 0 10% 0 10%;
+}
+
 /* --- Home --- */

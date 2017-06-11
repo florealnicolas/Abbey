@@ -143,6 +143,41 @@ function showStock(stock) {
     $("#stock").html(content);
 }
 
+function showStorage (game) {
+
+    let visual = "<h4>Storage</h4>";
+
+    const recipe = game.getBrewery().getSelectedRecipe();
+
+    if (recipe !== null) {
+
+        for (let recipeNr = 0, amtOfRecipes = game.getRecipes().getSize(); recipeNr < amtOfRecipes; recipeNr++) {
+
+            const selectedScheme = game.getRecipes().getItemByNumber(recipeNr).getScheme();
+            selectedScheme.loadUsedStorage();
+            visual += selectedScheme.visualizeScheme(game.getRecipes().getItemByNumber(recipeNr).getName());
+        }
+    }
+
+    else {
+        visual += "<p>Your monks don't know what to store yet! Give them a recipe from the book!</p>";
+    }
+
+    $(".storage").html(visual);
+
+    /*$(".phaseAction").on("click", function (e) {
+        e.preventDefault();
+
+        const idParts = $(this).attr("id").split("-");
+        const stepNr = idParts[1].substr(4);
+        const recipeName = idParts[0];
+        const selectedTank = game.getRecipes().getItemByName(recipeName).getScheme().getStepByNumber(stepNr - 1).getStorage();
+
+        selectedTank.raiseFluidLevel(10);
+        selectedTank.updateFluidLevel();
+    });*/
+};
+
 function showBrewery(game) {
     $("#brew .overview").html("");
     $("#brew .process").html("");

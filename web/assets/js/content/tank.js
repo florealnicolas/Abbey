@@ -23,6 +23,10 @@ function Tank(contentResource, capacity) {
         return this.tankMaterial;
     };
 
+    this.getCapacity = function () {
+        return this.totalCapacity;
+    };
+
 // Functions of Tank    
 
     this.visualizeTank = function () {
