@@ -42,6 +42,18 @@
         frog: new Resource("frog", 0, 1, "critter")
     };
 
+    //MINE
+
+    const mineOutputs = {
+        stone: new Resource("stone",0,1,"mineral and stone"),
+        iron: new Resource("iron",0,1,"mineral and stone"),
+        silver: new Resource("silver",0,1,"mineral and stone"),
+        gold: new Resource("gold",0,1,"mineral and stone"),
+        diamond: new Resource("diamond",0,1,"mineral and stone"),
+        clay: new Resource("clay",0,1,"mineral and stone"),
+        dirt: new Resource("dirt",0,1,"mineral and stone")
+    };
+
     //SEA
     const seaOutputs = {
         seawater: new Resource("seawater", 0, 1, "liquid"),
@@ -71,6 +83,7 @@
     const forest = new Source("Forest", 10, "outside");
     const well = new Source("Well", 10, "outside");
     const sea = new Source("Sea", 10, "outside");
+    const mine = new Source("Mine",10,"outside");
 
     //ACTIONS DONE FOR PROCESSES
     game1.getProcesses().addAnItem(graanMalen);
@@ -80,6 +93,7 @@
     forest.setOutputList(forestOutputs);
     well.setOutputList(wellOutputs);
     sea.setOutputList(seaOutputs);
+    mine.setOutputList(mineOutputs);
 
     //SETTING FIELDTYPES
     game1.setFieldCategories(fieldTypes);
@@ -93,6 +107,7 @@
     game1.getSources().addAnItem(forest);
     game1.getSources().addAnItem(well);
     game1.getSources().addAnItem(sea);
+    game1.getSources().addAnItem(mine);
     game1.getProcessors().addAnItem(mill);
     game1.getFields().addAnItem(ricefield);
 
@@ -165,7 +180,7 @@
         const breweryEquipment = new List();
 
         const kiln = new Processor("Kiln", wheat, malt, 0.5, "brewery");
-        const gristmill = new Processor("Gristmill", malt, starch, 0.5, "outside");
+        const gristmill = new Processor("Gristmill", malt, starch, 0.5, "brewery");
         const mashingTun = new Processor("Mashing tun", mashingInput, sugarWater, 3, "brewery");
         const brewKettle = new Processor("Brew Kettle", cookingInput, pulp, 0.25, "brewery");
         const filterBucket = new Processor("Filter bucket", bucketInput, bucketOutput, 1.50, "brewery");
