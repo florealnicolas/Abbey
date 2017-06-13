@@ -47,6 +47,12 @@ function Tank(contentResource, capacity) {
         }
     };
 
+    this.adjustFluidLevel = function (newLevel) {
+        if (newLevel <= this.totalCapacity) {
+            this.level = newLevel;
+        }
+    };
+
     this.changeTankMaterial = function (newTankMaterial) {
         this.tankMaterial = newTankMaterial;
     };

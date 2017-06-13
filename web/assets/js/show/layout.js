@@ -164,18 +164,6 @@ function showStorage (game) {
     }
 
     $(".storage").html(visual);
-
-    /*$(".phaseAction").on("click", function (e) {
-        e.preventDefault();
-
-        const idParts = $(this).attr("id").split("-");
-        const stepNr = idParts[1].substr(4);
-        const recipeName = idParts[0];
-        const selectedTank = game.getRecipes().getItemByName(recipeName).getScheme().getStepByNumber(stepNr - 1).getStorage();
-
-        selectedTank.raiseFluidLevel(10);
-        selectedTank.updateFluidLevel();
-    });*/
 };
 
 function showBrewery(game) {
@@ -471,10 +459,12 @@ function buildFields(game) {
 
 function showMonks(game) {
 
+    const abbey = game.getAbbey();
+
     let monkForm = "<form name='monk' method='post'>";
     monkForm += "<h3>Monks</h3><p>Here you can decide how many monks need to work on a certain job.<br/>";
     monkForm += "Your abbey counts currently <span id='totalAmtOfMonks'>" + game.getTotalAmtOfMonks() + "</span> monks, ";
-    monkForm += "<span id='amtOfOccupiedMonks'>" + game.getAmtOfOccupiedMonks() + "</span> of them are already working.</p>";
+    monkForm += "<span id='amtOfOccupiedMonks'>" + abbey.getAmtOfOccupiedMonks() + "</span> of them are already working.</p>";
 
     const departments = game.getDepartments().sort();
 
@@ -483,7 +473,7 @@ function showMonks(game) {
         monkForm += "<fieldset> <legend>" + departments[departmentNr] + "</legend>";
         monkForm += "<label>Number of monks:</label>";
         monkForm += "<input type='number' id='" + departments[departmentNr].split(" ")[0] + "Monks' min='0' value='0' max='"
-            + game.getAmtOfAvailableMonks() + "'/></fieldset>";
+            + abbey.getAmtOfAvailableMonks() + "'/></fieldset>";
     }
 
     monkForm += "</form>";

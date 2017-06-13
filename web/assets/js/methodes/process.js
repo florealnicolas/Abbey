@@ -6,11 +6,16 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
     this.processor = processingUnit;
     this.output = outputItem;
     this.outputQuantity = 0;
+    this.processNumber = null;
 
     this.storage = null;
     this.utility = null;
 
 // Getters of Process
+
+    this.getProcessNumber = function () {
+      return this.processNumber;
+    };
 
     this.getInput = function () {
         return this.input;
@@ -62,6 +67,10 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
 
     this.setStorage = function (newStorage) {
         this.storage = newStorage;
+    };
+
+    this.setProcessNumber = function (newNumber) {
+        this.processNumber = newNumber;
     };
 
     this.setUtility = function (newUtility) {

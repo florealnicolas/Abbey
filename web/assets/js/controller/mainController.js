@@ -290,7 +290,7 @@
         $("#secondaryBrew a").on("click", showBrewSubpage);
         $(game1.getStock()).on("change", showStock(game1.getStock().allItemsIntoAStockWay(game1.getResourceCategories())));
         $(game1.getPlayer()).on("change", showNCRCounter(game1));
-        $("#monks").on("click", function () {
+        $("#monks input").on("change", function () {
             game1.manageMonks();
             showBrewery(game1);
         });
@@ -303,6 +303,7 @@
             showRecipeDescription(recipe);
             game1.getBrewery().setSelectedRecipe(recipe);
             showBrewery(game1);
+            showStorage(game1);
         });
 
         $("#naam > a").on("click", function (e) {

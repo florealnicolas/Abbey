@@ -24,7 +24,8 @@ function Scheme() {
 // Functions of Scheme
 
     this.addStep = function (newStep) {
-        return this.steps.addAnItem(newStep);
+        newStep.setProcessNumber(this.getAmtOfSteps());
+        this.steps.addAnItem(newStep);
     };
 
     this.visualizeArrow = function () {

@@ -231,6 +231,20 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
                 stockOfInput.removeQuantityOfAResource(input.getItemByNumber(inputItem).getQuantity());
                 game.getStock().removeResourceIfThereIsNoQuantity(stockOfInput);
+
+                const scheme = game.getBrewery().getSelectedRecipe().getScheme();
+
+                console.log("SCHEME", scheme.getStepByName(processName).getProcessNumber());
+                const previousProcess = scheme.getStepByNumber(scheme.getStepByName(processName).getProcessNumber() - 1);
+
+                if (previousProcess !== undefined) {
+
+                    const tank = previousProcess.getStorage();
+
+                    tank.adjustFluidLevel(stockOfInput.getQuantity());
+                    tank.updateFluidLevel();
+                }
+
             }
         }
 
@@ -239,6 +253,19 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
             stockOfInput.removeQuantityOfAResource(input.getQuantity());
             game.getStock().removeResourceIfThereIsNoQuantity(stockOfInput);
+
+            const scheme = game.getBrewery().getSelectedRecipe().getScheme();
+
+            console.log("SCHEME", scheme.getStepByName(processName).getProcessNumber());
+            const previousProcess = scheme.getStepByNumber(scheme.getStepByName(processName).getProcessNumber() - 1);
+
+            if (previousProcess !== undefined) {
+
+                const tank = previousProcess.getStorage();
+
+                tank.adjustFluidLevel(stockOfInput.getQuantity());
+                tank.updateFluidLevel();
+            }
         }
 
         let gain = null;
@@ -264,7 +291,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         const tank = process.getStorage();
 
-        tank.raiseFluidLevel((gain.getQuantity()));
+        tank.adjustFluidLevel(gain.getQuantity());
         tank.updateFluidLevel();
     };
 
