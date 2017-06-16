@@ -1,7 +1,7 @@
-function Brewery(breweryMonks) {
+function Brewery() {
 
     this.selectedRecipe = null;
-    this.amtOfMonks = breweryMonks;
+    this.amtOfMonks = 0;
 
     this.equipment = new List();
 
@@ -43,7 +43,7 @@ function Brewery(breweryMonks) {
 
         let amtOfMonk = "<h5>Employees</h5>";
         amtOfMonk += "<p>At the moment there are ";
-        if (this.getAmtOfMonks() === undefined) {
+        if (game.getAbbey().getMonks() === undefined) {
             amtOfMonk += "no";
         }
 
@@ -54,7 +54,7 @@ function Brewery(breweryMonks) {
         let monkBonus = 0;
 
         if (this.getAmtOfMonks() !== undefined) {
-            monkBonus = (this.getAmtOfMonks() / game.getTotalAmtOfMonks()) * 100;
+            monkBonus = (game.getAbbey().getMonks().BreweryMonks / game.getAbbey().getTotalAmtOfMonks()) * 100;
         }
 
         amtOfMonk += " monks working in your brewery.<br/>" +

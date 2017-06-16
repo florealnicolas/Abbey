@@ -32,11 +32,11 @@ assertEquals(true,theWayOfTheLittleOne.ableToLearn(chapel));
 
 // If we can believe it, we don't we learn it?
 
-assertEquals(20,dummyGame3.totalAmtOfMonks);
+assertEquals(20,dummyGame3.getAbbey().getTotalAmtOfMonks());
 
 theWayOfTheLittleOne.learnEnlightenment(dummyGame3);
 dummyGame3.applyEffects();
 
-assertEquals(200,dummyGame3.totalAmtOfMonks);
+assertEquals(200,dummyGame3.getAbbey().getTotalAmtOfMonks());
 
 //End of test 7

@@ -1,5 +1,7 @@
 function showInstances(game, instanceType, place) {
 
+    const abbey = game.getAbbey();
+
     let addresses = [];
 
     switch (instanceType) {
@@ -14,14 +16,14 @@ function showInstances(game, instanceType, place) {
 
     switch (place) {
         case 'inside':
-            var monks = game.getMonks().amtOfInsideMonks;
+            var monks = abbey.getMonks().InsideMonks;
             break;
         case 'outside':
-            monks = game.getMonks().amtOfOutsideMonks;
+            monks = abbey.getMonks().OutsideMonks;
             break;
     }
 
-    const monkBonus = "Monk bonus: <span>"+ (monks/game.getTotalAmtOfMonks())*100 +"%</span>";
+    const monkBonus = "Monk bonus: <span>"+ (monks/abbey.getTotalAmtOfMonks())*100 +"%</span>";
 
     let instanceForm = "<form>";
 
@@ -403,9 +405,11 @@ function updateBuyFieldButton(game) {
 
 function buildFields(game) {
 
+    const abbey = game.getAbbey();
+
     let addresses = [];
 
-    let  field = "<div class='grounds'><p class='monkBonus'>Monk bonus: <span>"+(game.getMonks().amtOfFieldMonks/game.getTotalAmtOfMonks())*100+"%</span></p><form>";
+    let  field = "<div class='grounds'><p class='monkBonus'>Monk bonus: <span>"+(abbey.getMonks().FieldMonks / abbey.getTotalAmtOfMonks())*100+"%</span></p><form>";
 
     for (let fieldNr = 0, amtOfFields = game.getFields().getSize(); fieldNr < amtOfFields; fieldNr++) {
 
@@ -463,7 +467,7 @@ function showMonks(game) {
 
     let monkForm = "<form name='monk' method='post'>";
     monkForm += "<h3>Monks</h3><p>Here you can decide how many monks need to work on a certain job.<br/>";
-    monkForm += "Your abbey counts currently <span id='totalAmtOfMonks'>" + game.getTotalAmtOfMonks() + "</span> monks, ";
+    monkForm += "Your abbey counts currently <span id='totalAmtOfMonks'>" + abbey.getTotalAmtOfMonks() + "</span> monks, ";
     monkForm += "<span id='amtOfOccupiedMonks'>" + abbey.getAmtOfOccupiedMonks() + "</span> of them are already working.</p>";
 
     const departments = game.getDepartments().sort();
@@ -518,7 +522,7 @@ function showWorkshop (game) {
         workshop.getListOfUpgrades().getItemByName(upgradeName).buyUpgrade(game);
         //game.applyEffects();
     });
-};
+}
 
 function showFieldTypes(game, fieldName) {
 

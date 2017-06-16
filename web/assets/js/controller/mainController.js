@@ -117,7 +117,6 @@
         console.log("IDEAS:");
         console.log("- TOOLTIP FOR RESOURCES ON MARKET (VALUE + TYPE)");
         console.log("- MONKS ON MARKETPLACE");
-        console.log("- ABBEY WITH MONK LIMIT");
 
         //ENLIGHTENMENT LIST
 
@@ -291,7 +290,7 @@
         $(game1.getStock()).on("change", showStock(game1.getStock().allItemsIntoAStockWay(game1.getResourceCategories())));
         $(game1.getPlayer()).on("change", showNCRCounter(game1));
         $("#monks input").on("change", function () {
-            game1.manageMonks();
+            game1.getAbbey().manageMonks(game1, this);
             showBrewery(game1);
         });
 

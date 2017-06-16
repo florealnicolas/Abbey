@@ -13,6 +13,6 @@ testGame.setAPlayer(Nicolas);
 assertEquals(Nicolas.getPlayerName(), testGame.getPlayer().getPlayerName());
 
 //How many monks are in the abbey?
-assertEquals(20, testGame.getTotalAmtOfMonks());
+assertEquals(20, testGame.getAbbey().getTotalAmtOfMonks());
 
 //End of test 4
