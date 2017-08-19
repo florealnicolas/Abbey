@@ -278,6 +278,50 @@ function Game() {
 
             this.strangermode = false;
         }
+    };
+
+    this.gameInitialisation = function () {
+
+        //LOADING PROCESSES INTO GAME
+
+        for (let process in processMap) {
+            if (processMap.hasOwnProperty(process)) {
+                let selectedProcess = processMap[process];
+                this.getProcesses().addAnItem(new Process(selectedProcess.name, selectedProcess.duration, selectedProcess.input, selectedProcess.processor, selectedProcess.output));
+            }
+        }
+
+        //LOADING SOURCES INTO GAME
+        for (let source in sourceMap) {
+            if (sourceMap.hasOwnProperty(source)) {
+                let selectedSource = sourceMap[source];
+                let newSource = new Source(selectedSource.name, selectedSource.maximumAmountOfOutput, selectedSource.location);
+                let outputList = outputListMap[source].outputList;
+
+                outputList.forEach(function (item) {
+                    let resource = resourceMap[item];
+                    let newResource = new Resource(resource.name, 0, resource.value, resource.category);
+
+                    newSource.addOutput(newResource);
+                });
+
+                this.getSources().addAnItem(newSource);
+            }
+        }
+
+        //LOADING PROCESSORS INTO GAME
+        for (let processor in processorMap) {
+            if (processorMap.hasOwnProperty(processor)) {
+                let selectedProcessor = processorMap[processor];
+                let newProcessor = new Processor(selectedProcessor.name,getResourceFromMap(selectedProcessor.possibleInput), getResourceFromMap(selectedProcessor.output),selectedProcessor.efficiency,selectedProcessor.location);
+
+                this.getProcessors().addAnItem(newProcessor);
+            }
+        }
+
+        //SETTING FIELDTYPES
+        this.setFieldCategories(fieldTypeMap);
+
     }
 
 }

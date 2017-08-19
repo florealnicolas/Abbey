@@ -4,12 +4,6 @@
 
     //Resources needed in the game
 
-    //APAIRY
-    const apairyOutputs = {
-        honey: new Resource("honey", 0, 1, "natural product"),
-        bee: new Resource("bee", 0, 1, "critter")
-    };
-
     //FOREST
 
     //Liya's recommendations
@@ -22,96 +16,16 @@
 
     //Stop
 
-    const forestOutputs = {
-        raspberry: new Resource("raspberry", 0, 1, "fruit"),
-        cranberry: new Resource("cranberry", 0, 1, "fruit"),
-        strawberry: new Resource("strawberry", 0, 1, "fruit"),
-        wood: new Resource("wood", 0, 1, "material"),
-        woodSorrel: new Resource("wood sorrel", 0, 1, "flower"),
-        mushroom: new Resource("mushroom", 0, 1, "fungus"),
-        chicory: new Resource("chicory", 0, 1, "flower"),
-        chestnut: new Resource("chestnut", 0, 1, "nut"),
-        rose: new Resource("rose", 0, 1, "flower"),
-        daisy: new Resource("daisy", 0, 1, "flower"),
-        banana: new Resource("banana", 0, 1, "fruit")
-    };
-
-    //WELL
-    const wellOutputs = {
-        water: new Resource("water", 0, 1, "liquid"),
-        frog: new Resource("frog", 0, 1, "critter")
-    };
-
-    //MINE
-
-    const mineOutputs = {
-        stone: new Resource("stone",0,1,"mineral and stone"),
-        iron: new Resource("iron",0,1,"mineral and stone"),
-        silver: new Resource("silver",0,1,"mineral and stone"),
-        gold: new Resource("gold",0,1,"mineral and stone"),
-        diamond: new Resource("diamond",0,1,"mineral and stone"),
-        clay: new Resource("clay",0,1,"mineral and stone"),
-        dirt: new Resource("dirt",0,1,"mineral and stone")
-    };
-
-    //SEA
-    const seaOutputs = {
-        seawater: new Resource("seawater", 0, 1, "liquid"),
-        seasnail: new Resource("sea snail", 0, 1, "critter"),
-        shell: new Resource("shell", 0, 1, "other"),
-        duneGrass: new Resource("dune grass", 0, 1, "plant")
-    };
-
-    //FIELDS
-    const rice = new Resource("rice", 0, 1, "crop");
-    const fieldTypes = ["barley", "corn", "hop", "potato", "rice", "wheat"];
-
-    //PROCESSED
-    const wheat = new Resource("wheat", 0, 1, "crop");
-    const flour = new Resource("flour", 0, 1, "product");
-
-    //PROCESSORS NEEDED IN THE GAME
-    var kiln;
-    const mill = new Processor("windmill", wheat, flour, 0.25, "outside");
-
-    //PROCESSES NEEDED IN THE GAME
-    const graanMalen = new Process("graan malen", 10, wheat, mill, flour);
-    mill.addPossibleProcess(graanMalen);
-
-    //SOURCES
-    const apairy = new Source("Apairy", 10, "inside");
-    const forest = new Source("Forest", 10, "outside");
-    const well = new Source("Well", 10, "outside");
-    const sea = new Source("Sea", 10, "outside");
-    const mine = new Source("Mine",10,"outside");
-
-    //ACTIONS DONE FOR PROCESSES
-    game1.getProcesses().addAnItem(graanMalen);
-
-    //LOADING OUTPUT IN SOURCES
-    apairy.setOutputList(apairyOutputs);
-    forest.setOutputList(forestOutputs);
-    well.setOutputList(wellOutputs);
-    sea.setOutputList(seaOutputs);
-    mine.setOutputList(mineOutputs);
-
-    //SETTING FIELDTYPES
-    game1.setFieldCategories(fieldTypes);
-
-    //MAKING FIELD
-    const ricefield = new Field(game1.getAmtOfFieldsMade(), game1.getPriceOfAField(), rice, game1.getFieldCategories());
-    game1.setAmtOfFieldsMade(1);
-
-    //LOADING EVERYTHING INTO THE GAME
-    game1.getSources().addAnItem(apairy);
-    game1.getSources().addAnItem(forest);
-    game1.getSources().addAnItem(well);
-    game1.getSources().addAnItem(sea);
-    game1.getSources().addAnItem(mine);
-    game1.getProcessors().addAnItem(mill);
-    game1.getFields().addAnItem(ricefield);
-
     $(document).ready(function () {
+
+        const game1 = new Game();
+        game1.gameInitialisation();
+
+        //TEST: MAKING FIELD
+        const rice = getResourceFromMap("rice");
+        const ricefield = new Field(game1.getAmtOfFieldsMade(), game1.getPriceOfAField(), rice, game1.getFieldCategories());
+        game1.setAmtOfFieldsMade(1);
+        game1.getFields().addAnItem(ricefield);
 
         //IDEAS
         console.log("IDEAS:");

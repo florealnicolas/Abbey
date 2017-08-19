@@ -93,10 +93,16 @@ function Source(sourceName, sourceMaxOutput, placeName) {
         return new Resource(resource.getName(), quantity, resource.getUnitValue(), resource.getCategory());
     };
 
+    this.addOutput = function (newOutput) {
+      this.output.addAnItem(newOutput);
+    };
+
     this.setOutputList = function (outputs) {
 
         for (let outputNr in outputs) {
-            this.output.addAnItem(outputs[outputNr]);
+            if (outputs.hasOwnProperty(outputNr)) {
+                this.addOutput(outputs[outputNr]);
+            }
         }
     };
 

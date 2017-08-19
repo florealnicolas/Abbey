@@ -39,6 +39,16 @@ So you go to the abbey deep in the mountains.
 
 To be continued...
 
+## Some features of Abbey
+
+* Your own prologue story
+* A brewery
+* Some jobs
+* The workshop
+* Your monks
+* The marketplace
+* A chapel
+
 ## More about me
 
 I'm Nicolas Floréal, a student of the polytechnic school Howest located in Bruges, Belgium.

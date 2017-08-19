@@ -85,7 +85,7 @@ function Field(fieldNumber, priceOfField, resource, categories) {
 
     this.progressing = function (fieldBtn, game) {
 
-        const monkBonus = game.getMonks().amtOfFieldMonks / game.getTotalAmtOfMonks();
+        const monkBonus = game.getAbbey().getMonks().amtOfFieldMonks / game.getAbbey().getTotalAmtOfMonks();
 
         const field = this;
 
