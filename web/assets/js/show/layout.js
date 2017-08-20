@@ -23,7 +23,7 @@ function showInstances(game, instanceType, place) {
             break;
     }
 
-    const monkBonus = "Monk bonus: <span>"+ (monks/abbey.getTotalAmtOfMonks())*100 +"%</span>";
+    const monkBonus = "Monk bonus: <span>" + (monks / abbey.getTotalAmtOfMonks()) * 100 + "%</span>";
 
     let instanceForm = "<form>";
 
@@ -42,9 +42,28 @@ function showInstances(game, instanceType, place) {
             instanceForm += "<div class='opbrengst' id='" + instance.getName() + "'></div>";
 
             if (instanceGroup === game.getProcessors()) {
+                console.log("INSTANCE", instance.getPossibleInputs());
                 instanceForm += "<label for='" + instance.getName() + "'>";
-                instanceForm += "How much " + instance.getPossibleInputs().getItemByNumber(0).getName() + " you want to convert to " + instance.getOutput().getName() + "?</label>";
-                instanceForm += "<input id='inputNumber" + instance.getName() + "' type='number' min='0' value='0'/>";
+
+                let selectedInputList = instance.getPossibleInputs().list;
+
+                for (let input in selectedInputList) {
+                    if (selectedInputList.hasOwnProperty(input)) {
+                        let selectedInput = selectedInputList[input];
+                        console.log("INPUT ITEM", selectedInput);
+
+                        if (selectedInput.length > 1) {
+                            selectedInput.forEach(function (input) {
+                                instanceForm += "How much " + input.getName() + " you want to convert to " + instance.getOutput().getName() + "?</label>";
+                                instanceForm += "<input id='inputNumber" + instance.getName() + "' type='number' min='0' value='0'/>";
+                            })
+                        }
+                        else {
+                            instanceForm += "How much " + selectedInput.getName() + " you want to convert to " + instance.getOutput().getName() + "?</label>";
+                            instanceForm += "<input id='inputNumber" + instance.getName() + "' type='number' min='0' value='0'/>";
+                        }
+                    }
+                }
             }
 
             instanceForm += "<button class='" + instanceType + " button' id='" + instance.getName() + "'>Execute</button>";
@@ -145,7 +164,7 @@ function showStock(stock) {
     $("#stock").html(content);
 }
 
-function showStorage (game) {
+function showStorage(game) {
 
     let visual = "<h4>Storage</h4>";
 
@@ -322,26 +341,26 @@ function showProfilePage(game) {
     $("#profile").html(profile);
 
     /*$("#save").on('click', function () {
-        if (typeof(Storage) !== "undefined") {
-            localStorage.setItem("Game", game.getGameJSON, () => {
-                console.log("Game saved!");
-            })
-        }
+     if (typeof(Storage) !== "undefined") {
+     localStorage.setItem("Game", game.getGameJSON, () => {
+     console.log("Game saved!");
+     })
+     }
 
-        else {
-            console.log("No savings for you as you don't have localstorage...\nYou can always try another browser.");
-        }
-    });
+     else {
+     console.log("No savings for you as you don't have localstorage...\nYou can always try another browser.");
+     }
+     });
 
-    $("#load").on('click', function () {
-        if (typeof(Storage) !== "undefined") {
-            game.loadGame(localStorage.getItem("Game"));
-        }
+     $("#load").on('click', function () {
+     if (typeof(Storage) !== "undefined") {
+     game.loadGame(localStorage.getItem("Game"));
+     }
 
-        else {
-            console.log("No savings for you as you don't have localstorage...\nYou can always try another browser.");
-        }
-    });*/
+     else {
+     console.log("No savings for you as you don't have localstorage...\nYou can always try another browser.");
+     }
+     });*/
 }
 
 function updateFields(game) {
@@ -409,7 +428,7 @@ function buildFields(game) {
 
     let addresses = [];
 
-    let  field = "<div class='grounds'><p class='monkBonus'>Monk bonus: <span>"+(abbey.getMonks().FieldMonks / abbey.getTotalAmtOfMonks())*100+"%</span></p><form>";
+    let field = "<div class='grounds'><p class='monkBonus'>Monk bonus: <span>" + (abbey.getMonks().FieldMonks / abbey.getTotalAmtOfMonks()) * 100 + "%</span></p><form>";
 
     for (let fieldNr = 0, amtOfFields = game.getFields().getSize(); fieldNr < amtOfFields; fieldNr++) {
 
@@ -511,10 +530,10 @@ function showRecipeDescription(recipe) {
     $("#recipeDescription").append(recipe.getDescription());
 }
 
-function showWorkshop (game) {
+function showWorkshop(game) {
     const workshop = game.getWorkshop();
 
-  $("#workshop").html(game.getWorkshop().visualizeWorkshop());
+    $("#workshop").html(game.getWorkshop().visualizeWorkshop());
     workshop.checkIfBuyable(game);
 
     $(".buyUpgrade").on("click", function () {

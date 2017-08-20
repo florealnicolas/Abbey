@@ -245,7 +245,7 @@ const processorMap = {
         possibleInput: ["water", "starch"],
         output: "flour",
         efficiency: 0.25,
-        location: "outside"
+        location: "brewery"
     },
     brewKettle: {
         name: "brew kettle",
