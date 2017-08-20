@@ -42,7 +42,7 @@ function showInstances(game, instanceType, place) {
             instanceForm += "<div class='opbrengst' id='" + instance.getName() + "'></div>";
 
             if (instanceGroup === game.getProcessors()) {
-                console.log("INSTANCE", instance.getPossibleInputs());
+
                 instanceForm += "<label for='" + instance.getName() + "'>";
 
                 let selectedInputList = instance.getPossibleInputs().list;
@@ -50,7 +50,6 @@ function showInstances(game, instanceType, place) {
                 for (let input in selectedInputList) {
                     if (selectedInputList.hasOwnProperty(input)) {
                         let selectedInput = selectedInputList[input];
-                        console.log("INPUT ITEM", selectedInput);
 
                         if (selectedInput.length > 1) {
                             selectedInput.forEach(function (input) {

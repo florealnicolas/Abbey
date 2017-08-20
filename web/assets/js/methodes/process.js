@@ -122,23 +122,40 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
         visual += "<div class='row'>";
         visual += "<div class='input small-3-columns'>";
 
-        if (this.getInput().constructor === List) {
-            for (let ingredientNr = 0; ingredientNr < this.getInput().getSize(); ingredientNr++) {
-                visual += "<p>";
-                visual += this.getInput().getItemByNumber(ingredientNr).getName().toLowerCase();
-                visual += " [" + this.getInput().getItemByNumber(ingredientNr).getQuantity() + "]";
-                visual += "</p>";
-            }
-        }
+        switch (this.getInput().constructor) {
+            case List:
 
-        else {
-            visual += "<p>" + this.getInput().getName() + "</p>";
-            visual += "<p>" + this.getInput().getQuantity() + "</p>";
+                for (let ingredientNr = 0; ingredientNr < this.getInput().getSize(); ingredientNr++) {
+                    visual += "<p>";
+                    visual += this.getInput().getItemByNumber(ingredientNr).getName().toLowerCase();
+                    visual += " [" + this.getInput().getItemByNumber(ingredientNr).getQuantity() + "]";
+                    visual += "</p>";
+                }
+
+                break;
+            case Array:
+
+                for (let ingredientNr = 0; ingredientNr < this.getInput().length; ingredientNr++) {
+                    let selectedIngredient = this.getInput()[ingredientNr];
+                    visual += "<p>";
+                    visual += selectedIngredient.getName().toLowerCase();
+                    visual += " [" + selectedIngredient.getQuantity() + "]";
+                    visual += "</p>";
+                }
+
+                break;
+            default:
+
+                visual += "<p>" + this.getInput().getName() + "</p>";
+                visual += "<p>" + this.getInput().getQuantity() + "</p>";
+
+                break;
         }
 
         visual += "</div>";
 
         visual += "<div class='processor small-offset-1 small-4-columns'>";
+
         visual += "<p>"+this.getProcessorName()+"</p>";
         visual += "<div class='progressbar' id='" + this.getName().toLowerCase().replace(" ","-") + "'><div class='progress-label'>0%</div></div>";
         visual += "</div>";

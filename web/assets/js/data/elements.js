@@ -269,7 +269,7 @@ const processorMap = {
         location: "brewery"
     },
     fermentationTank: {
-        name: "fermentationTank",
+        name: "fermentation tank",
         possibleInput: "beerToFerment",
         output: "fermentedBeer",
         efficiency: 0.25,
@@ -289,7 +289,7 @@ const processMap = {
         name: "grain grinding",
         duration: 10,
         input: "wheat",
-        processor: "mill",
+        processor: "windmill",
         output: "flour"
     },
     malting: {
@@ -310,42 +310,42 @@ const processMap = {
         name: "mashing",
         duration: 10,
         input: ["starch", "water"],
-        processor: "mashingTun",
+        processor: "mashing tun",
         output: "sugarWater"
     },
     cooking: {
         name: "cooking",
         duration: 10,
         input: ["sugarWater", "hop"],
-        processor: "brewKettle",
+        processor: "brew kettle",
         output: "pulp"
     },
     firstFiltering: {
         name: "first filtering",
         duration: 10,
         input: "pulp",
-        processor: "filterBucket",
+        processor: "filter bucket",
         output: "wort"
     },
     cooldown: {
         name: "cooldown",
         duration: 10,
         input: ["wort", "daisy"],
-        processor: "spiralHeatExchanger",
+        processor: "spiral heat exchanger",
         output: "beerToFerment"
     },
     fermenting: {
         name: "fermenting",
         duration: 10,
         input: "beerToFerment",
-        processor: "fermentationTank",
+        processor: "fermentation tank",
         output: "fermentedBeer"
     },
     secondFiltering: {
         name: "second filtering",
         duration: 10,
         input: "fermentedBeer",
-        processor: "filterBucket",
+        processor: "filter bucket",
         output: "beerToRipe"
     },
     ripening: {
@@ -356,10 +356,10 @@ const processMap = {
         output: "ripeBeer"
     },
     thirdFiltering: {
-        name: "thirdFiltering",
+        name: "third filtering",
         duration: 10,
         input: "ripeBeer",
-        processor: "filterBucket",
+        processor: "filter bucket",
         output: "ale"
     }
 };

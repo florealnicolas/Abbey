@@ -151,14 +151,14 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         switch (processor.getPlace()) {
             case "inside":
-                var monks = game.getMonks().amtOfInsideMonks;
+                var monks = game.getAbbey().getMonks().amtOfInsideMonks;
                 break;
             case "outside":
-                monks = game.getMonks().amtOfOutsideMonks;
+                monks = game.getAbbey().getMonks().amtOfOutsideMonks;
                 break;
         }
 
-        const monkBonus = monks / game.getTotalAmtOfMonks();
+        const monkBonus = monks / game.getAbbey().getTotalAmtOfMonks();
 
         progressbar.progressbar({
             value: 0,
@@ -234,7 +234,6 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
                 const scheme = game.getBrewery().getSelectedRecipe().getScheme();
 
-                console.log("SCHEME", scheme.getStepByName(processName).getProcessNumber());
                 const previousProcess = scheme.getStepByNumber(scheme.getStepByName(processName).getProcessNumber() - 1);
 
                 if (previousProcess !== undefined) {
@@ -256,7 +255,6 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
             const scheme = game.getBrewery().getSelectedRecipe().getScheme();
 
-            console.log("SCHEME", scheme.getStepByName(processName).getProcessNumber());
             const previousProcess = scheme.getStepByNumber(scheme.getStepByName(processName).getProcessNumber() - 1);
 
             if (previousProcess !== undefined) {
@@ -316,7 +314,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
                 stockOfInput = game.getStock().getItemByName(process.getInput().getItemByNumber(inputItem).getName());
 
-                if (stockOfInput == null || stockOfInput.getQuantity() < process.getInput().getItemByNumber(inputItem).getQuantity()) {
+                if (stockOfInput === null || stockOfInput.getQuantity() < process.getInput().getItemByNumber(inputItem).getQuantity()) {
                     enough = false;
                 }
             }

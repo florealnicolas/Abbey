@@ -275,14 +275,6 @@ function Game() {
 
     this.gameInitialisation = function () {
 
-        //LOADING PROCESSES INTO GAME
-        for (let process in processMap) {
-            if (processMap.hasOwnProperty(process)) {
-                let selectedProcess = processMap[process];
-                this.getProcesses().addAnItem(new Process(selectedProcess.name, selectedProcess.duration, selectedProcess.input, selectedProcess.processor, selectedProcess.output));
-            }
-        }
-
         //LOADING SOURCES INTO GAME
         for (let source in sourceMap) {
             if (sourceMap.hasOwnProperty(source)) {
@@ -305,9 +297,29 @@ function Game() {
         for (let processor in processorMap) {
             if (processorMap.hasOwnProperty(processor)) {
                 let selectedProcessor = processorMap[processor];
-                const newProcessor = new Processor(selectedProcessor.name, getResourcesFromMap(selectedProcessor.possibleInput), getResourcesFromMap(selectedProcessor.output), selectedProcessor.efficiency, selectedProcessor.location);
+                let newProcessor;
+                if (typeof selectedProcessor.possibleInput === "string") {
+                    newProcessor = new Processor(selectedProcessor.name, getResourcesFromMap(selectedProcessor.possibleInput), getResourcesFromMap(selectedProcessor.output), selectedProcessor.efficiency, selectedProcessor.location);
+                }
+                else {
+                    let inputList = new List();
+                    selectedProcessor.possibleInput.forEach(function(input){
+                        inputList.addAnItem(getResourcesFromMap(input));
+                    });
+                    newProcessor = new Processor(selectedProcessor.name, inputList, getResourcesFromMap(selectedProcessor.output), selectedProcessor.efficiency, selectedProcessor.location);
 
+                }
                 this.getProcessors().addAnItem(newProcessor);
+            }
+        }
+
+        //LOADING PROCESSES INTO GAME
+        for (let process in processMap) {
+            if (processMap.hasOwnProperty(process)) {
+                let selectedProcess = processMap[process];
+                let newProcess = new Process(selectedProcess.name, selectedProcess.duration, getResourcesFromMap(selectedProcess.input), this.getProcessors().getItemByName(selectedProcess.processor), getResourcesFromMap(selectedProcess.output));
+                this.getProcesses().addAnItem(newProcess);
+                this.getProcessors().getItemByName(selectedProcess.processor).addPossibleProcess(newProcess);
             }
         }
 
