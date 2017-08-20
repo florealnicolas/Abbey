@@ -163,6 +163,56 @@ const resourceMap = {
         name: "potato",
         value: 1,
         category: "crop"
+    },
+    ale: {
+        name: "ale",
+        value: 1,
+        category: "beer"
+    },
+    malt: {
+        name: "malt",
+        value: 1,
+        category: "product"
+    },
+    starch: {
+        name: "starch",
+        value: 1,
+        category: "product"
+    },
+    sugarWater: {
+        name: "sugar water",
+        value: 1,
+        category: "liquid"
+    },
+    pulp: {
+        name: "pulp",
+        value: 1,
+        category: "product"
+    },
+    wort: {
+        name: "wort",
+        value: 1,
+        category: "liquid"
+    },
+    beerToFerment: {
+        name: "beer to ferment",
+        value: 1,
+        category: "liquid"
+    },
+    fermentedBeer: {
+        name: "fermented beer",
+        value: 1,
+        category: "liquid"
+    },
+    beerToRipe: {
+        name: "beer to ripe",
+        value: 1,
+        category: "liquid"
+    },
+    ripeBeer: {
+        name: "ripe beer",
+        value: 1,
+        category: "liquid"
     }
 };
 
@@ -175,6 +225,62 @@ const processorMap = {
         output: "flour",
         efficiency: 0.25,
         location: "outside"
+    },
+    kiln: {
+        name: "kiln",
+        possibleInput: "wheat",
+        output: "malt",
+        efficiency: 0.25,
+        location: "brewery"
+    },
+    gristmill: {
+        name: "gristmill",
+        possibleInput: "malt",
+        output: "starch",
+        efficiency: 0.25,
+        location: "brewery"
+    },
+    mashingTun: {
+        name: "mashing tun",
+        possibleInput: ["water", "starch"],
+        output: "flour",
+        efficiency: 0.25,
+        location: "outside"
+    },
+    brewKettle: {
+        name: "brew kettle",
+        possibleInput: ["sugarWater", "hop"],
+        output: "pulp",
+        efficiency: 0.25,
+        location: "brewery"
+    },
+    filterBucket: {
+        name: "filter bucket",
+        possibleInput: ["pulp", "fermentedBeer", "ripeBeer"],
+        output: ["wort", "beerToRipe", "ale"],
+        efficiency: 0.25,
+        location: "brewery"
+    },
+    spiralHeatExchanger: {
+        name: "spiral heat exchanger",
+        possibleInput: ["wort", "daisy"],
+        output: "beerToFerment",
+        efficiency: 0.25,
+        location: "brewery"
+    },
+    fermentationTank: {
+        name: "fermentationTank",
+        possibleInput: "beerToFerment",
+        output: "fermentedBeer",
+        efficiency: 0.25,
+        location: "brewery"
+    },
+    barrel: {
+        name: "barrel",
+        possibleInput: "beerToRipe",
+        output: "ripeBeer",
+        efficiency: 0.25,
+        location: "brewery"
     }
 };
 
@@ -185,6 +291,76 @@ const processMap = {
         input: "wheat",
         processor: "mill",
         output: "flour"
+    },
+    malting: {
+        name: "malting",
+        duration: 10,
+        input: "wheat",
+        processor: "kiln",
+        output: "malt"
+    },
+    maltGrinding: {
+        name: "malt grinding",
+        duration: 10,
+        input: "malt",
+        processor: "gristmill",
+        output: "starch"
+    },
+    mashing: {
+        name: "mashing",
+        duration: 10,
+        input: ["starch", "water"],
+        processor: "mashingTun",
+        output: "sugarWater"
+    },
+    cooking: {
+        name: "cooking",
+        duration: 10,
+        input: ["sugarWater", "hop"],
+        processor: "brewKettle",
+        output: "pulp"
+    },
+    firstFiltering: {
+        name: "first filtering",
+        duration: 10,
+        input: "pulp",
+        processor: "filterBucket",
+        output: "wort"
+    },
+    cooldown: {
+        name: "cooldown",
+        duration: 10,
+        input: ["wort", "daisy"],
+        processor: "spiralHeatExchanger",
+        output: "beerToFerment"
+    },
+    fermenting: {
+        name: "fermenting",
+        duration: 10,
+        input: "beerToFerment",
+        processor: "fermentationTank",
+        output: "fermentedBeer"
+    },
+    secondFiltering: {
+        name: "second filtering",
+        duration: 10,
+        input: "fermentedBeer",
+        processor: "filterBucket",
+        output: "beerToRipe"
+    },
+    ripening: {
+        name: "ripening",
+        duration: 10,
+        input: "beerToRipe",
+        processor: "barrel",
+        output: "ripeBeer"
+    },
+    thirdFiltering: {
+        name: "thirdFiltering",
+        duration: 10,
+        input: "ripeBeer",
+        processor: "filterBucket",
+        output: "ale"
     }
 };
 
@@ -222,6 +398,31 @@ const processorProcessMap = {
     }
 };
 
+const ingredientsListMap = {
+    aleIngredients: {
+        wheat: {name: "wheat", amount: 10},
+        hop: {name: "hop", amount: 10},
+        water: {name: "water", amount: 20},
+        daisy: {name: "daisy", amount: 15}
+    }
+};
+
+const schemeMap = {
+    aleScheme: ["malting", "maltGrinding", "mashing", "cooking", "firstFiltering", "cooldown", "fermenting", "secondFiltering", "ripening", "thirdFiltering"]
+};
+
+const recipeMap = {
+    aleRecipe: {
+        output: {name:"ale", amount:10},
+        ingredientList: "aleIngredients",
+        scheme: "aleScheme",
+        author: "Liya",
+        story: ""
+    }
+};
+
+const breweryEquipmentMap = ["kiln", "gristmill", "mashingTun", "brewKettle", "filterBucket", "spiralHeatExchanger", "fermentationTank", "barrel"];
+
 const outputListMap = {
     sea: {
         outputList: ["seawater", "seaSnail", "shell", "duneGrass"]
@@ -240,7 +441,34 @@ const outputListMap = {
     }
 };
 
-const getResourceFromMap = function (resourceName) {
-    const selectedResource = resourceMap[resourceName];
-    return new Resource(selectedResource.name,0,selectedResource.value,selectedResource.category);
+const vendorMap = {
+  maurits: {
+      name: "Maurits",
+      interests: ["crop","beer"]
+  },
+    ziyao: {
+      name: "Ziyao",
+        interests: ["flower","critter"]
+    }
+};
+
+const getResourcesFromMap = function (resourceName) {
+
+    let selectedResources;
+
+    if (typeof resourceName !== "string") {
+        let resourceArray = [];
+
+        resourceName.forEach(function (resource) {
+            let selectedResource = resourceMap[resource];
+            resourceArray.push(new Resource(selectedResource.name, 0, selectedResource.value, selectedResource.category));
+        });
+        selectedResources = resourceArray;
+    }
+    else {
+        let selectedResource = resourceMap[resourceName];
+        selectedResources = new Resource(selectedResource.name, 0, selectedResource.value, selectedResource.category);
+    }
+
+    return selectedResources;
 };

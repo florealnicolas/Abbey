@@ -217,13 +217,6 @@ function Game() {
     };
 
     this.addARecipe = function (newRecipe) {
-
-        let game = this;
-
-        newRecipe.getScheme().getSteps().forEach(function (step) {
-            game.addProcess(step);
-        });
-
         this.getRecipes().addAnItem(newRecipe)
     };
 
@@ -283,7 +276,6 @@ function Game() {
     this.gameInitialisation = function () {
 
         //LOADING PROCESSES INTO GAME
-
         for (let process in processMap) {
             if (processMap.hasOwnProperty(process)) {
                 let selectedProcess = processMap[process];
@@ -313,9 +305,70 @@ function Game() {
         for (let processor in processorMap) {
             if (processorMap.hasOwnProperty(processor)) {
                 let selectedProcessor = processorMap[processor];
-                let newProcessor = new Processor(selectedProcessor.name,getResourceFromMap(selectedProcessor.possibleInput), getResourceFromMap(selectedProcessor.output),selectedProcessor.efficiency,selectedProcessor.location);
+                const newProcessor = new Processor(selectedProcessor.name, getResourcesFromMap(selectedProcessor.possibleInput), getResourcesFromMap(selectedProcessor.output), selectedProcessor.efficiency, selectedProcessor.location);
 
                 this.getProcessors().addAnItem(newProcessor);
+            }
+        }
+
+        //LOADING RECIPES INTO GAME
+        for (let recipe in recipeMap) {
+            if (recipeMap.hasOwnProperty(recipe)) {
+                let selectedRecipe = recipeMap[recipe];
+
+                let scheme = new Scheme();
+                const selectedScheme = schemeMap[selectedRecipe.scheme];
+                for (let step in selectedScheme) {
+                    if (selectedScheme.hasOwnProperty(step)) {
+                        let selectedStep = processMap[selectedScheme[step]];
+                        let selectedProcess = this.getProcesses().getItemByName(selectedStep.name);
+
+                        scheme.addStep(selectedProcess)
+                    }
+                }
+
+                let ingredientList = new List();
+                const selectedIngredientList = ingredientsListMap[selectedRecipe.ingredientList];
+                for (let ingredient in selectedIngredientList) {
+                    if (selectedIngredientList.hasOwnProperty(ingredient)) {
+                        let selectedIngredientName = getResourcesFromMap(ingredient);
+                        let selectedIngredientDetails = selectedIngredientList[ingredient];
+                        let selectedIngredient = new Resource(selectedIngredientName.name, selectedIngredientDetails.amount, 0, selectedIngredientName.category);
+
+                        ingredientList.addAnItem(selectedIngredient);
+                    }
+                }
+
+                const output = getResourcesFromMap(selectedRecipe.output.name);
+                output.setQuantity(selectedRecipe.output.amount);
+
+                this.addARecipe(new Recipe(output, ingredientList, scheme, selectedRecipe.author));
+            }
+        }
+
+        //LOADING BREWERY
+        let breweryEquipment = new List();
+
+        for (let processor in breweryEquipmentMap){
+            if(breweryEquipmentMap.hasOwnProperty(processor)){
+                let selectedProcessor = processorMap[breweryEquipmentMap[processor]];
+                let foundProcessor = this.getProcessors().getItemByName(selectedProcessor.name);
+
+                breweryEquipment.addAnItem(foundProcessor);
+            }
+        }
+
+        this.getBrewery().setEquipment(breweryEquipment);
+
+        //LOADING VENDORS
+        for (let vendor in vendorMap) {
+            if (vendorMap.hasOwnProperty(vendor)){
+                let selectedVendor = vendorMap[vendor];
+
+                let vendorInterests = new List();
+                vendorInterests.addListOfItems(selectedVendor.interests);
+
+                this.getVendors().addAnItem(new Vendor(selectedVendor.name,vendorInterests));
             }
         }
 

@@ -22,7 +22,7 @@
         game1.gameInitialisation();
 
         //TEST: MAKING FIELD
-        const rice = getResourceFromMap("rice");
+        const rice = getResourcesFromMap("rice");
         const ricefield = new Field(game1.getAmtOfFieldsMade(), game1.getPriceOfAField(), rice, game1.getFieldCategories());
         game1.setAmtOfFieldsMade(1);
         game1.getFields().addAnItem(ricefield);
@@ -43,134 +43,6 @@
         //UPGRADE LIST
 
         //const golden
-
-        //EXPERIMENTAL: BREWERY + RECIPES
-
-        const ale = new Resource("Ale", 20, 50, "beer");
-
-        //INGREDIENTSLIST
-        const aleIngredients = new List();
-
-        //Basic ingredients
-        const wheat = new Resource("wheat", 30, 1, "crop");
-        const hop = new Resource("hop", 10, 1, "crop");
-        const water = new Resource("water", 50, 1, "liquid");
-
-        //Special ingredient
-        const daisy = new Resource("daisy", 20, 1, "flower");
-
-        aleIngredients.addAnItem(wheat);
-        aleIngredients.addAnItem(hop);
-        aleIngredients.addAnItem(water);
-
-        aleIngredients.addAnItem(daisy);
-
-        //These are the inputs of our further steps in the scheme
-        const malt = new Resource("malt", 20, 1, "product");
-        const starch = new Resource("starch", 10, 1, "product");
-        const sugarWater = new Resource("sugar water", 30, 1, "liquid");
-        const pulp = new Resource("pulp", 10, 1, "product");
-        const wort = new Resource("wort", 20, 1, "liquid");
-        const beerToFerment = new Resource("beer to ferment", 20, 1, "liquid");
-        const fermentedBeer = new Resource("fermented beer", 20, 1, "liquid");
-        const beerToRipe = new Resource("beer to ripe", 20, 1, "liquid");
-        const ripeBeer = new Resource("ripe beer", 20, 1, "liquid");
-
-        //BREWERY
-
-        //Maybe work with itemcategories instead of names? !!!!
-        const mashingInput = new List();
-        mashingInput.addListOfItems([starch, water]);
-
-        const cookingInput = new List();
-        cookingInput.addListOfItems([sugarWater, hop]);
-
-        const bucketInput = new List();
-        bucketInput.addListOfItems([pulp, fermentedBeer, ripeBeer]);
-
-        const bucketOutput = new List();
-        bucketOutput.addListOfItems([wort, beerToRipe, ale]);
-
-        const cooldownInput = new List();
-        cooldownInput.addListOfItems([wort, daisy]);
-
-        //These are the processors needed for this scheme
-        const breweryEquipment = new List();
-
-        const kiln = new Processor("Kiln", wheat, malt, 0.5, "brewery");
-        const gristmill = new Processor("Gristmill", malt, starch, 0.5, "brewery");
-        const mashingTun = new Processor("Mashing tun", mashingInput, sugarWater, 3, "brewery");
-        const brewKettle = new Processor("Brew Kettle", cookingInput, pulp, 0.25, "brewery");
-        const filterBucket = new Processor("Filter bucket", bucketInput, bucketOutput, 1.50, "brewery");
-        const spiralHeatExchanger = new Processor("Spiral heat exchanger", breweryEquipment, beerToFerment, 1, "brewery");
-        const fermentationTank = new Processor("Fermentation tank", beerToFerment, fermentedBeer, 1, "brewery");
-        const barrel = new Processor("Barrel", beerToRipe, ripeBeer, 1, "brewery");
-
-        breweryEquipment.addAnItem(kiln);
-        breweryEquipment.addAnItem(gristmill);
-        breweryEquipment.addAnItem(mashingTun);
-        breweryEquipment.addAnItem(brewKettle);
-        breweryEquipment.addAnItem(filterBucket);
-        breweryEquipment.addAnItem(spiralHeatExchanger);
-        breweryEquipment.addAnItem(fermentationTank);
-        breweryEquipment.addAnItem(barrel);
-
-        game1.getBrewery().setEquipment(breweryEquipment);
-
-        //SCHEME
-
-        //These are the steps we need to follow
-        const malting = new Process("Malting", 10, wheat, kiln, malt);
-        const grinding = new Process("Grinding", 10, malt, gristmill, starch);
-        const mashing = new Process("Mashing", 10, mashingInput, mashingTun, sugarWater);
-        const cooking = new Process("Cooking", 10, cookingInput, brewKettle, pulp);
-        const filtering1 = new Process("First filtering", 10, pulp, filterBucket, wort);
-        const cooldown = new Process("Cooldown", 10, cooldownInput, spiralHeatExchanger, beerToFerment);
-        const fermenting = new Process("Fermenting", 10, beerToFerment, fermentationTank, fermentedBeer);
-        const filtering2 = new Process("Second filtering", 10, fermentedBeer, filterBucket, beerToRipe);
-        const ripening = new Process("Ripening", 10, beerToRipe, barrel, ripeBeer);
-        const filtering3 = new Process("Third filtering", 10, ripeBeer, filterBucket, ale);
-
-        //Let's put these steps into a Scheme
-        const aleScheme = new Scheme();
-
-        aleScheme.addStep(malting);
-        aleScheme.addStep(grinding);
-        aleScheme.addStep(mashing);
-        aleScheme.addStep(cooking);
-        aleScheme.addStep(filtering1);
-        aleScheme.addStep(cooldown);
-        aleScheme.addStep(fermenting);
-        aleScheme.addStep(filtering2);
-        aleScheme.addStep(ripening);
-        aleScheme.addStep(filtering3);
-
-        const aleRecipe = new Recipe(ale, aleIngredients, aleScheme, "Liya");
-
-        game1.addARecipe(aleRecipe);
-
-        //EXPERIMENT: VENDOR
-
-        const mauritsInterests = new List();
-        mauritsInterests.addListOfItems(["beer","flower"]);
-
-        const maurits = new Vendor("Maurits", mauritsInterests);
-
-        const zinasInterests = new List();
-        zinasInterests.addListOfItems(["critter","crop"]);
-
-        const zina = new Vendor("Zina", zinasInterests);
-
-        const anaisInterests = new List();
-        anaisInterests.addListOfItems(["flower","dreams","crop"]);
-
-        const anais = new Vendor("Anaïs", anaisInterests);
-
-        game1.getVendors().addAnItem(maurits);
-        game1.getVendors().addAnItem(zina);
-        game1.getVendors().addAnItem(anais);
-
-        //End of to-move
 
         $('#abbey').show();
         $('.menu a:first-child').addClass("active");
