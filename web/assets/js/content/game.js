@@ -15,6 +15,7 @@ function Game() {
     this.vendors = new List();
 
     this.effects = [];
+    this.upgrades = [];
 
     //IDEA: MARKET MONKS! -> capacity!
 
@@ -146,14 +147,38 @@ function Game() {
         this.effects.push(newEffect);
     };
 
+    this.addUpgrade = function (newUpgrade) {
+        this.upgrades.push(newUpgrade);
+    };
+
     this.applyEffects = function () {
 
-        console.log("EFFECTS",this.getEffects());
         for (let effectNr = 0, totalAmtOfEffects = this.effects.length; effectNr < totalAmtOfEffects; effectNr++) {
             switch (this.effects[effectNr]) {
-                case "The way of the little one":
+                case "the way of the little one":
                     this.getAbbey().setTotalAmtOfMonks(this.getAbbey().getTotalAmtOfMonks() * 10);
                     showMonks(this);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    this.applyUpgrades = function () {
+        for (let upgradeNr = 0, totalAmtOfUpgrades = this.upgrades.length; upgradeNr < totalAmtOfUpgrades; upgradeNr++) {
+            switch (this.upgrades[upgradeNr]) {
+                case "golden scythes":
+
+                    for (let field in this.getFields().list) {
+                        if (this.getFields().list.hasOwnProperty(field)) {
+                            let selectedField = this.getFields().list[field];
+                            selectedField.raiseMaxAmtOfOutput(0.05);
+                        }
+                    }
+
+                    break;
+                default:
                     break;
             }
         }
@@ -305,7 +330,7 @@ function Game() {
                 }
                 else {
                     let inputList = new List();
-                    selectedProcessor.possibleInput.forEach(function(input){
+                    selectedProcessor.possibleInput.forEach(function (input) {
                         inputList.addAnItem(getResourcesFromMap(input));
                     });
                     newProcessor = new Processor(selectedProcessor.name, inputList, getResourcesFromMap(selectedProcessor.output), selectedProcessor.efficiency, selectedProcessor.location);
@@ -363,8 +388,8 @@ function Game() {
         //LOADING BREWERY
         let breweryEquipment = new List();
 
-        for (let processor in breweryEquipmentMap){
-            if(breweryEquipmentMap.hasOwnProperty(processor)){
+        for (let processor in breweryEquipmentMap) {
+            if (breweryEquipmentMap.hasOwnProperty(processor)) {
                 let selectedProcessor = processorMap[breweryEquipmentMap[processor]];
                 let foundProcessor = this.getProcessors().getItemByName(selectedProcessor.name);
 
@@ -376,26 +401,39 @@ function Game() {
 
         //LOADING VENDORS
         for (let vendor in vendorMap) {
-            if (vendorMap.hasOwnProperty(vendor)){
+            if (vendorMap.hasOwnProperty(vendor)) {
                 let selectedVendor = vendorMap[vendor];
 
                 let vendorInterests = new List();
                 vendorInterests.addListOfItems(selectedVendor.interests);
 
-                this.getVendors().addAnItem(new Vendor(selectedVendor.name,vendorInterests));
+                this.getVendors().addAnItem(new Vendor(selectedVendor.name, vendorInterests));
             }
         }
 
         //LOADING ENLIGHTENMENTS
-        for(let enlightenment in enlightenmentMap) {
-            if (enlightenmentMap.hasOwnProperty(enlightenment)){
+        for (let enlightenment in enlightenmentMap) {
+            if (enlightenmentMap.hasOwnProperty(enlightenment)) {
                 let selectedEnlightenment = enlightenmentMap[enlightenment];
-                let newEnlightenment = new Enlightenment(selectedEnlightenment.name,selectedEnlightenment.description);
+                let newEnlightenment = new Enlightenment(selectedEnlightenment.name, selectedEnlightenment.description);
 
                 newEnlightenment.setRequirements(selectedEnlightenment.requirements);
                 newEnlightenment.setEffects(enlightenmentEffectMap[selectedEnlightenment.effect]);
 
                 this.getChapel().getEnlightenmentList().addAnItem(newEnlightenment)
+            }
+        }
+
+        //LOADING UPGRADES
+        for (let upgrade in upgradeMap) {
+            if (upgradeMap.hasOwnProperty(upgrade)) {
+                let selectedUpgrade = upgradeMap[upgrade];
+                let newUpgrade = new Upgrade(selectedUpgrade.name, selectedUpgrade.description);
+
+                newUpgrade.setRequirements(selectedUpgrade.requirements);
+                newUpgrade.setEffects(upgradeEffectMap[selectedUpgrade.effect]);
+
+                this.getWorkshop().getListOfUpgrades().addAnItem(newUpgrade);
             }
         }
 

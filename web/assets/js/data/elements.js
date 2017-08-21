@@ -454,7 +454,7 @@ const vendorMap = {
 
 const enlightenmentMap = {
     theWayOfTheLittleOne: {
-        name: "The way of the little one",
+        name: "the way of the little one",
         description: "There once was a little one called Liya.",
         requirements: {believe: 1},
         effect: "totalAmtOfMonksMultipliedBy10"
@@ -467,6 +467,24 @@ const enlightenmentEffectMap = {
         effect: "multiply",
         argument: 10,
         description: "Multiplies your total amount of monks by 10."
+    }
+};
+
+const upgradeMap = {
+  goldenScythes: {
+      name: "golden scythes",
+      description: "This works better than iron ones.",
+      requirements: {coins: 1, wood: 1},
+      effect: "goldenScythes"
+  }
+};
+
+const upgradeEffectMap = {
+    goldenScythes: {
+        target: "fields",
+        effect: "multiply",
+        argument: 0.05,
+        description: "Gives 5% more efficieny to your fields."
     }
 };
 

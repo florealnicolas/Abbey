@@ -26,6 +26,12 @@ const developmentMode = function (game) {
         }
     };
 
+    //REMOVE!
+    let wood = getResourcesFromMap("wood");
+    wood.setQuantity(10);
+
+    game.getStock().addAnItem(wood);
+
     //TESTS
     console.log('The little canary Liya chirrups: "I am alive and kicking!".');
     listTest(neededForTesting);

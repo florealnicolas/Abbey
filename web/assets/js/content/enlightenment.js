@@ -61,8 +61,9 @@ function Enlightenment (enlightenmentName, enlightenmentDescription) {
     };
 
     this.visualizeEnlightenment = function () {
+        const grammar = new Grammar();
       let visual = "<div class='enlightenment' id='"+this.getName()+"'>";
-      visual += "<h5>"+this.getName()+"</h5>";
+      visual += "<h5>"+grammar.writeRight(this.getName())+"</h5>";
       visual += "<p>Effect:\t"+this.visualizeEffects()+"<br/>" +
           "Requirements:\t"+ this.visualizeRequirements() +"<br/>" +
           "Description:\t"+this.getDiscription()+"</p>";

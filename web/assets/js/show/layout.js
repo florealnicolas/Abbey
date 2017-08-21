@@ -518,6 +518,8 @@ function showChapel(game) {
         const scrollName = $(this)[0].id.split("-")[1];
         chapel.getEnlightenmentList().getItemByName(scrollName).learnEnlightenment(game);
         game.applyEffects();
+        $(this).addClass("disabled");
+        $(this).text("Learnt");
     });
 }
 
@@ -535,10 +537,14 @@ function showWorkshop(game) {
     $("#workshop").html(game.getWorkshop().visualizeWorkshop());
     workshop.checkIfBuyable(game);
 
-    $(".buyUpgrade").on("click", function () {
+    $(".button.upgradeButton").on("click", function () {
         const upgradeName = $(this)[0].id.split("-")[1];
-        workshop.getListOfUpgrades().getItemByName(upgradeName).buyUpgrade(game);
-        //game.applyEffects();
+        if (game.upgrades.indexOf(upgradeName) === -1) {
+            workshop.getListOfUpgrades().getItemByName(upgradeName).buyUpgrade(game);
+            game.applyUpgrades();
+            $(this).addClass("disabled");
+            $(this).text("Bought");
+        }
     });
 }
 

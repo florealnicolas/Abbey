@@ -6,7 +6,7 @@ function Upgrade (upgradeName, upgradeDescription) {
 
     this.discription = upgradeDescription;
 
-// Getters of Enlightenment
+// Getters of Upgrade
 
     this.getName = function () {
         return this.name;
@@ -24,43 +24,47 @@ function Upgrade (upgradeName, upgradeDescription) {
         return this.discription;
     };
 
-// Setters of Enlightenment
+// Setters of Upgrade
 
     this.setRequirement = function (requirement, value) {
         this.requirements[requirement] = value;
+    };
+
+    this.setRequirements = function (newRequirements){
+        this.requirements = newRequirements;
+    };
+
+    this.setEffects = function (newEffects) {
+        this.upgradeEffect = newEffects;
     };
 
     this.setEffect = function (effect, value) {
         this.upgradeEffect[effect] = value;
     };
 
-// Functions of Enlightenment
+// Functions of Upgrade
 
     this.visualizeEffects = function () {
-        let visual = "";
-        for(let effect in this.upgradeEffect) {
-            if (this.upgradeEffect.hasOwnProperty(effect)) {
-                visual += this.upgradeEffect[effect];
-            }
-        }
-
-        return visual;
+        return this.upgradeEffect.description;
     };
 
     this.visualizeRequirements = function () {
         let visual = "";
         for(let requirement in this.requirements) {
             if (this.requirements.hasOwnProperty(requirement)) {
-                visual += requirement + ": " + this.requirements[requirement];
+                visual += requirement + ": " + this.requirements[requirement] + ", ";
             }
         }
 
-        return visual;
+        visual = visual.substr(0,visual.length-2);
+
+        return visual + ".";
     };
 
     this.visualizeUpgrade = function () {
+        const grammar = new Grammar();
         let visual = "<div class='upgrade' id='"+this.getName()+"'>";
-        visual += "<h5>"+this.getName()+"</h5>";
+        visual += "<h5>"+grammar.writeRight(this.getName())+"</h5>";
         visual += "<p>Effect:\t"+this.visualizeEffects()+"<br/>" +
             "Requirements:\t"+ this.visualizeRequirements() +"<br/>" +
             "Discription:\t"+this.getDiscription()+"</p>";
@@ -76,9 +80,19 @@ function Upgrade (upgradeName, upgradeDescription) {
 
         for(let requirement in this.requirements) {
             if (this.requirements.hasOwnProperty(requirement)) {
-                console.log("SELECTED REQUIREMENT",requirement);
-                if (stock.getItemByName(requirement) === null){
-                    able = false;
+
+                switch (requirement) {
+                    case "coins":
+                        if (game.getPlayer().getCoins() < this.requirements[requirement]){
+                            able = false;
+                        }
+                        break;
+                    default:
+                        let selectedItem = stock.getItemByName(requirement);
+                        if (selectedItem === null || selectedItem.getQuantity() < this.requirements[requirement]){
+                            able = false;
+                        }
+                        break;
                 }
             }
         }
@@ -88,12 +102,24 @@ function Upgrade (upgradeName, upgradeDescription) {
     this.buyUpgrade = function (game) {
 
         if (this.ableToBuy(game)) {
-            //game.addEffect(this.name);
-            console.log("You can buy this upgrade!");
-        }
 
-        else {
-            console.log("You can't buy this one yet!");
+            for(let requirement in this.requirements) {
+                if (this.requirements.hasOwnProperty(requirement)) {
+                    switch (requirement) {
+                        case "coins":
+                           game.getPlayer().reduceCoins(this.requirements[requirement]);
+                           showNCRCounter(game);
+                            break;
+                        default:
+                            game.getStock().getItemByName(requirement).removeQuantityOfAResource(this.requirements[requirement]);
+                            game.getStock().removeResourceIfThereIsNoQuantity(game.getStock().getItemByName(requirement));
+                            showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories()));
+                            break;
+                    }
+                }
+            }
+
+            game.addUpgrade(this.name);
         }
     };
 }

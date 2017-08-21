@@ -25,17 +25,13 @@
                 developmentMode(game1);
             }
 
-            //UPGRADE LIST
-
-            //const golden
-
             $('#abbey').show();
             $('.menu a:first-child').addClass("active");
 
             $('#secondaryWork a:first-child').addClass("active");
 
             showNCRCounter(game1);
-            showStock(game1.getStock().allItemsIntoAStockWay());
+            showStock(game1.getStock());
             showMonks(game1);
 
             buildFields(game1);

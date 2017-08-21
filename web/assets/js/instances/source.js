@@ -28,14 +28,14 @@ function Source(sourceName, sourceMaxOutput, placeName) {
 
         switch (source.getPlace()) {
             case "inside":
-                var monks = game.getMonks().amtOfInsideMonks;
+                var monks = game.getAbbey().getMonks().amtOfInsideMonks;
                 break;
             case "outside":
-                monks = game.getMonks().amtOfOutsideMonks;
+                monks = game.getAbbey().getMonks().amtOfOutsideMonks;
                 break;
         }
 
-        const monkBonus = monks / game.getTotalAmtOfMonks();
+        const monkBonus = monks / game.getAbbey().getTotalAmtOfMonks();
 
         progressbar.progressbar({
             value: 0,

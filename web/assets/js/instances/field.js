@@ -39,6 +39,10 @@ function Field(fieldNumber, priceOfField, resource, categories) {
 
 //Functions of Field
 
+    this.raiseMaxAmtOfOutput = function (percentage) {
+      this.maxOutput = this.maxOutput + (this.maxOutput*percentage);
+    };
+
     this.fieldProcess = function (game) {
 
         const fieldBtn = $('#' + this.fieldName + ".field.button");
