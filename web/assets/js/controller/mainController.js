@@ -1,7 +1,5 @@
 (function ($, window, document) {
 
-    const game1 = new Game();
-
     //Resources needed in the game
 
     //FOREST
@@ -18,89 +16,74 @@
 
     $(document).ready(function () {
 
-        const game1 = new Game();
-        game1.gameInitialisation();
+        $.get("./localStorage/env", function (data) {
 
-        //TEST: MAKING FIELD
-        const rice = getResourcesFromMap("rice");
-        const ricefield = new Field(game1.getAmtOfFieldsMade(), game1.getPriceOfAField(), rice, game1.getFieldCategories());
-        game1.setAmtOfFieldsMade(1);
-        game1.getFields().addAnItem(ricefield);
+            const game1 = new Game();
+            game1.gameInitialisation();
 
-        //IDEAS
-        console.log("IDEAS:");
-        console.log("- TOOLTIP FOR RESOURCES ON MARKET (VALUE + TYPE)");
-        console.log("- MONKS ON MARKETPLACE");
+            if (data === "development") {
+                developmentMode(game1);
+            }
 
-        //ENLIGHTENMENT LIST
+            //UPGRADE LIST
 
-        const theWayOfTheLittleOne = new Enlightenment("The way of the little one","There was once a little one called Liya.");
-        theWayOfTheLittleOne.setRequirement("believe",1);
-        theWayOfTheLittleOne.setEffect("totalAmtOfMonks","Amount of monks multiplied by 10");
+            //const golden
 
-        game1.getChapel().getEnlightenmentList().addAnItem(theWayOfTheLittleOne);
+            $('#abbey').show();
+            $('.menu a:first-child').addClass("active");
 
-        //UPGRADE LIST
+            $('#secondaryWork a:first-child').addClass("active");
 
-        //const golden
+            showNCRCounter(game1);
+            showStock(game1.getStock().allItemsIntoAStockWay());
+            showMonks(game1);
 
-        $('#abbey').show();
-        $('.menu a:first-child').addClass("active");
+            buildFields(game1);
+            showInstances(game1, "source", "inside");
+            showInstances(game1, "source", "outside");
+            showInstances(game1, "processor", "outside");
 
-        $('#secondaryWork a:first-child').addClass("active");
-
-        //TESTPLAYER
-        const Laerolf = new Player("Laerolf", 1000, 50);
-        game1.setAPlayer(Laerolf);
-
-        showNCRCounter(game1);
-        showStock(game1.getStock().allItemsIntoAStockWay());
-        showMonks(game1);
-
-        buildFields(game1);
-        showInstances(game1, "source", "inside");
-        showInstances(game1, "source", "outside");
-        showInstances(game1, "processor", "outside");
-
-        showRecipesAsOptions(game1);
-        showStory(game1);
-        showBrewery(game1);
-        showMarket(game1);
-        showChapel(game1);
-        showWorkshop(game1);
-        showStorage(game1);
-
-        $("#main a").on("click", showPage);
-        $("#secondaryJob a").on("click", showJobSubpage);
-        $("#secondaryBrew a").on("click", showBrewSubpage);
-        $(game1.getStock()).on("change", showStock(game1.getStock().allItemsIntoAStockWay(game1.getResourceCategories())));
-        $(game1.getPlayer()).on("change", showNCRCounter(game1));
-        $("#monks input").on("change", function () {
-            game1.getAbbey().manageMonks(game1, this);
+            showRecipesAsOptions(game1);
+            showStory(game1);
             showBrewery(game1);
-        });
-
-        $("#selectedRecipe").on("click", function (e) {
-            e.preventDefault();
-
-            const recipe = game1.getRecipes().getItemByNumber($("#recipes").val());
-
-            showRecipeDescription(recipe);
-            game1.getBrewery().setSelectedRecipe(recipe);
-            showBrewery(game1);
+            showMarket(game1);
+            showChapel(game1);
+            showWorkshop(game1);
             showStorage(game1);
+
+            $("#main a").on("click", showPage);
+            $("#secondaryJob a").on("click", showJobSubpage);
+            $("#secondaryBrew a").on("click", showBrewSubpage);
+            $(game1.getStock()).on("change", showStock(game1.getStock().allItemsIntoAStockWay(game1.getResourceCategories())));
+            $(game1.getPlayer()).on("change", showNCRCounter(game1));
+            $("#monks input").on("change", function () {
+                game1.getAbbey().manageMonks(game1, this);
+                showBrewery(game1);
+            });
+
+            $("#selectedRecipe").on("click", function (e) {
+                e.preventDefault();
+
+                const recipe = game1.getRecipes().getItemByNumber($("#recipes").val());
+
+                showRecipeDescription(recipe);
+                game1.getBrewery().setSelectedRecipe(recipe);
+                showBrewery(game1);
+                showStorage(game1);
+            });
+
+            $("#naam > a").on("click", function (e) {
+                e.preventDefault();
+
+                showProfilePage(game1);
+
+                $('.workspace > div').hide();
+                $('#main a').removeClass("active");
+                $('#offCanvasNav a').removeClass("active");
+
+                $("#profile").show();
+            });
         });
 
-        $("#naam > a").on("click", function (e) {
-            e.preventDefault();
-
-            showProfilePage(game1);
-
-            $('.workspace > div').hide();
-            $('#main a').removeClass("active");
-            $('#offCanvasNav a').removeClass("active");
-
-            $("#profile").show();
-        });
     });
 })(window.jQuery, window, document);

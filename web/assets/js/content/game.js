@@ -129,11 +129,12 @@ function Game() {
     };
 
     this.getRecipesAsOptions = function () {
+        const grammar = new Grammar();
         let recipeString = "";
 
         for (let recipeNr = 0; recipeNr < this.recipes.getSize(); recipeNr++) {
             const selectedRecipeName = this.recipes.getItemByNumber(recipeNr).getOutput().getName();
-            recipeString += "<option value='" + recipeNr + "'>" + selectedRecipeName + "</option>";
+            recipeString += "<option value='" + recipeNr + "'>" + grammar.writeRight(selectedRecipeName) + "</option>";
         }
 
         return recipeString;
@@ -147,6 +148,7 @@ function Game() {
 
     this.applyEffects = function () {
 
+        console.log("EFFECTS",this.getEffects());
         for (let effectNr = 0, totalAmtOfEffects = this.effects.length; effectNr < totalAmtOfEffects; effectNr++) {
             switch (this.effects[effectNr]) {
                 case "The way of the little one":
@@ -381,6 +383,19 @@ function Game() {
                 vendorInterests.addListOfItems(selectedVendor.interests);
 
                 this.getVendors().addAnItem(new Vendor(selectedVendor.name,vendorInterests));
+            }
+        }
+
+        //LOADING ENLIGHTENMENTS
+        for(let enlightenment in enlightenmentMap) {
+            if (enlightenmentMap.hasOwnProperty(enlightenment)){
+                let selectedEnlightenment = enlightenmentMap[enlightenment];
+                let newEnlightenment = new Enlightenment(selectedEnlightenment.name,selectedEnlightenment.description);
+
+                newEnlightenment.setRequirements(selectedEnlightenment.requirements);
+                newEnlightenment.setEffects(enlightenmentEffectMap[selectedEnlightenment.effect]);
+
+                this.getChapel().getEnlightenmentList().addAnItem(newEnlightenment)
             }
         }
 

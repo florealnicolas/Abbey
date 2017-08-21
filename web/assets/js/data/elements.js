@@ -413,7 +413,7 @@ const schemeMap = {
 
 const recipeMap = {
     aleRecipe: {
-        output: {name:"ale", amount:10},
+        output: {name: "ale", amount: 10},
         ingredientList: "aleIngredients",
         scheme: "aleScheme",
         author: "Liya",
@@ -442,13 +442,31 @@ const outputListMap = {
 };
 
 const vendorMap = {
-  maurits: {
-      name: "Maurits",
-      interests: ["crop","beer"]
-  },
+    maurits: {
+        name: "Maurits",
+        interests: ["crop", "beer"]
+    },
     ziyao: {
-      name: "Ziyao",
-        interests: ["flower","critter"]
+        name: "Ziyao",
+        interests: ["flower", "critter"]
+    }
+};
+
+const enlightenmentMap = {
+    theWayOfTheLittleOne: {
+        name: "The way of the little one",
+        description: "There once was a little one called Liya.",
+        requirements: {believe: 1},
+        effect: "totalAmtOfMonksMultipliedBy10"
+    }
+};
+
+const enlightenmentEffectMap = {
+    totalAmtOfMonksMultipliedBy10: {
+        target: "totalAmtOfMonks",
+        effect: "multiply",
+        argument: 10,
+        description: "Multiplies your total amount of monks by 10."
     }
 };
 

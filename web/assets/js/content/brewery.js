@@ -39,6 +39,8 @@ function Brewery() {
 
     this.visualizeOverview = function (game) {
 
+        const grammar = new Grammar();
+
         let visual = "<h4>Overview</h4>";
 
         let amtOfMonk = "<h5>Employees</h5>";
@@ -76,7 +78,7 @@ function Brewery() {
         if (this.getEquipment().getSize() !== 0) {
             equipment += "<ul>";
             for (let equipmentItem = 0; equipmentItem < this.getEquipment().getSize(); equipmentItem++) {
-                equipment += "<li>" + this.getEquipment().getItemByNumber(equipmentItem).getName() + "</li>";
+                equipment += "<li>" + grammar.writeRight(this.getEquipment().getItemByNumber(equipmentItem).getName()) + "</li>";
             }
 
             equipment += "</ul>";

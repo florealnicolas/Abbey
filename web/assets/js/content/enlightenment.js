@@ -2,7 +2,7 @@ function Enlightenment (enlightenmentName, enlightenmentDescription) {
 
     this.name = enlightenmentName;
     this.requirements = {};
-    this.enlightenmentEffect = {};
+    this.enlightenmentEffects = {};
 
     this.discription = enlightenmentDescription;
 
@@ -17,7 +17,7 @@ function Enlightenment (enlightenmentName, enlightenmentDescription) {
     };
 
     this.getEffect = function () {
-        return this.enlightenmentEffect;
+        return this.enlightenmentEffects;
     };
 
     this.getDiscription = function () {
@@ -26,32 +26,34 @@ function Enlightenment (enlightenmentName, enlightenmentDescription) {
 
 // Setters of Enlightenment
 
+    this.setRequirements = function (newRequirements) {
+        this.requirements = newRequirements;
+    };
+
     this.setRequirement = function (requirement, value) {
         this.requirements[requirement] = value;
     };
 
     this.setEffect = function (effect, value) {
-        this.enlightenmentEffect[effect] = value;
+        this.enlightenmentEffects[effect] = value;
+    };
+
+    this.setEffects = function (newEffects) {
+        this.enlightenmentEffects = newEffects;
     };
 
 // Functions of Enlightenment
 
     this.visualizeEffects = function () {
-        let visual = "";
-        for(let effect in this.enlightenmentEffect) {
-            if (this.enlightenmentEffect.hasOwnProperty(effect)) {
-                visual += this.enlightenmentEffect[effect];
-            }
-        }
-
-        return visual;
+        return this.enlightenmentEffects.description;
     };
 
     this.visualizeRequirements = function () {
+        let grammar = new Grammar();
         let visual = "";
         for(let requirement in this.requirements) {
             if (this.requirements.hasOwnProperty(requirement)) {
-                visual += requirement + ": " + this.requirements[requirement];
+                visual += grammar.writeRight(requirement) + ": " + this.requirements[requirement];
             }
         }
 
@@ -63,7 +65,7 @@ function Enlightenment (enlightenmentName, enlightenmentDescription) {
       visual += "<h5>"+this.getName()+"</h5>";
       visual += "<p>Effect:\t"+this.visualizeEffects()+"<br/>" +
           "Requirements:\t"+ this.visualizeRequirements() +"<br/>" +
-          "Discription:\t"+this.getDiscription()+"</p>";
+          "Description:\t"+this.getDiscription()+"</p>";
       visual += "</div>";
         visual +="<button class='button enlightScroll' id='enlightenment-"+this.getName()+"'>Learn</button>";
 

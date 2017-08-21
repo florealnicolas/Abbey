@@ -514,7 +514,7 @@ function showChapel(game) {
         chapel.manualPraying();
     });
 
-    $(".enlightScroll").on("click", function () {
+    $(".button.enlightScroll").on("click", function () {
         const scrollName = $(this)[0].id.split("-")[1];
         chapel.getEnlightenmentList().getItemByName(scrollName).learnEnlightenment(game);
         game.applyEffects();
