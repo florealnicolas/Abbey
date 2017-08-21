@@ -18,6 +18,7 @@
 
         $.get("./localStorage/env", function (data) {
 
+            showWelcomePage();
             const game1 = new Game();
             game1.gameInitialisation();
 

@@ -2,7 +2,7 @@ const express = require("express");
 const LocalStorage = require("node-localstorage").LocalStorage;
 
 const port = 1810;
-const environmentStatus = "development";
+const environmentStatus = "production";
 let localStorage = new LocalStorage("./localStorage");
 const app = express();
 
@@ -15,6 +15,10 @@ app.listen(port, () => {
 
 app.get("/", (request, response, next) => {
     next();
+});
+
+app.get("/login", (request, response) => {
+    response.sendFile(__dirname + "/web/login.html");
 });
 
 app.get("/localStorage/*", (request, response) => {

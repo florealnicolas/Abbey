@@ -535,17 +535,20 @@ function showWorkshop(game) {
     const workshop = game.getWorkshop();
 
     $("#workshop").html(game.getWorkshop().visualizeWorkshop());
-    workshop.checkIfBuyable(game);
 
-    $(".button.upgradeButton").on("click", function () {
-        const upgradeName = $(this)[0].id.split("-")[1];
-        if (game.upgrades.indexOf(upgradeName) === -1) {
-            workshop.getListOfUpgrades().getItemByName(upgradeName).buyUpgrade(game);
-            game.applyUpgrades();
-            $(this).addClass("disabled");
-            $(this).text("Bought");
-        }
-    });
+    if (game.getPlayer() !== null) {
+        workshop.checkIfBuyable(game);
+    }
+
+        $(".button.upgradeButton").on("click", function () {
+            const upgradeName = $(this)[0].id.split("-")[1];
+            if (game.upgrades.indexOf(upgradeName) === -1) {
+                workshop.getListOfUpgrades().getItemByName(upgradeName).buyUpgrade(game);
+                game.applyUpgrades();
+                $(this).addClass("disabled");
+                $(this).text("Bought");
+            }
+        });
 }
 
 function showFieldTypes(game, fieldName) {
@@ -572,4 +575,20 @@ function showFieldTypes(game, fieldName) {
 
 function updateFieldTypes(game, fieldName) {
     $("#Type" + fieldName).html(showFieldTypes(game, fieldName));
+}
+
+function showWelcomePage() {
+    let page = "<div class='backgroundOverlay'>";
+    page += '<div class="overlay">';
+    page += '<h2>Welcome to Abbey!</h2>';
+    page += '<p>Hello there!</br>Are you a new player or do you have an account?</p>';
+    page += '<a href="/login" id="account" class="button">I have an account</a>';
+    page += '<a class="button" id="new">No... I\'m new</a>';
+    page += '</div></div>';
+
+    $('body').append(page);
+
+    $("#new").on("click", function() {
+       $(".backgroundOverlay").remove();
+    });
 }
