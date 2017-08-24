@@ -16,13 +16,28 @@
 
     $(document).ready(function () {
 
-        $.get("./localStorage/env", function (data) {
+        $.get("./localStorage/etc/environment", function (environment) {
 
-            showWelcomePage();
+            const activeUser =JSON.parse(window.sessionStorage.getItem("user"));
+            console.log("USER", activeUser);
+
             const game1 = new Game();
             game1.gameInitialisation();
 
-            if (data === "development") {
+            if (activeUser === undefined) {
+                showWelcomePage();
+            }
+
+            else {
+                const activePlayer = new Player(activeUser.userName,activeUser.coins,activeUser.reputation);
+                activePlayer.setPlayerGendre(activeUser.gendre);
+                activePlayer.setPassword(activeUser.password);
+                game1.setAPlayer(activePlayer);
+                showNCRCounter(game1);
+                game1.strangerMode("OFF");
+            }
+
+            if (environment === "development") {
                 developmentMode(game1);
             }
 

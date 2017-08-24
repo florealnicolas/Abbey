@@ -560,8 +560,8 @@ fieldset:last-child {
     left: 50%;
     /*margin-top: -110;
     margin-left: -110px;*/
-    margin-top: -13.5%;
-    margin-left: -20%;
+    margin-top: -15%;
+    margin-left: -22%;
     user-select: none;
     cursor: default;
 }
@@ -578,9 +578,9 @@ fieldset:last-child {
 
 .backgroundOverlay {
     z-index: 999;
-    background-color: rgba(25,30,40,0.9);
+    background-color: rgba(25,30,40,0.95);
     width: 100%;
-    height: 101%;
+    height: 100%;
     position: absolute;
 }
 

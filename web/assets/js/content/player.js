@@ -1,7 +1,7 @@
 function Player(aPlayerName, initialAmtOfCoins, initialAmtOfReputation) {
 
     this.playerName = aPlayerName;
-    this.playerGender = "";
+    this.playerGendre = "";
     this.coins = initialAmtOfCoins;
     this.reputation = initialAmtOfReputation;
     this.password = "";
@@ -24,10 +24,14 @@ function Player(aPlayerName, initialAmtOfCoins, initialAmtOfReputation) {
         return this.password;
     };
 
+    this.getGendre = function () {
+        return this.playerGendre;
+    };
+
 //Setters of Player
 
-    this.setPlayerGender = function (gender) {
-        this.playerGender = gender;
+    this.setPlayerGendre = function (gendre) {
+        this.playerGendre = gendre;
     };
 
     this.setPassword = function (newPassword) {
@@ -47,4 +51,36 @@ function Player(aPlayerName, initialAmtOfCoins, initialAmtOfReputation) {
     this.addReputation = function (reputationToAdd) {
         this.reputation += reputationToAdd;
     };
+
+    this.toRequestPart = function () {
+
+        const neededInfo = ["playerName", "playerGendre", "coins", "reputation", "password"];
+
+        let requestPart = "?";
+
+        for (let property in neededInfo) {
+            if (neededInfo.hasOwnProperty(property)) {
+                let selectedDetail = neededInfo[property];
+                requestPart += selectedDetail + "=" + this[selectedDetail] + "&";
+            }
+        }
+
+        return requestPart.substr(0, requestPart.length - 1);
+    };
+
+    this.toJSON = function () {
+
+        const neededInfo = ["_id","playerName", "playerGendre", "coins", "reputation", "password"];
+
+        let JSON = {};
+
+        for (let property in neededInfo) {
+            if (neededInfo.hasOwnProperty(property)) {
+                let selectedDetail = neededInfo[property];
+                JSON[selectedDetail] = this[selectedDetail];
+            }
+        }
+
+        return JSON;
+    }
 }

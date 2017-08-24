@@ -24,11 +24,12 @@ function showStory(game) {
         const answer1 = $(this).val();
 
         if (answer1 === "1") {
+            console.log("HERE");
             let currentAmtOfCoins = eval(coins.text());
             let currentAmtOfReputation = eval(reputation.text());
 
-            coins.text(currentAmtOfCoins--);
-            reputation.text(currentAmtOfReputation++);
+            coins.text(currentAmtOfCoins - 1);
+            reputation.text(currentAmtOfReputation + 1);
         }
 
         $(this).addClass("chosen");
@@ -62,7 +63,7 @@ function showStory(game) {
                     //Need a function to control this input!
                     playerName = playerName.substr(0, 1).toUpperCase() + playerName.substr(1).toLowerCase();
                     playerName = String(playerName);
-                    $("#naam span").text(playerName);
+                    $("#naam a").text(playerName);
 
                     const fact = game.getStory().chooseFact(playerName);
                     game.getStory().setRandomFact(fact);
@@ -87,7 +88,7 @@ function showStory(game) {
                     window.location.hash = "article1";
 
                     $(".gender").on("click", function () {
-                        game.getPlayer().setPlayerGender($(this).val());
+                        game.getPlayer().setPlayerGendre($(this).val());
                         game.getStory().getGrammar().setGender($(this).val());
 
                         $(this).addClass("chosen");
@@ -157,24 +158,41 @@ function showStory(game) {
                                         //The end ???
                                         game.getStory().toBeContinued();
 
-                                        $(window).scroll(function (event) {
-                                            const scroll = $(window).scrollTop();
 
-                                            if (game.getMode() && scroll >= 2600) {
+                                        /*$(window).scroll(function (event) {
+                                         const scroll = $(window).scrollTop();
 
-                                                /*let db = new DB();
+                                         if (game.getMode() && scroll >= 2600) {
 
-                                                db.addData("players",game.getPlayer());
-                                                document.cookie = "user=" + game.getPlayer().getPlayerName();
-                                                sessionStorage.setItem("player",game.getPlayer());*/
-                                                game.strangerMode("OFF");
+                                         /*let db = new DB();
 
-                                                let message = "Hello there! Thank you for reading this story.\n";
-                                                message += "Let your Abbey-adventure here. Enjoy!\n\n";
-                                                message += "Happy greets, Laerolf.";
-                                                alert(message);
+                                         db.addData("players",game.getPlayer());
+                                         document.cookie = "user=" + game.getPlayer().getPlayerName();
+                                         sessionStorage.setItem("player",game.getPlayer());*/
+                                        game.strangerMode("OFF");
 
-                                            }
+                                        let message = "Hello there! Thank you for reading this story.\n";
+                                        message += "Let your Abbey-adventure here. Enjoy!\n\n";
+                                        message += "Happy greets, Laerolf.";
+                                        alert(message);
+
+                                        showNCRCounter(game);
+
+                                        console.log("REPUTATION", reputation);
+                                        const href = "/registering" + game.getPlayer().toRequestPart();
+
+                                        console.log("HREF", href);
+
+                                        let acknowledgement = "<button class='button' id='acknowledge'>Acknowledge</button>";
+                                        $("#abbey").append(acknowledgement);
+
+                                        window.location.hash = "acknowledge";
+
+                                        $("#acknowledge").on('click', function (e) {
+                                            window.sessionStorage.setItem("user", game.getPlayer().getPlayerName());
+                                            console.log("SESSION", window.sessionStorage);
+
+                                            $.post("/registering", game.getPlayer().toJSON());
                                         });
                                     }
                                 })

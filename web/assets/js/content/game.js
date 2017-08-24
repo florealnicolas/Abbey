@@ -32,6 +32,7 @@ function Game() {
     this.priceForAField = 0;
     this.fieldsMade = 0;
     this.player = null;
+    this.strangerMode = true;
 
 //Setters of Game
 
@@ -40,6 +41,10 @@ function Game() {
     };
 
 //Getters of Game
+
+    this.getMode = function () {
+        return this.strangerMode;
+    };
 
     this.getAbbey = function () {
         return this.abbey;

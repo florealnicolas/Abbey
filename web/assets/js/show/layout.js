@@ -308,7 +308,8 @@ function showProfilePage(game) {
             "<h3>Account details</h3>" +
             "<p>Username: " + player.getPlayerName() + "<br/>" +
             "Coins: " + player.getCoins() + "<br/>" +
-            "Reputation: " + player.getReputation() + "</p>" +
+            "Reputation: " + player.getReputation() + "<br/>" +
+            "Gendre: "+player.getGendre()+"</p>" +
             "</div>" +
 
             "<div class='profileSection'>" +
