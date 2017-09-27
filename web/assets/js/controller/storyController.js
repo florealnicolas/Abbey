@@ -178,21 +178,17 @@ function showStory(game) {
 
                                         showNCRCounter(game);
 
-                                        console.log("REPUTATION", reputation);
-                                        const href = "/registering" + game.getPlayer().toRequestPart();
-
-                                        console.log("HREF", href);
-
                                         let acknowledgement = "<button class='button' id='acknowledge'>Acknowledge</button>";
                                         $("#abbey").append(acknowledgement);
 
                                         window.location.hash = "acknowledge";
 
                                         $("#acknowledge").on('click', function (e) {
-                                            window.sessionStorage.setItem("user", game.getPlayer().getPlayerName());
+                                            window.sessionStorage.setItem("user", JSON.stringify(game.getPlayer()));
+                                            window.sessionStorage.setItem("active", true);
                                             console.log("SESSION", window.sessionStorage);
 
-                                            $.post("/registering", game.getPlayer().toJSON());
+                                            $.post("/registering", game.getPlayer().toJSON())
                                         });
                                     }
                                 })

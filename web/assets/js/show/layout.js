@@ -314,7 +314,7 @@ function showProfilePage(game) {
 
             "<div class='profileSection'>" +
             "<h3>Change password</h3>" +
-            "<form action='/PASSWORDCHANGE' method='post'>" +
+            "<form action='/passwordchange' method='post'>" +
             "<label for='currentPassword'>Current password</label>" +
             "<input type='password' id='currentPassword' name='passwordChange[currentPassword]'/>" +
             "<label for='newPassword'>New password</label>" +
@@ -327,8 +327,8 @@ function showProfilePage(game) {
 
         profile += "<div class='profileSection'>" +
             "<h3 title='Besides playing of course.'>Alternative options</h3>" +
-            "<a class='button uk-button uk-button-default' href='/RESET'>Reset account</a>" +
-            "<a class='button uk-button uk-button-default' href='/LOGOUT'>Log out</a>" +
+            "<a class='button uk-button uk-button-default' href='/reset'>Reset account</a>" +
+            "<button class='button uk-button uk-button-default' id='logOut'>Log out</button>" +
             "<button class='button uk-button uk-button-default' id='save'>Save</button>" +
             "<button class='button uk-button uk-button-default' id='load'>Load</button>" +
             "</div>";
@@ -339,6 +339,13 @@ function showProfilePage(game) {
     }
 
     $("#profile").html(profile);
+
+    $("#logOut").on("click", function () {
+        console.log("User ",player.username," will be logged out!");
+        window.sessionStorage.setItem('user', null);
+        window.sessionStorage.setItem('active',false);
+        location.reload();
+    })
 
     /*$("#save").on('click', function () {
      if (typeof(Storage) !== "undefined") {

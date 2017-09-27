@@ -14,10 +14,20 @@ const userDB = new PouchDB("users");
 
 userDB.info().then(function (info) {
     console.log("INFO", info);
+
+    userDB.allDocs().then(function (result) {
+        console.log("All documents", result);
+    });
 });
 
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(session({name:'abbeyUser',secret:'AbbeyIsFun',cookie:{maxAge:6000}, resave:false,saveUninitialized: true}));
+app.use(session({
+    name: 'abbeyUser',
+    secret: 'AbbeyIsFun',
+    cookie: {maxAge: 6000},
+    resave: false,
+    saveUninitialized: true
+}));
 
 app.set("environment", environment);
 etc.setItem("environment", app.get("environment"));
@@ -27,7 +37,7 @@ app.listen(port, () => {
 });
 
 app.get("/", (request, response, next) => {
-    console.log("USER",request.session.abbeyUser);
+    console.log("USER", request.session.abbeyUser);
     next();
 });
 
@@ -35,49 +45,35 @@ app.get("/login", (request, response) => {
     response.sendFile(__dirname + "/web/login.html");
 });
 
-app.post("/login", (request, response) =>{
+app.post("/login", (request, response) => {
+
     const potentialUser = request.body.user;
-    console.log("POTENTIAL USER", potentialUser);
 
     userDB.get(potentialUser.username).then(function (user) {
         let foundUser = undefined;
-        console.log("POTENTIAL USERS", user);
+        let error = undefined;
 
-        if (user.password === potentialUser.password){
-            foundUser = user;
-        }
-
-        request.session.abbeyUser = foundUser;
-        response.end(JSON.stringify(foundUser));
+        response.end(JSON.stringify({value:user, status:"success"}));
 
     }).catch(function (error) {
-        console.log("ERROR:", error)
+        error = "No user with username '" + potentialUser.username + "' was found.";
+        errorResponse = {value: error, status: "error"};
+        console.error("error",errorResponse);
+        response.end(JSON.stringify(errorResponse));
     });
+
+    /*userDB.destroy().then(function(success){
+     console.log(success);
+     }).catch(function(error){console.log(error)});*/
+
 });
 
-
-app.get("/log-in", (request, response) => {
-    const potentialUser = request.body.user;
-    console.log("POTENTIAL USER", potentialUser);
-
-   userDB.get(potentialUser.username).then(function (user) {
-       let foundUser = undefined;
-        console.log("POTENTIAL USERS", user);
-
-        if (user.password === potentialUser.password){
-               foundUser = user;
-        }
-
-        response.json(foundUser);
-
-    }).catch(function (error) {
-        console.log("ERROR:", error)
-    });
-
-   /*userDB.destroy().then(function(success){
-       console.log(success);
-   }).catch(function(error){console.log(error)});*/
-   });
+app.post("/logout", (request, response) => {
+    console.log("HERE!");
+    request.session.abbeyUser = null;
+    request.session.active = false;
+    response.redirect("/");
+});
 
 app.post("/registering", (request, response) => {
 
@@ -86,9 +82,10 @@ app.post("/registering", (request, response) => {
     const user = new User(player.playerName, player.password, player.playerGendre, player.coins, player.reputation);
 
     console.log("REQUEST", user.toJSON());
-    userDB.put(user.toJSON());
 
-    response.redirect("/");
+    userDB.put(user.toJSON(), function (error, success) {
+        console.log(success);
+    });
 });
 
 app.post("/passwordchange", (request, response) => {

@@ -18,18 +18,24 @@
 
         $.get("./localStorage/etc/environment", function (environment) {
 
-            const activeUser =JSON.parse(window.sessionStorage.getItem("user"));
-            console.log("USER", activeUser);
+            const active = eval(window.sessionStorage.getItem('active'));
+
+            console.log("ACTIVE", active);
 
             const game1 = new Game();
             game1.gameInitialisation();
 
-            if (activeUser === undefined) {
+            if (!active) {
                 showWelcomePage();
             }
 
             else {
-                const activePlayer = new Player(activeUser.userName,activeUser.coins,activeUser.reputation);
+
+                console.log("USER", window.sessionStorage.user);
+                const activeUser = JSON.parse(window.sessionStorage.user);
+                console.log("USER", activeUser);
+
+                const activePlayer = new Player(activeUser.userName, activeUser.coins, activeUser.reputation);
                 activePlayer.setPlayerGendre(activeUser.gendre);
                 activePlayer.setPassword(activeUser.password);
                 game1.setAPlayer(activePlayer);
