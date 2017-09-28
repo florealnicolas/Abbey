@@ -98,10 +98,12 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
                 break;
 
             case List:
+
                 ingredients = this.input.allItemsToString();
                 break;
 
             default:
+
                 ingredients = this.input.toString();
                 break;
         }

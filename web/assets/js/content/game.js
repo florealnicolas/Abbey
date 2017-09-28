@@ -135,6 +135,7 @@ function Game() {
     };
 
     this.getRecipesAsOptions = function () {
+        this.getRecipes().sortList("recipeName");
         const grammar = new Grammar();
         let recipeString = "";
 

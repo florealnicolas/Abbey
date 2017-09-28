@@ -36,6 +36,49 @@ function List() {
 
 //Functions of List
 
+    this.sortList = function (something) {
+
+        let orderList = [];
+
+        switch (something) {
+
+            case "recipeName":
+
+                for (let recipe in this.list) {
+                    if (this.list.hasOwnProperty(recipe)) {
+                        let selectedRecipe = this.list[recipe];
+                        orderList[recipe] = selectedRecipe.getOutput().getName();
+                    }
+                }
+
+                const orderedList = orderList.sort();
+                let sortedList = [];
+
+                for (let recipe in orderedList) {
+                    if (orderedList.hasOwnProperty(recipe)) {
+                        let selectedRecipeName = orderedList[recipe];
+
+                        for (let selectedRecipe in this.list) {
+                            if (this.list.hasOwnProperty(selectedRecipe)) {
+                                let potRecipe = this.list[selectedRecipe];
+
+                                if (potRecipe.getOutput().getName() === selectedRecipeName) {
+                                    sortedList.push(potRecipe);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                this.list = sortedList;
+
+                break;
+
+            default:
+                break;
+        }
+    };
+
     this.addAResource = function (itemToAdd) {
 
         const index = this.getIndex(itemToAdd);
