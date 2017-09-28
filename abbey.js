@@ -34,6 +34,7 @@ etc.setItem("environment", app.get("environment"));
 
 app.listen(port, () => {
     console.log("Listening on port " + port + "...");
+    console.log("IDEA: Why not put the elements/data on the server side?");
 });
 
 app.get("/", (request, response, next) => {
