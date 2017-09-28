@@ -28,8 +28,6 @@ $(document).ready(function () {
 
                 console.log("USER",user);
 
-                if (user.password === password) {
-                    //const state = new State().setActiveUser(user);
                     window.sessionStorage.user = JSON.stringify(user);
                     window.sessionStorage.active = true;
                     window.sessionStorage.error = undefined;
@@ -37,19 +35,7 @@ $(document).ready(function () {
                     console.log("PASSWORD MATCH!");
 
                     window.location.replace("/");
-                }
 
-                else {
-                    console.error("NO PASSWORD MATCH: real password '",user.password,"' , Actual password '",password,"'");
-
-                    window.sessionStorage.user = undefined;
-                    window.sessionStorage.active = undefined;
-                    window.sessionStorage.error = JSON.stringify("Incorrect password for username '"+user.userName+"'.");
-
-                    console.log("ERROR",window.sessionStorage.session);
-
-                    window.location.replace("/login");
-                }
             }
             else {
                 console.log("RESULT", entry);

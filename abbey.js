@@ -48,12 +48,22 @@ app.get("/login", (request, response) => {
 app.post("/login", (request, response) => {
 
     const potentialUser = request.body.user;
+    console.log("POTENTIAL USER",potentialUser);
 
     userDB.get(potentialUser.username).then(function (user) {
         let foundUser = undefined;
         let error = undefined;
 
-        response.end(JSON.stringify({value:user, status:"success"}));
+        if (user.password !== potentialUser.password){
+            console.log("The password is incorrect for user: "+user.username + ".");
+            error = "Incorrect password for username '"+user.userName+"'.";
+            response.end(JSON.stringify({value:error, status:"error"}));
+        }
+
+        else {
+            console.log(user.username + " is successfully logged on!");
+            response.end(JSON.stringify({value:user, status:"success"}));
+        }
 
     }).catch(function (error) {
         error = "No user with username '" + potentialUser.username + "' was found.";
