@@ -1,4 +1,4 @@
-function Recipe(outputItem, ingredientsList, newScheme, authorName) {
+function Recipe(outputItem, ingredientsList, newScheme, authorName, story) {
 
     this.output = outputItem;
     this.ingredients = ingredientsList;
@@ -6,6 +6,7 @@ function Recipe(outputItem, ingredientsList, newScheme, authorName) {
     this.author = authorName;
     this.description = "";
     this.name = this.output.getName();
+    this.story = story;
 
 // Getters of Recipe
 
@@ -28,12 +29,17 @@ function Recipe(outputItem, ingredientsList, newScheme, authorName) {
         return this.scheme;
     };
 
+    this.getStory = function () {
+        return this.story;
+    };
+
 // Functions of Recipe
 
     this.writeDescription = function () {
 
         let descriptionString = "<h3>" + this.getName().toUpperCase() + "</h3>";
         descriptionString += "<h4>Story</h4>";
+        descriptionString += "<p>"+this.getStory()+"</p>";
         descriptionString += "<p>Discovered by " + this.author + ".</p>";
         descriptionString += "<h4>Ingredients</h4>";
 

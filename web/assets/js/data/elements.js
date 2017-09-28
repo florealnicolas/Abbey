@@ -130,19 +130,29 @@ const resourceMap = {
         category: "plant"
     },
     carrot: {
-      name: "carrot",
+        name: "carrot",
         value: 1,
         category: "crop"
     },
+    lilou: {
+      name: "lilou",
+        value:1,
+        category: "flower"
+    },
     saltyDuneExtract: {
-      name: "salty dune extract",
+        name: "salty dune extract",
         value: 1,
         category: "extract"
+    },
+    pepper: {
+        name: "pepper",
+        value: 1,
+        category: "spice"
     },
     ginger: {
         name: "ginger",
         value: 1,
-        category: "plant"
+        category: "spice"
     },
     rainbowExtract: {
         name: "rainbow extract",
@@ -191,6 +201,61 @@ const resourceMap = {
     },
     ale: {
         name: "ale",
+        value: 1,
+        category: "beer"
+    },
+    shiva: {
+        name: "shiva",
+        value: 1,
+        category: "beer"
+    },
+    hikari: {
+        name: "hikari",
+        value: 1,
+        category: "beer"
+    },
+    mandaloen: {
+        name: "mandaloen",
+        value: 1,
+        category: "beer"
+    },
+    analicious: {
+        name: "analicious",
+        value: 1,
+        category: "beer"
+    },
+    bestone: {
+        name: "bestone",
+        value: 1,
+        category: "beer"
+    },
+    magicale: {
+        name: "magicale",
+        value: 1,
+        category: "beer"
+    },
+    snorsonsAle: {
+        name: "snorson's ale",
+        value: 1,
+        category: "beer"
+    },
+    butt: {
+        name: "butt",
+        value: 1,
+        category: "beer"
+    },
+    parsendune: {
+        name: "parsendune",
+        value: 1,
+        category: "beer"
+    },
+    huaZai: {
+        name: "hua zai",
+        value: 1,
+        category: "beer"
+    },
+    power: {
+        name: "power",
         value: 1,
         category: "beer"
     },
@@ -445,12 +510,12 @@ const recipeMap = {
         specialIngredient: "",
         scheme: "aleScheme",
         author: "Liya",
-        story: ""
+        story: "Just most common beer. Enjoyed by everyone, young or old, rich or poor."
     },
     shivaRecipe: {
         output: {name: "shiva", amount: 10},
         ingredientList: "aleIngredients",
-        specialIngredient: "Lilou",
+        specialIngredient: {name:"lilou",amount:10},
         scheme: "aleScheme",
         author: "Jill",
         story: "A beer brewn to honor the gods in a mysterious land called Siam."
@@ -458,23 +523,23 @@ const recipeMap = {
     hikariRecipe: {
         output: {name: "hikari", amount: 10},
         ingredientList: "aleIngredients",
-        specialIngredient: "strawberry",
+        specialIngredient: {name:"strawberry",amount:10},
         scheme: "aleScheme",
         author: "Hemily",
         story: "From a slumbering little town 'Hikari' in Japan, this beer has a mysterious, sweet taste."
     },
-mandaloenRecipe: {
-    output: {name: "mandaloen", amount: 10},
-    ingredientList: "aleIngredients",
-    specialIngredient: "carrot",
-    scheme: "aleScheme",
-    author: "Emma",
-    story: "The colour can maybe shiver the most experienced drinker but the taste is totally worth it."
-},
+    mandaloenRecipe: {
+        output: {name: "mandaloen", amount: 10},
+        ingredientList: "aleIngredients",
+        specialIngredient:  {name:"carrot",amount:10},
+        scheme: "aleScheme",
+        author: "Emma",
+        story: "The colour can maybe shiver the most experienced drinker but the taste is totally worth it."
+    },
     analiciousRecipe: {
         output: {name: "analicious", amount: 10},
         ingredientList: "aleIngredients",
-        specialIngredient: "raspberry",
+        specialIngredient:  {name:"raspberry",amount:10},
         scheme: "aleScheme",
         author: "Anaïs",
         story: "A real Flemish beer with the taste of raspberries."
@@ -482,7 +547,7 @@ mandaloenRecipe: {
     bestoneRecipe: {
         output: {name: "bestone", amount: 10},
         ingredientList: "aleIngredients",
-        specialIngredient: "mango",
+        specialIngredient:  {name:"mango",amount:10},
         scheme: "aleScheme",
         author: "Kim",
         story: "Once there was a Korean brewer who was not only a woman but also used mango as an ingredient for the beer called 'Bestone'."
@@ -490,15 +555,15 @@ mandaloenRecipe: {
     magicaleRecipe: {
         output: {name: "magicale", amount: 10},
         ingredientList: "aleIngredients",
-        specialIngredient: "rainbowExtract",
+        specialIngredient: {name:"rainbowExtract",amount:10},
         scheme: "aleScheme",
         author: "Brysen",
         story: "Magicale. A rare beer with rainbow extract, its said that the taste is so sweet and great that even the old and the new gods crave it."
     },
     snorsonsAleRecipe: {
-        output: {name: "snorson's ale", amount: 10},
+        output: {name: "snorsonsAle", amount: 10},
         ingredientList: "aleIngredients",
-        specialIngredient: "ginger",
+        specialIngredient:  {name:"ginger",amount:10},
         scheme: "aleScheme",
         author: "Snor",
         story: "This beer goes back to the roots of brewing, it's so strong you even grow a moustache after just one zip."
@@ -506,7 +571,7 @@ mandaloenRecipe: {
     buttRecipe: {
         output: {name: "butt", amount: 10},
         ingredientList: "aleIngredients",
-        specialIngredient: "strawberry",
+        specialIngredient:  {name:"strawberry",amount:10},
         scheme: "aleScheme",
         author: "Xiaoxiao",
         story: "Don't get shocked by the name of this beer. As it has a strange name and an unordinary smell, it tastes just sublime."
@@ -514,15 +579,15 @@ mandaloenRecipe: {
     parsenduneRecipe: {
         output: {name: "parsendune", amount: 10},
         ingredientList: "aleIngredients",
-        specialIngredient: "saltyDuneExtract",
+        specialIngredient: {name:"saltyDuneExtract",amount:10},
         scheme: "aleScheme",
         author: "Skriabin",
         story: "PARSENDUNE, when the grasp of a coarse hand plucks the sturdy grasshalms that sting and skimp the silky skin of the thighs, the parson curses and drags his habit around in total agony until his mind illuminates. What if he ordered the monks of the abbey to clear a pathway for him through the obstructive dune jungle. And so it came to be that every month a small procession of monks came all the way from Brugensis to secure a pathway to the parson's small chapel at the shoreline. Eventually when the monks returned with bloodsmeared hands and painful feet, brother Cuthbert considered their tremendous effort and sighed. Months had gone by and not one monk in the abbey still volunteered for this most exhausting task at the stormy shore of the Flanders county. Moodily Cuthbert lays his head to rest, soon to fall into the dizzying vertigo of his dreams. Shuddering he awakes to a vision. A vision of monks slaving away in a salted steam bubbling in copper cauldrons the size of a bursting bull. Uneasily he removes the remaining dunesand from his weary eyesockets and with a sudden twist of his tongue realises that mysterious cauldron is his very mouth with salty steam pouring out of his nostrils. The smell of pickled herring, the fresh dunegrass and the struggle to scrape together the money for the restauration of the old chapel, it must be hidden clues to the divine will! The beerbrewery which has been abonded decades ago now standing as a beacon of hope amidst the arrogant aristocrats preying upon the abbey, seeking to acquire it from the few grubby monks that remain in its enclosure. Foolish sinners they are, swearing and cursing that they shall turn it into a palace of vice for their lustful mistresses. However, Cuthbert sees his fate crumbling into a pathway foaming with golden threads spun of drunken memories and as the brother shivers with excitement he pledges to himself to make the abbey great again. Parsendune shall be the name that will be sung along with our Lord's fame, in every tipsy tavern across the county, passing the Word from sip to lip. Skol!"
     },
     huaZaiRecipe: {
-        output: {name: "hua zai", amount: 10},
+        output: {name: "huaZai", amount: 10},
         ingredientList: "aleIngredients",
-        specialIngredient: "rose",
+        specialIngredient:  {name:"rose",amount:10},
         scheme: "aleScheme",
         author: "Rita",
         story: "The name 'Hua Zai' is a popular name for a boyfriend in China. It also tastes as sweet as love."
@@ -530,7 +595,7 @@ mandaloenRecipe: {
     powerRecipe: {
         output: {name: "power", amount: 10},
         ingredientList: "aleIngredients",
-        specialIngredient: "pepper",
+        specialIngredient:  {name:"pepper",amount:10},
         scheme: "aleScheme",
         author: "Meiling",
         story: "An old recipe for a beer which replenishes your strength after a hard day at work."
@@ -587,12 +652,12 @@ const enlightenmentEffectMap = {
 };
 
 const upgradeMap = {
-  goldenScythes: {
-      name: "golden scythes",
-      description: "This works better than iron ones.",
-      requirements: {coins: 1, wood: 1},
-      effect: "goldenScythes"
-  }
+    goldenScythes: {
+        name: "golden scythes",
+        description: "This works better than iron ones.",
+        requirements: {coins: 1, wood: 1},
+        effect: "goldenScythes"
+    }
 };
 
 const upgradeEffectMap = {

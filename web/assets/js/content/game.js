@@ -373,6 +373,7 @@ function Game() {
 
                 let ingredientList = new List();
                 const selectedIngredientList = ingredientsListMap[selectedRecipe.ingredientList];
+
                 for (let ingredient in selectedIngredientList) {
                     if (selectedIngredientList.hasOwnProperty(ingredient)) {
                         let selectedIngredientName = getResourcesFromMap(ingredient);
@@ -383,10 +384,16 @@ function Game() {
                     }
                 }
 
+                if (selectedRecipe.specialIngredient !== "") {
+                    let selectedSpecialIngredient = selectedRecipe.specialIngredient;
+                    selectedSpecialIngredient = new Resource(selectedSpecialIngredient.name,selectedSpecialIngredient.amount,0,getResourcesFromMap(selectedSpecialIngredient.name).category);
+                    ingredientList.addAnItem(selectedSpecialIngredient);
+                }
+
                 const output = getResourcesFromMap(selectedRecipe.output.name);
                 output.setQuantity(selectedRecipe.output.amount);
 
-                this.addARecipe(new Recipe(output, ingredientList, scheme, selectedRecipe.author));
+                this.addARecipe(new Recipe(output, ingredientList, scheme, selectedRecipe.author, selectedRecipe.story));
             }
         }
 

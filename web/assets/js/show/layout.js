@@ -536,7 +536,7 @@ function showRecipesAsOptions(game) {
 }
 
 function showRecipeDescription(recipe) {
-    $("#recipeDescription").append(recipe.getDescription());
+    $("#recipeDescription").html(recipe.getDescription());
 }
 
 function showWorkshop(game) {
