@@ -109,7 +109,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
         const progressbar = $('#' + processName + '[class="progressbar"]'),
             progressLabel = $('#' + processName + '[class="progressbar"] > .progress-label');
 
-        const monkBonus = game.getMonks().amtOfBrewerMonks / game.getTotalAmtOfMonks();
+        const monkBonus = game.getAbbey().getMonks().BreweryMonks / game.getAbbey().getMonks().totalAmtOfMonks;
 
         progressbar.progressbar({
             value: 0,
@@ -268,14 +268,20 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         let gain = null;
 
+        console.log("MONKBONUS HERE!");
+
         if (this.output.constructor === List) {
             let neededOutput = process.getOutput();
-            gain = new Resource(this.output.getItemByName(neededOutput.getName()).getName(), neededOutput.getQuantity(), neededOutput.getUnitValue(), neededOutput.getCategory());
+            gain = new Resource(this.output.getItemByName(neededOutput.getName()).getName(), neededOutput.getOutputQuantity(), neededOutput.getUnitValue(), neededOutput.getCategory());
         }
 
         else {
             gain = new Resource(this.output.getName(), process.getOutputQuantity(), this.output.getUnitValue(), this.output.getCategory());
         }
+
+        console.log("EFFICIENY", this.efficiency);
+        console.log("NUMBER TO GET",process.getInput().quantity * this.efficiency);
+        console.log("OUTPUT",gain);
 
         let message = "You got ";
         message += gain.toString() + ".";

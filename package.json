@@ -1,7 +1,7 @@
 {
   "name": "Abbey",
   "version": "0.0.1",
-  "main" : "index.js",
+  "main" : "abbey.js",
   "dependencies": {
     "express":"^4.15.3"
   }

@@ -1,11 +1,11 @@
 function Process(processName, timeNeededToFinish, inputList, processingUnit, outputItem) {
 
     this.name = processName;
+    this.mapName = null;
     this.time = timeNeededToFinish;
     this.input = inputList;
     this.processor = processingUnit;
     this.output = outputItem;
-    this.outputQuantity = 0;
     this.processNumber = null;
 
     this.storage = null;
@@ -36,7 +36,7 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
     this.getOutputQuantity = function () {
 
         if (this.output.getQuantity() === 0) {
-            return 0;
+            this.output.quantity = this.calculateOutputQuantity();
         }
 
         return this.output.getQuantity();
@@ -78,7 +78,15 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
     };
 
     this.setOutputQuantity = function (newQuantity) {
-        this.outputQuantity = newQuantity;
+        this.output.quantity = newQuantity;
+    };
+
+    this.setInput = function (newInput) {
+        this.input = newInput;
+    };
+
+    this.setMapName = function(newMapName) {
+        this.mapName = newMapName;
     };
 
 // Functions of Process
@@ -164,7 +172,7 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
 
         visual += "<div class='output small-offset-1 small-3-columns'>";
         visual += "<p>"+this.getOutput().getName()+"</p>";
-        visual += "<p>"+this.getOutput().getQuantity()+"</p>";
+        visual += "<p>"+this.getOutputQuantity()+"</p>";
         visual += "</div>";
 
         visual += "</div>";
@@ -175,5 +183,33 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
 
         return visual;
 
+    };
+
+    this.calculateOutputQuantity = function () {
+
+        let amountOfOutput = 0;
+
+        if (this.getInput().constructor === Array) {
+
+            let highestAmount = 0;
+
+            for (let input in this.getInput()) {
+                if (this.getInput().hasOwnProperty(input)) {
+                    if (this.getInput()[input].quantity > highestAmount){
+                        highestAmount = this.getInput()[input].quantity;
+                    }
+                }
+            }
+
+            amountOfOutput = highestAmount;
+            amountOfOutput += amountOfOutput * this.getProcessor().efficiency;
+        }
+
+        else {
+            amountOfOutput = this.getInput().quantity;
+            amountOfOutput += amountOfOutput * this.getProcessor().efficiency;
+        }
+
+        return amountOfOutput;
     }
 }

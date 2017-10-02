@@ -31,7 +31,7 @@
 
             else {
 
-                console.log("USER", window.sessionStorage.user);
+                //console.log("USER", window.sessionStorage.user);
                 const activeUser = JSON.parse(window.sessionStorage.user);
                 console.log("USER", activeUser);
 
@@ -84,8 +84,67 @@
 
                 const recipe = game1.getRecipes().getItemByNumber($("#recipes").val());
 
+                const schemeGameSteps = recipe.getScheme().getSteps();
+                const schemeMapSteps = schemeMap[recipe.mapScheme].steps;
+
+                const schemeGameIngredientsList = recipe.ingredients;
+
+                for (let step in schemeGameSteps){
+                    if(schemeGameSteps.hasOwnProperty(step)){
+                        let selectedGameStep = schemeGameSteps[step];
+                        let selectedMapStep = schemeMapSteps[selectedGameStep.mapName];
+
+                        let gameInput = selectedGameStep.getInput();
+                        let mapInput = selectedMapStep.input;
+
+                        if (gameInput.constructor.name !== "Array" && gameInput.name === mapInput.name){
+
+                            let selectedOutTheIngredients = schemeGameIngredientsList.getItemByName(gameInput.name);
+                            //console.log("INGREDIENT DETAILS", selectedOutTheIngredients);
+                            /*console.log("GAME STEP: "+selectedGameStep.name,selectedGameStep);
+                            console.log("GAME INPUT",selectedGameStep.getInput());
+                            console.log("MAP STEP: "+selectedGameStep.mapName,selectedMapStep);
+                            console.log("MAP INPUT",selectedMapStep.input);*/
+
+                            //gameInput.setQuantity(mapInput.amount);
+
+                            //console.log("NEW QUANTITY",selectedGameStep.getInput());
+
+                            if (selectedOutTheIngredients !== null){
+                                gameInput.setQuantity(selectedOutTheIngredients.quantity);
+                            }
+
+                            else {
+                                gameInput.setQuantity(mapInput.amount);
+                            }
+
+                        }
+
+                        if (gameInput.constructor.name === "Array"){
+                            for (let item in gameInput){
+                                if(gameInput.hasOwnProperty(item)){
+
+                                    let selectedItem = gameInput[item];
+                                    let mapItem = mapInput[item];
+
+                                    let selectedOutTheIngredients = schemeGameIngredientsList.getItemByName(selectedItem.name);
+
+                                    if (selectedOutTheIngredients !== null){
+                                        selectedItem.setQuantity(selectedOutTheIngredients.quantity);
+                                    }
+
+                                    else {
+                                    selectedItem.setQuantity(mapItem.amount);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 showRecipeDescription(recipe);
                 game1.getBrewery().setSelectedRecipe(recipe);
+
                 showBrewery(game1);
                 showStorage(game1);
             });

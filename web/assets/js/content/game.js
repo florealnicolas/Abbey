@@ -351,6 +351,7 @@ function Game() {
             if (processMap.hasOwnProperty(process)) {
                 let selectedProcess = processMap[process];
                 let newProcess = new Process(selectedProcess.name, selectedProcess.duration, getResourcesFromMap(selectedProcess.input), this.getProcessors().getItemByName(selectedProcess.processor), getResourcesFromMap(selectedProcess.output));
+                newProcess.setMapName(process);
                 this.getProcesses().addAnItem(newProcess);
                 this.getProcessors().getItemByName(selectedProcess.processor).addPossibleProcess(newProcess);
             }
@@ -362,12 +363,15 @@ function Game() {
                 let selectedRecipe = recipeMap[recipe];
 
                 let scheme = new Scheme();
-                const selectedScheme = schemeMap[selectedRecipe.scheme];
+                const selectedScheme = schemeMap[selectedRecipe.scheme].steps;
+
+                //console.log("SCHEME: "+selectedRecipe.scheme,selectedScheme);
                 for (let step in selectedScheme) {
                     if (selectedScheme.hasOwnProperty(step)) {
-                        let selectedStep = processMap[selectedScheme[step]];
+                        let selectedStep = processMap[step];
                         let selectedProcess = this.getProcesses().getItemByName(selectedStep.name);
 
+                        //console.log("Selected step",selectedProcess);
                         scheme.addStep(selectedProcess)
                     }
                 }
@@ -394,7 +398,7 @@ function Game() {
                 const output = getResourcesFromMap(selectedRecipe.output.name);
                 output.setQuantity(selectedRecipe.output.amount);
 
-                this.addARecipe(new Recipe(output, ingredientList, scheme, selectedRecipe.author, selectedRecipe.story));
+                this.addARecipe(new Recipe(output, ingredientList, scheme, selectedRecipe.author, selectedRecipe.story, selectedRecipe.scheme));
             }
         }
 
