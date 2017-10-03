@@ -337,7 +337,9 @@ function Game() {
                 else {
                     let inputList = new List();
                     selectedProcessor.possibleInput.forEach(function (input) {
-                        inputList.addAnItem(getResourcesFromMap(input));
+                        if (input !== "specialIngredient") {
+                            inputList.addAnItem(getResourcesFromMap(input));
+                        }
                     });
                     newProcessor = new Processor(selectedProcessor.name, inputList, getResourcesFromMap(selectedProcessor.output), selectedProcessor.efficiency, selectedProcessor.location);
 
@@ -350,7 +352,9 @@ function Game() {
         for (let process in processMap) {
             if (processMap.hasOwnProperty(process)) {
                 let selectedProcess = processMap[process];
+
                 let newProcess = new Process(selectedProcess.name, selectedProcess.duration, getResourcesFromMap(selectedProcess.input), this.getProcessors().getItemByName(selectedProcess.processor), getResourcesFromMap(selectedProcess.output));
+
                 newProcess.setMapName(process);
                 this.getProcesses().addAnItem(newProcess);
                 this.getProcessors().getItemByName(selectedProcess.processor).addPossibleProcess(newProcess);
@@ -362,20 +366,65 @@ function Game() {
             if (recipeMap.hasOwnProperty(recipe)) {
                 let selectedRecipe = recipeMap[recipe];
 
+                //CREATING THE SCHEME
                 let scheme = new Scheme();
                 const selectedScheme = schemeMap[selectedRecipe.scheme].steps;
 
-                //console.log("SCHEME: "+selectedRecipe.scheme,selectedScheme);
                 for (let step in selectedScheme) {
                     if (selectedScheme.hasOwnProperty(step)) {
                         let selectedStep = processMap[step];
                         let selectedProcess = this.getProcesses().getItemByName(selectedStep.name);
 
-                        //console.log("Selected step",selectedProcess);
-                        scheme.addStep(selectedProcess)
+                        let selectedProcessInput = selectedStep.input;
+
+                        let realInputs = new List();
+
+                        if (selectedProcessInput.constructor === Array) {
+                            selectedProcessInput.forEach(function (input) {
+                                let schemeInput = selectedScheme[step].input;
+
+                                for (let inputItem in schemeInput) {
+                                    if (schemeInput.hasOwnProperty(inputItem)) {
+                                        let selectInputItem = schemeInput[inputItem];
+
+                                        if (selectInputItem.name !== "specialIngredient" && selectInputItem.name === input) {
+
+                                            let realIngredientResource = getResourcesFromMap(selectInputItem.name);
+                                            realIngredientResource.setQuantity(selectInputItem.amount);
+
+                                            realInputs.addAnItem(realIngredientResource);
+                                        }
+                                    }
+                                }
+                            });
+                        }
+
+                        else {
+                            let schemeInput = selectedScheme[step].input;
+                            let realIngredientResource = getResourcesFromMap(schemeInput.name);
+                            realIngredientResource.setQuantity(schemeInput.amount);
+
+                            realInputs.addAnItem(realIngredientResource);
+                        }
+
+                        let recipeProcess = new Process(selectedProcess.getName(), selectedProcess.getTime(), realInputs, selectedProcess.getProcessor(), selectedProcess.getOutput());
+
+                        if (step === "cooldown") {
+
+                            //ADDING THE SPECIAL INGREDIENT
+                            let specialIngredient = selectedRecipe.specialIngredient;
+                            let specialIngredientResource = getResourcesFromMap(specialIngredient.name);
+                            specialIngredientResource.setQuantity(specialIngredient.amount);
+
+                            recipeProcess.getInput().addAnItem(specialIngredientResource);
+
+                        }
+
+                        scheme.addStep(recipeProcess);
                     }
                 }
 
+                //CREATING THE INGREDIENTLIST
                 let ingredientList = new List();
                 const selectedIngredientList = ingredientsListMap[selectedRecipe.ingredientList];
 
@@ -389,12 +438,13 @@ function Game() {
                     }
                 }
 
-                if (selectedRecipe.specialIngredient !== "") {
-                    let selectedSpecialIngredient = selectedRecipe.specialIngredient;
-                    selectedSpecialIngredient = new Resource(selectedSpecialIngredient.name,selectedSpecialIngredient.amount,0,getResourcesFromMap(selectedSpecialIngredient.name).category);
-                    ingredientList.addAnItem(selectedSpecialIngredient);
-                }
+                //ADDING THE SPECIAL INGREDIENT
+                let specialIngredient = selectedRecipe.specialIngredient;
+                let specialIngredientResource = getResourcesFromMap(specialIngredient.name);
+                specialIngredientResource.setQuantity(specialIngredient.amount);
+                ingredientList.addAnItem(specialIngredientResource);
 
+                //SETTING THE OUTPUT
                 const output = getResourcesFromMap(selectedRecipe.output.name);
                 output.setQuantity(selectedRecipe.output.amount);
 

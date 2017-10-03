@@ -3,7 +3,7 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
     this.name = processName;
     this.mapName = null;
     this.time = timeNeededToFinish;
-    this.input = inputList;
+    this.input = new List();
     this.processor = processingUnit;
     this.output = outputItem;
     this.processNumber = null;
@@ -11,10 +11,12 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
     this.storage = null;
     this.utility = null;
 
+    this.input.addListOfItems(inputList);
+
 // Getters of Process
 
     this.getProcessNumber = function () {
-      return this.processNumber;
+        return this.processNumber;
     };
 
     this.getInput = function () {
@@ -85,7 +87,7 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
         this.input = newInput;
     };
 
-    this.setMapName = function(newMapName) {
+    this.setMapName = function (newMapName) {
         this.mapName = newMapName;
     };
 
@@ -166,20 +168,20 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
 
         visual += "<div class='processor small-offset-1 small-4-columns'>";
 
-        visual += "<p>"+this.getProcessorName()+"</p>";
-        visual += "<div class='progressbar' id='" + this.getName().toLowerCase().replace(" ","-") + "'><div class='progress-label'>0%</div></div>";
+        visual += "<p>" + this.getProcessorName() + "</p>";
+        visual += "<div class='progressbar' id='" + this.getName().toLowerCase().replace(" ", "-") + "'><div class='progress-label'>0%</div></div>";
         visual += "</div>";
 
         visual += "<div class='output small-offset-1 small-3-columns'>";
-        visual += "<p>"+this.getOutput().getName()+"</p>";
-        visual += "<p>"+this.getOutputQuantity()+"</p>";
+        visual += "<p>" + this.getOutput().getName() + "</p>";
+        visual += "<p>" + this.getOutputQuantity() + "</p>";
         visual += "</div>";
 
         visual += "</div>";
 
         visual += "<div id='" + this.getName().toLowerCase() + "' class='opbrengst'></div>";
 
-        visual += "<button id='process" + this.getName().replace(" ","-") + "' class='process button'>Process</button>";
+        visual += "<button id='process" + this.getName().replace(" ", "-") + "' class='process button'>Process</button>";
 
         return visual;
 
@@ -189,16 +191,22 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
 
         let amountOfOutput = 0;
 
-        if (this.getInput().constructor === Array) {
+        if (this.getInput().constructor.name === "List") {
 
             let highestAmount = 0;
 
-            for (let input in this.getInput()) {
-                if (this.getInput().hasOwnProperty(input)) {
-                    if (this.getInput()[input].quantity > highestAmount){
-                        highestAmount = this.getInput()[input].quantity;
+            if (this.getInput().getSize() > 1) {
+                for (let inputNr = 0; inputNr < this.getInput().getSize(); inputNr++) {
+
+                    if (this.getInput().getItemByNumber(inputNr).getQuantity() > highestAmount) {
+                        highestAmount = this.getInput().getItemByNumber(inputNr).getQuantity();
                     }
+
                 }
+            }
+
+            else {
+                highestAmount = this.getInput().getItemByNumber(0).getQuantity();
             }
 
             amountOfOutput = highestAmount;

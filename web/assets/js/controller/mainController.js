@@ -79,7 +79,7 @@
                 showBrewery(game1);
             });
 
-            $("#selectedRecipe").on("click", function (e) {
+           /* $("#selectedRecipe").on("click", function (e) {
                 e.preventDefault();
 
                 const recipe = game1.getRecipes().getItemByNumber($("#recipes").val());
@@ -89,28 +89,19 @@
 
                 const schemeGameIngredientsList = recipe.ingredients;
 
-                for (let step in schemeGameSteps){
-                    if(schemeGameSteps.hasOwnProperty(step)){
+                for (let step in schemeGameSteps) {
+                    if (schemeGameSteps.hasOwnProperty(step)) {
                         let selectedGameStep = schemeGameSteps[step];
                         let selectedMapStep = schemeMapSteps[selectedGameStep.mapName];
 
                         let gameInput = selectedGameStep.getInput();
                         let mapInput = selectedMapStep.input;
 
-                        if (gameInput.constructor.name !== "Array" && gameInput.name === mapInput.name){
+                        if (gameInput.constructor.name !== "Array" && gameInput.name === mapInput.name) {
 
                             let selectedOutTheIngredients = schemeGameIngredientsList.getItemByName(gameInput.name);
-                            //console.log("INGREDIENT DETAILS", selectedOutTheIngredients);
-                            /*console.log("GAME STEP: "+selectedGameStep.name,selectedGameStep);
-                            console.log("GAME INPUT",selectedGameStep.getInput());
-                            console.log("MAP STEP: "+selectedGameStep.mapName,selectedMapStep);
-                            console.log("MAP INPUT",selectedMapStep.input);*/
 
-                            //gameInput.setQuantity(mapInput.amount);
-
-                            //console.log("NEW QUANTITY",selectedGameStep.getInput());
-
-                            if (selectedOutTheIngredients !== null){
+                            if (selectedOutTheIngredients !== null) {
                                 gameInput.setQuantity(selectedOutTheIngredients.quantity);
                             }
 
@@ -120,21 +111,43 @@
 
                         }
 
-                        if (gameInput.constructor.name === "Array"){
-                            for (let item in gameInput){
-                                if(gameInput.hasOwnProperty(item)){
+                        if (gameInput.constructor.name === "Array") {
+                            for (let item in gameInput) {
+                                if (gameInput.hasOwnProperty(item)) {
 
                                     let selectedItem = gameInput[item];
                                     let mapItem = mapInput[item];
 
+                                    //console.log("SELECTED GAME ITEM " + selectedItem.name,selectedItem);
+                                    //console.log("SELECTED MAP ITEM " + mapItem.name,mapItem);
+
+                                    if (selectedMapStep.name === "cooldown") {
+
+                                        console.log("COOLDOWN",selectedMapStep);
+
+                                        let recipeName = recipe.getName() + "Recipe";
+
+                                        if (recipe.getName().indexOf(" ") !== -1) {
+                                            recipeName = recipe.getName().split(" ");
+                                            recipeName = recipeName[0] + (recipeName[1].substring(0, 1).toUpperCase() + recipeName[1].substring(1)) + "Recipe";
+                                        }
+
+                                        recipeName = recipeName.replace("'", "");
+
+                                        let specialIngredient = recipeMap[recipeName].specialIngredient;
+
+                                        //Adding special ingredient to cooldown step
+                                        recipe.getScheme().getStepByName("cooldown").getInput().push(new Resource(specialIngredient.name, specialIngredient.amount, 0, getResourcesFromMap(specialIngredient.name).category));
+                                    }
+
                                     let selectedOutTheIngredients = schemeGameIngredientsList.getItemByName(selectedItem.name);
 
-                                    if (selectedOutTheIngredients !== null){
+                                    if (selectedOutTheIngredients !== null) {
                                         selectedItem.setQuantity(selectedOutTheIngredients.quantity);
                                     }
 
                                     else {
-                                    selectedItem.setQuantity(mapItem.amount);
+                                        selectedItem.setQuantity(mapItem.amount);
                                     }
                                 }
                             }
@@ -147,9 +160,24 @@
 
                 showBrewery(game1);
                 showStorage(game1);
+            });*/
+
+            $("#selectedRecipe").on("click", function (e) {
+                e.preventDefault();
+
+                const recipe = game1.getRecipes().getItemByNumber($("#recipes").val());
+
+                console.log("RECIPE", recipe);
+
+                showRecipeDescription(recipe);
+                game1.getBrewery().setSelectedRecipe(recipe);
+
+                showBrewery(game1);
+                showStorage(game1);
+
             });
 
-            $("#naam > a").on("click", function (e) {
+                $("#naam > a").on("click", function (e) {
                 e.preventDefault();
 
                 showProfilePage(game1);

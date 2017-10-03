@@ -2,7 +2,6 @@ function Brewery() {
 
     this.selectedRecipe = null;
     this.amtOfMonks = 0;
-
     this.equipment = new List();
 
 

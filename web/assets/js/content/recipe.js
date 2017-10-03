@@ -1,9 +1,8 @@
-function Recipe(outputItem, ingredientsList, newScheme, authorName, story, mapScheme) {
+function Recipe(outputItem, ingredientsList, newScheme, authorName, story) {
 
     this.output = outputItem;
     this.ingredients = ingredientsList;
     this.scheme = newScheme;
-    this.mapScheme = mapScheme;
     this.author = authorName;
     this.description = "";
     this.name = this.output.getName();
@@ -54,7 +53,6 @@ function Recipe(outputItem, ingredientsList, newScheme, authorName, story, mapSc
 
         descriptionString += "<ol>";
         for (let stepNr = 0; stepNr < this.scheme.getAmtOfSteps(); stepNr++) {
-            //console.log("STEP",this.scheme.getStepByNumber(stepNr).getInput());
             descriptionString += "<li>" + this.scheme.getStepByNumber(stepNr).toString() + "</li>";
         }
         descriptionString += "</ol>";
