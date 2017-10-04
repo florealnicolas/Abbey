@@ -1,8 +1,21 @@
 {
   "name": "Abbey",
   "version": "0.0.1",
-  "main" : "abbey.js",
+  "author": {
+    "name": "Laerolf"
+  },
+  "main": "abbey.js",
   "dependencies": {
-    "express":"^4.15.3"
-  }
+    "body-parser": "^1.18.2",
+    "express": "^4.15.3",
+    "express-session": "^1.15.6",
+    "node-localstorage": "^1.3.0",
+    "pouchdb": "^6.3.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Laerolf/Abbey.git"
+  },
+  "url": "https://github.com/Laerolf/Abbey/issues",
+  "license": "MIT"
 }
