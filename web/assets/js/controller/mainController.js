@@ -78,6 +78,7 @@
                 $("#monks input").on("change", function () {
                     game1.getAbbey().manageMonks(game1, this);
                     showBrewery(game1);
+                    showChapel(game1);
                 });
 
                 $("#selectedRecipe").on("click", function (e) {

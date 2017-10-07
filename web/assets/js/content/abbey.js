@@ -71,23 +71,23 @@ function Abbey() {
     this.manageMonks = function (game, updatedOne) {
 
         const selectedMonks = updatedOne.id;
-        this.setMonkAmt(selectedMonks,0);
+        this.setMonkAmt(selectedMonks, 0);
         this.updateAmtOfAvailableMonks();
 
-        if (eval($("#"+selectedMonks).val()) <= this.getAmtOfAvailableMonks() && eval($("#"+selectedMonks).val()) >= 0) {
+        if (eval($("#" + selectedMonks).val()) <= this.getAmtOfAvailableMonks() && eval($("#" + selectedMonks).val()) >= 0) {
 
-            this.setMonkAmt(selectedMonks,eval($("#"+selectedMonks).val()));
+            this.setMonkAmt(selectedMonks, eval($("#" + selectedMonks).val()));
         }
 
         else {
-            if (eval($("#"+selectedMonks).val()) >  this.getAmtOfAvailableMonks()) {
-                $("#"+selectedMonks).val(this.getAmtOfAvailableMonks());
-                this.setMonkAmt(selectedMonks,eval($("#"+selectedMonks).val()));
+            if (eval($("#" + selectedMonks).val()) > this.getAmtOfAvailableMonks()) {
+                $("#" + selectedMonks).val(this.getAmtOfAvailableMonks());
+                this.setMonkAmt(selectedMonks, eval($("#" + selectedMonks).val()));
             }
 
             else {
-                $("#"+selectedMonks).val(0);
-                this.setMonkAmt(selectedMonks,eval($("#"+selectedMonks).val()));
+                $("#" + selectedMonks).val(0);
+                this.setMonkAmt(selectedMonks, eval($("#" + selectedMonks).val()));
             }
         }
 
@@ -97,15 +97,21 @@ function Abbey() {
         game.getBrewery().setAmtOfMonks(this.getMonks().BreweryMonks);
         game.getChapel().setAmtOfMonks(this.getMonks().ChapelMonks);
         this.updateMonks();
-        console.log("MONKS",this.getMonks());
-        console.log("AVAILABLE MONKS",this.getAmtOfAvailableMonks());
-
+        console.log("MONKS", this.getMonks());
+        console.log("AVAILABLE MONKS", this.getAmtOfAvailableMonks());
+        this.amtOfOccupiedMonks = this.getTotalAmtOfMonks() - this.getAmtOfAvailableMonks();
     };
 
     this.updateMonks = function () {
-        $(".inside .monkBonus span").html((this.getMonks().InsideMonks / this.getTotalAmtOfMonks()) * 100 + "%");
-        $(".outside .monkBonus span").html((this.getMonks().OutsideMonks / this.getTotalAmtOfMonks()) * 100 + "%");
-        $(".grounds .monkBonus span").html((this.getMonks().FieldMonks / this.getTotalAmtOfMonks()) * 100 + "%");
+
+        const insideMonksBonus = Math.round(((this.getMonks().InsideMonks / this.getTotalAmtOfMonks()) * 100)*100)/100;
+        const outsideMonksBonus = Math.round(((this.getMonks().OutsideMonks / this.getTotalAmtOfMonks()) * 100)*100)/100;
+        const fieldMonksBonus = Math.round(((this.getMonks().FieldMonks / this.getTotalAmtOfMonks()) * 100)*100)/100;
+
+        $(".inside .monkBonus span").html(insideMonksBonus + "%");
+        $(".outside .monkBonus span").html(outsideMonksBonus + "%");
+        $(".grounds .monkBonus span").html(fieldMonksBonus + "%");
         $("#chapelMonks").html(this.getMonks().ChapelMonks);
+        $("#amtOfOccupiedMonks").html(this.getAmtOfOccupiedMonks());
     };
 }
