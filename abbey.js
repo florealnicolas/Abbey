@@ -3,31 +3,27 @@ const bodyParser = require("body-parser");
 const LocalStorage = require("node-localstorage").LocalStorage;
 const PouchDB = require("pouchdb");
 const User = require("./User");
-const session = require("express-session");
+const session = require("client-sessions");
 
 const port = 1810;
 const environment = "production";
+
+const sessionSettings = {
+    cookieName: 'session',
+    secret: 'sleep thight, my little niao',
+    duration: 30 * 60 * 1000,
+    activeDuration: 30 * 60 * 1000,
+    ephemeral: true,
+    httpOnly: true
+};
+
 let etc = new LocalStorage("./localStorage/etc");
 const app = express();
 
 const userDB = new PouchDB("users");
 
-userDB.info().then(function (info) {
-    console.log("INFO", info);
-
-    userDB.allDocs().then(function (result) {
-        console.log("All documents", result);
-    });
-});
-
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(session({
-    name: 'abbeyUser',
-    secret: 'AbbeyIsFun',
-    cookie: {maxAge: 6000},
-    resave: false,
-    saveUninitialized: true
-}));
+app.use(session(sessionSettings));
 
 app.set("environment", environment);
 etc.setItem("environment", app.get("environment"));
@@ -35,10 +31,22 @@ etc.setItem("environment", app.get("environment"));
 app.listen(port, () => {
     console.log("Listening on port " + port + "...");
     console.log("IDEA: Why not put the elements/data on the server side?");
+    console.log("IDEA: Show a notification when the password is changed.");
+    console.log("MUST: DELETE PASSWORD FROM SESSIONVALUE!");
+});
+
+userDB.info().then(function (info) {
+    console.log("INFO", info);
+
+    userDB.allDocs().then(function (result) {
+        console.log("All users", result);
+    });
 });
 
 app.get("/", (request, response, next) => {
-    console.log("USER", request.session.abbeyUser);
+
+    console.log("SESSION: ", request.session);
+
     next();
 });
 
@@ -49,28 +57,27 @@ app.get("/login", (request, response) => {
 app.post("/login", (request, response) => {
 
     const potentialUser = request.body.user;
-    console.log("POTENTIAL USER",potentialUser);
 
     userDB.get(potentialUser.username).then(function (user) {
-        let foundUser = undefined;
         let error = undefined;
 
-        if (user.password !== potentialUser.password){
-            console.log("The password is incorrect for user: "+user.username + ".");
-            error = "Incorrect password for username '"+user.userName+"'.";
-            response.end(JSON.stringify({value:error, status:"error"}));
+        if (user.password !== potentialUser.password) {
+            console.log("The password is incorrect for user: " + user.username + ".");
+            error = "Incorrect password for username '" + user.userName + "'.";
+            response.send(JSON.stringify({value: error, status: "error"}));
         }
 
         else {
-            console.log(user.username + " is successfully logged on!");
-            response.end(JSON.stringify({value:user, status:"success"}));
+            console.log(user.userName + " is successfully logged on!");
+            request.session.user = user;
+            request.session.active = true;
+            response.send(JSON.stringify({value: user, status: "success"}));
         }
 
     }).catch(function (error) {
         error = "No user with username '" + potentialUser.username + "' was found.";
         errorResponse = {value: error, status: "error"};
-        console.error("error",errorResponse);
-        response.end(JSON.stringify(errorResponse));
+        response.send(JSON.stringify(errorResponse));
     });
 
     /*userDB.destroy().then(function(success){
@@ -79,11 +86,13 @@ app.post("/login", (request, response) => {
 
 });
 
-app.post("/logout", (request, response) => {
-    console.log("HERE!");
-    request.session.abbeyUser = null;
-    request.session.active = false;
+app.get("/logout", (request, response) => {
+    request.session.reset();
     response.redirect("/");
+});
+
+app.get("/session", (request, response) => {
+    response.send(request.session)
 });
 
 app.post("/registering", (request, response) => {
@@ -92,22 +101,34 @@ app.post("/registering", (request, response) => {
 
     const user = new User(player.playerName, player.password, player.playerGendre, player.coins, player.reputation);
 
-    console.log("REQUEST", user.toJSON());
-
     userDB.put(user.toJSON(), function (error, success) {
-        console.log(success);
     });
 });
 
 app.post("/passwordchange", (request, response) => {
-    console.error("'/passwordchange' is not yet implemented, sorry!");
-    response.redirect("/");
+
+    const currentPassword = request.body.passwordChange.currentPassword;
+    const newPassword = request.body.passwordChange.newPassword;
+    const confirmNewPassword = request.body.passwordChange.confirmNewPassword;
+
+    userDB.get(request.session.user.userName).then(function (user) {
+
+        if (user.password === currentPassword && newPassword === confirmNewPassword) {
+            user.password = newPassword;
+
+            userDB.put(user);
+
+            console.log("Password successfully changed!");
+        }
+
+    });
+
 });
 
 app.get("/localStorage/*", (request, response) => {
     let neededDoc = request.url.split("/");
     neededDoc = neededDoc[neededDoc.length - 1];
-    console.log("NEEDED DOCUMENT", neededDoc);
+    console.log("Going to serve document: ", neededDoc);
 
     response.sendFile(__dirname + request.url);
 });

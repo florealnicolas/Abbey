@@ -172,7 +172,9 @@ function showStory(game) {
                                         game.strangerMode("OFF");
 
                                         let message = "Hello there! Thank you for reading this story.\n";
-                                        message += "Let your Abbey-adventure here. Enjoy!\n\n";
+                                        message += "Here your own Abbey-story almost begins.\nJust hit the 'Acknowledge'-button.\n";
+                                        message += "Just to make sure it is you, you need to login to play.\n";
+                                        message += "Anyway... Enjoy and good luck!\n\n";
                                         message += "Happy greets, Laerolf.";
                                         alert(message);
 
@@ -184,11 +186,12 @@ function showStory(game) {
                                         window.location.hash = "acknowledge";
 
                                         $("#acknowledge").on('click', function (e) {
-                                            window.sessionStorage.setItem("user", JSON.stringify(game.getPlayer()));
-                                            window.sessionStorage.setItem("active", true);
-                                            console.log("SESSION", window.sessionStorage);
+                                            //window.sessionStorage.setItem("user", JSON.stringify(game.getPlayer()));
+                                            //window.sessionStorage.setItem("active", true);
+                                            //console.log("SESSION", window.sessionStorage);
 
-                                            $.post("/registering", game.getPlayer().toJSON())
+                                            $.post("/registering", game.getPlayer().toJSON());
+                                            window.location.replace("/login");
                                         });
                                     }
                                 })
