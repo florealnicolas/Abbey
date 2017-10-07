@@ -340,13 +340,6 @@ function showProfilePage(game) {
 
     $("#profile").html(profile);
 
-    /*$("#logOut").on("click", function () {
-        console.log("User ",player.username," will be logged out!");
-        window.sessionStorage.setItem('user', null);
-        window.sessionStorage.setItem('active',false);
-        location.reload();
-    })*/
-
     /*$("#save").on('click', function () {
      if (typeof(Storage) !== "undefined") {
      localStorage.setItem("Game", game.getGameJSON, () => {

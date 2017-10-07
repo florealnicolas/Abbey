@@ -277,7 +277,7 @@ function Story() {
 
         this.amtOfArticles++;
 
-        $('#abbey').append(article);
+        $('#story').append(article);
     };
 
 }

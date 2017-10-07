@@ -448,7 +448,10 @@ function Game() {
                 const output = getResourcesFromMap(selectedRecipe.output.name);
                 output.setQuantity(selectedRecipe.output.amount);
 
-                this.addARecipe(new Recipe(output, ingredientList, scheme, selectedRecipe.author, selectedRecipe.story, selectedRecipe.scheme));
+                //SETTING THE DATE
+                const date = selectedRecipe.date.dayAndMonth + ", " + (selectedRecipe.date.year - 500);
+
+                this.addARecipe(new Recipe(output, ingredientList, scheme, selectedRecipe.author, selectedRecipe.story, date));
             }
         }
 

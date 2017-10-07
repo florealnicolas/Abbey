@@ -19,7 +19,6 @@
         $.get("./localStorage/etc/environment", function (environment) {
 
             $.get("/session", function (session) {
-                console.log("SESSION", session);
 
                 const active = eval(session.active);
 
@@ -49,7 +48,7 @@
                     developmentMode(game1);
                 }
 
-                $('#abbey').show();
+                $('#story').show();
                 $('.menu a:first-child').addClass("active");
 
                 $('#secondaryWork a:first-child').addClass("active");

@@ -24,7 +24,6 @@ function showStory(game) {
         const answer1 = $(this).val();
 
         if (answer1 === "1") {
-            console.log("HERE");
             let currentAmtOfCoins = eval(coins.text());
             let currentAmtOfReputation = eval(reputation.text());
 
@@ -181,7 +180,7 @@ function showStory(game) {
                                         showNCRCounter(game);
 
                                         let acknowledgement = "<button class='button' id='acknowledge'>Acknowledge</button>";
-                                        $("#abbey").append(acknowledgement);
+                                        $("#story").append(acknowledgement);
 
                                         window.location.hash = "acknowledge";
 

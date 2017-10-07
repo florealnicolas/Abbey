@@ -199,8 +199,18 @@ const resourceMap = {
         value: 1,
         category: "crop"
     },
+    hibiscus: {
+        name: "hibiscus",
+        value: 1,
+        category: "flower"
+    },
     ale: {
         name: "ale",
+        value: 1,
+        category: "beer"
+    },
+    naturalDelight: {
+        name: "natural delight",
         value: 1,
         category: "beer"
     },
@@ -333,7 +343,7 @@ const processorMap = {
     mashingTun: {
         name: "mashing tun",
         possibleInput: ["water", "starch"],
-        output: "flour",
+        output: "sugarWater",
         efficiency: 0.25,
         location: "brewery"
     },
@@ -559,7 +569,8 @@ const recipeMap = {
         specialIngredient: {name: "daisy", amount: 10},
         scheme: "basicScheme",
         author: "Liya",
-        story: "Just most common beer. Enjoyed by everyone, young or old, rich or poor."
+        story: "Just most common beer. Enjoyed by everyone, young or old, rich or poor.",
+        date: {dayAndMonth: "10th of October", year: 2016}
     },
     shivaRecipe: {
         output: {name: "shiva", amount: 10},
@@ -567,7 +578,8 @@ const recipeMap = {
         specialIngredient: {name: "lilou", amount: 10},
         scheme: "basicScheme",
         author: "Jill",
-        story: "A beer brewn to honor the gods in a mysterious land called Siam."
+        story: "A beer brewn to honor the gods in a mysterious land called Siam.",
+        date: {dayAndMonth: "5th of December", year: 2016}
     },
     hikariRecipe: {
         output: {name: "hikari", amount: 10},
@@ -575,7 +587,8 @@ const recipeMap = {
         specialIngredient: {name: "strawberry", amount: 10},
         scheme: "basicScheme",
         author: "Hemily",
-        story: "From a slumbering little town 'Hikari' in Japan, this beer has a mysterious, sweet taste."
+        story: "From a slumbering little town 'Hikari' in Japan, this beer has a mysterious, sweet taste.",
+        date: {dayAndMonth: "5th of December", year: 2016}
     },
     mandaloenRecipe: {
         output: {name: "mandaloen", amount: 10},
@@ -583,7 +596,8 @@ const recipeMap = {
         specialIngredient: {name: "carrot", amount: 10},
         scheme: "basicScheme",
         author: "Emma",
-        story: "The colour can maybe shiver the most experienced drinker but the taste is totally worth it."
+        story: "The colour can maybe shiver the most experienced drinker but the taste is totally worth it.",
+        date: {dayAndMonth: "5th of December", year: 2016}
     },
     analiciousRecipe: {
         output: {name: "analicious", amount: 10},
@@ -591,7 +605,8 @@ const recipeMap = {
         specialIngredient: {name: "raspberry", amount: 10},
         scheme: "basicScheme",
         author: "Anaïs",
-        story: "A real Flemish beer with the taste of raspberries."
+        story: "A real Flemish beer with the taste of raspberries.",
+        date: {dayAndMonth: "31st of January", year: 2017}
     },
     bestoneRecipe: {
         output: {name: "bestone", amount: 10},
@@ -599,7 +614,8 @@ const recipeMap = {
         specialIngredient: {name: "mango", amount: 10},
         scheme: "basicScheme",
         author: "Kim",
-        story: "Once there was a Korean brewer who was not only a woman but also used mango as an ingredient for the beer called 'Bestone'."
+        story: "Once there was a Korean brewer who was not only a woman but also used mango as an ingredient for the beer called 'Bestone'.",
+        date: {dayAndMonth: "31st of January", year: 2017}
     },
     magicaleRecipe: {
         output: {name: "magicale", amount: 10},
@@ -607,7 +623,8 @@ const recipeMap = {
         specialIngredient: {name: "rainbowExtract", amount: 10},
         scheme: "basicScheme",
         author: "Brysen",
-        story: "Magicale. A rare beer with rainbow extract, its said that the taste is so sweet and great that even the old and the new gods crave it."
+        story: "Magicale. A rare beer with rainbow extract, its said that the taste is so sweet and great that even the old and the new gods crave it.",
+        date: {dayAndMonth: "31st of January", year: 2017}
     },
     snorsonsAleRecipe: {
         output: {name: "snorsonsAle", amount: 10},
@@ -615,7 +632,8 @@ const recipeMap = {
         specialIngredient: {name: "ginger", amount: 10},
         scheme: "basicScheme",
         author: "Snor",
-        story: "This beer goes back to the roots of brewing, it's so strong you even grow a moustache after just one zip."
+        story: "This beer goes back to the roots of brewing, it's so strong you even grow a moustache after just one zip.",
+        date: {dayAndMonth: "31st of January", year: 2017}
     },
     buttRecipe: {
         output: {name: "butt", amount: 10},
@@ -623,7 +641,8 @@ const recipeMap = {
         specialIngredient: {name: "strawberry", amount: 10},
         scheme: "basicScheme",
         author: "Xiaoxiao",
-        story: "Don't get shocked by the name of this beer. As it has a strange name and an unordinary smell, it tastes just sublime."
+        story: "Don't get shocked by the name of this beer. As it has a strange name and an unordinary smell, it tastes just sublime.",
+        date: {dayAndMonth: "1st of February", year: 2017}
     },
     parsenduneRecipe: {
         output: {name: "parsendune", amount: 10},
@@ -631,7 +650,8 @@ const recipeMap = {
         specialIngredient: {name: "saltyDuneExtract", amount: 10},
         scheme: "basicScheme",
         author: "Skriabin",
-        story: "PARSENDUNE, when the grasp of a coarse hand plucks the sturdy grasshalms that sting and skimp the silky skin of the thighs, the parson curses and drags his habit around in total agony until his mind illuminates. What if he ordered the monks of the abbey to clear a pathway for him through the obstructive dune jungle. And so it came to be that every month a small procession of monks came all the way from Brugensis to secure a pathway to the parson's small chapel at the shoreline. Eventually when the monks returned with bloodsmeared hands and painful feet, brother Cuthbert considered their tremendous effort and sighed. Months had gone by and not one monk in the abbey still volunteered for this most exhausting task at the stormy shore of the Flanders county. Moodily Cuthbert lays his head to rest, soon to fall into the dizzying vertigo of his dreams. Shuddering he awakes to a vision. A vision of monks slaving away in a salted steam bubbling in copper cauldrons the size of a bursting bull. Uneasily he removes the remaining dunesand from his weary eyesockets and with a sudden twist of his tongue realises that mysterious cauldron is his very mouth with salty steam pouring out of his nostrils. The smell of pickled herring, the fresh dunegrass and the struggle to scrape together the money for the restauration of the old chapel, it must be hidden clues to the divine will! The beerbrewery which has been abonded decades ago now standing as a beacon of hope amidst the arrogant aristocrats preying upon the abbey, seeking to acquire it from the few grubby monks that remain in its enclosure. Foolish sinners they are, swearing and cursing that they shall turn it into a palace of vice for their lustful mistresses. However, Cuthbert sees his fate crumbling into a pathway foaming with golden threads spun of drunken memories and as the brother shivers with excitement he pledges to himself to make the abbey great again. Parsendune shall be the name that will be sung along with our Lord's fame, in every tipsy tavern across the county, passing the Word from sip to lip. Skol!"
+        story: "PARSENDUNE, when the grasp of a coarse hand plucks the sturdy grasshalms that sting and skimp the silky skin of the thighs, the parson curses and drags his habit around in total agony until his mind illuminates. What if he ordered the monks of the abbey to clear a pathway for him through the obstructive dune jungle. And so it came to be that every month a small procession of monks came all the way from Brugensis to secure a pathway to the parson's small chapel at the shoreline. Eventually when the monks returned with bloodsmeared hands and painful feet, brother Cuthbert considered their tremendous effort and sighed. Months had gone by and not one monk in the abbey still volunteered for this most exhausting task at the stormy shore of the Flanders county. Moodily Cuthbert lays his head to rest, soon to fall into the dizzying vertigo of his dreams. Shuddering he awakes to a vision. A vision of monks slaving away in a salted steam bubbling in copper cauldrons the size of a bursting bull. Uneasily he removes the remaining dunesand from his weary eyesockets and with a sudden twist of his tongue realises that mysterious cauldron is his very mouth with salty steam pouring out of his nostrils. The smell of pickled herring, the fresh dunegrass and the struggle to scrape together the money for the restauration of the old chapel, it must be hidden clues to the divine will! The beerbrewery which has been abonded decades ago now standing as a beacon of hope amidst the arrogant aristocrats preying upon the abbey, seeking to acquire it from the few grubby monks that remain in its enclosure. Foolish sinners they are, swearing and cursing that they shall turn it into a palace of vice for their lustful mistresses. However, Cuthbert sees his fate crumbling into a pathway foaming with golden threads spun of drunken memories and as the brother shivers with excitement he pledges to himself to make the abbey great again. Parsendune shall be the name that will be sung along with our Lord's fame, in every tipsy tavern across the county, passing the Word from sip to lip. Skol!",
+        date: {dayAndMonth: "1st of February", year: 2017}
     },
     huaZaiRecipe: {
         output: {name: "huaZai", amount: 10},
@@ -639,7 +659,8 @@ const recipeMap = {
         specialIngredient: {name: "rose", amount: 10},
         scheme: "basicScheme",
         author: "Rita",
-        story: "The name 'Hua Zai' is a popular name for a boyfriend in China. It also tastes as sweet as love."
+        story: "The name 'Hua Zai' is a popular name for a boyfriend in China. It also tastes as sweet as love.",
+        date: {dayAndMonth: "26th of September", year: 2017}
     },
     powerRecipe: {
         output: {name: "power", amount: 10},
@@ -647,7 +668,17 @@ const recipeMap = {
         specialIngredient: {name: "pepper", amount: 10},
         scheme: "basicScheme",
         author: "Meiling",
-        story: "An old recipe for a beer which replenishes your strength after a hard day at work."
+        story: "An old recipe for a beer which replenishes your strength after a hard day at work.",
+        date: {dayAndMonth: "26th of September", year: 2017}
+    },
+    naturalDelightRecipe: {
+        output: {name: "naturalDelight", amount: 10},
+        ingredientList: "basicIngredients",
+        specialIngredient: {name: "hibiscus", amount: 10},
+        scheme: "basicScheme",
+        author: "Tom",
+        story: "Natural Delight. It contains a bit of Hibiscus which as a lot of health benefits, but is not recommended to consume too much of it, as it can reduce fertility. However, the crimson tint of the Hibiscus flower adds a nice red tint to the beer.",
+        date: {dayAndMonth: "7th of October", year: 2017}
     }
 };
 
