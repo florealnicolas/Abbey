@@ -7,9 +7,10 @@ function showStory(game) {
 
     $(game.getStory().getActiveArticle()).on("change", game.getStory().showActiveArticle);
 
+    // CHOOSING ABBOTNAME + SETTING ABBOTNAME + SAVING ABBOTNAME
     const abbotName = game.getStory().randomizer(game.getStory().getAbbotsNames());
-
     game.getStory().setAbbotName(abbotName);
+    game.getStory().addToStorySafe("abbotName",abbotName);
 
     //Article0
 
@@ -22,6 +23,10 @@ function showStory(game) {
     $(".beer").on('click', function () {
 
         const answer1 = $(this).val();
+
+        //SAVING THE CHOICE
+        const safeValue = {value: answer1, choiceText: $(this).text()};
+        game.getStory().addToStorySafe("gaveBeer",safeValue);
 
         if (answer1 === "1") {
             let currentAmtOfCoins = eval(coins.text());
@@ -38,6 +43,10 @@ function showStory(game) {
 
         $(".choice").on('click', function () {
             const answer2 = eval($(this).val()) + eval(answer1);
+
+            //SAVING THE CHOICE
+            const safeValue = {value: $(this).val(), choiceText: $(this).text()};
+            game.getStory().addToStorySafe("listenedStory",safeValue);
 
             $(this).addClass("chosen");
             game.getStory().disableButtons(this);
@@ -73,6 +82,11 @@ function showStory(game) {
                     game.getStory().setPlayerName(playerName);
                     game.getStory().setFatherName(fatherName);
 
+                    //SAVING THE NAME + SAVING THE FACT + SAVING THE FATHERNAME
+                    game.getStory().addToStorySafe("playerName",playerName);
+                    game.getStory().addToStorySafe("fact",fact);
+                    game.getStory().addToStorySafe("fatherName",fatherName);
+
                     const currentAmtOfCoins = coins.text();
                     const currentAmtOfReputation = reputation.text();
 
@@ -89,6 +103,10 @@ function showStory(game) {
                     $(".gender").on("click", function () {
                         game.getPlayer().setPlayerGendre($(this).val());
                         game.getStory().getGrammar().setGender($(this).val());
+
+                        //SAVING THE GENDRE
+                        const keyValue = {value: $(this).val(), choiceText: $(this).text()};
+                        game.getStory().addToStorySafe("playerGendre",keyValue);
 
                         $(this).addClass("chosen");
                         game.getStory().disableButtons(this);
@@ -114,6 +132,9 @@ function showStory(game) {
                                 placeName = game.getStory().getGrammar().writeRight(placeName);
                                 game.getStory().setPlaceName(String(placeName));
 
+                                //SAVING THE PLACENAME
+                                game.getStory().addToStorySafe("placeName",placeName);
+
                                 //Article2
 
                                 game.getStory().addArticleToStory();
@@ -131,6 +152,9 @@ function showStory(game) {
                                         let secret = $(this).val();
 
                                         game.getPlayer().setPassword(secret);
+
+                                        //SAVING THE SECRET
+                                        game.getStory().addToStorySafe("playerSecret","That's something you had to remember, sorry!");
 
                                         console.log("SECRET", game.getPlayer().getPassword());
 
@@ -157,19 +181,6 @@ function showStory(game) {
                                         //The end ???
                                         game.getStory().toBeContinued();
 
-
-                                        /*$(window).scroll(function (event) {
-                                         const scroll = $(window).scrollTop();
-
-                                         if (game.getMode() && scroll >= 2600) {
-
-                                         /*let db = new DB();
-
-                                         db.addData("players",game.getPlayer());
-                                         document.cookie = "user=" + game.getPlayer().getPlayerName();
-                                         sessionStorage.setItem("player",game.getPlayer());*/
-                                        game.strangerMode("OFF");
-
                                         let message = "Hello there! Thank you for reading this story.\n";
                                         message += "Here your own Abbey-story almost begins.\nJust hit the 'Acknowledge'-button.\n";
                                         message += "Just to make sure it is you, you need to login to play.\n";
@@ -185,11 +196,14 @@ function showStory(game) {
                                         window.location.hash = "acknowledge";
 
                                         $("#acknowledge").on('click', function (e) {
-                                            //window.sessionStorage.setItem("user", JSON.stringify(game.getPlayer()));
-                                            //window.sessionStorage.setItem("active", true);
-                                            //console.log("SESSION", window.sessionStorage);
+
+                                            game.strangerMode("OFF");
+
+                                            console.log("POSSIBILITY: LET'S SAVE THE STORY HERE!");
 
                                             $.post("/registering", game.getPlayer().toJSON());
+                                            $.post("/saveGame", game.saveGame());
+
                                             window.location.replace("/login");
                                         });
                                     }

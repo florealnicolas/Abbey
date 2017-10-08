@@ -54,7 +54,7 @@ function Abbey() {
     };
 
     this.setMaxAmtOfMonks = function (newValue) {
-        $("#monks input").attr("max", newValue);
+        $("#abbey input").attr("max", newValue);
     };
 
 // Functions of Abbey
@@ -62,17 +62,21 @@ function Abbey() {
     this.updateAmtOfAvailableMonks = function () {
 
         this.setAmtOfAvailableMonks(0);
-        let newAmtOfOccupiedMonks = this.getMonks().BreweryMonks + this.getMonks().ChapelMonks + this.getMonks().InsideMonks + this.getMonks().OutsideMonks +
-            this.getMonks().FieldMonks;
 
-        this.setAmtOfAvailableMonks(this.getTotalAmtOfMonks() - newAmtOfOccupiedMonks);
+        this.setAmtOfAvailableMonks(this.getTotalAmtOfMonks() - this.amtOfOccupiedMonks);
+    };
+
+    this.updateAmtOfOccupiedMonks = function () {
+        this.amtOfOccupiedMonks = this.getMonks().BreweryMonks + this.getMonks().ChapelMonks + this.getMonks().InsideMonks + this.getMonks().OutsideMonks +
+            this.getMonks().FieldMonks;
     };
 
     this.manageMonks = function (game, updatedOne) {
 
         const selectedMonks = updatedOne.id;
         this.setMonkAmt(selectedMonks, 0);
-        this.updateAmtOfAvailableMonks();
+
+        //this.updateAmtOfAvailableMonks();
 
         if (eval($("#" + selectedMonks).val()) <= this.getAmtOfAvailableMonks() && eval($("#" + selectedMonks).val()) >= 0) {
 
@@ -91,15 +95,20 @@ function Abbey() {
             }
         }
 
+        this.updateAmtOfOccupiedMonks();
         this.updateAmtOfAvailableMonks();
+
         this.setMaxAmtOfMonks(this.getAmtOfAvailableMonks());
+
         $("#" + selectedMonks).attr("value", this.getMonks()[selectedMonks]);
+
         game.getBrewery().setAmtOfMonks(this.getMonks().BreweryMonks);
         game.getChapel().setAmtOfMonks(this.getMonks().ChapelMonks);
+
         this.updateMonks();
+
         console.log("MONKS", this.getMonks());
         console.log("AVAILABLE MONKS", this.getAmtOfAvailableMonks());
-        this.amtOfOccupiedMonks = this.getTotalAmtOfMonks() - this.getAmtOfAvailableMonks();
     };
 
     this.updateMonks = function () {

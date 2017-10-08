@@ -32,6 +32,7 @@ app.listen(port, () => {
     console.log("Listening on port " + port + "...");
     console.log("IDEA: Why not put the elements/data on the server side?");
     console.log("IDEA: Show a notification when the password is changed.");
+    console.log("IDEA: Use the place name as a verification when the password is forgotten!");
     console.log("MUST: DELETE PASSWORD FROM SESSIONVALUE!");
 });
 
@@ -62,13 +63,14 @@ app.post("/login", (request, response) => {
         let error = undefined;
 
         if (user.password !== potentialUser.password) {
-            console.log("The password is incorrect for user: " + user.username + ".");
+            console.log("The password is incorrect for user: " + user.userName + ".");
             error = "Incorrect password for username '" + user.userName + "'.";
             response.send(JSON.stringify({value: error, status: "error"}));
         }
 
         else {
             console.log(user.userName + " is successfully logged on!");
+            console.log("LOOK AT THE INFORMATION WE HAVE FROM THIS ONE: ",user);
             request.session.user = user;
             request.session.active = true;
             response.send(JSON.stringify({value: user, status: "success"}));
@@ -121,8 +123,42 @@ app.post("/passwordchange", (request, response) => {
             console.log("Password successfully changed!");
         }
 
+        response.end();
+
     });
 
+});
+
+app.post("/saveGame", (request, response) => {
+
+    let gameSafe = request.body;
+
+    console.log("GAMESAFE TO SAVE", gameSafe);
+
+    //GAMESAFE INTO SESSION
+    request.session.user.game = gameSafe;
+
+    //GAMESAFE INTO DB
+    userDB.get(request.session.user.userName).then(function (user) {
+
+        user.game = gameSafe;
+
+        userDB.put(user);
+
+        console.log("Game successfully saved!");
+        console.log("IN SESSION", request.session.user.game);
+
+        response.end();
+
+    });
+});
+
+app.post("/loadGame", (request, response) => {
+    console.log("SAVE GAME IS NOT YET IMPLEMENTED!");
+});
+
+app.get("/resetAccount", (request, response) => {
+    console.log("SAVE GAME IS NOT YET IMPLEMENTED!");
 });
 
 app.get("/localStorage/*", (request, response) => {

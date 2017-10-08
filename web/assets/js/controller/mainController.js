@@ -55,7 +55,7 @@
 
                 showNCRCounter(game1);
                 showStock(game1.getStock());
-                showMonks(game1);
+                showAbbey(game1);
 
                 buildFields(game1);
                 showInstances(game1, "source", "inside");
@@ -75,7 +75,7 @@
                 $("#secondaryBrew a").on("click", showBrewSubpage);
                 $(game1.getStock()).on("change", showStock(game1.getStock().allItemsIntoAStockWay(game1.getResourceCategories())));
                 $(game1.getPlayer()).on("change", showNCRCounter(game1));
-                $("#monks input").on("change", function () {
+                $("#abbey input").on("change", function () {
                     game1.getAbbey().manageMonks(game1, this);
                     showBrewery(game1);
                     showChapel(game1);

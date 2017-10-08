@@ -16,6 +16,8 @@ function Story() {
     this.amtOfArticles = 0;
     this.activeArticle = 0;
 
+    this.storySafe = {};
+
     //Setters of Story
 
     this.setPlayerName = function (newPlayerName) {
@@ -58,6 +60,10 @@ function Story() {
 
     this.getGrammar = function () {
         return this.grammar;
+    };
+
+    this.getStorySafe = function () {
+      return this.storySafe;
     };
 
 //Functions of Story
@@ -278,6 +284,10 @@ function Story() {
         this.amtOfArticles++;
 
         $('#story').append(article);
+    };
+
+    this.addToStorySafe = function (key, value) {
+      this.storySafe[key] = value;
     };
 
 }

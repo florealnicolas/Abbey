@@ -329,8 +329,8 @@ function showProfilePage(game) {
             "<h3 title='Besides playing of course.'>Alternative options</h3>" +
             "<a class='button uk-button uk-button-default' href='/reset'>Reset account</a>" +
             "<a class='button uk-button uk-button-default' href='/logout'>Log out</a>" +
-            "<button class='button uk-button uk-button-default' id='save'>Save</button>" +
-            "<button class='button uk-button uk-button-default' id='load'>Load</button>" +
+            "<button class='button uk-button uk-button-default' id='saveGame'>Save</button>" +
+            "<button class='button uk-button uk-button-default' id='loadGame'>Load</button>" +
             "</div>";
     }
 
@@ -340,27 +340,9 @@ function showProfilePage(game) {
 
     $("#profile").html(profile);
 
-    /*$("#save").on('click', function () {
-     if (typeof(Storage) !== "undefined") {
-     localStorage.setItem("Game", game.getGameJSON, () => {
-     console.log("Game saved!");
-     })
-     }
-
-     else {
-     console.log("No savings for you as you don't have localstorage...\nYou can always try another browser.");
-     }
-     });
-
-     $("#load").on('click', function () {
-     if (typeof(Storage) !== "undefined") {
-     game.loadGame(localStorage.getItem("Game"));
-     }
-
-     else {
-     console.log("No savings for you as you don't have localstorage...\nYou can always try another browser.");
-     }
-     });*/
+    $("#saveGame").on('click', function () {
+        $.post("/saveGame", game.saveGame());
+    });
 }
 
 function updateFields(game) {
@@ -480,7 +462,7 @@ function buildFields(game) {
     }
 }
 
-function showMonks(game) {
+function showAbbey(game) {
 
     const abbey = game.getAbbey();
 
@@ -501,7 +483,7 @@ function showMonks(game) {
 
     monkForm += "</form>";
 
-    $("#monks").append(monkForm);
+    $("#abbey").append(monkForm);
 }
 
 function showChapel(game) {

@@ -163,7 +163,7 @@ function Game() {
             switch (this.effects[effectNr]) {
                 case "the way of the little one":
                     this.getAbbey().setTotalAmtOfMonks(this.getAbbey().getTotalAmtOfMonks() * 10);
-                    showMonks(this);
+                    showAbbey(this);
                     break;
                 default:
                     break;
@@ -510,6 +510,16 @@ function Game() {
         //SETTING FIELDTYPES
         this.setFieldCategories(fieldTypeMap);
 
+    };
+
+    this.saveGame = function () {
+        let gameSafe = {};
+
+        gameSafe["storySafe"] = this.getStory().getStorySafe();
+
+        console.log("GAMESAFE", gameSafe);
+
+        return gameSafe;
     }
 
 }
