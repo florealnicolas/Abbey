@@ -24,7 +24,7 @@
 
                 console.log("ACTIVE", active);
 
-                const game1 = new Game();
+                game1 = new Game();
                 game1.gameInitialisation();
 
                 if (!active) {
@@ -40,8 +40,16 @@
                     activePlayer.setPlayerGendre(activeUser.gendre);
                     activePlayer.setPassword(activeUser.password);
                     game1.setAPlayer(activePlayer);
+
+                    if (activeUser.game !== undefined){
+                        game1.loadGame(activeUser.game);
+                    }
+
                     showNCRCounter(game1);
-                    game1.strangerMode("OFF");
+
+                    /*if (game.getSafeFromGameSafeByName("storySafe").storyFinished){
+                        game1.strangerMode("OFF");
+                    }*/
                 }
 
                 if (environment === "development") {
@@ -63,7 +71,7 @@
                 showInstances(game1, "processor", "outside");
 
                 showRecipesAsOptions(game1);
-                showStory(game1);
+                beginStory(game1);
                 showBrewery(game1);
                 showMarket(game1);
                 showChapel(game1);

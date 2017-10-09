@@ -34,6 +34,8 @@ function Game() {
     this.player = null;
     this.strangerMode = true;
 
+    this.gameSafe = {};
+
 //Setters of Game
 
     this.setAPlayer = function (newPlayer) {
@@ -44,6 +46,10 @@ function Game() {
 
     this.getMode = function () {
         return this.strangerMode;
+    };
+
+    this.getGameSafe = function () {
+        return this.gameSafe;
     };
 
     this.getAbbey = function () {
@@ -145,6 +151,10 @@ function Game() {
         }
 
         return recipeString;
+    };
+
+    this.getSafeFromGameSafeByName = function (safeName) {
+        return this.gameSafe[safeName];
     };
 
 //Functions of Game
@@ -286,7 +296,7 @@ function Game() {
         return visual;
     };
 
-    this.strangerMode = function (onOFF) {
+    this.setStrangerMode = function (onOFF) {
 
         if (this.getPlayer() === null && onOFF === "ON") {
             $("#main > a").hide();
@@ -513,13 +523,16 @@ function Game() {
     };
 
     this.saveGame = function () {
-        let gameSafe = {};
 
-        gameSafe["storySafe"] = this.getStory().getStorySafe();
+        this.gameSafe["storySafe"] = this.getStory().getStorySafe();
 
-        console.log("GAMESAFE", gameSafe);
+        console.log("GAMESAFE", this.gameSafe);
 
-        return gameSafe;
-    }
+        return this.gameSafe;
+    };
+
+    this.loadGame = function (previousGameSafe) {
+        this.gameSafe = previousGameSafe;
+    };
 
 }
