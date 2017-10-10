@@ -290,10 +290,13 @@ function Story() {
         this.storySafe[key] = value;
     };
 
+    this.setStorySafe = function (oldStory) {
+        this.storySafe = oldStory.storySafe;
+    };
+
     this.showOldStory = function (game) {
 
-        const oldStory = game.getGameSafe().storySafe;
-        console.log("OLD STORY",oldStory);
+        const oldStory = this.getStorySafe();
 
         const coins = $("#valuta span");
         const reputation = $("#reputatie span");
@@ -580,8 +583,19 @@ function Story() {
                                                 // SAVING THE CURRENT STATUS OF THE STORY COMPLETION
                                                 game.getStory().addToStorySafe("storyFinished", true);
 
-                                                $.post("/registering", game.getPlayer().toJSON());
-                                                $.post("/saveGame", game.saveGame());
+                                                let registeringData = game.getPlayer().toJSON();
+                                                registeringData["game"] = game.saveGame();
+                                                registeringData["_id"] = game.getPlayer().getPlayerName();
+
+                                                console.log("REGISTERING DATA", registeringData);
+                                                $.post("/registering", registeringData);
+
+                                                //DEFAULT SAVETIMER
+
+                                                game1.setSaveTimer(window.setInterval(function () {
+                                                    $.post("/saveGame", game1.saveGame());
+                                                    console.log("Game saved.");
+                                                }, 15 * 60 * 1000));
 
                                                 window.location.replace("/login");
                                             });

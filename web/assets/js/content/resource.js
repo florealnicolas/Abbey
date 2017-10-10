@@ -1,5 +1,6 @@
-function Resource(resourceName, resourceAmt, unitValue, resourceCategory) {
+function Resource(resourceName, mapName, resourceAmt, unitValue, resourceCategory) {
     this.name = resourceName;
+    this.mapName = mapName;
     this.quantity = resourceAmt;
     this.value = unitValue;
     this.category = resourceCategory;

@@ -35,6 +35,7 @@ function Game() {
     this.strangerMode = true;
 
     this.gameSafe = {};
+    this.saveTimer = null;
 
 //Setters of Game
 
@@ -46,6 +47,10 @@ function Game() {
 
     this.getMode = function () {
         return this.strangerMode;
+    };
+
+    this.getSaveTimer = function () {
+        return this.saveTimer;
     };
 
     this.getGameSafe = function () {
@@ -158,6 +163,14 @@ function Game() {
     };
 
 //Functions of Game
+
+    this.setSaveTimer = function (newTimer) {
+        this.saveTimer = newTimer;
+    };
+
+    this.setGameSafe = function (newGameSafe) {
+      this.gameSafe = newGameSafe;
+    };
 
     this.addEffect = function (newEffect) {
         this.effects.push(newEffect);
@@ -327,7 +340,7 @@ function Game() {
 
                 outputList.forEach(function (item) {
                     let resource = resourceMap[item];
-                    let newResource = new Resource(resource.name, 0, resource.value, resource.category);
+                    let newResource = new Resource(resource.name, item, 0, resource.value, resource.category);
 
                     newSource.addOutput(newResource);
                 });
@@ -442,7 +455,7 @@ function Game() {
                     if (selectedIngredientList.hasOwnProperty(ingredient)) {
                         let selectedIngredientName = getResourcesFromMap(ingredient);
                         let selectedIngredientDetails = selectedIngredientList[ingredient];
-                        let selectedIngredient = new Resource(selectedIngredientName.name, selectedIngredientDetails.amount, 0, selectedIngredientName.category);
+                        let selectedIngredient = new Resource(selectedIngredientName.name, ingredient, selectedIngredientDetails.amount, 0, selectedIngredientName.category);
 
                         ingredientList.addAnItem(selectedIngredient);
                     }
@@ -522,17 +535,49 @@ function Game() {
 
     };
 
+    /*
+
+     this.stock = new List();
+     this.sources = new List();
+     this.processors = new List();
+     this.processes = new List();
+     this.fields = new List();
+     this.fieldCategories = null;
+     this.recipes = new List();
+     this.tanks = new List();
+     this.brewery = new Brewery();
+     this.chapel = new Chapel();
+     this.abbey = new Abbey();
+     this.workshop = new Workshop();
+     this.vendors = new List();
+
+     this.effects = [];
+     this.upgrades = [];
+
+     //IDEA: MARKET MONKS! -> capacity!
+
+     this.departments = ["Fields", "Inside the abbey", "Outside the abbey", "Brewery", "Chapel"];
+
+    */
+
     this.saveGame = function () {
 
-        this.gameSafe["storySafe"] = this.getStory().getStorySafe();
+        const gameSafe = {stockSafe: this.getStock().toJSON(), storySafe: this.getStory().getStorySafe()};
+        this.setGameSafe(gameSafe);
 
-        console.log("GAMESAFE", this.gameSafe);
-
-        return this.gameSafe;
+        return this.getGameSafe();
     };
 
     this.loadGame = function (previousGameSafe) {
-        this.gameSafe = previousGameSafe;
+        this.setGameSafe(previousGameSafe);
+
+        this.getStory().setStorySafe(previousGameSafe);
+
+        if (this.getGameSafe().stockSafe !== undefined && Object.keys(this.getGameSafe().stockSafe).length !== 0) {
+            this.getStock().addListOfItems(this.getGameSafe().stockSafe);
+        }
+
+        console.log("CURRENT GAMESAFE", this.getGameSafe());
     };
 
 }

@@ -142,12 +142,12 @@ function Field(fieldNumber, priceOfField, resource, categories) {
         const unitValue = this.fieldResource.getUnitValue();
         const category = this.fieldResource.getCategory();
 
-        return new Resource(resourceName, quantity, unitValue, category);
+        return new Resource(resourceName,this.fieldResource.mapName, quantity, unitValue, category);
     };
 
     this.changeFieldType = function (newFieldResource) {
         if (this.fieldResource === null || newFieldResource !== this.fieldResource.getName()) {
-            this.fieldResource = new Resource(newFieldResource, 0, 1, "crop");
+            this.fieldResource = new Resource(newFieldResource, newFieldResource, 0, 1, "crop");
         }
     };
 

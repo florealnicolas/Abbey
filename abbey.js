@@ -51,6 +51,12 @@ app.get("/", (request, response, next) => {
     next();
 });
 
+app.get("/resetThisAll", (response, request) => {
+    userDB.destroy().then(function(success){
+        console.log(success);
+    }).catch(function(error){console.log(error)});
+});
+
 app.get("/login", (request, response) => {
     response.sendFile(__dirname + "/web/login.html");
 });
@@ -63,14 +69,13 @@ app.post("/login", (request, response) => {
         let error = undefined;
 
         if (user.password !== potentialUser.password) {
-            console.log("The password is incorrect for user: " + user.userName + ".");
-            error = "Incorrect password for username '" + user.userName + "'.";
+            console.log("The password is incorrect for user: " + user.playerName + ".");
+            error = "Incorrect password for username '" + user.playerName + "'.";
             response.send(JSON.stringify({value: error, status: "error"}));
         }
 
         else {
-            console.log(user.userName + " is successfully logged on!");
-            console.log("LOOK AT THE INFORMATION WE HAVE FROM THIS ONE: ",user);
+            console.log(user.playerName + " is successfully logged on!");
             request.session.user = user;
             request.session.active = true;
             response.send(JSON.stringify({value: user, status: "success"}));
@@ -81,10 +86,6 @@ app.post("/login", (request, response) => {
         errorResponse = {value: error, status: "error"};
         response.send(JSON.stringify(errorResponse));
     });
-
-    /*userDB.destroy().then(function(success){
-     console.log(success);
-     }).catch(function(error){console.log(error)});*/
 
 });
 
@@ -99,11 +100,9 @@ app.get("/session", (request, response) => {
 
 app.post("/registering", (request, response) => {
 
-    let player = request.body;
+    let registeringData = request.body;
 
-    const user = new User(player.playerName, player.password, player.playerGendre, player.coins, player.reputation);
-
-    userDB.put(user.toJSON(), function (error, success) {
+    userDB.put(registeringData, function (error, success) {
     });
 });
 
@@ -113,7 +112,7 @@ app.post("/passwordchange", (request, response) => {
     const newPassword = request.body.passwordChange.newPassword;
     const confirmNewPassword = request.body.passwordChange.confirmNewPassword;
 
-    userDB.get(request.session.user.userName).then(function (user) {
+    userDB.get(request.session.user.playerName).then(function (user) {
 
         if (user.password === currentPassword && newPassword === confirmNewPassword) {
             user.password = newPassword;
@@ -139,7 +138,7 @@ app.post("/saveGame", (request, response) => {
     request.session.user.game = gameSafe;
 
     //GAMESAFE INTO DB
-    userDB.get(request.session.user.userName).then(function (user) {
+    userDB.get(request.session.user.playerName).then(function (user) {
 
         user.game = gameSafe;
 

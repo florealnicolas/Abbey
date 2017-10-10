@@ -211,6 +211,7 @@ function showInventory(game) {
     $("#inventory").html(game.visualizeInventory());
 
     $(".inventoryItem").draggable({revert: true});
+
 }
 
 function showMarket(game) {
@@ -309,7 +310,7 @@ function showProfilePage(game) {
             "<p>Username: " + player.getPlayerName() + "<br/>" +
             "Coins: " + player.getCoins() + "<br/>" +
             "Reputation: " + player.getReputation() + "<br/>" +
-            "Gendre: "+player.getGendre()+"</p>" +
+            "Gendre: " + player.getGendre() + "</p>" +
             "</div>" +
 
             "<div class='profileSection'>" +
@@ -327,6 +328,11 @@ function showProfilePage(game) {
 
         profile += "<div class='profileSection'>" +
             "<h3 title='Besides playing of course.'>Alternative options</h3>" +
+            "<h4>Auto-save-feature</h4>" +
+            "<p>Default the game will be saved every 15 minutes.</p>" +
+            "<form method='post' action='#'><label for='saveTimer'>Save my game every </label>"
+            + "<select id='saveTimer'><option value='5'>5 minutes</option><option value='10'>10 minutes</option><option value='15'>15 minutes</option></select>" +
+            "<input type='submit' value='Set timer' class='button' id='setSaveTimer'/></form>" +
             "<a class='button uk-button uk-button-default' href='/reset'>Reset account</a>" +
             "<a class='button uk-button uk-button-default' href='/logout'>Log out</a>" +
             "<button class='button uk-button uk-button-default' id='saveGame'>Save</button>" +
@@ -341,8 +347,26 @@ function showProfilePage(game) {
     $("#profile").html(profile);
 
     $("#saveGame").on('click', function () {
+        console.log("DATA TO SAVE", game.saveGame());
         $.post("/saveGame", game.saveGame());
     });
+
+    $("#setSaveTimer").on("click", function (e) {
+        e.preventDefault();
+
+        if (game.getSaveTimer() !== null) {
+            window.clearInterval(game.getSaveTimer());
+        }
+
+        let amountOfMinutes = $("#saveTimer option:selected").val();
+
+        game.setSaveTimer(window.setInterval(function () {
+            console.log("SAVED AFTER " + amountOfMinutes + " MINUTES.");
+            $.post("/saveGame", game1.saveGame());
+            console.log("Game saved.");
+        }, amountOfMinutes * 60 * 1000));
+
+    })
 }
 
 function updateFields(game) {
@@ -523,15 +547,15 @@ function showWorkshop(game) {
         workshop.checkIfBuyable(game);
     }
 
-        $(".button.upgradeButton").on("click", function () {
-            const upgradeName = $(this)[0].id.split("-")[1];
-            if (game.upgrades.indexOf(upgradeName) === -1) {
-                workshop.getListOfUpgrades().getItemByName(upgradeName).buyUpgrade(game);
-                game.applyUpgrades();
-                $(this).addClass("disabled");
-                $(this).text("Bought");
-            }
-        });
+    $(".button.upgradeButton").on("click", function () {
+        const upgradeName = $(this)[0].id.split("-")[1];
+        if (game.upgrades.indexOf(upgradeName) === -1) {
+            workshop.getListOfUpgrades().getItemByName(upgradeName).buyUpgrade(game);
+            game.applyUpgrades();
+            $(this).addClass("disabled");
+            $(this).text("Bought");
+        }
+    });
 }
 
 function showFieldTypes(game, fieldName) {
@@ -571,7 +595,7 @@ function showWelcomePage() {
 
     $('body').append(page);
 
-    $("#new").on("click", function() {
-       $(".backgroundOverlay").remove();
+    $("#new").on("click", function () {
+        $(".backgroundOverlay").remove();
     });
 }

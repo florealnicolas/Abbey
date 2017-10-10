@@ -272,11 +272,11 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         if (this.output.constructor === List) {
             let neededOutput = process.getOutput();
-            gain = new Resource(this.output.getItemByName(neededOutput.getName()).getName(), neededOutput.getOutputQuantity(), neededOutput.getUnitValue(), neededOutput.getCategory());
+            gain = new Resource(this.output.getItemByName(neededOutput.getName()).getName(),this.output.getItemByName(neededOutput.getName()).mapName, neededOutput.getOutputQuantity(), neededOutput.getUnitValue(), neededOutput.getCategory());
         }
 
         else {
-            gain = new Resource(this.output.getName(), process.getOutputQuantity(), this.output.getUnitValue(), this.output.getCategory());
+            gain = new Resource(this.output.getName(),this.output.mapName, process.getOutputQuantity(), this.output.getUnitValue(), this.output.getCategory());
         }
 
         console.log("EFFICIENY", this.efficiency);
@@ -306,7 +306,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         const numberOfOutput = numberOfInput + (numberOfInput * this.efficiency);
 
-        return new Resource(this.output.getName(), numberOfOutput, this.output.getUnitValue(), this.output.getCategory());
+        return new Resource(this.output.getName(),this.output.mapName, numberOfOutput, this.output.getUnitValue(), this.output.getCategory());
     };
 
     this.enoughInputResources = function (process, game) {

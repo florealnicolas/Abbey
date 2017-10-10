@@ -24,6 +24,7 @@
 
                 console.log("ACTIVE", active);
 
+
                 game1 = new Game();
                 game1.gameInitialisation();
 
@@ -36,20 +37,15 @@
                     console.log("USER", session.user);
                     const activeUser = session.user;
 
-                    const activePlayer = new Player(activeUser.userName, activeUser.coins, activeUser.reputation);
-                    activePlayer.setPlayerGendre(activeUser.gendre);
+                    const activePlayer = new Player(activeUser.playerName, activeUser.coins, activeUser.reputation);
+                    activePlayer.setPlayerGendre(activeUser.playerGendre);
                     activePlayer.setPassword(activeUser.password);
                     game1.setAPlayer(activePlayer);
 
-                    if (activeUser.game !== undefined){
-                        game1.loadGame(activeUser.game);
-                    }
+                    game1.loadGame(activeUser.game);
 
                     showNCRCounter(game1);
 
-                    /*if (game.getSafeFromGameSafeByName("storySafe").storyFinished){
-                        game1.strangerMode("OFF");
-                    }*/
                 }
 
                 if (environment === "development") {

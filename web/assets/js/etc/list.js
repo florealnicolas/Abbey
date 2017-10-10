@@ -105,16 +105,38 @@ function List() {
 
     this.addListOfItems = function (listOfItems) {
 
-        if (listOfItems.constructor === List) {
-            for (let itemNr = 0; itemNr < listOfItems.getSize(); itemNr++) {
-                this.addAnItem(listOfItems.getItemByNumber(itemNr));
-            }
-        }
+        switch (listOfItems.constructor.name) {
 
-        else {
-            for (itemNr = 0; itemNr < listOfItems.length; itemNr++) {
-                this.addAnItem(listOfItems[itemNr]);
-            }
+            case "List":
+
+                for (let itemNr = 0; itemNr < listOfItems.getSize(); itemNr++) {
+                    this.addAnItem(listOfItems.getItemByNumber(itemNr));
+                }
+
+                break;
+
+            case "Object":
+
+                for (let item in listOfItems) {
+                    if (listOfItems.hasOwnProperty(item)) {
+
+                        let selectedStorageItem = listOfItems[item];
+                        let selectedMapItem = getResourcesFromMap(selectedStorageItem.mapName);
+
+                        this.addAnItem(new Resource(selectedMapItem.getName(),selectedStorageItem.mapName,selectedStorageItem.quantity,selectedMapItem.value,selectedMapItem.category));
+                    }
+                }
+
+                break;
+
+            default:
+
+                for (itemNr = 0; itemNr < listOfItems.length; itemNr++) {
+                    this.addAnItem(listOfItems[itemNr]);
+                }
+
+                break;
+
         }
     };
 
@@ -284,7 +306,7 @@ function List() {
         let contains = false;
 
         for (let item in this.list) {
-            if (something == this.list[item]) {
+            if (something === this.list[item]) {
                 contains = true;
             }
         }
@@ -296,7 +318,7 @@ function List() {
         let index = -1;
 
         for (let itemNr in this.list) {
-            if (something.getName() == this.list[itemNr].getName()) {
+            if (something.getName() === this.list[itemNr].getName()) {
                 index = itemNr;
             }
         }
@@ -307,5 +329,49 @@ function List() {
     this.clearList = function () {
         this.list = [];
     };
+
+    this.toJSON = function () {
+
+        let jsonList = {};
+
+        if (this.getSize() !== 0) {
+
+            const typeOfList = this.list[0].constructor.name;
+
+            let neededFields = null;
+
+            switch (typeOfList) {
+
+                case "Resource":
+                    neededFields = ["mapName", "quantity"];
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (neededFields !== null) {
+                this.list.forEach(function (item) {
+
+                    let neededItem = {};
+
+                    neededFields.forEach(function (field) {
+                        neededItem[field] = item[field];
+                    });
+
+                    jsonList[item.getName()] = neededItem;
+                });
+            }
+
+            else {
+                this.list.forEach(function (item) {
+                    jsonList[item.getName()] = item;
+                });
+            }
+
+        }
+
+        return jsonList;
+    }
 
 }

@@ -90,7 +90,7 @@ function Source(sourceName, sourceMaxOutput, placeName) {
         const resourceNr = Math.floor(Math.random() * ((this.output.getSize() - 1) + 1));
         const resource = this.output.getItemByNumber(resourceNr);
 
-        return new Resource(resource.getName(), quantity, resource.getUnitValue(), resource.getCategory());
+        return new Resource(resource.getName(), resource.mapName, quantity, resource.getUnitValue(), resource.getCategory());
     };
 
     this.addOutput = function (newOutput) {

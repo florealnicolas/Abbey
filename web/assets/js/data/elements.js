@@ -758,13 +758,13 @@ const getResourcesFromMap = function (resourceName) {
 
         resourceName.forEach(function (resource) {
             let selectedResource = resourceMap[resource];
-            resourceArray.push(new Resource(selectedResource.name, 0, selectedResource.value, selectedResource.category));
+            resourceArray.push(new Resource(selectedResource.name, resource, 0, selectedResource.value, selectedResource.category));
         });
         selectedResources = resourceArray;
     }
     else {
         let selectedResource = resourceMap[resourceName];
-        selectedResources = new Resource(selectedResource.name, 0, selectedResource.value, selectedResource.category);
+        selectedResources = new Resource(selectedResource.name, resourceName, 0, selectedResource.value, selectedResource.category);
     }
 
     return selectedResources;
