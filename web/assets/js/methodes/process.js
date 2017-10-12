@@ -67,6 +67,10 @@ function Process(processName, timeNeededToFinish, inputList, processingUnit, out
 
 // Setters of Process
 
+    this.setOutput = function (newOutput) {
+        this.output = newOutput;
+    };
+
     this.setStorage = function (newStorage) {
         this.storage = newStorage;
     };

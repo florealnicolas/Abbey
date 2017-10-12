@@ -24,7 +24,6 @@
 
                 console.log("ACTIVE", active);
 
-
                 game1 = new Game();
                 game1.gameInitialisation();
 
@@ -89,8 +88,6 @@
                     e.preventDefault();
 
                     const recipe = game1.getRecipes().getItemByNumber($("#recipes").val());
-
-                    console.log("RECIPE", recipe);
 
                     showRecipeDescription(recipe);
                     game1.getBrewery().setSelectedRecipe(recipe);

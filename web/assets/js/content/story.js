@@ -298,9 +298,6 @@ function Story() {
 
         const oldStory = this.getStorySafe();
 
-        const coins = $("#valuta span");
-        const reputation = $("#reputatie span");
-
         $(game.getStory().getActiveArticle()).on("change", game.getStory().showActiveArticle);
 
         // SETTING ABBOTNAME
@@ -347,7 +344,7 @@ function Story() {
 
         game.getStory().setPlaceName(oldStory.placeName);
 
-        inputField = $("#placeName");
+        inputField = $("#namePlace");
         inputField.val(oldStory.placeName);
         inputField.attr("disabled", true);
         inputField.addClass("disabled");
@@ -356,6 +353,7 @@ function Story() {
         game.getStory().secretPart();
 
         inputField = $("#password");
+        inputField.attr("type","text");
         inputField.val(oldStory.playerSecret);
         inputField.attr("disabled", true);
         inputField.addClass("disabled");
@@ -396,9 +394,6 @@ function Story() {
         game.getStory().showActiveArticle();
 
         game.getStory().part1();
-
-        //const selectedButton = $(".button:contains("+savedAnswer.choiceText+")");
-        //console.log("CHOSEN BUTTON",selectedButton);
 
         $(".beer").on('click', function () {
 

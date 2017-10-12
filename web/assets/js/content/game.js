@@ -443,6 +443,17 @@ function Game() {
 
                         }
 
+                        if (step === "thirdFiltering") {
+
+                            //ADDING THE UNIQUE BEER
+                            let uniqueBeer = selectedRecipe.output;
+                            let uniqueBeerResource = getResourcesFromMap(uniqueBeer.name);
+                            uniqueBeerResource.setQuantity(uniqueBeer.amount);
+
+                            recipeProcess.setOutput(uniqueBeerResource);
+
+                        }
+
                         scheme.addStep(recipeProcess);
                     }
                 }
@@ -534,31 +545,6 @@ function Game() {
         this.setFieldCategories(fieldTypeMap);
 
     };
-
-    /*
-
-     this.stock = new List();
-     this.sources = new List();
-     this.processors = new List();
-     this.processes = new List();
-     this.fields = new List();
-     this.fieldCategories = null;
-     this.recipes = new List();
-     this.tanks = new List();
-     this.brewery = new Brewery();
-     this.chapel = new Chapel();
-     this.abbey = new Abbey();
-     this.workshop = new Workshop();
-     this.vendors = new List();
-
-     this.effects = [];
-     this.upgrades = [];
-
-     //IDEA: MARKET MONKS! -> capacity!
-
-     this.departments = ["Fields", "Inside the abbey", "Outside the abbey", "Brewery", "Chapel"];
-
-    */
 
     this.saveGame = function () {
 
