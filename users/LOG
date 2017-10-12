@@ -1,5 +1,5 @@
-2017/10/12-08:16:38.532 378c Recovering log #87
-2017/10/12-08:16:38.532 378c Level-0 table #89: started
-2017/10/12-08:16:38.704 378c Level-0 table #89: 237 bytes OK
-2017/10/12-08:16:38.975 378c Delete type=0 #87
-2017/10/12-08:16:38.978 378c Delete type=3 #85
+2017/10/12-09:05:53.302 1fe4 Recovering log #152
+2017/10/12-09:05:53.302 1fe4 Level-0 table #154: started
+2017/10/12-09:05:53.501 1fe4 Level-0 table #154: 237 bytes OK
+2017/10/12-09:05:53.660 1fe4 Delete type=0 #152
+2017/10/12-09:05:53.663 1fe4 Delete type=3 #150

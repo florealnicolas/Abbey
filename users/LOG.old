@@ -1,5 +1,5 @@
-2017/10/12-08:16:21.632 17bc Recovering log #84
-2017/10/12-08:16:21.632 17bc Level-0 table #86: started
-2017/10/12-08:16:21.745 17bc Level-0 table #86: 237 bytes OK
-2017/10/12-08:16:21.851 17bc Delete type=0 #84
-2017/10/12-08:16:21.853 17bc Delete type=3 #82
+2017/10/12-09:05:11.283 1ddc Recovering log #149
+2017/10/12-09:05:11.283 1ddc Level-0 table #151: started
+2017/10/12-09:05:11.378 1ddc Level-0 table #151: 237 bytes OK
+2017/10/12-09:05:11.486 1ddc Delete type=0 #149
+2017/10/12-09:05:11.493 1ddc Delete type=3 #147

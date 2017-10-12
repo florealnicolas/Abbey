@@ -508,6 +508,8 @@ function showAbbey(game) {
     monkForm += "</form>";
 
     $("#abbey").append(monkForm);
+
+    game.getAbbey().settingInputFields(game.getAbbey().amtOfMonks);
 }
 
 function showChapel(game) {

@@ -123,4 +123,42 @@ function Abbey() {
         $("#chapelMonks").html(this.getMonks().ChapelMonks);
         $("#amtOfOccupiedMonks").html(this.getAmtOfOccupiedMonks());
     };
+
+    this.toJSON = function () {
+
+        let JSONFile = {};
+
+        JSONFile["totalAmtOfMonks"] = this.totalAmtOfMonks;
+        JSONFile["amtOfOccupiedMonks"] = this.amtOfOccupiedMonks;
+        JSONFile["amtOfAvailableMonks"] = this.amtOfAvailableMonks;
+        JSONFile["amtOfMonks"]= this.amtOfMonks;
+
+        return JSONFile;
+
+    };
+
+    this.loadAbbey = function (oldAbbey) {
+
+        for (let monks in oldAbbey) {
+            if (oldAbbey.hasOwnProperty(monks)){
+                this[monks] = oldAbbey[monks];
+
+                /*if (monks === "amtOfMonks") {
+                    this.settingInputFields(oldAbbey[monks]);
+                }*/
+            }
+        }
+    };
+
+    this.settingInputFields = function (newAmtOfMonks) {
+
+        for (let typeOfMonks in newAmtOfMonks) {
+            if(newAmtOfMonks.hasOwnProperty(typeOfMonks)){
+                let inputValue = newAmtOfMonks[typeOfMonks];
+                let inputField = $("#" + typeOfMonks);
+
+                inputField.val(inputValue);
+            }
+        }
+    };
 }

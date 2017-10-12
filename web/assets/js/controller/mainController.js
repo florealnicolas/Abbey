@@ -27,6 +27,10 @@
                 game1 = new Game();
                 game1.gameInitialisation();
 
+                if (environment === "development") {
+                    developmentMode(game1);
+                }
+
                 if (!active) {
                     showWelcomePage();
                 }
@@ -42,16 +46,13 @@
                     game1.setAPlayer(activePlayer);
 
                     game1.loadGame(activeUser.game);
+                    game1.visualize();
 
                     showNCRCounter(game1);
 
                 }
 
-                if (environment === "development") {
-                    developmentMode(game1);
-                }
-
-                $('#story').show();
+                /*$('#story').show();
                 $('.menu a:first-child').addClass("active");
 
                 $('#secondaryWork a:first-child').addClass("active");
@@ -107,7 +108,7 @@
                     $('#offCanvasNav a').removeClass("active");
 
                     $("#profile").show();
-                });
+                });*/
             });
         });
 

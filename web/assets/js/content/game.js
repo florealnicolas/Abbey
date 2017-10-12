@@ -546,10 +546,73 @@ function Game() {
 
     };
 
+    this.visualize = function () {
+        $('#story').show();
+        $('.menu a:first-child').addClass("active");
+
+        $('#secondaryWork a:first-child').addClass("active");
+
+        showNCRCounter(this);
+        showStock(this.getStock());
+        showAbbey(this);
+
+        buildFields(this);
+        showInstances(this, "source", "inside");
+        showInstances(this, "source", "outside");
+        showInstances(this, "processor", "outside");
+
+        showRecipesAsOptions(this);
+        beginStory(this);
+        showBrewery(this);
+        showMarket(this);
+        showChapel(this);
+        showWorkshop(this);
+        showStorage(this);
+
+        const game = this;
+
+        $("#main a").on("click", showPage);
+        $("#secondaryJob a").on("click", showJobSubpage);
+        $("#secondaryBrew a").on("click", showBrewSubpage);
+        $(this.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
+        $(this.getPlayer()).on("change", showNCRCounter(game));
+        $("#abbey input").on("change", function () {
+            game.getAbbey().manageMonks(game, this);
+            showBrewery(game);
+            showChapel(game);
+        });
+
+        $("#selectedRecipe").on("click", function (e) {
+            e.preventDefault();
+
+            const recipe = game.getRecipes().getItemByNumber($("#recipes").val());
+
+            showRecipeDescription(recipe);
+            game.getBrewery().setSelectedRecipe(recipe);
+
+            showBrewery(game);
+            showStorage(game);
+
+        });
+
+        $("#naam > a").on("click", function (e) {
+            e.preventDefault();
+
+            showProfilePage(game);
+
+            $('.workspace > div').hide();
+            $('#main a').removeClass("active");
+            $('#offCanvasNav a').removeClass("active");
+
+            $("#profile").show();
+        });
+    };
+
     this.saveGame = function () {
 
-        const gameSafe = {stockSafe: this.getStock().toJSON(), storySafe: this.getStory().getStorySafe()};
-        this.setGameSafe(gameSafe);
+        this.gameSafe["stockSafe"] = this.getStock().toJSON();
+        this.gameSafe["storySafe"] = this.getStory().getStorySafe();
+        this.gameSafe["abbeySafe"] = this.getAbbey().toJSON();
 
         return this.getGameSafe();
     };
@@ -562,6 +625,8 @@ function Game() {
         if (this.getGameSafe().stockSafe !== undefined && Object.keys(this.getGameSafe().stockSafe).length !== 0) {
             this.getStock().addListOfItems(this.getGameSafe().stockSafe);
         }
+
+        this.getAbbey().loadAbbey(previousGameSafe.abbeySafe);
 
         console.log("CURRENT GAMESAFE", this.getGameSafe());
     };
