@@ -33,6 +33,7 @@ app.listen(port, () => {
     console.log("IDEA: Why not put the elements/data on the server side?");
     console.log("IDEA: Show a notification when the password is changed.");
     console.log("IDEA: Use the place name as a verification when the password is forgotten!");
+    console.log("IDEA: LIST.toJSON() => for-Object-in-List.json!");
     console.log("MUST: DELETE PASSWORD FROM SESSIONVALUE!");
 });
 

@@ -43,7 +43,7 @@ function Resource(resourceName, mapName, resourceAmt, unitValue, resourceCategor
 
         let word = "units";
 
-        if (this.getQuantity() === 1) {
+        if (this.quantity === 1) {
             word = "unit";
         }
 

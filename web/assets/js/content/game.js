@@ -613,6 +613,7 @@ function Game() {
         this.gameSafe["stockSafe"] = this.getStock().toJSON();
         this.gameSafe["storySafe"] = this.getStory().getStorySafe();
         this.gameSafe["abbeySafe"] = this.getAbbey().toJSON();
+        this.gameSafe["fieldSafe"] = this.getFields().toJSON();
 
         return this.getGameSafe();
     };
@@ -627,8 +628,24 @@ function Game() {
         }
 
         this.getAbbey().loadAbbey(previousGameSafe.abbeySafe);
+        this.loadFields(previousGameSafe.fieldSafe);
 
         console.log("CURRENT GAMESAFE", this.getGameSafe());
+    };
+
+    this.loadFields = function (oldFields) {
+
+        for (let field in oldFields) {
+            if (oldFields.hasOwnProperty(field)) {
+                let selectedField = oldFields[field];
+                let fieldResource = getResourcesFromMap(selectedField.fieldResource);
+                let fieldToAdd = new Field(selectedField.fieldName.substr(5,1), selectedField.fieldValue,fieldResource, selectedField.fieldCategories);
+                this.getFields().addAnItem(fieldToAdd);
+
+                this.raiseFieldsMadeByOne();
+                this.raiseFieldPrice();
+            }
+        }
     };
 
 }

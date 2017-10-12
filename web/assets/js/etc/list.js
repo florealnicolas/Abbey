@@ -346,6 +346,10 @@ function List() {
                     neededFields = ["mapName", "quantity"];
                     break;
 
+                case "Field":
+                    neededFields = ["fieldName","fieldValue","fieldResource","fieldCategories"];
+                    break;
+
                 default:
                     break;
             }
@@ -357,6 +361,10 @@ function List() {
 
                     neededFields.forEach(function (field) {
                         neededItem[field] = item[field];
+
+                        if (field === "fieldResource") {
+                            neededItem[field] = item[field].mapName;
+                        }
                     });
 
                     jsonList[item.getName()] = neededItem;

@@ -51,64 +51,6 @@
                     showNCRCounter(game1);
 
                 }
-
-                /*$('#story').show();
-                $('.menu a:first-child').addClass("active");
-
-                $('#secondaryWork a:first-child').addClass("active");
-
-                showNCRCounter(game1);
-                showStock(game1.getStock());
-                showAbbey(game1);
-
-                buildFields(game1);
-                showInstances(game1, "source", "inside");
-                showInstances(game1, "source", "outside");
-                showInstances(game1, "processor", "outside");
-
-                showRecipesAsOptions(game1);
-                beginStory(game1);
-                showBrewery(game1);
-                showMarket(game1);
-                showChapel(game1);
-                showWorkshop(game1);
-                showStorage(game1);
-
-                $("#main a").on("click", showPage);
-                $("#secondaryJob a").on("click", showJobSubpage);
-                $("#secondaryBrew a").on("click", showBrewSubpage);
-                $(game1.getStock()).on("change", showStock(game1.getStock().allItemsIntoAStockWay(game1.getResourceCategories())));
-                $(game1.getPlayer()).on("change", showNCRCounter(game1));
-                $("#abbey input").on("change", function () {
-                    game1.getAbbey().manageMonks(game1, this);
-                    showBrewery(game1);
-                    showChapel(game1);
-                });
-
-                $("#selectedRecipe").on("click", function (e) {
-                    e.preventDefault();
-
-                    const recipe = game1.getRecipes().getItemByNumber($("#recipes").val());
-
-                    showRecipeDescription(recipe);
-                    game1.getBrewery().setSelectedRecipe(recipe);
-
-                    showBrewery(game1);
-                    showStorage(game1);
-
-                });
-
-                $("#naam > a").on("click", function (e) {
-                    e.preventDefault();
-
-                    showProfilePage(game1);
-
-                    $('.workspace > div').hide();
-                    $('#main a').removeClass("active");
-                    $('#offCanvasNav a').removeClass("active");
-
-                    $("#profile").show();
-                });*/
             });
         });
 

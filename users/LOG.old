@@ -1,5 +1,5 @@
-2017/10/12-09:05:11.283 1ddc Recovering log #149
-2017/10/12-09:05:11.283 1ddc Level-0 table #151: started
-2017/10/12-09:05:11.378 1ddc Level-0 table #151: 237 bytes OK
-2017/10/12-09:05:11.486 1ddc Delete type=0 #149
-2017/10/12-09:05:11.493 1ddc Delete type=3 #147
+2017/10/12-11:03:48.405 346c Recovering log #240
+2017/10/12-11:03:48.405 346c Level-0 table #242: started
+2017/10/12-11:03:48.532 346c Level-0 table #242: 237 bytes OK
+2017/10/12-11:03:48.755 346c Delete type=0 #240
+2017/10/12-11:03:48.756 346c Delete type=3 #238
