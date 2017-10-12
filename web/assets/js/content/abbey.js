@@ -142,10 +142,6 @@ function Abbey() {
         for (let monks in oldAbbey) {
             if (oldAbbey.hasOwnProperty(monks)){
                 this[monks] = oldAbbey[monks];
-
-                /*if (monks === "amtOfMonks") {
-                    this.settingInputFields(oldAbbey[monks]);
-                }*/
             }
         }
     };

@@ -1,4 +1,4 @@
-function Recipe(outputItem, ingredientsList, newScheme, authorName, story, date) {
+function Recipe(mapName, outputItem, ingredientsList, newScheme, authorName, story, date) {
 
     this.output = outputItem;
     this.ingredients = ingredientsList;
@@ -6,6 +6,7 @@ function Recipe(outputItem, ingredientsList, newScheme, authorName, story, date)
     this.author = authorName;
     this.description = "";
     this.name = this.output.getName();
+    this.mapName = mapName;
     this.story = story;
     this.date = date;
 

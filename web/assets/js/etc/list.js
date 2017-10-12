@@ -30,6 +30,18 @@ function List() {
         return foundItem;
     };
 
+    this.getItemByMapName = function (mapName) {
+        let foundItem = null;
+
+        for (let itemNr = 0, amtOfItems = this.list.length; itemNr < amtOfItems; itemNr++) {
+
+            if (this.list[itemNr].mapName === mapName) {
+                foundItem = this.list[itemNr];
+            }
+        }
+        return foundItem;
+    };
+
     this.getSize = function () {
         return this.list.length;
     };

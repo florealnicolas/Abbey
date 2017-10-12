@@ -3,7 +3,7 @@ function Brewery() {
     this.selectedRecipe = null;
     this.amtOfMonks = 0;
     this.equipment = new List();
-
+    this.monkBonus = 0;
 
 // Getters of Brewery
 
@@ -17,6 +17,10 @@ function Brewery() {
 
     this.getSelectedRecipe = function () {
         return this.selectedRecipe;
+    };
+
+    this.getMonkBonus = function () {
+        return this.monkBonus;
     };
 
 // Setters of Brewery
@@ -36,30 +40,36 @@ function Brewery() {
 
 // Functions of Brewery
 
+    this.calculateMonkBonus = function (game) {
+        this.monkBonus = 0;
+
+        if (game.getAbbey().amtOfMonks.BreweryMonks !== undefined) {
+            this.monkBonus = (game.getAbbey().amtOfMonks.BreweryMonks / game.getAbbey().getTotalAmtOfMonks()) * 100;
+        }
+    };
+
     this.visualizeOverview = function (game) {
 
         const grammar = new Grammar();
 
         let visual = "<h4>Overview</h4>";
 
+        const amtOfBreweryMonks = game.getAbbey().amtOfMonks.BreweryMonks;
+
         let amtOfMonk = "<h5>Employees</h5>";
         amtOfMonk += "<p>At the moment there are ";
-        if (game.getAbbey().getMonks() === undefined) {
+        if (amtOfBreweryMonks === undefined) {
             amtOfMonk += "no";
         }
 
         else {
-            amtOfMonk += this.getAmtOfMonks();
+            amtOfMonk += amtOfBreweryMonks;
         }
 
-        let monkBonus = 0;
-
-        if (this.getAmtOfMonks() !== undefined) {
-            monkBonus = (game.getAbbey().getMonks().BreweryMonks / game.getAbbey().getTotalAmtOfMonks()) * 100;
-        }
+        this.calculateMonkBonus(game);
 
         amtOfMonk += " monks working in your brewery.<br/>" +
-            "That results in a monk bonus of " + monkBonus + "%.</p>";
+            "That results in a monk bonus of " + this.monkBonus + "%.</p>";
 
         let recipe = "<h5>Recipe</h5>";
         recipe += "<p>This brewery will produce ";
@@ -113,6 +123,23 @@ function Brewery() {
         }
 
         return visual + process;
+    };
+
+    this.loadBrewery = function (oldBrewery, game) {
+        let oldRecipe = game.getRecipes().getItemByMapName(oldBrewery.selectedRecipe);
+
+        this.setSelectedRecipe(oldRecipe);
+        showRecipeDescription(oldRecipe);
+    };
+
+    this.toJSON = function () {
+
+        let jsonBrewery = {};
+
+        jsonBrewery["selectedRecipe"] = this.getSelectedRecipe().mapName;
+
+        return jsonBrewery;
+
     }
 
 

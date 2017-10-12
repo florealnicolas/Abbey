@@ -268,25 +268,31 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         let gain = null;
 
-        console.log("MONKBONUS HERE!");
+        let monkBonus = game.getBrewery().getMonkBonus() / 100;
+        let extraOutput = 0;
 
         if (this.output.constructor === List) {
             let neededOutput = process.getOutput();
-            gain = new Resource(this.output.getItemByName(neededOutput.getName()).getName(),this.output.getItemByName(neededOutput.getName()).mapName, neededOutput.getOutputQuantity(), neededOutput.getUnitValue(), neededOutput.getCategory());
+            extraOutput = neededOutput.getOutputQuantity() * monkBonus;
+            let outputQuantity = neededOutput.getOutputQuantity() + extraOutput;
+            gain = new Resource(this.output.getItemByName(neededOutput.getName()).getName(),this.output.getItemByName(neededOutput.getName()).mapName, outputQuantity, neededOutput.getUnitValue(), neededOutput.getCategory());
         }
 
         else {
-            gain = new Resource(this.output.getName(),this.output.mapName, process.getOutputQuantity(), this.output.getUnitValue(), this.output.getCategory());
+            extraOutput = process.getOutputQuantity() * monkBonus;
+            let outputQuantity = process.getOutputQuantity() + extraOutput;
+            gain = new Resource(this.output.getName(),this.output.mapName, outputQuantity, this.output.getUnitValue(), this.output.getCategory());
         }
 
-        console.log("EFFICIENY", this.efficiency);
-        console.log("NUMBER TO GET",process.getInput().quantity * this.efficiency);
-        console.log("OUTPUT",gain);
+        let message = "<p>You got ";
+        message += gain.toString() + ":</p>";
+        message += "<p>Normal output: " + (gain.getQuantity() - extraOutput) + " " + " units of " + this.output.getName();
+        message += "<br/>+ Monk bonus: "  + extraOutput + " " + " units of " + this.output.getName() + "</p>";
 
-        let message = "You got ";
-        message += gain.toString() + ".";
 
-        harvestMessage.text(message);
+        message += "</p>";
+
+        harvestMessage.html(message);
         harvestMessage.show();
 
         game.getStock().addAResource(gain);

@@ -53,6 +53,7 @@ app.get("/", (request, response, next) => {
 });
 
 app.get("/resetThisAll", (response, request) => {
+
     userDB.destroy().then(function(success){
         console.log(success);
     }).catch(function(error){console.log(error)});

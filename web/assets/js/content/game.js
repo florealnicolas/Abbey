@@ -152,7 +152,7 @@ function Game() {
 
         for (let recipeNr = 0; recipeNr < this.recipes.getSize(); recipeNr++) {
             const selectedRecipeName = this.recipes.getItemByNumber(recipeNr).getOutput().getName();
-            recipeString += "<option value='" + recipeNr + "'>" + grammar.writeRight(selectedRecipeName) + "</option>";
+            recipeString += "<option value='" + selectedRecipeName + "'>" + grammar.writeRight(selectedRecipeName) + "</option>";
         }
 
         return recipeString;
@@ -485,7 +485,7 @@ function Game() {
                 //SETTING THE DATE
                 const date = selectedRecipe.date.dayAndMonth + ", " + (selectedRecipe.date.year - 500);
 
-                this.addARecipe(new Recipe(output, ingredientList, scheme, selectedRecipe.author, selectedRecipe.story, date));
+                this.addARecipe(new Recipe(recipe, output, ingredientList, scheme, selectedRecipe.author, selectedRecipe.story, date));
             }
         }
 
@@ -614,6 +614,7 @@ function Game() {
         this.gameSafe["storySafe"] = this.getStory().getStorySafe();
         this.gameSafe["abbeySafe"] = this.getAbbey().toJSON();
         this.gameSafe["fieldSafe"] = this.getFields().toJSON();
+        this.gameSafe["brewerySafe"] = this.getBrewery().toJSON();
 
         return this.getGameSafe();
     };
@@ -629,6 +630,7 @@ function Game() {
 
         this.getAbbey().loadAbbey(previousGameSafe.abbeySafe);
         this.loadFields(previousGameSafe.fieldSafe);
+        this.getBrewery().loadBrewery(previousGameSafe.brewerySafe, this);
 
         console.log("CURRENT GAMESAFE", this.getGameSafe());
     };
