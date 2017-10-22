@@ -152,7 +152,7 @@ function Game() {
 
         for (let recipeNr = 0; recipeNr < this.recipes.getSize(); recipeNr++) {
             const selectedRecipeName = this.recipes.getItemByNumber(recipeNr).getOutput().getName();
-            recipeString += "<option value='" + selectedRecipeName + "'>" + grammar.writeRight(selectedRecipeName) + "</option>";
+            recipeString += "<option value='" + recipeNr + "'>" + grammar.writeRight(selectedRecipeName) + "</option>";
         }
 
         return recipeString;
@@ -576,7 +576,7 @@ function Game() {
         $("#secondaryBrew a").on("click", showBrewSubpage);
         $(this.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
         $(this.getPlayer()).on("change", showNCRCounter(game));
-        $("#abbey input").on("change", function () {
+        $("#abbey input").change(function () {
             game.getAbbey().manageMonks(game, this);
             showBrewery(game);
             showChapel(game);

@@ -67,31 +67,39 @@ function Abbey() {
     };
 
     this.updateAmtOfOccupiedMonks = function () {
-        this.amtOfOccupiedMonks = this.getMonks().BreweryMonks + this.getMonks().ChapelMonks + this.getMonks().InsideMonks + this.getMonks().OutsideMonks +
-            this.getMonks().FieldMonks;
+        this.amtOfOccupiedMonks = eval(this.amtOfMonks.BreweryMonks) + eval(this.amtOfMonks.ChapelMonks) + eval(this.amtOfMonks.InsideMonks) + eval(this.amtOfMonks.OutsideMonks) +
+            eval(this.amtOfMonks.FieldMonks);
     };
 
     this.manageMonks = function (game, updatedOne) {
 
-        const selectedMonks = updatedOne.id;
-        this.setMonkAmt(selectedMonks, 0);
+        const selectedMonksID = updatedOne.id;
+        let selectedMonksMap = selectedMonksID;
 
-        //this.updateAmtOfAvailableMonks();
+        if (selectedMonksID === "FieldsMonks") {
+            selectedMonksMap = "FieldMonks";
+        }
 
-        if (eval($("#" + selectedMonks).val()) <= this.getAmtOfAvailableMonks() && eval($("#" + selectedMonks).val()) >= 0) {
+        this.setMonkAmt(selectedMonksMap, 0);
 
-            this.setMonkAmt(selectedMonks, eval($("#" + selectedMonks).val()));
+        const changedNumber = eval($("#" + selectedMonksID).val());
+
+        this.updateAmtOfAvailableMonks();
+
+        if (changedNumber <= this.getAmtOfAvailableMonks() && changedNumber >= 0) {
+            this.setMonkAmt(selectedMonksMap, changedNumber);
+
         }
 
         else {
-            if (eval($("#" + selectedMonks).val()) > this.getAmtOfAvailableMonks()) {
-                $("#" + selectedMonks).val(this.getAmtOfAvailableMonks());
-                this.setMonkAmt(selectedMonks, eval($("#" + selectedMonks).val()));
+            if (changedNumber > this.getAmtOfAvailableMonks()) {
+                $("#" + selectedMonksID).val(this.getAmtOfAvailableMonks());
+                this.setMonkAmt(selectedMonksMap, eval($("#" + selectedMonksID).val()));
             }
 
             else {
-                $("#" + selectedMonks).val(0);
-                this.setMonkAmt(selectedMonks, eval($("#" + selectedMonks).val()));
+                $("#" + selectedMonksID).val(0);
+                this.setMonkAmt(selectedMonksMap, eval($("#" + selectedMonksID).val()));
             }
         }
 
@@ -100,22 +108,19 @@ function Abbey() {
 
         this.setMaxAmtOfMonks(this.getAmtOfAvailableMonks());
 
-        $("#" + selectedMonks).attr("value", this.getMonks()[selectedMonks]);
+        $("#" + selectedMonksID).attr("value", this.getMonks()[selectedMonksMap]);
 
         game.getBrewery().setAmtOfMonks(this.getMonks().BreweryMonks);
         game.getChapel().setAmtOfMonks(this.getMonks().ChapelMonks);
 
         this.updateMonks();
-
-        console.log("MONKS", this.getMonks());
-        console.log("AVAILABLE MONKS", this.getAmtOfAvailableMonks());
     };
 
     this.updateMonks = function () {
 
-        const insideMonksBonus = Math.round(((this.getMonks().InsideMonks / this.getTotalAmtOfMonks()) * 100)*100)/100;
-        const outsideMonksBonus = Math.round(((this.getMonks().OutsideMonks / this.getTotalAmtOfMonks()) * 100)*100)/100;
-        const fieldMonksBonus = Math.round(((this.getMonks().FieldMonks / this.getTotalAmtOfMonks()) * 100)*100)/100;
+        const insideMonksBonus = Math.round(((this.getMonks().InsideMonks / this.getTotalAmtOfMonks()) * 100) * 100) / 100;
+        const outsideMonksBonus = Math.round(((this.getMonks().OutsideMonks / this.getTotalAmtOfMonks()) * 100) * 100) / 100;
+        const fieldMonksBonus = Math.round(((this.getMonks().FieldMonks / this.getTotalAmtOfMonks()) * 100) * 100) / 100;
 
         $(".inside .monkBonus span").html(insideMonksBonus + "%");
         $(".outside .monkBonus span").html(outsideMonksBonus + "%");
@@ -131,7 +136,7 @@ function Abbey() {
         JSONFile["totalAmtOfMonks"] = this.totalAmtOfMonks;
         JSONFile["amtOfOccupiedMonks"] = this.amtOfOccupiedMonks;
         JSONFile["amtOfAvailableMonks"] = this.amtOfAvailableMonks;
-        JSONFile["amtOfMonks"]= this.amtOfMonks;
+        JSONFile["amtOfMonks"] = this.amtOfMonks;
 
         return JSONFile;
 
@@ -140,7 +145,7 @@ function Abbey() {
     this.loadAbbey = function (oldAbbey) {
 
         for (let monks in oldAbbey) {
-            if (oldAbbey.hasOwnProperty(monks)){
+            if (oldAbbey.hasOwnProperty(monks)) {
                 this[monks] = oldAbbey[monks];
             }
         }
@@ -149,7 +154,7 @@ function Abbey() {
     this.settingInputFields = function (newAmtOfMonks) {
 
         for (let typeOfMonks in newAmtOfMonks) {
-            if(newAmtOfMonks.hasOwnProperty(typeOfMonks)){
+            if (newAmtOfMonks.hasOwnProperty(typeOfMonks)) {
                 let inputValue = newAmtOfMonks[typeOfMonks];
                 let inputField = $("#" + typeOfMonks);
 

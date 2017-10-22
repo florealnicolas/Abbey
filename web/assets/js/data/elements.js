@@ -313,8 +313,19 @@ const resourceMap = {
         name: "ripe beer",
         value: 1,
         category: "liquid"
+    },
+    maxxi: {
+        name: "maxxi",
+        value: 1,
+        category: "beer"
+    },
+    bearMeatExtract: {
+        name: "bear meat extract",
+        value: 1,
+        category: "extract"
     }
 };
+
 
 const fieldTypeMap = ["barley", "corn", "hop", "potato", "rice", "wheat"];
 
@@ -679,6 +690,15 @@ const recipeMap = {
         author: "Tom",
         story: "Natural Delight. It contains a bit of Hibiscus which as a lot of health benefits, but is not recommended to consume too much of it, as it can reduce fertility. However, the crimson tint of the Hibiscus flower adds a nice red tint to the beer.",
         date: {dayAndMonth: "7th of October", year: 2017}
+    },
+    maxxiRecipe: {
+        output: {name: "maxxi", amount: 10},
+        ingredientList: "basicIngredients",
+        specialIngredient: {name: "bearMeatExtract", amount: 10},
+        scheme: "basicScheme",
+        author: "Maxxi",
+        story: "This beer is made with an extract of bear meat. It sounds pretty unusual but this old, Asian recipe for beer gives you the strength of a bear.",
+        date: {dayAndMonth: "13th of October", year: 2017}
     }
 };
 

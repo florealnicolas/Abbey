@@ -34,6 +34,8 @@ app.listen(port, () => {
     console.log("IDEA: Show a notification when the password is changed.");
     console.log("IDEA: Use the place name as a verification when the password is forgotten!");
     console.log("IDEA: LIST.toJSON() => for-Object-in-List.json!");
+    console.log("IDEA: Give Beers their own space in Elements + alcohol!");
+    console.log("IDEA: Weather generator!");
     console.log("MUST: DELETE PASSWORD FROM SESSIONVALUE!");
 });
 

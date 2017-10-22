@@ -89,7 +89,7 @@ function Field(fieldNumber, priceOfField, resource, categories) {
 
     this.progressing = function (fieldBtn, game) {
 
-        const monkBonus = game.getAbbey().getMonks().amtOfFieldMonks / game.getAbbey().getTotalAmtOfMonks();
+        const monkBonus = game.getAbbey().amtOfMonks.FieldMonks / game.getAbbey().getTotalAmtOfMonks();
 
         const field = this;
 
@@ -122,6 +122,8 @@ function Field(fieldNumber, priceOfField, resource, categories) {
                 //createTime = new Date();
             }
         });
+
+        console.log("FIELD MONKBONUS",monkBonus);
 
         function progress() {
             const val = progressbar.progressbar("value") || 0;
