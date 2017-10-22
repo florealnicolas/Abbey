@@ -196,13 +196,29 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         processBtn.attr("value", "free");
 
+        let monkBonus = game.getAbbey().amtOfMonks.OutsideMonks / 100;
+
+        if (this.getPlace() === "inside") {
+            monkBonus = game.getAbbey().amtOfMonks.InsideMonks / 100;
+        }
+
         const numberOfInput = eval($("#inputNumber" + this.name).val());
-        const gain = this.fromInputToOutput(input, numberOfInput, game);
 
-        let message = "You got ";
-        message += gain.toString() + ".";
+        let extraOutput = numberOfInput * monkBonus;
 
-        harvestMessage.text(message);
+        if (extraOutput <= 1) {
+            extraOutput = 1;
+        }
+
+        const gain = this.fromInputToOutput(input, numberOfInput + extraOutput, game);
+
+        let message = "<p>You got ";
+        message += gain.toString() + ":</p>";
+        message += "<p>Normal output: " + (gain.getQuantity() - extraOutput) + " " + " units of " + this.output.getName();
+        message += "<br/>+ Monk bonus: "  + extraOutput + " " + " units of " + this.output.getName() + "</p>";
+        message += "</p>";
+
+        harvestMessage.html(message);
         harvestMessage.show();
 
         game.getStock().addAResource(gain);

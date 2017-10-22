@@ -74,10 +74,30 @@ function Source(sourceName, sourceMaxOutput, placeName) {
         processBtn.attr("value", "free");
 
         const resource = this.gainResource();
-        game.getStock().addAResource(resource);
-        let message = "You got " + resource.toString() + ".";
 
-        harvestMessage.text(message);
+        let monkBonus = game.getAbbey().amtOfMonks.OutsideMonks / 100;
+
+        if (this.getPlace() === "inside") {
+            monkBonus = game.getAbbey().amtOfMonks.InsideMonks / 100;
+        }
+
+        let extraOutput = resource.getQuantity() * monkBonus;
+
+        if (extraOutput <= 1) {
+            extraOutput = 1;
+        }
+
+        resource.addQuantityOfAResource(extraOutput);
+
+        game.getStock().addAResource(resource);
+
+        let message = "<p>You got ";
+        message += resource.toString() + ":</p>";
+        message += "<p>Normal output: " + (resource.getQuantity() - extraOutput) + " " + " units of " + resource.getName();
+        message += "<br/>+ Monk bonus: "  + extraOutput + " " + " units of " + resource.getName() + "</p>";
+        message += "</p>";
+
+        harvestMessage.html(message);
         harvestMessage.show();
 
         $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
