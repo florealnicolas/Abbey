@@ -67,8 +67,8 @@ function Field(fieldNumber, priceOfField, resource, categories) {
 
     this.work = function (fieldBtn, game) {
 
-        const harvestMessage = $('div[class="opbrengst"][id="' + this.fieldName + '"]');
         const fieldChanger = $('.veldWijzigen [id="' + this.fieldName + '"]');
+        const harvestMessage = $('div[class="opbrengst"][id="' + this.fieldName + '"]');
 
         fieldBtn.attr("value", "free");
 
@@ -77,10 +77,17 @@ function Field(fieldNumber, priceOfField, resource, categories) {
 
         const gainedResource = this.gainResource();
         game.getStock().addAResource(gainedResource);
+
         const boodschap = "You got " + gainedResource.toString() + ".";
 
         harvestMessage.text(boodschap);
         harvestMessage.show();
+
+        $(harvestMessage).on("click",function () {
+            $(this).hide();
+        });
+
+        game.getNotifier().notifySomething("You got new resources from a "+this.getResourceName()+" field.");
 
         $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
         showInventory(game);

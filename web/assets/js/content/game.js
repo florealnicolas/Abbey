@@ -37,6 +37,8 @@ function Game() {
     this.gameSafe = {};
     this.saveTimer = null;
 
+    this.notifier = new Notifier();
+
 //Setters of Game
 
     this.setAPlayer = function (newPlayer) {
@@ -44,6 +46,10 @@ function Game() {
     };
 
 //Getters of Game
+
+    this.getNotifier = function () {
+        return this.notifier;
+    };
 
     this.getMode = function () {
         return this.strangerMode;
@@ -553,6 +559,7 @@ function Game() {
         $('#secondaryWork a:first-child').addClass("active");
 
         showNCRCounter(this);
+        this.getNotifier().installMessageBoard();
         showStock(this.getStock());
         showAbbey(this);
 
@@ -631,6 +638,9 @@ function Game() {
         this.getAbbey().loadAbbey(previousGameSafe.abbeySafe);
         this.loadFields(previousGameSafe.fieldSafe);
         this.getBrewery().loadBrewery(previousGameSafe.brewerySafe, this);
+
+        //NEEDS TO BECOME A LOADCHAPEL!
+        this.getChapel().setAmtOfMonks(previousGameSafe.abbeySafe.amtOfMonks.ChapelMonks);
 
         console.log("CURRENT GAMESAFE", this.getGameSafe());
     };

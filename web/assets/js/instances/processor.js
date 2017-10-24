@@ -216,10 +216,15 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
         message += gain.toString() + ":</p>";
         message += "<p>Normal output: " + (gain.getQuantity() - extraOutput) + " " + " units of " + this.output.getName();
         message += "<br/>+ Monk bonus: "  + extraOutput + " " + " units of " + this.output.getName() + "</p>";
-        message += "</p>";
 
         harvestMessage.html(message);
         harvestMessage.show();
+
+        $(harvestMessage).on("click",function () {
+            $(this).hide();
+        });
+
+        game.getNotifier().notifySomething("You got new resources from the "+this.getName()+".");
 
         game.getStock().addAResource(gain);
         $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
@@ -305,11 +310,14 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
         message += "<p>Normal output: " + (gain.getQuantity() - extraOutput) + " " + " units of " + this.output.getName();
         message += "<br/>+ Monk bonus: "  + extraOutput + " " + " units of " + this.output.getName() + "</p>";
 
-
-        message += "</p>";
-
         harvestMessage.html(message);
         harvestMessage.show();
+
+        $(harvestMessage).on("click",function () {
+            $(this).hide();
+        });
+
+        game.getNotifier().notifySomething("You got new resources from the "+this.getName()+".");
 
         game.getStock().addAResource(gain);
         $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));

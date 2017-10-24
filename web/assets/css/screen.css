@@ -585,3 +585,13 @@ fieldset:last-child {
 }
 
 /* --- Home --- */
+
+.callout {
+    margin: 0;
+    padding: 1%;
+}
+
+#messageBoard {
+    margin: auto;
+    background-color: rgba(0,0,0,0.5);
+}

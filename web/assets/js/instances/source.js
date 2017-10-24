@@ -95,10 +95,15 @@ function Source(sourceName, sourceMaxOutput, placeName) {
         message += resource.toString() + ":</p>";
         message += "<p>Normal output: " + (resource.getQuantity() - extraOutput) + " " + " units of " + resource.getName();
         message += "<br/>+ Monk bonus: "  + extraOutput + " " + " units of " + resource.getName() + "</p>";
-        message += "</p>";
 
         harvestMessage.html(message);
         harvestMessage.show();
+
+        $(harvestMessage).on("click",function () {
+            $(this).hide();
+        });
+
+        game.getNotifier().notifySomething("You got new resources from the "+this.getName()+".");
 
         $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
         showInventory(game);
