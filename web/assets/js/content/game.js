@@ -370,6 +370,7 @@ function Game() {
                             inputList.addAnItem(getResourcesFromMap(input));
                         }
                     });
+
                     newProcessor = new Processor(selectedProcessor.name, inputList, getResourcesFromMap(selectedProcessor.output), selectedProcessor.efficiency, selectedProcessor.location);
 
                 }

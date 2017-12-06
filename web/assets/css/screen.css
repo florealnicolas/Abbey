@@ -299,6 +299,10 @@ fieldset:last-child {
     margin: 0 5% 0 5%;
 }
 
+#naam a {
+    text-decoration: underline;
+}
+
 .progressbar {
     position: relative;
     width: 75%;

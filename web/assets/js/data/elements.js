@@ -154,6 +154,11 @@ const resourceMap = {
         value: 1,
         category: "spice"
     },
+    iceCream: {
+        name: "ice cream",
+        value: 1,
+        category: "food"
+    },
     rainbowExtract: {
         name: "rainbow extract",
         value: 1,
@@ -204,71 +209,6 @@ const resourceMap = {
         value: 1,
         category: "flower"
     },
-    ale: {
-        name: "ale",
-        value: 1,
-        category: "beer"
-    },
-    naturalDelight: {
-        name: "natural delight",
-        value: 1,
-        category: "beer"
-    },
-    shiva: {
-        name: "shiva",
-        value: 1,
-        category: "beer"
-    },
-    hikari: {
-        name: "hikari",
-        value: 1,
-        category: "beer"
-    },
-    mandaloen: {
-        name: "mandaloen",
-        value: 1,
-        category: "beer"
-    },
-    analicious: {
-        name: "analicious",
-        value: 1,
-        category: "beer"
-    },
-    bestone: {
-        name: "bestone",
-        value: 1,
-        category: "beer"
-    },
-    magicale: {
-        name: "magicale",
-        value: 1,
-        category: "beer"
-    },
-    snorsonsAle: {
-        name: "snorson's ale",
-        value: 1,
-        category: "beer"
-    },
-    butt: {
-        name: "butt",
-        value: 1,
-        category: "beer"
-    },
-    parsendune: {
-        name: "parsendune",
-        value: 1,
-        category: "beer"
-    },
-    huaZai: {
-        name: "hua zai",
-        value: 1,
-        category: "beer"
-    },
-    power: {
-        name: "power",
-        value: 1,
-        category: "beer"
-    },
     malt: {
         name: "malt",
         value: 1,
@@ -314,15 +254,118 @@ const resourceMap = {
         value: 1,
         category: "liquid"
     },
-    maxxi: {
-        name: "maxxi",
-        value: 1,
-        category: "beer"
-    },
     bearMeatExtract: {
         name: "bear meat extract",
         value: 1,
         category: "extract"
+    }
+};
+
+const beerMap = {
+    maxxi: {
+        name: "maxxi",
+        value: 1,
+        category: "beer",
+        alcoholPercentage: 7,
+        beerStyle: "English stout"
+    },
+    ale: {
+        name: "ale",
+        value: 1,
+        category: "beer",
+        alcoholPercentage: 5.2,
+        beerStyle: "Belgian pale ale"
+    },
+    naturalDelight: {
+        name: "natural delight",
+        value: 1,
+        category: "beer",
+        alcoholPercentage: 4,
+        beerStyle: "gueuze"
+    },
+    shiva: {
+        name: "shiva",
+        value: 1,
+        category: "beer",
+        alcoholPercentage: 3.6,
+        beerStyle: "Flanders red ale"
+    },
+    hikari: {
+        name: "hikari",
+        value: 1,
+        category: "beer",
+        alcoholPercentage: 4.7,
+        beerStyle: "lambic"
+    },
+    mandaloen: {
+        name: "mandaloen",
+        value: 1,
+        category: "beer",
+        alcoholPercentage: 5,
+        beerStyle: "American wild ale"
+    },
+    analicious: {
+        name: "analicious",
+        value: 1,
+        category: "beer",
+        alcoholPercentage: 4.3,
+        beerStyle: "lambic"
+    },
+    bestone: {
+        name: "bestone",
+        value: 1,
+        category: "beer",
+        alcoholPercentage: 3.7,
+        beerStyle: "lambic"
+    },
+    magicale: {
+        name: "magicale",
+        value: 1,
+        category: "beer",
+        alcoholPercentage: 10,
+        beerStyle: "faro"
+    },
+    snorsonsAle: {
+        name: "snorson's ale",
+        value: 1,
+        category: "beer",
+        alcoholPercentage: 6.1,
+        beerStyle: "American strong ale"
+    },
+    butt: {
+        name: "butt",
+        value: 1,
+        category: "beer",
+        alcoholPercentage: 4.8,
+        beerStyle: "lambic"
+    },
+    parsendune: {
+        name: "parsendune",
+        value: 1,
+        category: "beer",
+        alcoholPercentage: 8,
+        beerStyle: "witbier"
+    },
+    huaZai: {
+        name: "hua zai",
+        value: 1,
+        category: "beer",
+        alcoholPercentage: 5.9,
+        beerStyle: "flower beer"
+    },
+    power: {
+        name: "power",
+        value: 1,
+        category: "beer",
+        alcoholPercentage: 7,
+        beerStyle: "happoshu"
+    },
+    ari: {
+        name: "ari",
+        value: 1,
+        category: "beer",
+        alcoholPercentage: 8.2,
+        beerStyle: "cream beer"
     }
 };
 
@@ -699,6 +742,15 @@ const recipeMap = {
         author: "Maxxi",
         story: "This beer is made with an extract of bear meat. It sounds pretty unusual but this old, Asian recipe for beer gives you the strength of a bear.",
         date: {dayAndMonth: "13th of October", year: 2017}
+    },
+    ariRecipe: {
+        output: {name: "ari", amount: 10},
+        ingredientList: "basicIngredients",
+        specialIngredient: {name: "iceCream", amount: 10},
+        scheme: "basicScheme",
+        author: "Anonymous",
+        story: "Just a nice summerbeer.",
+        date: {dayAndMonth: "9th of October", year: 2017}
     }
 };
 
@@ -771,21 +823,43 @@ const upgradeEffectMap = {
 
 const getResourcesFromMap = function (resourceName) {
 
-    let selectedResources;
+    let selectedResources = undefined;
 
     if (typeof resourceName !== "string") {
         let resourceArray = [];
 
         resourceName.forEach(function (resource) {
             let selectedResource = resourceMap[resource];
-            resourceArray.push(new Resource(selectedResource.name, resource, 0, selectedResource.value, selectedResource.category));
+
+            if (selectedResource === undefined) {
+                selectedResource = getBeerFromMap(resource);
+                resourceArray.push(selectedResource);
+            }
+
+            else {
+                resourceArray.push(new Resource(selectedResource.name, resource, 0, selectedResource.value, selectedResource.category));
+            }
         });
         selectedResources = resourceArray;
     }
     else {
         let selectedResource = resourceMap[resourceName];
-        selectedResources = new Resource(selectedResource.name, resourceName, 0, selectedResource.value, selectedResource.category);
+
+        if (selectedResource === undefined) {
+            selectedResources = getBeerFromMap(resourceName);
+        }
+
+        else {
+            selectedResources = new Resource(selectedResource.name, resourceName, 0, selectedResource.value, selectedResource.category);
+        }
     }
 
     return selectedResources;
+};
+
+const getBeerFromMap = function (beerName) {
+    let selectedBeer = beerMap[beerName];
+    selectedBeer = new Beer(selectedBeer.name, beerName, selectedBeer.beerStyle, selectedBeer.alcoholPercentage, selectedBeer.quantity ,selectedBeer.value, selectedBeer.category);
+
+    return selectedBeer;
 };
