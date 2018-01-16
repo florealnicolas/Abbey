@@ -128,15 +128,22 @@ function Brewery() {
     this.loadBrewery = function (oldBrewery, game) {
         let oldRecipe = game.getRecipes().getItemByMapName(oldBrewery.selectedRecipe);
 
-        this.setSelectedRecipe(oldRecipe);
-        showRecipeDescription(oldRecipe);
+        if (oldRecipe !== null) {
+            this.setSelectedRecipe(oldRecipe);
+            showRecipeDescription(oldRecipe);
+        }
     };
 
     this.toJSON = function () {
 
         let jsonBrewery = {};
 
-        jsonBrewery["selectedRecipe"] = this.getSelectedRecipe().mapName;
+        if (this.getSelectedRecipe() !== null) {
+            jsonBrewery["selectedRecipe"] = this.getSelectedRecipe().mapName;
+        }
+        else{
+            jsonBrewery["selectedRecipe"] = this.getSelectedRecipe();
+        }
 
         return jsonBrewery;
 

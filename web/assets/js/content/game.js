@@ -374,6 +374,19 @@ function Game() {
                     newProcessor = new Processor(selectedProcessor.name, inputList, getResourcesFromMap(selectedProcessor.output), selectedProcessor.efficiency, selectedProcessor.location);
 
                 }
+
+                if (selectedProcessor.name === "filter bucket"){
+
+                    for(let beerOutput in beerMap){
+                        if(beerMap.hasOwnProperty(beerOutput)){
+                            selectedProcessor.output.push(beerOutput);
+                        }
+                    }
+
+                    newProcessor = new Processor(selectedProcessor.name, selectedProcessor.possibleInput, getResourcesFromMap(selectedProcessor.output), selectedProcessor.efficiency, selectedProcessor.location);
+
+                }
+
                 this.getProcessors().addAnItem(newProcessor);
             }
         }
@@ -491,7 +504,6 @@ function Game() {
 
                 //SETTING THE DATE
                 const date = selectedRecipe.date.dayAndMonth + ", " + (selectedRecipe.date.year - 500);
-
                 this.addARecipe(new Recipe(recipe, output, ingredientList, scheme, selectedRecipe.author, selectedRecipe.story, date));
             }
         }

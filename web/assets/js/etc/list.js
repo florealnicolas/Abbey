@@ -19,6 +19,7 @@ function List() {
     };
 
     this.getItemByName = function (itemName) {
+
         let foundItem = null;
 
         for (let itemNr = 0, amtOfItems = this.list.length; itemNr < amtOfItems; itemNr++) {
@@ -26,7 +27,8 @@ function List() {
             if (this.list[itemNr].getName() === itemName) {
                 foundItem = this.list[itemNr];
             }
-        }
+        };
+
         return foundItem;
     };
 
@@ -135,7 +137,7 @@ function List() {
                         let selectedStorageItem = listOfItems[item];
                         let selectedMapItem = getResourcesFromMap(selectedStorageItem.mapName);
 
-                        this.addAnItem(new Resource(selectedMapItem.getName(),selectedStorageItem.mapName,selectedStorageItem.quantity,selectedMapItem.value,selectedMapItem.category));
+                        this.addAnItem(new Resource(selectedMapItem.getName(),selectedStorageItem.mapName,eval(selectedStorageItem.quantity),eval(selectedMapItem.value),selectedMapItem.category));
                     }
                 }
 

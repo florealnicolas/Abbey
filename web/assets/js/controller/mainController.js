@@ -33,6 +33,7 @@
 
                 if (!active) {
                     showWelcomePage();
+                    game1.visualize();
                 }
 
                 else {

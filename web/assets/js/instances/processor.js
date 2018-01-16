@@ -235,7 +235,7 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
     this.brewWork = function (processBtn, game) {
 
         const processName = processBtn[0].id.replace("process", "").replace("-", " ");
-        const process = game.getProcesses().getItemByName(processName);
+        const process = game.getBrewery().getSelectedRecipe().getScheme().getStepByName(processName);
 
         const harvestMessage = $('div[class="opbrengst"][id="' + processName.toLowerCase() + '"]');
 
@@ -250,8 +250,10 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
             for (let inputItem = 0; inputItem < input.getSize(); inputItem++) {
                 stockOfInput = game.getStock().getItemByName(input.getItemByNumber(inputItem).getName());
 
+                console.log("STOCK OF INPUT BEFORE",stockOfInput);
                 stockOfInput.removeQuantityOfAResource(input.getItemByNumber(inputItem).getQuantity());
                 game.getStock().removeResourceIfThereIsNoQuantity(stockOfInput);
+                console.log("STOCK OF INPUT AFTER",stockOfInput);
 
                 const scheme = game.getBrewery().getSelectedRecipe().getScheme();
 
@@ -271,8 +273,12 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
         else {
             stockOfInput = game.getStock().getItemByName(input.getName());
 
+            console.log("STOCK OF INPUT BEFORE",stockOfInput);
+
             stockOfInput.removeQuantityOfAResource(input.getQuantity());
             game.getStock().removeResourceIfThereIsNoQuantity(stockOfInput);
+
+            console.log("STOCK OF INPUT AFTER",stockOfInput);
 
             const scheme = game.getBrewery().getSelectedRecipe().getScheme();
 
@@ -291,42 +297,52 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
 
         let monkBonus = game.getBrewery().getMonkBonus() / 100;
         let extraOutput = 0;
+        let outputQuantity = 0;
 
-        if (this.output.constructor === Resource) {
-            console.log("RESOURCE");
+        switch (this.output.constructor) {
 
-            extraOutput = process.getOutputQuantity() * monkBonus;
-            let outputQuantity = process.getOutputQuantity() + extraOutput;
+            case Resource:
 
-            gain = new Resource(this.output.getName(), this.output.mapName, outputQuantity, this.output.getUnitValue(), this.output.getCategory());
+                extraOutput = process.getOutputQuantity() * monkBonus;
+                outputQuantity = process.getOutputQuantity() + extraOutput;
+
+                gain = new Resource(this.output.getName(), this.output.mapName, outputQuantity, this.output.getUnitValue(), this.output.getCategory());
+
+                break;
+
+            case Array:
+
+                let neededOutput = process.getOutput();
+                extraOutput = neededOutput.getQuantity() * monkBonus;
+                outputQuantity = neededOutput.getQuantity() + extraOutput;
+                gain = new Resource(neededOutput.getName(), neededOutput.mapName, outputQuantity, neededOutput.getUnitValue(), neededOutput.getCategory());
+
+                break;
+
+            case List:
+
+                neededOutput = process.getOutput();
+                extraOutput = neededOutput.getOutputQuantity() * monkBonus;
+                outputQuantity = neededOutput.getOutputQuantity() + extraOutput;
+                gain = new Resource(this.output.getItemByName(neededOutput.getName()).getName(), this.output.getItemByName(neededOutput.getName()).mapName, outputQuantity, neededOutput.getUnitValue(), neededOutput.getCategory());
+
+                break;
+
+            default:
+
+                console.log("UFO!");
+
+                break;
         }
-        else {
-            console.log("SOMETHING ELSE");
 
-            switch (this.output.constructor) {
+        if (process.getOutput().constructor === Beer) {
 
-                case Array:
-                    console.log("ARRAY");
+            let neededOutput = process.getOutput();
+            outputQuantity = recipeMap[neededOutput.name + "Recipe"].output.amount;
+            extraOutput = outputQuantity * monkBonus;
+            let finalQuantity = extraOutput + outputQuantity;
 
-                    let neededOutput = process.getOutput();
-                    console.log("NEEDED OUTPUT", neededOutput);
-                    extraOutput = neededOutput.getQuantity() * monkBonus;
-                    let outputQuantity = neededOutput.getQuantity() + extraOutput;
-                    gain = new Resource(neededOutput.getName(), neededOutput.mapName, outputQuantity, neededOutput.getUnitValue(), neededOutput.getCategory());
-                    console.log("GAIN", gain);
-                    break;
-
-                case List:
-
-                    console.log("LIST");
-
-                    neededOutput = process.getOutput();
-                    extraOutput = neededOutput.getOutputQuantity() * monkBonus;
-                    outputQuantity = neededOutput.getOutputQuantity() + extraOutput;
-                    gain = new Resource(this.output.getItemByName(neededOutput.getName()).getName(), this.output.getItemByName(neededOutput.getName()).mapName, outputQuantity, neededOutput.getUnitValue(), neededOutput.getCategory());
-
-                    break;
-            }
+            gain = new Resource(neededOutput.name, recipeMap[neededOutput.name + "Recipe"].output.name, finalQuantity, neededOutput.getUnitValue(), neededOutput.getCategory());
         }
 
         let message = "<p>You got ";
@@ -346,6 +362,9 @@ function Processor(processorName, possibleInput, processorOutput, efficiencyAmt,
         game.getStock().addAResource(gain);
         $(game.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
         showInventory(game);
+
+        console.log("GAIN", gain);
+        console.log("STOCK", game.getStock());
 
         const tank = process.getStorage();
 
