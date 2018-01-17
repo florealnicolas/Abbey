@@ -596,10 +596,9 @@ function Game() {
         $("#secondaryBrew a").on("click", showBrewSubpage);
         $(this.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
         $(this.getPlayer()).on("change", showNCRCounter(game));
-        $("#abbey input").change(function () {
-            game.getAbbey().manageMonks(game, this);
-            showBrewery(game);
-            showChapel(game);
+
+        $(this.getPlayer().getActiveEffects()).on("change", function() {
+           this.getPlayer().activateEnlightment();
         });
 
         $("#selectedRecipe").on("click", function (e) {

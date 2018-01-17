@@ -507,9 +507,15 @@ function showAbbey(game) {
 
     monkForm += "</form>";
 
-    $("#abbey").append(monkForm);
+    $("#abbey").html(monkForm);
 
     game.getAbbey().settingInputFields(game.getAbbey().amtOfMonks);
+
+    $("#abbey input").change(function () {
+        game.getAbbey().manageMonks(game, this);
+        showBrewery(game);
+        showChapel(game);
+    });
 }
 
 function showChapel(game) {
@@ -526,7 +532,8 @@ function showChapel(game) {
     $(".button.enlightScroll").on("click", function () {
         const scrollName = $(this)[0].id.split("-")[1];
         chapel.getEnlightenmentList().getItemByName(scrollName).learnEnlightenment(game);
-        game.applyEffects();
+        game.getPlayer().activateEnlightment(game);
+
         $(this).addClass("disabled");
         $(this).text("Learnt");
     });

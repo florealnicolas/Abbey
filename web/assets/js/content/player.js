@@ -5,6 +5,7 @@ function Player(aPlayerName, initialAmtOfCoins, initialAmtOfReputation) {
     this.coins = initialAmtOfCoins;
     this.reputation = initialAmtOfReputation;
     this.password = "";
+    this.activeEffects = new List();
 
 //Getters of Player
 
@@ -26,6 +27,11 @@ function Player(aPlayerName, initialAmtOfCoins, initialAmtOfReputation) {
 
     this.getGendre = function () {
         return this.playerGendre;
+    };
+
+
+    this.getActiveEffects = function () {
+        return this.activeEffects;
     };
 
 //Setters of Player
@@ -82,5 +88,35 @@ function Player(aPlayerName, initialAmtOfCoins, initialAmtOfReputation) {
         }
 
         return JSON;
+    };
+
+    this.activateEnlightment = function (game) {
+
+        if (this.getActiveEffects().getSize() > 0) {
+
+            this.getActiveEffects().list.forEach(function (enlightment) {
+
+                if (enlightment.status === "not-taught") {
+                    switch (enlightment.name) {
+
+                        case "the way of the little one":
+                            let argument = enlightment.enlightenmentEffects.argument;
+                            let target = (game.getAbbey())[enlightment.enlightenmentEffects.target];
+
+                            game.getAbbey().setTotalAmtOfMonks(target* eval(argument));
+
+                            showAbbey(game);
+                            break;
+
+                        default:
+                            console.log("UNKNOWN EFFECT", this);
+                            console.info("This means the effect is not implemented.");
+                            break;
+                    }
+
+                    enlightment.setStatusTaught();
+                }
+            })
+        }
     }
 }

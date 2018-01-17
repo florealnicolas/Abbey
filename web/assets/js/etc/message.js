@@ -12,7 +12,7 @@ function Message (messageText, messageNr) {
         let messageNumber = "";
 
         if (messageNr !== 0) {
-                messageNumber = " [Message "+messageNr+"]";
+                messageNumber = " ~ "+messageNr+" <i class='fa fa-envelope' aria-hidden='true'></i>";
         }
 
         return "<div class='callout message' id='"+this.messageId+"'>"+this.text+ messageNumber+"</div>";

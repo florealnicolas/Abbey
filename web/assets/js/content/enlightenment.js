@@ -3,6 +3,7 @@ function Enlightenment (enlightenmentName, enlightenmentDescription) {
     this.name = enlightenmentName;
     this.requirements = {};
     this.enlightenmentEffects = {};
+    this.status = "not-taught";
 
     this.discription = enlightenmentDescription;
 
@@ -18,6 +19,10 @@ function Enlightenment (enlightenmentName, enlightenmentDescription) {
 
     this.getEffect = function () {
         return this.enlightenmentEffects;
+    };
+
+    this.getStatus = function () {
+        return this.status;
     };
 
     this.getDiscription = function () {
@@ -40,6 +45,10 @@ function Enlightenment (enlightenmentName, enlightenmentDescription) {
 
     this.setEffects = function (newEffects) {
         this.enlightenmentEffects = newEffects;
+    };
+
+    this.setStatusTaught = function () {
+        this.status = "taught";
     };
 
 // Functions of Enlightenment
@@ -87,7 +96,7 @@ function Enlightenment (enlightenmentName, enlightenmentDescription) {
     this.learnEnlightenment = function (game) {
 
         if (this.ableToLearn(game.getChapel())) {
-            game.addEffect(this.name);
+            game.getPlayer().getActiveEffects().addAnItem(this);
         }
 
         else {
