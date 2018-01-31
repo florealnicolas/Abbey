@@ -1,7 +1,5 @@
 function showInstances(game, instanceType, place) {
 
-    const abbey = game.getAbbey();
-
     let addresses = [];
 
     switch (instanceType) {
@@ -13,17 +11,6 @@ function showInstances(game, instanceType, place) {
             instanceGroup = game.getProcessors();
             break;
     }
-
-    switch (place) {
-        case 'inside':
-            var monks = abbey.getMonks().InsideMonks;
-            break;
-        case 'outside':
-            monks = abbey.getMonks().OutsideMonks;
-            break;
-    }
-
-    const monkBonus = "Monk bonus: <span>" + (monks / abbey.getTotalAmtOfMonks()) * 100 + "%</span>";
 
     let instanceForm = "<form>";
 
@@ -74,13 +61,41 @@ function showInstances(game, instanceType, place) {
 
     instanceForm += "</form>";
 
-    $("." + place + " .monkBonus").html(monkBonus);
     $("." + place).append(instanceForm);
     $('.opbrengst').hide();
 
     for (let addressNr = 0; addressNr < addresses.length; addressNr++) {
         addBehaviour(game, addresses[addressNr]);
     }
+}
+
+function showEffects(place, game) {
+
+    let effectsHTML = "<p>";
+
+    const abbey = game.getAbbey();
+
+    switch (place) {
+        case 'inside':
+            var monks = abbey.getMonks().InsideMonks;
+            break;
+
+        case 'outside':
+            monks = abbey.getMonks().OutsideMonks;
+            break;
+
+        case 'fields':
+            monks = abbey.getMonks().FieldMonks;
+            break;
+    }
+
+    const monkBonus = "Monk bonus: <span class='monkBonus'>" + (monks / abbey.getTotalAmtOfMonks()) * 100 + "%</span>";
+
+    effectsHTML += monkBonus;
+
+    effectsHTML += "</p>";
+
+    $("."+place +" .effects").html(effectsHTML);
 }
 
 function showNCRCounter(game) {
@@ -434,7 +449,8 @@ function buildFields(game) {
 
     let addresses = [];
 
-    let field = "<div class='grounds'><p class='monkBonus'>Monk bonus: <span>" + (abbey.getMonks().FieldMonks / abbey.getTotalAmtOfMonks()) * 100 + "%</span></p><form>";
+    let field = "<div class='fields effects'></div>";
+    //let field = "<div class='grounds'><p class='monkBonus'>Monk bonus: <span>" + (abbey.getMonks().FieldMonks / abbey.getTotalAmtOfMonks()) * 100 + "%</span></p><form>";
 
     for (let fieldNr = 0, amtOfFields = game.getFields().getSize(); fieldNr < amtOfFields; fieldNr++) {
 

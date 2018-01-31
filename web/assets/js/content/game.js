@@ -180,6 +180,7 @@ function Game() {
 
     this.addEffect = function (newEffect) {
         this.effects.push(newEffect);
+        console.log("EFFECTS",this.effects);
     };
 
     this.addUpgrade = function (newUpgrade) {
@@ -580,6 +581,10 @@ function Game() {
         showInstances(this, "source", "inside");
         showInstances(this, "source", "outside");
         showInstances(this, "processor", "outside");
+
+        showEffects("fields",this);
+        showEffects("inside",this);
+        showEffects("outside",this);
 
         showRecipesAsOptions(this);
         beginStory(this);

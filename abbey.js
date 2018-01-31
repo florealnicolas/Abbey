@@ -40,6 +40,7 @@ app.listen(port, () => {
     console.log("IDEA: Give Beers their own space in Elements + alcohol!");
     console.log("IDEA: Weather generator!");
     console.log("IDEA: Not found-page.");
+    console.log("IDEA: https://opencollective.com ???");
     console.log("MUST: DELETE PASSWORD FROM SESSIONVALUE!");
 });
 
@@ -115,6 +116,7 @@ app.post("/login", (request, response) => {
         }
 
     }).catch(function (error) {
+        request.session.reset();
         error = "No user with username '" + potentialUser.username + "' was found.";
         errorResponse = {value: error, status: "error"};
         response.send(JSON.stringify(errorResponse));
@@ -137,6 +139,7 @@ app.post("/registering", (request, response) => {
 
     userDB.put(registeringData, function (error, success) {
     });
+
 });
 
 app.post("/passwordchange", (request, response) => {

@@ -113,18 +113,21 @@ function Abbey() {
         game.getBrewery().setAmtOfMonks(this.getMonks().BreweryMonks);
         game.getChapel().setAmtOfMonks(this.getMonks().ChapelMonks);
 
-        this.updateMonks();
+        this.updateMonks(game);
     };
 
-    this.updateMonks = function () {
+    this.updateMonks = function (game) {
 
         const insideMonksBonus = Math.round(((this.getMonks().InsideMonks / this.getTotalAmtOfMonks()) * 100) * 100) / 100;
         const outsideMonksBonus = Math.round(((this.getMonks().OutsideMonks / this.getTotalAmtOfMonks()) * 100) * 100) / 100;
         const fieldMonksBonus = Math.round(((this.getMonks().FieldMonks / this.getTotalAmtOfMonks()) * 100) * 100) / 100;
 
-        $(".inside .monkBonus span").html(insideMonksBonus + "%");
-        $(".outside .monkBonus span").html(outsideMonksBonus + "%");
-        $(".grounds .monkBonus span").html(fieldMonksBonus + "%");
+        //$(".inside .effects .monkBonus span").html(insideMonksBonus + "%");
+        //$(".outside .effects .monkBonus span").html(outsideMonksBonus + "%");
+        //$(".grounds .effects .monkBonus span").html(fieldMonksBonus + "%");
+        showEffects("fields",game);
+        showEffects("inside",game);
+        showEffects("outside",game);
         $("#chapelMonks").html(this.getMonks().ChapelMonks);
         $("#amtOfOccupiedMonks").html(this.getAmtOfOccupiedMonks());
     };
