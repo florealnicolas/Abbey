@@ -122,9 +122,6 @@ function Abbey() {
         const outsideMonksBonus = Math.round(((this.getMonks().OutsideMonks / this.getTotalAmtOfMonks()) * 100) * 100) / 100;
         const fieldMonksBonus = Math.round(((this.getMonks().FieldMonks / this.getTotalAmtOfMonks()) * 100) * 100) / 100;
 
-        //$(".inside .effects .monkBonus span").html(insideMonksBonus + "%");
-        //$(".outside .effects .monkBonus span").html(outsideMonksBonus + "%");
-        //$(".grounds .effects .monkBonus span").html(fieldMonksBonus + "%");
         showEffects("fields",game);
         showEffects("inside",game);
         showEffects("outside",game);

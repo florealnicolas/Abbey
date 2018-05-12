@@ -23,7 +23,7 @@
 }
 
 body {
-    background-image: url("../images/monastery.jpg");
+    background-image: url("../images/backgrounds/monastery.jpg");
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;

@@ -1,0 +1,13 @@
+body {
+    background-image: url("../images/backgrounds/terrazzo.png");
+    background-attachment: fixed;
+}
+
+#addARecipe {
+    margin: 4% 0;
+}
+
+.card {
+    padding: 0;
+}
+

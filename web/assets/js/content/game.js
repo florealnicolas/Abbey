@@ -213,6 +213,10 @@ function Game() {
                         }
                     }
 
+                    this.getPlayer().getActiveEffects().addAnItem(this.upgrades[upgradeNr]);
+
+                    console.log("EFFECTS",this.getPlayer().getActiveEffects());
+
                     break;
                 default:
                     break;
@@ -602,9 +606,11 @@ function Game() {
         $(this.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
         $(this.getPlayer()).on("change", showNCRCounter(game));
 
-        $(this.getPlayer().getActiveEffects()).on("change", function() {
-           this.getPlayer().activateEnlightment();
-        });
+        if (this.getPlayer() !== null) {
+            $(this.getPlayer().getActiveEffects()).on("change", function () {
+                this.getPlayer().activateEnlightment();
+            });
+        }
 
         $("#selectedRecipe").on("click", function (e) {
             e.preventDefault();

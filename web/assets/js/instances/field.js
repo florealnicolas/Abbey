@@ -78,9 +78,20 @@ function Field(fieldNumber, priceOfField, resource, categories) {
         const gainedResource = this.gainResource();
         game.getStock().addAResource(gainedResource);
 
-        const boodschap = "You got " + gainedResource.toString() + ".";
+        let boodschap = "<p>You got " + gainedResource.toString() + ".</p>";
 
-        harvestMessage.text(boodschap);
+        const monkBonus = game.getAbbey().amtOfMonks.FieldMonks / game.getAbbey().getTotalAmtOfMonks();
+
+        if (monkBonus > 0) {
+
+            const timeWon = 100 - (100 - (100 * monkBonus));
+
+            console.log('TIME WON', timeWon);
+
+            boodschap += "<p>The harvesting of your field went " + timeWon + " seconds faster.</p>";
+        }
+
+        harvestMessage.html(boodschap);
         harvestMessage.show();
 
         $(harvestMessage).on("click",function () {
