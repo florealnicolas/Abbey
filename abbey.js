@@ -23,6 +23,7 @@ let etc = new LocalStorage("./localStorage/etc");
 const app = express();
 
 const userDB = new PouchDB("users");
+const recipeDB = new PouchDB("recipes");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session(sessionSettings));
@@ -203,5 +204,17 @@ app.get("/localStorage/*", (request, response) => {
 
     response.sendFile(__dirname + request.url);
 });
+
+app.post("/addNewRecipe", (request, response) => {
+
+    const newRecipeData = request.body;
+
+    console.log("NEW RECIPE TO ADD", newRecipeData);
+
+    //recipeDB.put(newRecipeData);
+
+    response.end();
+
+})
 
 app.use(express.static(__dirname + "/web"));
