@@ -596,13 +596,6 @@ function Story() {
                         console.log("REGISTERING DATA", registeringData);
                         $.post("/registering", registeringData);*/
 
-                        //DEFAULT SAVETIMER
-
-                        game.setSaveTimer(window.setInterval(function() {
-                          //$.post("/saveGame", game.saveGame());
-                          game.getNotifier().notifySomething("Game saved!");
-                        }, 15 * 60 * 1000));
-
                         $.post("/saveGame", game.saveGame(), function(result) {
 
                           if (result) {

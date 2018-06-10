@@ -51,6 +51,14 @@
             game.visualize();
 
             showNCRCounter(game);
+
+
+            //DEFAULT SAVETIMER
+
+            game.setSaveTimer(window.setInterval(function() {
+              $.post("/saveGame", game.saveGame());
+              game.getNotifier().notifySomething("Game saved!");
+            }, 15 * 60 * 1000));
           }
 
         });

@@ -136,6 +136,7 @@ function showPage(e) {
 
     if (page === "brew") {
         const activePage = $("#secondaryBrew > .active").text();
+        console.log("PAGE", activePage);
         $('.' + activePage.toLowerCase()).show();
     }
 }
@@ -364,7 +365,7 @@ function showProfilePage(game) {
     $("#saveGame").on('click', function () {
         console.log("DATA TO SAVE", game.saveGame());
 
-      
+
 
         //$.post("/saveGame", game.saveGame());
     });

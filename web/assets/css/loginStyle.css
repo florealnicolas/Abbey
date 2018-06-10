@@ -1,5 +1,5 @@
 body {
-    background-image: url("../images/backgrounds/monastery.jpg");
+    background-image: url("../images/backgrounds/terrazzo.png");
     background-size: contain;
     background-attachment: fixed;
 }
@@ -11,4 +11,3 @@ body {
 .card {
     padding: 0;
 }
-

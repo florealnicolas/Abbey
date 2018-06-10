@@ -570,7 +570,6 @@ function Game() {
 
     const game = this;
 
-    if (!this.getMode()) {
       $('#secondaryJob a:first-child').addClass("active");
 
       this.getNotifier().installMessageBoard();
@@ -595,9 +594,6 @@ function Game() {
       showWorkshop(this);
       showStorage(this);
 
-      $("#main a").on("click", showPage);
-      $("#secondaryJob a").on("click", showJobSubpage);
-      $("#secondaryBrew a").on("click", showBrewSubpage);
       $(this.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
       $(this.getPlayer()).on("change", showNCRCounter(game));
 
@@ -607,19 +603,6 @@ function Game() {
         });
       }
 
-      $("#selectedRecipe").on("click", function(e) {
-        e.preventDefault();
-
-        const recipe = game.getRecipes().getItemByNumber($("#recipes").val());
-
-        showRecipeDescription(recipe);
-        game.getBrewery().setSelectedRecipe(recipe);
-
-        showBrewery(game);
-        showStorage(game);
-
-      });
-    }
 
     $("#naam > a").on("click", function(e) {
       e.preventDefault();
@@ -632,6 +615,23 @@ function Game() {
 
       $("#profile").show();
     });
+
+    $("#selectedRecipe").on("click", function(e) {
+      e.preventDefault();
+
+      const recipe = game.getRecipes().getItemByNumber($("#recipes").val());
+
+      showRecipeDescription(recipe);
+      game.getBrewery().setSelectedRecipe(recipe);
+
+      showBrewery(game);
+      showStorage(game);
+
+    });
+
+    $("#main .nav-link").on("click", showPage);
+    $("#secondaryJob a").on("click", showJobSubpage);
+    $("#secondaryBrew a").on("click", showBrewSubpage);
   };
 
   this.saveGame = function() {
