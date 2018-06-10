@@ -1,24 +1,22 @@
 function beginStory(game) {
 
-    const savedStorySafe = game.getSafeFromGameSafeByName("storySafe");
+  const savedStorySafe = game.getSafeFromGameSafeByName("storySafe");
 
-    if (savedStorySafe !== undefined) {
+  if (savedStorySafe !== undefined) {
 
-        const finishedStory = eval(savedStorySafe.storyFinished);
+    const finishedStory = eval(savedStorySafe.storyFinished);
 
-        if (finishedStory) {
-            game.setStrangerMode("OFF");
-            game.getStory().showOldStory(game);
-        }
+    if (finishedStory) {
+      game.setStrangerMode("OFF");
+      game.getStory().showOldStory(game);
     }
+  } else {
+    game.setStrangerMode("ON");
 
-    else {
-        game.setStrangerMode("ON");
+    // SAVING THE CURRENT STATUS OF THE STORY COMPLETION
+    game.getStory().addToStorySafe("storyFinished", false);
 
-        // SAVING THE CURRENT STATUS OF THE STORY COMPLETION
-        game.getStory().addToStorySafe("storyFinished", false);
-
-        game.getStory().showNewStory(game);
-    }
+    game.getStory().showNewStory(game);
+  }
 
 }

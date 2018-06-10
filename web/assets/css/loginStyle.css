@@ -1,0 +1,14 @@
+body {
+    background-image: url("../images/backgrounds/monastery.jpg");
+    background-size: contain;
+    background-attachment: fixed;
+}
+
+#loginScreen {
+    margin: 4% 0;
+}
+
+.card {
+    padding: 0;
+}
+

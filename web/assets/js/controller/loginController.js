@@ -1,58 +1,46 @@
-$(document).ready(function () {
+$(document).ready(function() {
+
+  console.log("A sweetly, little canary called 林菁 sings a melody we all know.");
+
+  $("#loginForm").on('submit', function(e) {
+
+    e.preventDefault();
 
     $("#loginError").html("");
 
-    const error = eval(window.sessionStorage.error);
+    const emailAddress = $("#emailAddress").val();
+    const password = $("#password").val();
 
-    if (error !== undefined) {
+    $.post("/login", {
+      user: {
+        emailAddress: emailAddress,
+        password: password
+      }
+    }, function(result) {
 
-        console.error("ERROR", error);
+      const entry = result;
 
-        $("#loginError").html("<p>" + error + "</p>");
-        window.sessionStorage.error = undefined;
-    }
+      if (entry.status !== 'error') {
 
-    $("#loginForm").on('submit', function () {
+        const user = entry.value;
 
-        const username = $("#username").val();
-        const password = $("#password").val();
+        window.sessionStorage.user = user;
+        window.sessionStorage.active = true;
 
-        if (username !== '') {
-            $.post("/login", {user: {username: username, password: password}}, function (result) {
+        window.location.replace("/");
 
-                const entry = JSON.parse(result);
-                console.log("RESULT", entry);
+      } else {
 
-                if (entry.status !== 'error') {
+        window.sessionStorage.user = undefined;
+        window.sessionStorage.active = undefined;
 
-                    const user = entry.value;
+        $("#loginError").html("<p>" + result.value + "</p>");
 
-                    console.log("USER", user);
+      }
 
-                    window.sessionStorage.user = JSON.stringify(user);
-                    window.sessionStorage.active = true;
-                    window.sessionStorage.error = undefined;
-
-                    console.log("PASSWORD MATCH!");
-
-                    window.location.replace("/");
-
-                }
-                else {
-                    console.log("RESULT", entry);
-
-                    window.sessionStorage.user = undefined;
-                    window.sessionStorage.active = undefined;
-                    window.sessionStorage.error = JSON.stringify(entry.value);
-
-                    window.location.replace("/login");
-                }
-
-            });
-        }
-
-        window.location.replace("/login");
     });
+
+  });
 
 
 });

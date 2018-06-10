@@ -10,6 +10,7 @@ $(document).ready(function () {
         const authorPermission = $("#author-permission-yes").val();
 
         const newRecipeData = {
+            _id: recipeName,
             recipeName: recipeName,
             beerCategory: beerCategory,
             specialIngredient: specialIngredient,

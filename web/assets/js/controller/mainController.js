@@ -1,59 +1,62 @@
-(function ($, window, document) {
+(function($, window, document) {
 
-    //Resources needed in the game
+  //Resources needed in the game
 
-    //FOREST
+  //FOREST
 
-    //Liya's recommendations
+  //Liya's recommendations
 
-    //const banana = new Resource("banana");
-    //const daisy = new Resource("daisy");
-    //const rose = new Resource("rose");
-    //const chestnut = new Resource("chestnut");
-    //const herb -> more specific;
+  //const banana = new Resource("banana");
+  //const daisy = new Resource("daisy");
+  //const rose = new Resource("rose");
+  //const chestnut = new Resource("chestnut");
+  //const herb -> more specific;
 
-    //Stop
+  //Stop
 
-    $(document).ready(function () {
+  $(document).ready(function() {
 
-        $.get("./localStorage/etc/environment", function (environment) {
+    $.get("/server/localStorage/etc/environment", function(environment) {
 
-            $.get("/session", function (session) {
+      $.get("/session", function(session) {
 
-                const active = eval(session.active);
+        const game = new Game();
+        game.gameInitialisation();
 
-                console.log("ACTIVE", active);
+        if (environment === "development") {
+          developmentMode(game);
+        }
 
-                game1 = new Game();
-                game1.gameInitialisation();
+        $.get("/getActiveUser", function(user) {
 
-                if (environment === "development") {
-                    developmentMode(game1);
-                }
+          console.log("USER", user);
 
-                if (!active) {
-                    showWelcomePage();
-                    game1.visualize();
-                }
+          let activePlayer = undefined;
 
-                else {
+          if (user.game === undefined){
+            game.setStrangerMode("ON");
+            game.visualize();
+          }
 
-                    console.log("USER", session.user);
-                    const activeUser = session.user;
+          else {
+            game.setStrangerMode("OFF");
+            activePlayer = new Player(user.game.playerSafe.playerName, user.game.playerSafe.coins, user.game.playerSafe.reputation);
+            activePlayer.setPlayerGendre(user.game.playerSafe.playerGendre);
 
-                    const activePlayer = new Player(activeUser.playerName, activeUser.coins, activeUser.reputation);
-                    activePlayer.setPlayerGendre(activeUser.playerGendre);
-                    activePlayer.setPassword(activeUser.password);
-                    game1.setAPlayer(activePlayer);
+            console.log("ACTIVE PLAYER", activePlayer);
 
-                    game1.loadGame(activeUser.game);
-                    game1.visualize();
+            game.setAPlayer(activePlayer);
 
-                    showNCRCounter(game1);
+            game.loadGame(user.game);
+            game.visualize();
 
-                }
-            });
+            showNCRCounter(game);
+          }
+
         });
 
+      });
     });
+
+  });
 })(window.jQuery, window, document);

@@ -4,125 +4,154 @@
     <meta charset="UTF-8">
     <meta name="Author" content="Nicolas Floréal">
     <title>Abbey | Let's brew some history</title>
-    <link href="assets/icons/a.ico" rel="icon" type="image/ico"/>
+    <link href="assets/images/icons/a.ico" rel="icon" type="image/ico"/>
     <link rel="stylesheet" href="assets/lib/jquery-ui-1.12.1/jquery-ui.min.css">
     <link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.min.css"/>
-    <link href="assets/css/foundation.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/lib/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/screen.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/tank.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
 
-<div class="container medium-offset-1 medium-10 columns">
+<div class="container-fluid">
 
-    <header class="header medium-12 row">
+    <div class="row justify-content-center ">
 
-        <h1 class="title medium-1 column">Abbey</h1>
+        <div id="headNav" class="nav col-10 align-items-center">
 
-        <ul id="#NCR" class="medium-offset-6 medium-5 columns">
-            <li id="naam">Hello <a href="#profile" title="Who are you?"></a></li>
-            <li id="valuta"><span></span> golden coins</li>
-            <li id="reputatie"><span></span> reputation</li>
+        <div class="col-2">
+            <h1>Abbey</h1>
+        </div>
+
+        <ul id="NCR" class="col-10">
+            <li class="nav-item" id="naam">
+                Hello
+                <a href="#profile" title="Who are you?"></a>
+            </li>
+            <li class="nav-item" id="valuta"><span></span> golden coins</li>
+            <li class="nav-item" id="reputatie"><span></span> reputation</li>
         </ul>
 
-    </header>
+        </div>
 
-    <div id="messageBoard" class="medium-12 row"></div>
+    </div>
 
-    <div class="content medium-12 row">
+    <div class="row justify-content-center">
 
-        <nav id='main' class="menu vertical medium-2 column">
+        <div id="messageBoard" class="col-10"></div>
 
-            <a href="#"><i class="fa fa-book" aria-hidden="true"></i>Story</a>
-            <a href="#"><i class="fa fa-bookmark" aria-hidden="true"></i>Recipe Book</a>
-            <a href="#"><i class="fa fa-beer" aria-hidden="true"></i>Brew</a>
-            <a href="#"><i class="fa fa-cogs" aria-hidden="true"></i>Jobs</a>
-            <a href="#"><i class="fa fa-balance-scale" aria-hidden="true"></i>Market</a>
-            <a href="#"><i class="fa fa-users" aria-hidden="true"></i>Abbey</a>
-            <a href="#"><i class="fa fa-archive" aria-hidden="true"></i>Stock</a>
-            <a href="#"><i class="fa fa-plus" aria-hidden="true"></i>Workshop</a>
-            <a href="#"><i class="fa fa-search" aria-hidden="true"></i>Chapel</a>
+    </div>
 
-        </nav>
+    <div class="row justify-content-center">
 
-        <div class="workspace medium-offset-1 medium-9 column">
+        <div class="content col-10">
+            <div class="row justify-content-between">
 
-            <div id="story">
-            </div>
+                <div class="col-2">
 
-            <div id="recipe-book">
-                <h3>Book of recipes</h3>
-                <label for="recipes">Select a recipe:</label>
-                <select id='recipes'></select>
-                <button class='button' id="selectedRecipe">Choose recipe</button>
-                <div id="recipeDescription"></div>
-            </div>
+                    <ul id='main' class="nav flex-column menu">
 
-            <div id="brew">
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-book" aria-hidden="true"></i>Story</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-bookmark" aria-hidden="true"></i>Recipe Book</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-beer" aria-hidden="true"></i>Brew</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-cogs" aria-hidden="true"></i>Jobs</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-balance-scale" aria-hidden="true"></i>Market</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-users" aria-hidden="true"></i>Abbey</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-archive" aria-hidden="true"></i>Stock</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-plus" aria-hidden="true"></i>Workshop</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i>Chapel</a></li>
 
-                <h3>The Brewery</h3>
+                    </ul>
 
-                <nav id='secondaryBrew' class="menu medium-12 row">
-                    <a class="column medium-2" href="#">Overview</a>
-                    <a class="column medium-2" href="#">Process</a>
-                    <a class="column medium-2" href="#">Storage</a>
-                </nav>
-
-                <div class="overview"><h4>Overview</h4></div>
-                <div class="process"><h4>Process</h4></div>
-                <div class="storage"></div>
-            </div>
-
-            <div id="jobs">
-                <h3>Jobs</h3>
-
-                <nav id='secondaryJob' class="menu medium-12 row">
-                    <a class="column medium-2" href="#">Fields</a>
-                    <a class="column medium-2" href="#">Inside</a>
-                    <a class="column medium-2" href="#">Outside</a>
-                </nav>
-
-                <div class="fields">
-                    <h4>Fields</h4>
                 </div>
 
-                <div class="inside">
-                    <h4>Inside the abbey</h4>
-                    <div class="inside effects"></div>
+                <div class="col-10">
+
+                    <div class="workspace">
+
+                        <div id="story">
+                        </div>
+
+                        <div id="recipe-book">
+                            <h3>Book of recipes</h3>
+                            <label for="recipes">Select a recipe:</label>
+                            <select id='recipes'></select>
+                            <button class='button' id="selectedRecipe">Choose recipe</button>
+                            <div id="recipeDescription"></div>
+                        </div>
+
+                        <div id="brew">
+
+                            <h3>The Brewery</h3>
+
+                            <nav id='secondaryBrew' class="menu medium-12 row">
+                                <a class="column medium-2" href="#">Overview</a>
+                                <a class="column medium-2" href="#">Process</a>
+                                <a class="column medium-2" href="#">Storage</a>
+                            </nav>
+
+                            <div class="overview"><h4>Overview</h4></div>
+                            <div class="process"><h4>Process</h4></div>
+                            <div class="storage"></div>
+                        </div>
+
+                        <div id="jobs">
+                            <h3>Jobs</h3>
+
+                            <nav id='secondaryJob' class="menu medium-12 row">
+                                <a class="column medium-2" href="#">Fields</a>
+                                <a class="column medium-2" href="#">Inside</a>
+                                <a class="column medium-2" href="#">Outside</a>
+                            </nav>
+
+                            <div class="fields">
+                                <h4>Fields</h4>
+                            </div>
+
+                            <div class="inside">
+                                <h4>Inside the abbey</h4>
+                                <div class="inside effects"></div>
+                            </div>
+
+                            <div class="outside">
+                                <h4>Outside the abbey</h4>
+                                <div class="outside effects"></div>
+                            </div>
+
+                        </div>
+
+                        <div id="market">
+                            <h3>Market</h3>
+                            <div id="vendors"></div>
+                            <div id="dealScreen"></div>
+                            <div id="inventory"></div>
+                        </div>
+
+                        <div id="abbey">
+                        </div>
+
+                        <div id="workshop">
+                        </div>
+
+                        <div id="stock">
+                        </div>
+
+                        <div id="chapel">
+                        </div>
+
+                        <div id="profile">
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <div class="outside">
-                    <h4>Outside the abbey</h4>
-                    <div class="outside effects"></div>
-                </div>
-
-            </div>
-
-            <div id="market">
-                <h3>Market</h3>
-                <div id="vendors"></div>
-                <div id="dealScreen"></div>
-                <div id="inventory"></div>
-            </div>
-
-            <div id="abbey">
-            </div>
-
-            <div id="workshop">
-            </div>
-
-            <div id="stock">
-            </div>
-
-            <div id="chapel">
-            </div>
-
-            <div id="profile">
             </div>
 
         </div>
 
     </div>
+
 </div>
 
 <!-- Mother of scripts -->

@@ -1,0 +1,13 @@
+body {
+    background-image: url("../images/backgrounds/terrazzo.png");
+    background-size: contain;
+    background-attachment: fixed;
+}
+
+#errorScreen {
+    margin: 4% 0;
+}
+
+.card {
+    padding: 0;
+}

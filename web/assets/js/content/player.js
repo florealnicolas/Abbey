@@ -1,10 +1,10 @@
-function Player(aPlayerName, initialAmtOfCoins, initialAmtOfReputation) {
+function Player(aPlayerName, coins, reputation) {
 
     this.playerName = aPlayerName;
     this.playerGendre = "";
-    this.coins = initialAmtOfCoins;
-    this.reputation = initialAmtOfReputation;
-    this.password = "";
+    this.coins = coins;
+    this.reputation = reputation;
+    this.secret = "";
     this.activeEffects = new List();
 
 //Getters of Player
@@ -21,8 +21,8 @@ function Player(aPlayerName, initialAmtOfCoins, initialAmtOfReputation) {
         return this.reputation;
     };
 
-    this.getPassword = function () {
-        return this.password;
+    this.getSecret = function () {
+        return this.secret;
     };
 
     this.getGendre = function () {
@@ -40,8 +40,8 @@ function Player(aPlayerName, initialAmtOfCoins, initialAmtOfReputation) {
         this.playerGendre = gendre;
     };
 
-    this.setPassword = function (newPassword) {
-        this.password = newPassword;
+    this.setSecret = function (newSecret) {
+        this.secret = newSecret;
     };
 
 //Functions of Player
@@ -76,7 +76,7 @@ function Player(aPlayerName, initialAmtOfCoins, initialAmtOfReputation) {
 
     this.toJSON = function () {
 
-        const neededInfo = ["_id","playerName", "playerGendre", "coins", "reputation", "password"];
+        const neededInfo = ["playerName","playerGendre", "coins", "reputation", "secret"];
 
         let JSON = {};
 

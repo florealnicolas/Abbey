@@ -363,7 +363,10 @@ function showProfilePage(game) {
 
     $("#saveGame").on('click', function () {
         console.log("DATA TO SAVE", game.saveGame());
-        $.post("/saveGame", game.saveGame());
+
+      
+
+        //$.post("/saveGame", game.saveGame());
     });
 
     $("#setSaveTimer").on("click", function (e) {
@@ -610,17 +613,16 @@ function updateFieldTypes(game, fieldName) {
 }
 
 function showWelcomePage() {
-    let page = "<div class='backgroundOverlay'>";
-    page += '<div class="overlay">';
+    let page = '<div class="overlay">';
     page += '<h2>Welcome to Abbey!</h2>';
     page += '<p>Hello there!</br>Are you a new player or do you have an account?</p>';
     page += '<a href="/login" id="account" class="button">I have an account</a>';
     page += '<a class="button" id="new">No... I\'m new</a>';
-    page += '</div></div>';
+    page += '</div>';
 
     $('body').append(page);
 
     $("#new").on("click", function () {
-        $(".backgroundOverlay").remove();
+        $(".overlay").remove();
     });
 }
