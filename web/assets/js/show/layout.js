@@ -117,66 +117,9 @@ function showNCRCounter(game) {
     }
 }
 
-function showPage(e) {
-    e.preventDefault();
-
-    $('.workspace > div').hide();
-    $('#main a').removeClass("active");
-
-    let page = $(this).text().toLowerCase();
-    page = page.replace(" ", "-");
-
-    $('#' + page).show();
-    $(this).addClass("active");
-
-    if (page === "jobs") {
-        const activePage = $("#secondaryJob > .active").text();
-        $('.' + activePage.toLowerCase()).show();
-    }
-
-    if (page === "brew") {
-        const activePage = $("#secondaryBrew > .active").text();
-        console.log("PAGE", activePage);
-        $('.' + activePage.toLowerCase()).show();
-    }
-}
-
-function showJobSubpage(e, game) {
-    e.preventDefault();
-
-    const prevPage = $("#secondaryJob > .active").text();
-    const currentPage = $(this).text().toLowerCase();
-
-    if (prevPage !== currentPage) {
-
-        $('#jobs > div').hide();
-        $('#secondaryJob > a').removeClass("active");
-
-        $('.' + currentPage).show();
-        $(this).addClass("active");
-    }
-}
-
-function showBrewSubpage(e, game) {
-    e.preventDefault();
-
-    const prevPage = $("#secondaryBrew > .active").text();
-    const currentPage = $(this).text().toLowerCase();
-
-    if (prevPage != currentPage) {
-
-        $('#brew > div').hide();
-        $('#secondaryBrew > a').removeClass("active");
-
-        $('.' + currentPage).show();
-        $(this).addClass("active");
-    }
-}
-
 function showStock(stock) {
-    $("#stock").html("");
-    var content = "<h3>Stock</h3>" + stock;
-    $("#stock").html(content);
+    var content = stock;
+    $("#stock-page .card-body").html(content);
 }
 
 function showStorage(game) {
@@ -199,18 +142,18 @@ function showStorage(game) {
         visual += "<p>Your monks don't know what to store yet! Give them a recipe from the book!</p>";
     }
 
-    $(".storage").html(visual);
+    $("#storage-page > .card-body").html(visual);
 };
 
 function showBrewery(game) {
-    $("#brew .overview").html("");
-    $("#brew .process").html("");
+    $("#overview-subpage").html("");
+    $("#process-subpage").html("");
 
     const overview = game.getBrewery().visualizeOverview(game);
     const process = game.getBrewery().visualizeProcess();
 
-    $("#brew .overview").html(overview);
-    $("#brew .process").html(process);
+    $("#overview-subpage").html(overview);
+    $("#process-subpage").html(process);
 
     const recipe = game.getBrewery().getSelectedRecipe();
 
@@ -224,10 +167,9 @@ function showBrewery(game) {
 }
 
 function showInventory(game) {
-    $("#inventory").html(game.visualizeInventory());
+    $("#inventory-page > .card-body").html(game.visualizeInventory());
 
     $(".inventoryItem").draggable({revert: true});
-
 }
 
 function showMarket(game) {
@@ -338,7 +280,7 @@ function showProfilePage(game) {
             "<input type='password' id='newPassword' name='passwordChange[newPassword]'/>" +
             "<label for='confirmPassword'>Confirm new password</label>" +
             "<input type='password' id='confirmPassword' name='passwordChange[confirmNewPassword]'/>" +
-            "<input class='button uk-button uk-button-default' type='submit' name='changePassword' value='Change password'/>" +
+            "<input class='btn' type='submit' name='changePassword' value='Change password'/>" +
             "</form>" +
             "<div/>";
 
@@ -349,10 +291,10 @@ function showProfilePage(game) {
             "<form method='post' action='#'><label for='saveTimer'>Save my game every </label>"
             + "<select id='saveTimer'><option value='5'>5 minutes</option><option value='10'>10 minutes</option><option value='15'>15 minutes</option></select>" +
             "<input type='submit' value='Set timer' class='button' id='setSaveTimer'/></form>" +
-            "<a class='button uk-button uk-button-default' href='/reset'>Reset account</a>" +
-            "<a class='button uk-button uk-button-default' href='/logout'>Log out</a>" +
-            "<button class='button uk-button uk-button-default' id='saveGame'>Save</button>" +
-            "<button class='button uk-button uk-button-default' id='loadGame'>Load</button>" +
+            "<a class='btn' href='/reset'>Reset account</a>" +
+            "<a class='btn' href='/logout'>Log out</a>" +
+            "<button class='btn' id='saveGame'>Save</button>" +
+            "<button class='btn' id='loadGame'>Load</button>" +
             "</div>";
     }
 
@@ -360,14 +302,12 @@ function showProfilePage(game) {
 
     }
 
-    $("#profile").html(profile);
+    $("#profile-page .card-body").html(profile);
 
     $("#saveGame").on('click', function () {
         console.log("DATA TO SAVE", game.saveGame());
 
-
-
-        //$.post("/saveGame", game.saveGame());
+        $.post("/saveGame", game.saveGame());
     });
 
     $("#setSaveTimer").on("click", function (e) {
@@ -527,11 +467,11 @@ function showAbbey(game) {
 
     monkForm += "</form>";
 
-    $("#abbey").html(monkForm);
+    $("#abbey-page > .card-body").html(monkForm);
 
     game.getAbbey().settingInputFields(game.getAbbey().amtOfMonks);
 
-    $("#abbey input").change(function () {
+    $("#abbey-page input").change(function () {
         game.getAbbey().manageMonks(game, this);
         showBrewery(game);
         showChapel(game);
@@ -542,7 +482,7 @@ function showChapel(game) {
 
     const chapel = game.getChapel();
 
-    $("#chapel").html(chapel.visualize());
+    $("#chapel-page > .card-body").html(chapel.visualize());
     chapel.checkIfTeachable();
 
     $("#pray").on("click", function () {
@@ -570,7 +510,7 @@ function showRecipeDescription(recipe) {
 function showWorkshop(game) {
     const workshop = game.getWorkshop();
 
-    $("#workshop").html(game.getWorkshop().visualizeWorkshop());
+    $("#workshop-page > .card-body").html(game.getWorkshop().visualizeWorkshop());
 
     if (game.getPlayer() !== null) {
         workshop.checkIfBuyable(game);
@@ -611,19 +551,4 @@ function showFieldTypes(game, fieldName) {
 
 function updateFieldTypes(game, fieldName) {
     $("#Type" + fieldName).html(showFieldTypes(game, fieldName));
-}
-
-function showWelcomePage() {
-    let page = '<div class="overlay">';
-    page += '<h2>Welcome to Abbey!</h2>';
-    page += '<p>Hello there!</br>Are you a new player or do you have an account?</p>';
-    page += '<a href="/login" id="account" class="button">I have an account</a>';
-    page += '<a class="button" id="new">No... I\'m new</a>';
-    page += '</div>';
-
-    $('body').append(page);
-
-    $("#new").on("click", function () {
-        $(".overlay").remove();
-    });
 }

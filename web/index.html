@@ -1,210 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="Author" content="Nicolas Floréal">
-    <title>Abbey | Let's brew some history</title>
-    <link href="assets/images/icons/a.ico" rel="icon" type="image/ico"/>
-    <link rel="stylesheet" href="assets/lib/jquery-ui-1.12.1/jquery-ui.min.css">
-    <link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.min.css"/>
-    <link href="assets/lib/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/css/screen.css" type="text/css" rel="stylesheet"/>
-    <link href="assets/css/tank.css" type="text/css" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <meta name="Author" content="Nicolas Floréal">
+  <title>Abbey | Let's brew some history</title>
+  <link href="assets/images/icons/a.ico" rel="icon" type="image/ico" />
+  <link rel="stylesheet" href="assets/lib/jquery-ui-1.12.1/jquery-ui.min.css">
+  <link href="assets/lib/fontawesome/svg-with-js/css/fa-svg-with-js.css" type="text/css" rel="stylesheet" />
+  <link href="assets/lib/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+  <link href="assets/css/screen.css" type="text/css" rel="stylesheet" />
+  <link href="assets/css/tank.css" type="text/css" rel="stylesheet" />
 </head>
+
 <body>
 
-<div class="container-fluid">
+  <div class="container-fluid">
 
-    <div class="row justify-content-center ">
+    <div class="row justify-content-around">
 
-        <div id="headNav" class="nav col-10 align-items-center">
+      <div class="card col-2" id="header">
+        <img class="card-img" src="./assets/images/images/A_animated.svg" />
+      </div>
 
-        <div class="col-2">
-            <h1>Abbey</h1>
+      <div class="card col-6 bg-dark text-white" id="overview">
+        <div class='card-header'>Messages</div>
+        <div class='card-body'>
+          <div id="messageBoard"></div>
         </div>
+      </div>
 
-        <ul id="NCR" class="col-10">
-            <li class="nav-item" id="naam">
-                Hello
-                <a href="#profile" title="Who are you?"></a>
-            </li>
-            <li class="nav-item" id="valuta"><span></span> golden coins</li>
-            <li class="nav-item" id="reputatie"><span></span> reputation</li>
+      <div class="card col-2 bg-dark text-white" id="NCR">
+        <div class='card-header'>Overview</div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item bg-dark" id="naam">
+            Hello <a href="#profile" title="Who are you?"></a>
+          </li>
+          <li class="list-group-item bg-dark" id="valuta"><span></span> golden coins</li>
+          <li class="list-group-item bg-dark" id="reputatie"><span></span> reputation</li>
         </ul>
+      </div>
 
+    </div>
+
+    <div class="row justify-content-around">
+
+      <div class="card col-2 bg-dark text-white" id="mainNav">
+        <div class='card-header'>Menu</div>
+        <div class='card-body'>
+          <ul id='main' class="nav flex-column menu">
+
+            <li class="nav-item btn"><a class="nav-link" href="#" id="story"><i class="fas fa-book"></i> Story</a></li>
+            <li class="nav-item btn"><a class="nav-link" href="#" id="recipe-book"><i class="fa fa-bookmark" aria-hidden="true"></i> Recipe Book</a></li>
+            <li class="nav-item btn"><a class="nav-link" href="#" id="brew"><i class="fa fa-beer" aria-hidden="true"></i> Brew</a></li>
+            <li class="nav-item btn"><a class="nav-link" href="#" id="jobs"><i class="fa fa-cogs" aria-hidden="true"></i> Jobs</a></li>
+            <li class="nav-item btn"><a class="nav-link" href="#" id="market"><i class="fa fa-balance-scale" aria-hidden="true"></i> Market</a></li>
+            <li class="nav-item btn"><a class="nav-link" href="#" id="abbey"><i class="fa fa-users" aria-hidden="true"></i> Abbey</a></li>
+            <li class="nav-item btn"><a class="nav-link" href="#" id="stock"><i class="fa fa-archive" aria-hidden="true"></i> Stock</a></li>
+            <li class="nav-item btn"><a class="nav-link" href="#" id="workshop"><i class="fa fa-plus" aria-hidden="true"></i> Workshop</a></li>
+            <li class="nav-item btn"><a class="nav-link" href="#" id="chapel"><i class="fa fa-search" aria-hidden="true"></i> Chapel</a></li>
+
+          </ul>
         </div>
+      </div>
 
-    </div>
+      <div class="col-6" id="workspace"></div>
 
-    <div class="row justify-content-center">
+      <div class="card col-2 bg-dark text-white" id="otherLinks">
+        <div class='card-header'>Other links</div>
+        <div class='card-body'>
+          <ul id='main' class="nav flex-column menu">
 
-        <div id="messageBoard" class="col-10"></div>
+            <li class="nav-item btn"><a class="nav-link" href="#" id="chapel"> Donate</a></li>
 
-    </div>
-
-    <div class="row justify-content-center">
-
-        <div class="content col-10">
-            <div class="row justify-content-between">
-
-                <div class="col-2">
-
-                    <ul id='main' class="nav flex-column menu">
-
-                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-book" aria-hidden="true"></i>Story</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-bookmark" aria-hidden="true"></i>Recipe Book</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-beer" aria-hidden="true"></i>Brew</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-cogs" aria-hidden="true"></i>Jobs</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-balance-scale" aria-hidden="true"></i>Market</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-users" aria-hidden="true"></i>Abbey</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-archive" aria-hidden="true"></i>Stock</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-plus" aria-hidden="true"></i>Workshop</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i>Chapel</a></li>
-
-                    </ul>
-
-                </div>
-
-                <div class="col-10">
-
-                    <div class="workspace">
-
-                        <div id="story">
-                        </div>
-
-                        <div id="recipe-book">
-                            <h3>Book of recipes</h3>
-                            <label for="recipes">Select a recipe:</label>
-                            <select id='recipes'></select>
-                            <button class='button' id="selectedRecipe">Choose recipe</button>
-                            <div id="recipeDescription"></div>
-                        </div>
-
-                        <div id="brew">
-
-                            <h3>The Brewery</h3>
-
-                            <nav id='secondaryBrew' class="menu medium-12 row">
-                                <a class="column medium-2 active" href="#">Overview</a>
-                                <a class="column medium-2" href="#">Process</a>
-                                <a class="column medium-2" href="#">Storage</a>
-                            </nav>
-
-                            <div class="overview"><h4>Overview</h4></div>
-                            <div class="process"><h4>Process</h4></div>
-                            <div class="storage"></div>
-                        </div>
-
-                        <div id="jobs">
-                            <h3>Jobs</h3>
-
-                            <nav id='secondaryJob' class="menu medium-12 row">
-                                <a class="column medium-2" href="#">Fields</a>
-                                <a class="column medium-2" href="#">Inside</a>
-                                <a class="column medium-2" href="#">Outside</a>
-                            </nav>
-
-                            <div class="fields">
-                                <h4>Fields</h4>
-                            </div>
-
-                            <div class="inside">
-                                <h4>Inside the abbey</h4>
-                                <div class="inside effects"></div>
-                            </div>
-
-                            <div class="outside">
-                                <h4>Outside the abbey</h4>
-                                <div class="outside effects"></div>
-                            </div>
-
-                        </div>
-
-                        <div id="market">
-                            <h3>Market</h3>
-                            <div id="vendors"></div>
-                            <div id="dealScreen"></div>
-                            <div id="inventory"></div>
-                        </div>
-
-                        <div id="abbey">
-                        </div>
-
-                        <div id="workshop">
-                        </div>
-
-                        <div id="stock">
-                        </div>
-
-                        <div id="chapel">
-                        </div>
-
-                        <div id="profile">
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
+          </ul>
         </div>
+      </div>
 
     </div>
 
-</div>
+  </div>
 
-<!-- Mother of scripts -->
-<script src="assets/lib/jquery-3.1.1.min.js"></script>
-<script src="assets/lib/jquery-ui-1.12.1/jquery-ui.min.js"></script>
-<script src="assets/lib/pouchdb-6.3.4.min.js"></script>
+  <!-- Mother of scripts -->
+  <script src="assets/lib/jquery-3.1.1.min.js"></script>
+  <script src="assets/lib/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+  <script src="assets/lib/pouchdb-6.3.4.min.js"></script>
+  <script src="assets/lib/fontawesome/svg-with-js/js/fontawesome-all.min.js"></script>
 
-<!-- Data is here to the rescue -->
-<script src="assets/js/data/elements.js" type="text/javascript"></script>
+  <!-- Data is here to the rescue -->
+  <script src="assets/js/data/elements.js" type="text/javascript"></script>
 
-<!-- Just some tools -->
-<script type="text/javascript" src="assets/js/etc/list.js"></script>
+  <!-- Just some tools -->
+  <script type="text/javascript" src="assets/js/etc/list.js"></script>
 
-<!-- The gamecontent itself -->
-<script type="text/javascript" src="assets/js/content/abbey.js"></script>
-<script type="text/javascript" src="assets/js/content/brewery.js"></script>
-<script type="text/javascript" src="assets/js/content/chapel.js"></script>
-<script type="text/javascript" src="assets/js/content/workshop.js"></script>
-<script type="text/javascript" src="assets/js/content/player.js"></script>
-<script type="text/javascript" src="assets/js/content/story.js"></script>
-<script type="text/javascript" src="assets/js/content/recipe.js"></script>
-<script type="text/javascript" src="assets/js/content/resource.js"></script>
-<script type="text/javascript" src="assets/js/content/beer.js"></script>
-<script type="text/javascript" src="assets/js/content/tank.js"></script>
-<script type="text/javascript" src="assets/js/content/vendor.js"></script>
-<script type="text/javascript" src="assets/js/content/game.js"></script>
-<script type="text/javascript" src="assets/js/content/enlightenment.js"></script>
-<script type="text/javascript" src="assets/js/content/upgrade.js"></script>
-<script type="text/javascript" src="assets/js/instances/source.js"></script>
-<script type="text/javascript" src="assets/js/instances/field.js"></script>
-<script type="text/javascript" src="assets/js/instances/processor.js"></script>
-<script type="text/javascript" src="assets/js/methodes/process.js"></script>
-<script type="text/javascript" src="assets/js/etc/scheme.js"></script>
-<script type="text/javascript" src="assets/js/etc/grammar.js"></script>
-<script type="text/javascript" src="assets/js/show/layout.js"></script>
-<script type="text/javascript" src="assets/js/show/behaviour.js"></script>
-<script type="text/javascript" src="assets/js/etc/message.js"></script>
-<script type="text/javascript" src="assets/js/show/notifier.js"></script>
-<script type="text/javascript" src="assets/js/etc/developmentMode.js"></script>
+  <!-- The gamecontent itself -->
+  <script type="text/javascript" src="assets/js/content/abbey.js"></script>
+  <script type="text/javascript" src="assets/js/content/brewery.js"></script>
+  <script type="text/javascript" src="assets/js/content/chapel.js"></script>
+  <script type="text/javascript" src="assets/js/content/workshop.js"></script>
+  <script type="text/javascript" src="assets/js/content/player.js"></script>
+  <script type="text/javascript" src="assets/js/content/story.js"></script>
+  <script type="text/javascript" src="assets/js/content/recipe.js"></script>
+  <script type="text/javascript" src="assets/js/content/resource.js"></script>
+  <script type="text/javascript" src="assets/js/content/beer.js"></script>
+  <script type="text/javascript" src="assets/js/content/tank.js"></script>
+  <script type="text/javascript" src="assets/js/content/vendor.js"></script>
+  <script type="text/javascript" src="assets/js/content/game.js"></script>
+  <script type="text/javascript" src="assets/js/content/enlightenment.js"></script>
+  <script type="text/javascript" src="assets/js/content/upgrade.js"></script>
+  <script type="text/javascript" src="assets/js/instances/source.js"></script>
+  <script type="text/javascript" src="assets/js/instances/field.js"></script>
+  <script type="text/javascript" src="assets/js/instances/processor.js"></script>
+  <script type="text/javascript" src="assets/js/methodes/process.js"></script>
+  <script type="text/javascript" src="assets/js/etc/scheme.js"></script>
+  <script type="text/javascript" src="assets/js/etc/grammar.js"></script>
+  <script type="text/javascript" src="assets/js/show/builders.js"></script>
+  <script type="text/javascript" src="assets/js/show/layout.js"></script>
+  <script type="text/javascript" src="assets/js/show/behaviour.js"></script>
+  <script type="text/javascript" src="assets/js/etc/message.js"></script>
+  <script type="text/javascript" src="assets/js/show/notifier.js"></script>
+  <script type="text/javascript" src="assets/js/etc/developmentMode.js"></script>
 
-<!-- Meet the executables -->
-<script type="text/javascript" src="assets/js/controller/mainController.js"></script>
-<script type="text/javascript" src="assets/js/controller/storyController.js"></script>
+  <!-- Meet the executables -->
+  <script type="text/javascript" src="assets/js/controller/mainController.js"></script>
+  <script type="text/javascript" src="assets/js/controller/storyController.js"></script>
+  <script type="text/javascript" src="assets/js/controller/screenController.js"></script>
 
-<!-- Testing -->
-<script type="text/javascript" src="assets/js/tests/listTest.js"></script>
-<script type="text/javascript" src="assets/js/tests/resourceTest.js"></script>
-<script type="text/javascript" src="assets/js/tests/playerTest.js"></script>
-<script type="text/javascript" src="assets/js/tests/gameTest.js"></script>
-<script type="text/javascript" src="assets/js/tests/recipeTest.js"></script>
-<script type="text/javascript" src="assets/js/tests/processPhaseTest.js"></script>
-<script type="text/javascript" src="assets/js/tests/vendorTest.js"></script>
-<script type="text/javascript" src="assets/js/tests/enlightenmentTest.js"></script>
+  <!-- Testing -->
+  <script type="text/javascript" src="assets/js/tests/listTest.js"></script>
+  <script type="text/javascript" src="assets/js/tests/resourceTest.js"></script>
+  <script type="text/javascript" src="assets/js/tests/playerTest.js"></script>
+  <script type="text/javascript" src="assets/js/tests/gameTest.js"></script>
+  <script type="text/javascript" src="assets/js/tests/recipeTest.js"></script>
+  <script type="text/javascript" src="assets/js/tests/processPhaseTest.js"></script>
+  <script type="text/javascript" src="assets/js/tests/vendorTest.js"></script>
+  <script type="text/javascript" src="assets/js/tests/enlightenmentTest.js"></script>
 
 </body>
+
 </html>

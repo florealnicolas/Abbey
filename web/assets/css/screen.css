@@ -2,6 +2,10 @@
 /*    HTML ELEMENTS    */
 /*---------------------*/
 
+#header {
+  background-color: #b09348;
+}
+
 .vendorButton {
     cursor: pointer;
     border: black solid 1pt;
@@ -11,6 +15,28 @@
     padding: 2% 3%;
     display: inline-block;
     margin-right: 1%;
+}
+
+.card {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.container-fluid > .row {
+  margin-bottom: 5%;
+}
+
+.container-fluid > .row:last-child {
+  margin-bottom: 0;
+}
+
+.btn-male {
+  background-color: blue;
+  color: white;
+}
+
+.btn-female {
+  background-color: pink
 }
 
 #new {
@@ -80,39 +106,9 @@ a:hover, a:focus {
     color: rgb(250, 235, 215);
 }
 
-input[type='text'] {
-    color: black;
-    margin-bottom: 2%;
-    border: none;
-    border-bottom: dotted thin black;
-    overflow: hidden;
-    box-shadow: none;
-}
-
-input[type='text'] {
-    width: 50%;
-}
-
-input[type='text']:focus, input[type='text']:hover {
-    color: black;
-    margin-bottom: 2%;
-    border: none;
-    border-bottom: dotted thin black;
-    overflow: hidden;
-    box-shadow: none;
-}
-
-input[type='text']::-webkit-input-placeholder {
-    color: #666666;
-}
-
 select {
     width: 50%;
     margin-right: 5%;
-}
-
-input[type='number'] {
-    width: 50%;
 }
 
 /*---------------------*/
@@ -177,22 +173,6 @@ a.active, a:hover, a:focus {
 .menu a.active, .menu a:hover, .menu a:focus {
     background-color: rgb(250, 235, 215);
     color: #b09348;
-}
-
-#secondaryJob, #secondaryBrew {
-    border-bottom: solid rgb(250, 235, 215) 2pt;
-    padding-bottom: 2%;
-    margin-bottom: 2%;
-}
-
-#secondaryJob a, #secondaryBrew a {
-    padding: 1%;
-    margin-right: 2%;
-}
-
-#secondaryJob a:last-child, #secondaryBrew a:last-child {
-    float: none;
-    margin-right: 0;
 }
 
 #main a {
@@ -274,32 +254,14 @@ fieldset:last-child {
     background-color: rgba(232, 232, 232, 0.90);
 }
 
-.workspace {
+#workspace > .card .card-body {
     overflow: auto;
-    max-height: 80vh;
-    padding: 2%;
-}
-
-.workspace > div {
-    display: none;
+    max-height: 140vh;
 }
 
 /*------------------------*/
 /* PAGE SPECIFIC ELEMENTS */
 /*------------------------*/
-
-#naam, #reputatie, #valuta {
-    margin-top: 5%;
-    display: inline-block;
-}
-
-#valuta {
-    margin: 0 5% 0 5%;
-}
-
-#naam a {
-    text-decoration: underline;
-}
 
 .progressbar {
     position: relative;
@@ -497,18 +459,6 @@ fieldset:last-child {
 
 .profileSection {
     margin:3% 0 3% 0;
-}
-
-.profileSection label + input {
-    display: block;
-}
-
-.profileSection input {
-    margin: 0 0 2% 0;
-}
-
-.profileSection input:last-child {
-    margin: 2% 0 0 0;
 }
 
 .profileSection a:first-child {

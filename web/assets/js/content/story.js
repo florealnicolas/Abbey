@@ -72,8 +72,8 @@ function Story() {
 
   this.part1 = function() {
     let part1 = "<p>Hey kid! Yeah, you!<br/>Could you lend me a beer?<br/>I forgot my money at home.</p>";
-    part1 += "<button class= 'button beer' value='1' title='Remember: it will cost you a coin.'>Give a beer</button>";
-    part1 += "<button class= 'button beer' value='-1' title='Everyone should pay their own drinks.'>Give no beer</button>";
+    part1 += "<button class= 'btn btn-success beer' value='1' title='Remember: it will cost you a coin.'>Give a beer</button>";
+    part1 += "<button class= 'btn btn-danger beer' value='-1' title='Everyone should pay their own drinks.'>Give no beer</button>";
 
     $("#article0").append(part1);
   };
@@ -89,7 +89,7 @@ function Story() {
       part2 += "<p>Can I enlighten you with one of my many stories to make the thought of giving me beer go away?</p>";
     }
 
-    part2 += "<button class='button choice' value='1'>Yes</button><button class='button choice' value='-1'>No</button>";
+    part2 += "<button class='btn btn-success choice' value='1'>Yes</button><button class='btn btn-danger choice' value='-1'>No</button>";
 
     $("#article0").append(part2);
   };
@@ -123,7 +123,9 @@ function Story() {
       "<p>It was playing a part in every story about kings and swords, civilizations and endless riches.<br/>" +
       "Oh! Before I go further, you seem like a nice lad. What’s your name?<br/>" +
       "Let us share an interactive story.<p/>" +
-      "<label for='name'>My name is</label><input title='You can hit enter when you typed your name.' type='text' placeholder='Laerolf' id='name'/>";
+      "<div class='input-group mb-3'><div class='input-group-prepend'>"+
+      "<label class='input-group-text' for='name'>My name is</label></div>"+
+      "<input title='You can hit enter when you typed your name.' type='text' placeholder='Laerolf' id='name'/></div>";
 
     $("#article0").append(part3);
   };
@@ -132,7 +134,7 @@ function Story() {
     let part4 = "<p><b>" + this.playerName + "</b>, ehj? That’s a fine name.<br/>" +
       "I wish I was called like that. It reminds me " + this.randomFact + ". Gips…</p>";
     part4 += "<p>Is that a name for a boy or a girl? Sorry but my manners getting rustier every day.</p>";
-    part4 += "<button class='button gender' value='girl'>Girl</button><button class='button gender' value='boy'>Boy</button>";
+    part4 += "<button class='btn btn-female gender' value='girl'>Girl</button><button class='btn btn-male gender' value='boy'>Boy</button>";
 
     $("#article1").append(part4);
   };
@@ -145,8 +147,9 @@ function Story() {
       "I lost her together in my hometown with a family of my own because of a fire. Ever since you can find me in places like this.</p>" +
       "<p>Anyhow! Back to the story! Could you give me the name of the place you dream of to be?</p>";
 
-    part5 += "<label for='namePlace'>The name of the place of my dreams is </label>";
-    part5 += "<input title='You can hit enter when you typed the name of your place.' id='namePlace' placeholder='Bruges' type='text'/>";
+      part5 += "<div class='input-group mb-3'><div class='input-group-prepend'>"+
+      "<div class='input-group-text' for='namePlace'>The name of the place of my dreams is </div></div>"+
+      "<input title='You can hit enter when you typed the name of your place.' type='text' placeholder='Bruges' id='namePlace'/></div>";
 
     $("#article1").append(part5);
   };
@@ -162,8 +165,9 @@ function Story() {
     secretPart += "Here we go... " + this.randomizer(this.arrayOfSecrets) + "</p>";
     secretPart += "<p>Isn't that awkard? Your turn! Don't be shy, you can tell me anything. I'll take it to my grave.</p>";
 
-    secretPart += "<label for='secret'>My darkest secret is </label>";
-    secretPart += "<input type='text' name='secret' id='secret' placeholder=' I like to sleep during class.'/>";
+    secretPart += "<div class='input-group mb-3'><div class='input-group-prepend'>"+
+    "<div class='input-group-text' for='secret'>My darkest secret is </div></div>"+
+    "<input type='text' placeholder='I like to sleep on the street.' id='secret'/></div>";
 
     $("#article2").append(secretPart);
   };
@@ -285,7 +289,7 @@ function Story() {
 
     this.amtOfArticles++;
 
-    $('#story').append(article);
+    $('#story-page .card-body').append(article);
   };
 
   this.addToStorySafe = function(key, value) {
@@ -313,13 +317,13 @@ function Story() {
 
     game.getStory().part1();
 
-    let chosenButton = $(".button:contains(" + oldStory.gaveBeer.choiceText + ")");
+    let chosenButton = $(".btn:contains(" + oldStory.gaveBeer.choiceText + ")");
     chosenButton.addClass("chosen");
     game.getStory().disableButtons(chosenButton);
 
     game.getStory().part2(oldStory.gaveBeer.value);
 
-    chosenButton = $(".button:contains(" + oldStory.listenedStory.choiceText + ")");
+    chosenButton = $(".btn:contains(" + oldStory.listenedStory.choiceText + ")");
     chosenButton.addClass("chosen");
     game.getStory().disableButtons(chosenButton);
 
@@ -337,7 +341,7 @@ function Story() {
     game.getStory().addArticleToStory();
     game.getStory().part4();
 
-    chosenButton = $(".button:contains(" + oldStory.playerGendre.choiceText + ")");
+    chosenButton = $(".btn:contains(" + oldStory.playerGendre.choiceText + ")");
     chosenButton.addClass("chosen");
     game.getStory().disableButtons(chosenButton);
 
@@ -577,7 +581,7 @@ function Story() {
 
                       showNCRCounter(game);
 
-                      let acknowledgement = "<button class='button' id='acknowledge'>Acknowledge</button>";
+                      let acknowledgement = "<button class='btn btn-danger' id='acknowledge'>Acknowledge</button>";
                       $("#story").append(acknowledgement);
 
                       window.location.hash = "acknowledge";

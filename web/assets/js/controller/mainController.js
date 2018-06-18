@@ -50,11 +50,10 @@
             game.loadGame(user.game);
             game.visualize();
 
+            showFirstPage();
             showNCRCounter(game);
 
-
             //DEFAULT SAVETIMER
-
             game.setSaveTimer(window.setInterval(function() {
               $.post("/saveGame", game.saveGame());
               game.getNotifier().notifySomething("Game saved!");

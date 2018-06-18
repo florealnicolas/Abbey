@@ -561,47 +561,49 @@ function Game() {
 
   this.visualize = function() {
 
-    beginStory(this);
+    $('#workspace').html(buildWorkspace());
 
-    $('#story').show();
-    $('.menu .nav-item:first-child').addClass("active");
+    showDefaultBrewSubPage();
+    showDefaultJobSubPage();
+
+    beginStory(this);
 
     showNCRCounter(this);
 
     const game = this;
 
-      $('#secondaryJob a:first-child').addClass("active");
+    $('#secondaryJob a:first-child').addClass("active");
 
-      this.getNotifier().installMessageBoard();
+    this.getNotifier().installMessageBoard();
 
-      showStock(this.getStock());
+    showStock(this.getStock());
 
-      showAbbey(this);
+    showAbbey(this);
 
-      buildFields(this);
-      showInstances(this, "source", "inside");
-      showInstances(this, "source", "outside");
-      showInstances(this, "processor", "outside");
+    buildFields(this);
+    showInstances(this, "source", "inside");
+    showInstances(this, "source", "outside");
+    showInstances(this, "processor", "outside");
 
-      showEffects("fields", this);
-      showEffects("inside", this);
-      showEffects("outside", this);
+    showEffects("fields", this);
+    showEffects("inside", this);
+    showEffects("outside", this);
 
-      showRecipesAsOptions(this);
-      showBrewery(this);
-      showMarket(this);
-      showChapel(this);
-      showWorkshop(this);
-      showStorage(this);
+    showRecipesAsOptions(this);
+    showBrewery(this);
+    showMarket(this);
+    showChapel(this);
+    showWorkshop(this);
+    showStorage(this);
 
-      $(this.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
-      $(this.getPlayer()).on("change", showNCRCounter(game));
+    $(this.getStock()).on("change", showStock(game.getStock().allItemsIntoAStockWay(game.getResourceCategories())));
+    $(this.getPlayer()).on("change", showNCRCounter(game));
 
-      if (this.getPlayer() !== null) {
-        $(this.getPlayer().getActiveEffects()).on("change", function() {
-          this.getPlayer().activateEnlightment();
-        });
-      }
+    if (this.getPlayer() !== null) {
+      $(this.getPlayer().getActiveEffects()).on("change", function() {
+        this.getPlayer().activateEnlightment();
+      });
+    }
 
 
     $("#naam > a").on("click", function(e) {
@@ -609,11 +611,11 @@ function Game() {
 
       showProfilePage(game);
 
-      $('.workspace > div').hide();
+      $('#workspace > .card').hide();
       $('#main a').removeClass("active");
       $('#offCanvasNav a').removeClass("active");
 
-      $("#profile").show();
+      $("#profile-page").show();
     });
 
     $("#selectedRecipe").on("click", function(e) {
